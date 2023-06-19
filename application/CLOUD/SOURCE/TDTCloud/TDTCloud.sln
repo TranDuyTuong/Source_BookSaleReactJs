@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.33423.256
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TDTCloud", "TDTCloud\TDTCloud.csproj", "{AB4AE328-F3FE-4613-A27B-AF8854A7A6BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TDTCloud", "TDTCloud\TDTCloud.csproj", "{AB4AE328-F3FE-4613-A27B-AF8854A7A6BB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.TableSetting", "1.TableSetting", "{D7B7E574-BBBE-4022-9BAC-04CBD2CCAC3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TDTSettingTable", "TDTSettingTable\TDTSettingTable.csproj", "{7209E787-6803-4945-9553-67B05C2A726C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +19,16 @@ Global
 		{AB4AE328-F3FE-4613-A27B-AF8854A7A6BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB4AE328-F3FE-4613-A27B-AF8854A7A6BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AB4AE328-F3FE-4613-A27B-AF8854A7A6BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7209E787-6803-4945-9553-67B05C2A726C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7209E787-6803-4945-9553-67B05C2A726C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7209E787-6803-4945-9553-67B05C2A726C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7209E787-6803-4945-9553-67B05C2A726C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7209E787-6803-4945-9553-67B05C2A726C} = {D7B7E574-BBBE-4022-9BAC-04CBD2CCAC3A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {39DBFFF2-3684-4950-A500-BE6E7E69994A}
