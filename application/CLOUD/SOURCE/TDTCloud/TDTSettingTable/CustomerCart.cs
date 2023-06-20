@@ -6,12 +6,39 @@ using System.Threading.Tasks;
 
 namespace TDTSettingTable
 {
-    public class CustomerWallet
+    public class CustomerCart
     {
         /// <summary>
-        /// WalletID
+        /// CartID
         /// </summary>
-        public string WalletID
+        public Guid CartID
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// ItemCode
+        /// </summary>
+        public string ItemCode
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Quantity
+        /// </summary>
+        public int Quantity
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// DateAddPrtoduct
+        /// </summary>
+        public DateTime DateAddPrtoduct
         {
             get;
             set;
@@ -27,90 +54,54 @@ namespace TDTSettingTable
         }
 
         /// <summary>
-        /// FirstDateTime
+        /// StatusProduct
         /// </summary>
-        public DateTime FirstDateTime
+        public bool StatusProduct
         {
             get;
             set;
         }
 
         /// <summary>
-        /// PointCurent
+        /// PriceSale
         /// </summary>
-        public int PointCurent
+        public decimal PriceSale
         {
             get;
             set;
         }
 
         /// <summary>
-        /// PointMax
+        /// PriceOrigin
         /// </summary>
-        public int PointMax
+        public decimal PriceOrigin
         {
             get;
             set;
         }
 
         /// <summary>
-        /// LastUpdateDate
+        /// PercentReduction
         /// </summary>
-        public DateTime? LastUpdateDate
+        public int PercentReduction
         {
             get;
             set;
         }
 
         /// <summary>
-        /// PointPlusLastUpdate
+        /// TotalPrice
         /// </summary>
-        public int PointPlusLastUpdate
+        public decimal TotalPrice
         {
             get;
             set;
         }
 
         /// <summary>
-        /// SatusPointLastUpdate
+        /// Status
         /// </summary>
-        public bool SatusPointLastUpdate
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// PointMinusLastUpdate
-        /// </summary>
-        public int PointMinusLastUpdate
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// StatusWallet
-        /// </summary>
-        public bool StatusWallet
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Description
-        /// </summary>
-        public string Description
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// BlockDateTime
-        /// </summary>
-        public DateTime? BlockDateTime
+        public bool Status
         {
             get;
             set;

@@ -6,120 +6,75 @@ using System.Threading.Tasks;
 
 namespace TDTSettingTable
 {
-    public class Customer
+    public class PairDiscount
     {
         /// <summary>
-        /// CustomerID
+        /// PairDiscountID
         /// </summary>
-        public Guid CustomerID
+        public string PairDiscountID
         {
             get;
             set;
         }
 
         /// <summary>
-        /// FullName
+        /// Description
         /// </summary>
-        public string FullName
+        public string Description
         {
             get;
             set;
         }
 
         /// <summary>
-        /// Birthday
+        /// ApplyDate
         /// </summary>
-        public DateTime Birthday
+        public DateTime ApplyDate
         {
             get;
             set;
         }
 
         /// <summary>
-        /// Email
+        /// StartDate
         /// </summary>
-        public Guid Email
+        public DateTime StartDate
         {
             get;
             set;
         }
 
         /// <summary>
-        /// Phone
+        /// EndDate
         /// </summary>
-        public string Phone
+        public DateTime EndDate
         {
             get;
             set;
         }
 
         /// <summary>
-        /// CityID
+        /// PercentReduction
         /// </summary>
-        public string CityID
+        public int PercentReduction
         {
             get;
             set;
         }
 
         /// <summary>
-        /// DistrictID
+        /// DateCreate
         /// </summary>
-        public string DistrictID
+        public DateTime DateCreate
         {
             get;
             set;
         }
 
         /// <summary>
-        /// GenderID
+        /// UserID
         /// </summary>
-        public string GenderID
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// MarriageID
-        /// </summary>
-        public string MarriageID
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// DateRegiter
-        /// </summary>
-        public DateTime DateRegiter
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Vip
-        /// </summary>
-        public bool Vip
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// StatusAccount
-        /// </summary>
-        public bool StatusAccount
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// JobID
-        /// </summary>
-        public string JobID
+        public string UserID
         {
             get;
             set;
@@ -135,18 +90,27 @@ namespace TDTSettingTable
         }
 
         /// <summary>
-        /// DetailAddress
+        /// ContentLastUpdateDate
         /// </summary>
-        public bool DetailAddress
+        public string ContentLastUpdateDate
         {
             get;
             set;
         }
 
         /// <summary>
-        /// DiscriptionLastUpdateDate
+        /// IsDeleteFlag
         /// </summary>
-        public string DiscriptionLastUpdateDate
+        public bool IsDeleteFlag
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Expired
+        /// </summary>
+        public bool Expired
         {
             get;
             set;

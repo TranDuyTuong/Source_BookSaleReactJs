@@ -6,150 +6,124 @@ using System.Threading.Tasks;
 
 namespace TDTSettingTable
 {
-    public class Customer
+    public class OrdersDetail
     {
         /// <summary>
-        /// CustomerID
+        /// OrderDetailID
         /// </summary>
-        public Guid CustomerID
+        public Guid OrderDetailID
         {
             get;
             set;
         }
 
         /// <summary>
-        /// FullName
+        /// OrderCode
         /// </summary>
-        public string FullName
+        public string OrderCode
         {
             get;
             set;
         }
 
         /// <summary>
-        /// Birthday
+        /// ItemCode
         /// </summary>
-        public DateTime Birthday
+        public string ItemCode
         {
             get;
             set;
         }
 
         /// <summary>
-        /// Email
+        /// Description
         /// </summary>
-        public Guid Email
+        public string Description
         {
             get;
             set;
         }
 
         /// <summary>
-        /// Phone
+        /// Quatity
         /// </summary>
-        public string Phone
+        public int Quatity
         {
             get;
             set;
         }
 
         /// <summary>
-        /// CityID
+        /// PriceSale
         /// </summary>
-        public string CityID
+        public decimal PriceSale
         {
             get;
             set;
         }
 
         /// <summary>
-        /// DistrictID
+        /// QuantityDiscountID
         /// </summary>
-        public string DistrictID
+        public string QuantityDiscountID
         {
             get;
             set;
         }
 
         /// <summary>
-        /// GenderID
+        /// PairDiscountID
         /// </summary>
-        public string GenderID
+        public string PairDiscountID
         {
             get;
             set;
         }
 
         /// <summary>
-        /// MarriageID
+        /// SpecialDiscountID
         /// </summary>
-        public string MarriageID
+        public string SpecialDiscountID
         {
             get;
             set;
         }
 
         /// <summary>
-        /// DateRegiter
+        /// IssuingCompany
         /// </summary>
-        public DateTime DateRegiter
+        public string IssuingCompany
         {
             get;
             set;
         }
 
         /// <summary>
-        /// Vip
+        /// PublishingCompany
         /// </summary>
-        public bool Vip
+        public string PublishingCompany
         {
             get;
             set;
         }
 
         /// <summary>
-        /// StatusAccount
+        /// StatusPairDiscount
         /// </summary>
-        public bool StatusAccount
+        public bool StatusPairDiscount
         {
             get;
             set;
         }
 
         /// <summary>
-        /// JobID
+        /// StatusQuatityDiscount
         /// </summary>
-        public string JobID
+        public bool StatusQuatityDiscount
         {
             get;
             set;
         }
 
-        /// <summary>
-        /// LastUpdateDate
-        /// </summary>
-        public DateTime? LastUpdateDate
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// DetailAddress
-        /// </summary>
-        public bool DetailAddress
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// DiscriptionLastUpdateDate
-        /// </summary>
-        public string DiscriptionLastUpdateDate
-        {
-            get;
-            set;
-        }
     }
 }

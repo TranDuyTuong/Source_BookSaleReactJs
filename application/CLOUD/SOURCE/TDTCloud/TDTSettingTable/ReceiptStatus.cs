@@ -6,147 +6,174 @@ using System.Threading.Tasks;
 
 namespace TDTSettingTable
 {
-    public class Customer
+    public class ReceiptStatus
     {
         /// <summary>
-        /// CustomerID
+        /// CompanyCode
         /// </summary>
-        public Guid CustomerID
+        public string CompanyCode
         {
             get;
             set;
         }
 
         /// <summary>
-        /// FullName
+        /// ReceiptStatusID
         /// </summary>
-        public string FullName
+        public string ReceiptStatusID
         {
             get;
             set;
         }
 
         /// <summary>
-        /// Birthday
+        /// CreateDate
         /// </summary>
-        public DateTime Birthday
+        public DateTime CreateDate
         {
             get;
             set;
         }
 
         /// <summary>
-        /// Email
+        /// LasUpdateDate
         /// </summary>
-        public Guid Email
+        public DateTime? LasUpdateDate
         {
             get;
             set;
         }
 
         /// <summary>
-        /// Phone
+        /// UserID
         /// </summary>
-        public string Phone
+        public string UserID
         {
             get;
             set;
         }
 
         /// <summary>
-        /// CityID
+        /// ID
         /// </summary>
-        public string CityID
+        public Guid ID
         {
             get;
             set;
         }
 
         /// <summary>
-        /// DistrictID
+        /// Step1
         /// </summary>
-        public string DistrictID
+        public string Step1
         {
             get;
             set;
         }
 
         /// <summary>
-        /// GenderID
+        /// Step2
         /// </summary>
-        public string GenderID
+        public string Step2
         {
             get;
             set;
         }
 
         /// <summary>
-        /// MarriageID
+        /// Step3
         /// </summary>
-        public string MarriageID
+        public string Step3
         {
             get;
             set;
         }
 
         /// <summary>
-        /// DateRegiter
+        /// Step4
         /// </summary>
-        public DateTime DateRegiter
+        public string Step4
         {
             get;
             set;
         }
 
         /// <summary>
-        /// Vip
+        /// Step5
         /// </summary>
-        public bool Vip
+        public string Step5
         {
             get;
             set;
         }
 
         /// <summary>
-        /// StatusAccount
+        /// Step6
         /// </summary>
-        public bool StatusAccount
+        public string Step6
         {
             get;
             set;
         }
 
         /// <summary>
-        /// JobID
+        /// PaymentMethodID
         /// </summary>
-        public string JobID
+        public string PaymentMethodID
         {
             get;
             set;
         }
 
         /// <summary>
-        /// LastUpdateDate
+        /// IDStep1
         /// </summary>
-        public DateTime? LastUpdateDate
+        public int IDStep1
         {
             get;
             set;
         }
 
         /// <summary>
-        /// DetailAddress
+        /// IDStep2
         /// </summary>
-        public bool DetailAddress
+        public int IDStep2
         {
             get;
             set;
         }
 
         /// <summary>
-        /// DiscriptionLastUpdateDate
+        /// IDStep3
         /// </summary>
-        public string DiscriptionLastUpdateDate
+        public int IDStep3
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// IDStep4
+        /// </summary>
+        public int IDStep4
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// IDStep5
+        /// </summary>
+        public int IDStep5
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// IDStep6
+        /// </summary>
+        public int IDStep6
         {
             get;
             set;

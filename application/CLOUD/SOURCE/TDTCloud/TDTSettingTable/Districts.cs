@@ -6,48 +6,12 @@ using System.Threading.Tasks;
 
 namespace TDTSettingTable
 {
-    public class Customer
+    public class Districts
     {
         /// <summary>
-        /// CustomerID
+        /// DistrictID
         /// </summary>
-        public Guid CustomerID
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// FullName
-        /// </summary>
-        public string FullName
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Birthday
-        /// </summary>
-        public DateTime Birthday
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Email
-        /// </summary>
-        public Guid Email
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Phone
-        /// </summary>
-        public string Phone
+        public string DistrictID
         {
             get;
             set;
@@ -63,90 +27,90 @@ namespace TDTSettingTable
         }
 
         /// <summary>
-        /// DistrictID
+        /// Description
         /// </summary>
-        public string DistrictID
+        public string Description
         {
             get;
             set;
         }
 
         /// <summary>
-        /// GenderID
+        /// Identifier
         /// </summary>
-        public string GenderID
+        public string Identifier
         {
             get;
             set;
         }
 
         /// <summary>
-        /// MarriageID
+        /// DateCreate
         /// </summary>
-        public string MarriageID
+        public string DateCreate
         {
             get;
             set;
         }
 
         /// <summary>
-        /// DateRegiter
+        /// PriceShip
         /// </summary>
-        public DateTime DateRegiter
+        public decimal PriceShip
         {
             get;
             set;
         }
 
         /// <summary>
-        /// Vip
+        /// ApplyDate
         /// </summary>
-        public bool Vip
+        public DateTime ApplyDate
         {
             get;
             set;
         }
 
         /// <summary>
-        /// StatusAccount
+        /// PriceShipNew
         /// </summary>
-        public bool StatusAccount
+        public decimal PriceShipNew
         {
             get;
             set;
         }
 
         /// <summary>
-        /// JobID
+        /// LasUpdateDate
         /// </summary>
-        public string JobID
+        public DateTime? LasUpdateDate
         {
             get;
             set;
         }
 
         /// <summary>
-        /// LastUpdateDate
+        /// HeadquartersLastUpdateDateTime
         /// </summary>
-        public DateTime? LastUpdateDate
+        public DateTime? HeadquartersLastUpdateDateTime
         {
             get;
             set;
         }
 
         /// <summary>
-        /// DetailAddress
+        /// UserID
         /// </summary>
-        public bool DetailAddress
+        public string UserID
         {
             get;
             set;
         }
 
         /// <summary>
-        /// DiscriptionLastUpdateDate
+        /// IsDeleteFlag
         /// </summary>
-        public string DiscriptionLastUpdateDate
+        public bool IsDeleteFlag
         {
             get;
             set;

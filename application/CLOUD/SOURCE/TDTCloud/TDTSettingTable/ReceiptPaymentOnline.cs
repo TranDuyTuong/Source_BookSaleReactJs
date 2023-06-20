@@ -6,8 +6,26 @@ using System.Threading.Tasks;
 
 namespace TDTSettingTable
 {
-    public class Customer
+    public class ReceiptPaymentOnline
     {
+        /// <summary>
+        /// ReceiptPaymentOnlineID
+        /// </summary>
+        public Guid ReceiptPaymentOnlineID
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// OrderCode
+        /// </summary>
+        public string OrderCode
+        {
+            get;
+            set;
+        }
+
         /// <summary>
         /// CustomerID
         /// </summary>
@@ -18,135 +36,126 @@ namespace TDTSettingTable
         }
 
         /// <summary>
-        /// FullName
+        /// OrderDescription
         /// </summary>
-        public string FullName
+        public string OrderDescription
         {
             get;
             set;
         }
 
         /// <summary>
-        /// Birthday
+        /// TransactionId
         /// </summary>
-        public DateTime Birthday
+        public string TransactionId
         {
             get;
             set;
         }
 
         /// <summary>
-        /// Email
+        /// OrderId
         /// </summary>
-        public Guid Email
+        public string OrderId
         {
             get;
             set;
         }
 
         /// <summary>
-        /// Phone
+        /// PaymentMethod
         /// </summary>
-        public string Phone
+        public string PaymentMethod
         {
             get;
             set;
         }
 
         /// <summary>
-        /// CityID
+        /// IsSuccess
         /// </summary>
-        public string CityID
+        public bool IsSuccess
         {
             get;
             set;
         }
 
         /// <summary>
-        /// DistrictID
+        /// token
         /// </summary>
-        public string DistrictID
+        public string token
         {
             get;
             set;
         }
 
         /// <summary>
-        /// GenderID
+        /// vnPayResponseCode
         /// </summary>
-        public string GenderID
+        public string vnPayResponseCode
         {
             get;
             set;
         }
 
         /// <summary>
-        /// MarriageID
+        /// DateCreate
         /// </summary>
-        public string MarriageID
+        public DateTime DateCreate
         {
             get;
             set;
         }
 
         /// <summary>
-        /// DateRegiter
+        /// TotalMoney
         /// </summary>
-        public DateTime DateRegiter
+        public decimal TotalMoney
         {
             get;
             set;
         }
 
         /// <summary>
-        /// Vip
+        /// TransactionExecutionTime
         /// </summary>
-        public bool Vip
+        public TimeSpan TransactionExecutionTime
         {
             get;
             set;
         }
 
         /// <summary>
-        /// StatusAccount
+        /// IsDeleteFlag
         /// </summary>
-        public bool StatusAccount
+        public bool IsDeleteFlag
         {
             get;
             set;
         }
 
         /// <summary>
-        /// JobID
+        /// BankPayment
         /// </summary>
-        public string JobID
+        public string BankPayment
         {
             get;
             set;
         }
 
         /// <summary>
-        /// LastUpdateDate
+        /// BankCode
         /// </summary>
-        public DateTime? LastUpdateDate
+        public string BankCode
         {
             get;
             set;
         }
 
         /// <summary>
-        /// DetailAddress
+        /// TimeCreate
         /// </summary>
-        public bool DetailAddress
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// DiscriptionLastUpdateDate
-        /// </summary>
-        public string DiscriptionLastUpdateDate
+        public TimeSpan TimeCreate
         {
             get;
             set;

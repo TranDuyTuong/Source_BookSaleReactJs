@@ -6,21 +6,21 @@ using System.Threading.Tasks;
 
 namespace TDTSettingTable
 {
-    public class Customer
+    public class Author
     {
         /// <summary>
-        /// CustomerID
+        /// AuthorID
         /// </summary>
-        public Guid CustomerID
+        public string AuthorID
         {
             get;
             set;
         }
 
         /// <summary>
-        /// FullName
+        /// NameAuthor
         /// </summary>
-        public string FullName
+        public string NameAuthor
         {
             get;
             set;
@@ -29,97 +29,52 @@ namespace TDTSettingTable
         /// <summary>
         /// Birthday
         /// </summary>
-        public DateTime Birthday
+        public DateTime? Birthday
         {
             get;
             set;
         }
 
         /// <summary>
-        /// Email
+        /// Hometown
         /// </summary>
-        public Guid Email
+        public string Hometown
         {
             get;
             set;
         }
 
         /// <summary>
-        /// Phone
+        /// Discription
         /// </summary>
-        public string Phone
+        public string Discription
         {
             get;
             set;
         }
 
         /// <summary>
-        /// CityID
+        /// DateCreate
         /// </summary>
-        public string CityID
+        public DateTime DateCreate
         {
             get;
             set;
         }
 
         /// <summary>
-        /// DistrictID
+        /// UserID
         /// </summary>
-        public string DistrictID
+        public string UserID
         {
             get;
             set;
         }
 
         /// <summary>
-        /// GenderID
+        /// HeadquartersLastUpdateDateTime
         /// </summary>
-        public string GenderID
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// MarriageID
-        /// </summary>
-        public string MarriageID
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// DateRegiter
-        /// </summary>
-        public DateTime DateRegiter
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Vip
-        /// </summary>
-        public bool Vip
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// StatusAccount
-        /// </summary>
-        public bool StatusAccount
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// JobID
-        /// </summary>
-        public string JobID
+        public DateTime? HeadquartersLastUpdateDateTime
         {
             get;
             set;
@@ -135,18 +90,27 @@ namespace TDTSettingTable
         }
 
         /// <summary>
-        /// DetailAddress
+        /// ContentLastUpdateDate
         /// </summary>
-        public bool DetailAddress
+        public string ContentLastUpdateDate
         {
             get;
             set;
         }
 
         /// <summary>
-        /// DiscriptionLastUpdateDate
+        /// TotalBook
         /// </summary>
-        public string DiscriptionLastUpdateDate
+        public int TotalBook
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// IsDeleteFlag
+        /// </summary>
+        public bool IsDeleteFlag
         {
             get;
             set;

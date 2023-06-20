@@ -6,48 +6,48 @@ using System.Threading.Tasks;
 
 namespace TDTSettingTable
 {
-    public class CustomerWallet
+    public class ImageItemMaster
     {
         /// <summary>
-        /// WalletID
+        /// ImageItemID
         /// </summary>
-        public string WalletID
+        public Guid ImageItemID
         {
             get;
             set;
         }
 
         /// <summary>
-        /// CustomerID
+        /// ItemCode
         /// </summary>
-        public Guid CustomerID
+        public string ItemCode
         {
             get;
             set;
         }
 
         /// <summary>
-        /// FirstDateTime
+        /// DateCreate
         /// </summary>
-        public DateTime FirstDateTime
+        public DateTime DateCreate
         {
             get;
             set;
         }
 
         /// <summary>
-        /// PointCurent
+        /// UserID
         /// </summary>
-        public int PointCurent
+        public string UserID
         {
             get;
             set;
         }
 
         /// <summary>
-        /// PointMax
+        /// IsDefault
         /// </summary>
-        public int PointMax
+        public bool IsDefault
         {
             get;
             set;
@@ -63,54 +63,27 @@ namespace TDTSettingTable
         }
 
         /// <summary>
-        /// PointPlusLastUpdate
+        /// Url
         /// </summary>
-        public int PointPlusLastUpdate
+        public string Url
         {
             get;
             set;
         }
 
         /// <summary>
-        /// SatusPointLastUpdate
+        /// NameImage
         /// </summary>
-        public bool SatusPointLastUpdate
+        public string NameImage
         {
             get;
             set;
         }
 
         /// <summary>
-        /// PointMinusLastUpdate
+        /// IsDeleteFlag
         /// </summary>
-        public int PointMinusLastUpdate
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// StatusWallet
-        /// </summary>
-        public bool StatusWallet
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Description
-        /// </summary>
-        public string Description
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// BlockDateTime
-        /// </summary>
-        public DateTime? BlockDateTime
+        public bool IsDeleteFlag
         {
             get;
             set;

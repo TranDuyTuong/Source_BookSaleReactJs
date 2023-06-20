@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace TDTSettingTable
 {
-    public class CustomerWallet
+    public class CustomerReview
     {
         /// <summary>
-        /// WalletID
+        /// ReviewID
         /// </summary>
-        public string WalletID
+        public Guid ReviewID
         {
             get;
             set;
@@ -27,72 +27,18 @@ namespace TDTSettingTable
         }
 
         /// <summary>
-        /// FirstDateTime
+        /// ItemCode
         /// </summary>
-        public DateTime FirstDateTime
+        public string ItemCode
         {
             get;
             set;
         }
 
         /// <summary>
-        /// PointCurent
+        /// DateTimeCreate
         /// </summary>
-        public int PointCurent
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// PointMax
-        /// </summary>
-        public int PointMax
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// LastUpdateDate
-        /// </summary>
-        public DateTime? LastUpdateDate
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// PointPlusLastUpdate
-        /// </summary>
-        public int PointPlusLastUpdate
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// SatusPointLastUpdate
-        /// </summary>
-        public bool SatusPointLastUpdate
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// PointMinusLastUpdate
-        /// </summary>
-        public int PointMinusLastUpdate
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// StatusWallet
-        /// </summary>
-        public bool StatusWallet
+        public DateTime DateTimeCreate
         {
             get;
             set;
@@ -108,12 +54,49 @@ namespace TDTSettingTable
         }
 
         /// <summary>
-        /// BlockDateTime
+        /// StartReview
         /// </summary>
-        public DateTime? BlockDateTime
+        public int StartReview
         {
             get;
             set;
         }
+
+        /// <summary>
+        /// Like
+        /// </summary>
+        public int Like
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// SatisfactionLevelID
+        /// </summary>
+        public string SatisfactionLevelID
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// QuantityProductsPurchased
+        /// </summary>
+        public int QuantityProductsPurchased
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// IsDeleteFlag
+        /// </summary>
+        public bool IsDeleteFlag
+        {
+            get;
+            set;
+        }
+
     }
 }

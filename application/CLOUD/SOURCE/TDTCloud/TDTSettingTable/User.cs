@@ -6,21 +6,30 @@ using System.Threading.Tasks;
 
 namespace TDTSettingTable
 {
-    public class Customer
+    public class User
     {
         /// <summary>
-        /// CustomerID
+        /// UserID
         /// </summary>
-        public Guid CustomerID
+        public string UserID
         {
             get;
             set;
         }
 
         /// <summary>
-        /// FullName
+        /// FistName
         /// </summary>
-        public string FullName
+        public string FistName
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// LastName
+        /// </summary>
+        public string LastName
         {
             get;
             set;
@@ -30,42 +39,6 @@ namespace TDTSettingTable
         /// Birthday
         /// </summary>
         public DateTime Birthday
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Email
-        /// </summary>
-        public Guid Email
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Phone
-        /// </summary>
-        public string Phone
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// CityID
-        /// </summary>
-        public string CityID
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// DistrictID
-        /// </summary>
-        public string DistrictID
         {
             get;
             set;
@@ -90,36 +63,54 @@ namespace TDTSettingTable
         }
 
         /// <summary>
-        /// DateRegiter
+        /// DetailAddress
         /// </summary>
-        public DateTime DateRegiter
+        public string DetailAddress
         {
             get;
             set;
         }
 
         /// <summary>
-        /// Vip
+        /// Phone
         /// </summary>
-        public bool Vip
+        public string Phone
         {
             get;
             set;
         }
 
         /// <summary>
-        /// StatusAccount
+        /// Email
         /// </summary>
-        public bool StatusAccount
+        public string Email
         {
             get;
             set;
         }
 
         /// <summary>
-        /// JobID
+        /// DateCreate
         /// </summary>
-        public string JobID
+        public string DateCreate
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// level
+        /// </summary>
+        public string level
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// AddressCurent
+        /// </summary>
+        public string AddressCurent
         {
             get;
             set;
@@ -135,21 +126,13 @@ namespace TDTSettingTable
         }
 
         /// <summary>
-        /// DetailAddress
+        /// BankCode
         /// </summary>
-        public bool DetailAddress
+        public bool IsDeleteFlag
         {
             get;
             set;
         }
 
-        /// <summary>
-        /// DiscriptionLastUpdateDate
-        /// </summary>
-        public string DiscriptionLastUpdateDate
-        {
-            get;
-            set;
-        }
     }
 }

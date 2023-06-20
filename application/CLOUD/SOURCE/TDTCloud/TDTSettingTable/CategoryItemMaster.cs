@@ -6,93 +6,12 @@ using System.Threading.Tasks;
 
 namespace TDTSettingTable
 {
-    public class CustomerWallet
+    public class CategoryItemMaster
     {
         /// <summary>
-        /// WalletID
+        /// CategoryItemMasterID
         /// </summary>
-        public string WalletID
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// CustomerID
-        /// </summary>
-        public Guid CustomerID
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// FirstDateTime
-        /// </summary>
-        public DateTime FirstDateTime
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// PointCurent
-        /// </summary>
-        public int PointCurent
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// PointMax
-        /// </summary>
-        public int PointMax
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// LastUpdateDate
-        /// </summary>
-        public DateTime? LastUpdateDate
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// PointPlusLastUpdate
-        /// </summary>
-        public int PointPlusLastUpdate
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// SatusPointLastUpdate
-        /// </summary>
-        public bool SatusPointLastUpdate
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// PointMinusLastUpdate
-        /// </summary>
-        public int PointMinusLastUpdate
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// StatusWallet
-        /// </summary>
-        public bool StatusWallet
+        public string CategoryItemMasterID
         {
             get;
             set;
@@ -108,9 +27,63 @@ namespace TDTSettingTable
         }
 
         /// <summary>
-        /// BlockDateTime
+        /// DateCreate
         /// </summary>
-        public DateTime? BlockDateTime
+        public DateTime DateCreate
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// UserID
+        /// </summary>
+        public string UserID
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// LastUpdateDate
+        /// </summary>
+        public DateTime? LastUpdateDate
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// HeadquartersLastUpdateDateTime
+        /// </summary>
+        public DateTime? HeadquartersLastUpdateDateTime
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// ContentLastUpdateDate
+        /// </summary>
+        public string ContentLastUpdateDate
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// JobID
+        /// </summary>
+        public string JobID
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// IsDeleteFlag
+        /// </summary>
+        public bool IsDeleteFlag
         {
             get;
             set;
