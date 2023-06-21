@@ -29,7 +29,7 @@ namespace TDTSettingTable
         /// <summary>
         /// Discription
         /// </summary>
-        public string Discription
+        public string Description
         {
             get;
             set;

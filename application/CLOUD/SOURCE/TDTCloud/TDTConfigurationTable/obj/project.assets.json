@@ -247,6 +247,19 @@
         "runtime": {
           "lib/net5.0/System.Diagnostics.DiagnosticSource.dll": {}
         }
+      },
+      "TDTSettingTable/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "5.0.0"
+        },
+        "compile": {
+          "bin/placeholder/TDTSettingTable.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TDTSettingTable.dll": {}
+        }
       }
     }
   },
@@ -733,11 +746,17 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "TDTSettingTable/1.0.0": {
+      "type": "project",
+      "path": "../TDTSettingTable/TDTSettingTable.csproj",
+      "msbuildProject": "../TDTSettingTable/TDTSettingTable.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
-      "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 5.0.0"
+      "Microsoft.EntityFrameworkCore >= 5.0.0",
+      "TDTSettingTable >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -746,11 +765,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Project\\v_4\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTSettingTable\\TDTSettingTable.csproj",
-      "projectName": "TDTSettingTable",
-      "projectPath": "D:\\Project\\v_4\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTSettingTable\\TDTSettingTable.csproj",
+      "projectUniqueName": "D:\\Project\\v_4\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTConfigurationTable\\TDTConfigurationTable.csproj",
+      "projectName": "TDTConfigurationTable",
+      "projectPath": "D:\\Project\\v_4\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTConfigurationTable\\TDTConfigurationTable.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "D:\\Project\\v_4\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTSettingTable\\obj\\",
+      "outputPath": "D:\\Project\\v_4\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTConfigurationTable\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -766,7 +785,11 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\Project\\v_4\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTSettingTable\\TDTSettingTable.csproj": {
+              "projectPath": "D:\\Project\\v_4\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTSettingTable\\TDTSettingTable.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -779,7 +802,7 @@
       "net5.0": {
         "targetAlias": "net5.0",
         "dependencies": {
-          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+          "Microsoft.EntityFrameworkCore": {
             "target": "Package",
             "version": "[5.0.0, )"
           }

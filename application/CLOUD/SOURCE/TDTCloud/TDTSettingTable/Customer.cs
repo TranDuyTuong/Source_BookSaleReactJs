@@ -146,7 +146,16 @@ namespace TDTSettingTable
         /// <summary>
         /// DiscriptionLastUpdateDate
         /// </summary>
-        public string DiscriptionLastUpdateDate
+        public string DescriptionLastUpdateDate
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Password
+        /// </summary>
+        public string Password
         {
             get;
             set;
