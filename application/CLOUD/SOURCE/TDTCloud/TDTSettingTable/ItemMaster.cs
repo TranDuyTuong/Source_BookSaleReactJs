@@ -277,6 +277,7 @@ namespace TDTSettingTable
             get;
             set;
         }
+<<<<<<< HEAD
 
         /// <summary>
         /// TaxGroupCodeID
@@ -286,5 +287,7 @@ namespace TDTSettingTable
             get;
             set;
         }
+=======
+>>>>>>> fb619f65ae2f35773f3a79fd4403bbd525417d6c
     }
 }

@@ -86,8 +86,11 @@ namespace TDTConfigurationTable
 
             builder.Property(x => x.UserID).IsRequired(true);
             builder.Property(x => x.IsDeleteFlag).IsRequired(true);
+<<<<<<< HEAD
 
             builder.Property(x => x.TaxGroupCodeID).IsRequired(false);
+=======
+>>>>>>> fb619f65ae2f35773f3a79fd4403bbd525417d6c
         }
     }
 }
