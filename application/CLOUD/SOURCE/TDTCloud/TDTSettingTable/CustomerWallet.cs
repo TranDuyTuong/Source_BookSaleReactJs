@@ -56,7 +56,7 @@ namespace TDTSettingTable
         /// <summary>
         /// LastUpdateDate
         /// </summary>
-        public DateTime LastUpdateDate
+        public DateTime? LastUpdateDate
         {
             get;
             set;
@@ -110,7 +110,7 @@ namespace TDTSettingTable
         /// <summary>
         /// BlockDateTime
         /// </summary>
-        public DateTime BlockDateTime
+        public DateTime? BlockDateTime
         {
             get;
             set;
