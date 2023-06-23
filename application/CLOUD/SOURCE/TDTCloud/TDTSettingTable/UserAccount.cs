@@ -19,24 +19,6 @@ namespace TDTSettingTable
         }
 
         /// <summary>
-        /// Password
-        /// </summary>
-        public string Password
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Email
-        /// </summary>
-        public string Email
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
         /// DateCreate
         /// </summary>
         public DateTime DateCreate

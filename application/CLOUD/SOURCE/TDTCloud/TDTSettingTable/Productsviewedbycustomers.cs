@@ -11,7 +11,7 @@ namespace TDTSettingTable
         /// <summary>
         /// ViewerID
         /// </summary>
-        public int ViewerID
+        public Guid ViewerID
         {
             get;
             set;
@@ -38,7 +38,7 @@ namespace TDTSettingTable
         /// <summary>
         /// DateViewer
         /// </summary>
-        public DateTime DateViewer
+        public DateTime? LastDateViewer
         {
             get;
             set;

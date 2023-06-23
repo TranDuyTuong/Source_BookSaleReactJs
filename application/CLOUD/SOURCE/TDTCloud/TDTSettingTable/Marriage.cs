@@ -20,11 +20,7 @@ namespace TDTSettingTable
         /// <summary>
         /// Discription
         /// </summary>
-<<<<<<< HEAD
         public string Description
-=======
-        public string Discription
->>>>>>> fb619f65ae2f35773f3a79fd4403bbd525417d6c
         {
             get;
             set;

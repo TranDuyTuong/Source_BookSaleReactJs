@@ -54,9 +54,9 @@ namespace TDTSettingTable
         }
 
         /// <summary>
-        /// ID
+        /// IsDeleteFlag
         /// </summary>
-        public Guid ID
+        public bool IsDeleteFlag
         {
             get;
             set;

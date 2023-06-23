@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Project\\v_4\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTCloud\\TDTCloud.csproj": {}
+    "D:\\Project\\v_5\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTCloud\\TDTCloud.csproj": {}
   },
   "projects": {
-    "D:\\Project\\v_4\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTCloud\\TDTCloud.csproj": {
+    "D:\\Project\\v_5\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTCloud\\TDTCloud.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Project\\v_4\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTCloud\\TDTCloud.csproj",
+        "projectUniqueName": "D:\\Project\\v_5\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTCloud\\TDTCloud.csproj",
         "projectName": "TDTCloud",
-        "projectPath": "D:\\Project\\v_4\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTCloud\\TDTCloud.csproj",
+        "projectPath": "D:\\Project\\v_5\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTCloud\\TDTCloud.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\Project\\v_4\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTCloud\\obj\\",
+        "outputPath": "D:\\Project\\v_5\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTCloud\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",

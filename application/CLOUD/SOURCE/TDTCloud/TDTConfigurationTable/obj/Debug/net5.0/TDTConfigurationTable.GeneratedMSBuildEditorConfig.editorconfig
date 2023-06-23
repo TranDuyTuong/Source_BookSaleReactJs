@@ -3,17 +3,8 @@ build_property.TargetFramework = net5.0
 build_property.TargetPlatformMinVersion = 
 build_property.UsingMicrosoftNETSdkWeb = 
 build_property.ProjectTypeGuids = 
-<<<<<<< HEAD
-build_property.InvariantGlobalization = 
-build_property.PlatformNeutralAssembly = 
-build_property.EnforceExtendedAnalyzerRules = 
-build_property._SupportedPlatformList = Linux,macOS,Windows
-build_property.RootNamespace = TDTConfigurationTable
-build_property.ProjectDir = D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\TDTConfigurationTable\
-=======
 build_property.PublishSingleFile = 
 build_property.IncludeAllContentForSelfExtract = 
 build_property._SupportedPlatformList = Android,iOS,Linux,macOS,Windows
 build_property.RootNamespace = TDTConfigurationTable
-build_property.ProjectDir = D:\Project\v_4\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\TDTConfigurationTable\
->>>>>>> fb619f65ae2f35773f3a79fd4403bbd525417d6c
+build_property.ProjectDir = D:\Project\v_5\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\TDTConfigurationTable\

@@ -1,37 +1,20 @@
 {
   "format": 1,
   "restore": {
-<<<<<<< HEAD
-    "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTConfigurationTable\\TDTConfigurationTable.csproj": {}
+    "D:\\Project\\v_5\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTConfigurationTable\\TDTConfigurationTable.csproj": {}
   },
   "projects": {
-    "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTConfigurationTable\\TDTConfigurationTable.csproj": {
+    "D:\\Project\\v_5\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTConfigurationTable\\TDTConfigurationTable.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTConfigurationTable\\TDTConfigurationTable.csproj",
+        "projectUniqueName": "D:\\Project\\v_5\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTConfigurationTable\\TDTConfigurationTable.csproj",
         "projectName": "TDTConfigurationTable",
-        "projectPath": "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTConfigurationTable\\TDTConfigurationTable.csproj",
-        "packagesPath": "C:\\Users\\duytu\\.nuget\\packages\\",
-        "outputPath": "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTConfigurationTable\\obj\\",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "C:\\Users\\duytu\\AppData\\Roaming\\NuGet\\NuGet.Config",
-=======
-    "D:\\Project\\v_4\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTConfigurationTable\\TDTConfigurationTable.csproj": {}
-  },
-  "projects": {
-    "D:\\Project\\v_4\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTConfigurationTable\\TDTConfigurationTable.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "D:\\Project\\v_4\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTConfigurationTable\\TDTConfigurationTable.csproj",
-        "projectName": "TDTConfigurationTable",
-        "projectPath": "D:\\Project\\v_4\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTConfigurationTable\\TDTConfigurationTable.csproj",
+        "projectPath": "D:\\Project\\v_5\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTConfigurationTable\\TDTConfigurationTable.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\Project\\v_4\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTConfigurationTable\\obj\\",
+        "outputPath": "D:\\Project\\v_5\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTConfigurationTable\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
->>>>>>> fb619f65ae2f35773f3a79fd4403bbd525417d6c
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -45,13 +28,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-<<<<<<< HEAD
-              "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTSettingTable\\TDTSettingTable.csproj": {
-                "projectPath": "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTSettingTable\\TDTSettingTable.csproj"
-=======
-              "D:\\Project\\v_4\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTSettingTable\\TDTSettingTable.csproj": {
-                "projectPath": "D:\\Project\\v_4\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTSettingTable\\TDTSettingTable.csproj"
->>>>>>> fb619f65ae2f35773f3a79fd4403bbd525417d6c
+              "D:\\Project\\v_5\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTSettingTable\\TDTSettingTable.csproj": {
+                "projectPath": "D:\\Project\\v_5\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTSettingTable\\TDTSettingTable.csproj"
               }
             }
           }
@@ -77,12 +55,7 @@
             "net47",
             "net471",
             "net472",
-<<<<<<< HEAD
-            "net48",
-            "net481"
-=======
             "net48"
->>>>>>> fb619f65ae2f35773f3a79fd4403bbd525417d6c
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -91,39 +64,21 @@
               "privateAssets": "all"
             }
           },
-<<<<<<< HEAD
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTSettingTable\\TDTSettingTable.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTSettingTable\\TDTSettingTable.csproj",
-        "projectName": "TDTSettingTable",
-        "projectPath": "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTSettingTable\\TDTSettingTable.csproj",
-        "packagesPath": "C:\\Users\\duytu\\.nuget\\packages\\",
-        "outputPath": "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTSettingTable\\obj\\",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "C:\\Users\\duytu\\AppData\\Roaming\\NuGet\\NuGet.Config",
-=======
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Project\\v_4\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTSettingTable\\TDTSettingTable.csproj": {
+    "D:\\Project\\v_5\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTSettingTable\\TDTSettingTable.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Project\\v_4\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTSettingTable\\TDTSettingTable.csproj",
+        "projectUniqueName": "D:\\Project\\v_5\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTSettingTable\\TDTSettingTable.csproj",
         "projectName": "TDTSettingTable",
-        "projectPath": "D:\\Project\\v_4\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTSettingTable\\TDTSettingTable.csproj",
+        "projectPath": "D:\\Project\\v_5\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTSettingTable\\TDTSettingTable.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\Project\\v_4\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTSettingTable\\obj\\",
+        "outputPath": "D:\\Project\\v_5\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTSettingTable\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
->>>>>>> fb619f65ae2f35773f3a79fd4403bbd525417d6c
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -160,12 +115,7 @@
             "net47",
             "net471",
             "net472",
-<<<<<<< HEAD
-            "net48",
-            "net481"
-=======
             "net48"
->>>>>>> fb619f65ae2f35773f3a79fd4403bbd525417d6c
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -174,11 +124,7 @@
               "privateAssets": "all"
             }
           },
-<<<<<<< HEAD
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
-=======
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
->>>>>>> fb619f65ae2f35773f3a79fd4403bbd525417d6c
         }
       }
     }

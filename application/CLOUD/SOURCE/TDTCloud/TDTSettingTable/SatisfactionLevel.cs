@@ -61,5 +61,14 @@ namespace TDTSettingTable
             get;
             set;
         }
+
+        /// <summary>
+        /// StartReivew
+        /// </summary>
+        public bool StartReivew
+        {
+            get;
+            set;
+        }
     }
 }

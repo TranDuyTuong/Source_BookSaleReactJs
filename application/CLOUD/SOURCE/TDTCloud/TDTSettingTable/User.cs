@@ -126,9 +126,27 @@ namespace TDTSettingTable
         }
 
         /// <summary>
-        /// BankCode
+        /// IsDeleteFlag
         /// </summary>
         public bool IsDeleteFlag
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// CityID
+        /// </summary>
+        public string CityID
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// DistrictID
+        /// </summary>
+        public string DistrictID
         {
             get;
             set;

@@ -36,6 +36,15 @@ namespace TDTSettingTable
         }
 
         /// <summary>
+        /// Delegator
+        /// </summary>
+        public string Delegator
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// LastUpdateDate
         /// </summary>
         public DateTime? LastUpdateDate
