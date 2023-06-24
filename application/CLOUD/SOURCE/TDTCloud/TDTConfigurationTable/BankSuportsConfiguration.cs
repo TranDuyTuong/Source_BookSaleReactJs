@@ -24,15 +24,15 @@ namespace TDTConfigurationTable
             // Configuration Properties
             builder.Property(x => x.BankID).IsRequired(true);
             builder.Property(x => x.BankID).HasMaxLength(50);
-            builder.Property(x => x.BankID).HasColumnType("Nvarchar");
+            builder.Property(x => x.BankID).HasColumnType("Nvarchar(50)");
 
             builder.Property(x => x.Description).IsRequired(true);
             builder.Property(x => x.Description).HasMaxLength(250);
-            builder.Property(x => x.Description).HasColumnType("Nvarchar");
+            builder.Property(x => x.Description).HasColumnType("Nvarchar(250)");
 
             builder.Property(x => x.BankCode).IsRequired(true);
             builder.Property(x => x.BankCode).HasMaxLength(50);
-            builder.Property(x => x.BankCode).HasColumnType("Nvarchar");
+            builder.Property(x => x.BankCode).HasColumnType("Nvarchar(50)");
 
             builder.Property(x => x.DateCreate).IsRequired(true);
 
@@ -42,7 +42,7 @@ namespace TDTConfigurationTable
 
             builder.Property(x => x.Content).IsRequired(false);
             builder.Property(x => x.Content).HasMaxLength(100);
-            builder.Property(x => x.Content).HasColumnType("Nvarchar");
+            builder.Property(x => x.Content).HasColumnType("Nvarchar(100)");
 
             builder.Property(x => x.UrlImageBank).IsRequired(true);
             builder.Property(x => x.UrlImageBank).HasColumnType("Nvarchar(MAX)");

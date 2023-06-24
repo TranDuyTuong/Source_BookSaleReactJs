@@ -33,7 +33,6 @@ namespace TDTConfigurationTable
 
             builder.Property(x => x.NameImage).IsRequired(false);
             builder.Property(x => x.NameImage).HasMaxLength(200);
-            builder.Property(x => x.NameImage).HasColumnType("varchar");
 
         }
     }

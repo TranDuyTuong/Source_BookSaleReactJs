@@ -26,14 +26,11 @@ namespace TDTConfigurationTable
 
             builder.Property(x => x.ImageName).IsRequired(true);
             builder.Property(x => x.ImageName).HasMaxLength(50);
-            builder.Property(x => x.ImageName).HasColumnType("varchar");
 
             builder.Property(x => x.TypeImage).IsRequired(true);
             builder.Property(x => x.TypeImage).HasMaxLength(10);
-            builder.Property(x => x.TypeImage).HasColumnType("varchar");
 
             builder.Property(x => x.Url).IsRequired(false);
-            builder.Property(x => x.Url).HasColumnType("varchar");
 
             builder.Property(x => x.DateCreate).IsRequired(true);
             builder.Property(x => x.IsDeleteFlag).IsRequired(true);

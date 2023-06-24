@@ -25,38 +25,35 @@ namespace TDTConfigurationTable
 
             // Configuration Properties
             builder.Property(x => x.CompanyCode).IsRequired(true);
-            builder.Property(x => x.CompanyCode).HasColumnType("Nvarchar");
+            builder.Property(x => x.CompanyCode).HasColumnType("Nvarchar(10)");
 
             builder.Property(x => x.StoreCode).IsRequired(true);
-            builder.Property(x => x.StoreCode).HasColumnType("Nvarchar");
+            builder.Property(x => x.StoreCode).HasColumnType("Nvarchar(10)");
 
             builder.Property(x => x.ItemCode).IsRequired(true);
             builder.Property(x => x.ItemCode).HasMaxLength(26);
-            builder.Property(x => x.ItemCode).HasColumnType("varchar");
 
             builder.Property(x => x.ApplyDate).IsRequired(false);
 
             builder.Property(x => x.Description).IsRequired(true);
             builder.Property(x => x.Description).HasMaxLength(50);
-            builder.Property(x => x.Description).HasColumnType("Nvarchar");
+            builder.Property(x => x.Description).HasColumnType("Nvarchar(50)");
 
             builder.Property(x => x.DescriptionShort).IsRequired(true);
             builder.Property(x => x.DescriptionShort).HasMaxLength(25);
-            builder.Property(x => x.DescriptionShort).HasColumnType("Nvarchar");
+            builder.Property(x => x.DescriptionShort).HasColumnType("Nvarchar(25)");
 
             builder.Property(x => x.DescriptionLong).IsRequired(true);
             builder.Property(x => x.DescriptionLong).HasMaxLength(100);
-            builder.Property(x => x.DescriptionLong).HasColumnType("Nvarchar");
+            builder.Property(x => x.DescriptionLong).HasColumnType("Nvarchar(100)");
 
             builder.Property(x => x.PriceOrigin).IsRequired(true);
             builder.Property(x => x.PercentDiscount).IsRequired(true);
             builder.Property(x => x.priceSale).IsRequired(true);
 
             builder.Property(x => x.QuantityDiscountID).IsRequired(false);
-            builder.Property(x => x.QuantityDiscountID).HasColumnType("varchar");
 
             builder.Property(x => x.PairDiscountID).IsRequired(false);
-            builder.Property(x => x.PairDiscountID).HasColumnType("varchar");
 
             builder.Property(x => x.PercentDiscount).IsRequired(false);
             builder.Property(x => x.Quantity).IsRequired(true);
@@ -72,7 +69,7 @@ namespace TDTConfigurationTable
             builder.Property(x => x.PublicationDate).IsRequired(true);
             builder.Property(x => x.size).IsRequired(true);
             builder.Property(x => x.size).HasMaxLength(100);
-            builder.Property(x => x.size).HasColumnType("Nvarchar");
+            builder.Property(x => x.size).HasColumnType("Nvarchar(100)");
 
             builder.Property(x => x.PageNumber).IsRequired(true);
 

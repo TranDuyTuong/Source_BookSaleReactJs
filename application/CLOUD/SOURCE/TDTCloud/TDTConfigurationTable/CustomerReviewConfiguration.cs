@@ -29,7 +29,7 @@ namespace TDTConfigurationTable
 
             builder.Property(x => x.Description).IsRequired(false);
             builder.Property(x => x.Description).HasMaxLength(300);
-            builder.Property(x => x.Description).HasColumnType("Nvarchar");
+            builder.Property(x => x.Description).HasColumnType("Nvarchar(300)");
 
             builder.Property(x => x.StartReview).IsRequired(false);
             builder.Property(x => x.Like).IsRequired(false);

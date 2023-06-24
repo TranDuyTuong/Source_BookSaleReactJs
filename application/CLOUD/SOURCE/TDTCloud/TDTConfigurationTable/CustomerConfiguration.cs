@@ -26,17 +26,15 @@ namespace TDTConfigurationTable
 
             builder.Property(x => x.FullName).IsRequired(true);
             builder.Property(x => x.FullName).HasMaxLength(50);
-            builder.Property(x => x.FullName).HasColumnType("Nvarchar");
+            builder.Property(x => x.FullName).HasColumnType("Nvarchar(500)");
 
             builder.Property(x => x.Birthday).IsRequired(true);
 
             builder.Property(x => x.Email).IsRequired(true);
             builder.Property(x => x.Email).HasMaxLength(100);
-            builder.Property(x => x.Email).HasColumnType("varchar");
 
             builder.Property(x => x.Phone).IsRequired(true);
             builder.Property(x => x.Phone).HasMaxLength(20);
-            builder.Property(x => x.Phone).HasColumnType("varchar");
 
             builder.Property(x => x.Password).IsRequired(true);
 
@@ -60,11 +58,11 @@ namespace TDTConfigurationTable
 
             builder.Property(x => x.DescriptionLastUpdateDate).IsRequired(false);
             builder.Property(x => x.DescriptionLastUpdateDate).HasMaxLength(400);
-            builder.Property(x => x.DescriptionLastUpdateDate).HasColumnType("Nvarchar");
+            builder.Property(x => x.DescriptionLastUpdateDate).HasColumnType("Nvarchar(400)");
 
             builder.Property(x => x.DetailAddress).IsRequired(false);
             builder.Property(x => x.DetailAddress).HasMaxLength(250);
-            builder.Property(x => x.DetailAddress).HasColumnType("Nvarchar");
+            builder.Property(x => x.DetailAddress).HasColumnType("Nvarchar(250)");
         }
     }
 }

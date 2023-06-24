@@ -24,17 +24,15 @@ namespace TDTConfigurationTable
             // Configuration Properties
             builder.Property(x => x.CityID).IsRequired(true);
             builder.Property(x => x.CityID).HasMaxLength(50);
-            builder.Property(x => x.CityID).HasColumnType("varchar");
 
             builder.Property(x => x.Description).IsRequired(true);
             builder.Property(x => x.Description).HasMaxLength(250);
-            builder.Property(x => x.Description).HasColumnType("Nvarchar");
+            builder.Property(x => x.Description).HasColumnType("Nvarchar(250)");
 
             builder.Property(x => x.AreaCode).IsRequired(true);
 
             builder.Property(x => x.Symbol).IsRequired(true);
             builder.Property(x => x.Symbol).HasMaxLength(5);
-            builder.Property(x => x.Symbol).HasColumnType("varchar");
 
             builder.Property(x => x.UserID).IsRequired(true);
 

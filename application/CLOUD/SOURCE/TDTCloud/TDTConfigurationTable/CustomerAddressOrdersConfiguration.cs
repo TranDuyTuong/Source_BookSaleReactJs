@@ -30,7 +30,7 @@ namespace TDTConfigurationTable
 
             builder.Property(x => x.DetailAddress).IsRequired(true);
             builder.Property(x => x.DetailAddress).HasMaxLength(200);
-            builder.Property(x => x.DetailAddress).HasColumnType("Nvarchar");
+            builder.Property(x => x.DetailAddress).HasColumnType("Nvarchar(200)");
 
             builder.Property(x => x.IsAddressDefaul).IsRequired(true);
             builder.Property(x => x.IsAddressHome).IsRequired(true);

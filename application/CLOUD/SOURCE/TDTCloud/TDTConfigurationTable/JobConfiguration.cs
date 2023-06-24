@@ -27,7 +27,7 @@ namespace TDTConfigurationTable
             
             builder.Property(x => x.Description).IsRequired(true);
             builder.Property(x => x.Description).HasMaxLength(250);
-            builder.Property(x => x.Description).HasColumnType("Nvarchar");
+            builder.Property(x => x.Description).HasColumnType("Nvarchar(250)");
             
             builder.Property(x => x.CreateDate).IsRequired(true);
             builder.Property(x => x.LasUpdateDate).IsRequired(false);

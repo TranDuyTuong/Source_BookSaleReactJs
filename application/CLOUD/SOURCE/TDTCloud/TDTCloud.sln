@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.33423.256
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TDTCloud", "TDTCloud\TDTCloud.csproj", "{AB4AE328-F3FE-4613-A27B-AF8854A7A6BB}"
 EndProject
@@ -11,7 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TDTSettingTable", "TDTSetti
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.ConfigurationTable", "2.ConfigurationTable", "{52302E40-71A6-4DA5-9F34-B3E7B052C6EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TDTConfigurationTable", "TDTConfigurationTable\TDTConfigurationTable.csproj", "{4FAB4667-5F9D-43AA-B4D1-F5104457B188}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TDTConfigurationTable", "TDTConfigurationTable\TDTConfigurationTable.csproj", "{4FAB4667-5F9D-43AA-B4D1-F5104457B188}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.FactoryContection", "2.FactoryContection", "{C18DB8B5-C8B6-4894-A937-3ED61913CC88}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeFirtMigration", "CodeFirtMigration\CodeFirtMigration.csproj", "{DB2D1593-A70D-4F49-B441-5C9AB5A59541}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +35,10 @@ Global
 		{4FAB4667-5F9D-43AA-B4D1-F5104457B188}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4FAB4667-5F9D-43AA-B4D1-F5104457B188}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4FAB4667-5F9D-43AA-B4D1-F5104457B188}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB2D1593-A70D-4F49-B441-5C9AB5A59541}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB2D1593-A70D-4F49-B441-5C9AB5A59541}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB2D1593-A70D-4F49-B441-5C9AB5A59541}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB2D1593-A70D-4F49-B441-5C9AB5A59541}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -38,6 +46,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{7209E787-6803-4945-9553-67B05C2A726C} = {D7B7E574-BBBE-4022-9BAC-04CBD2CCAC3A}
 		{4FAB4667-5F9D-43AA-B4D1-F5104457B188} = {52302E40-71A6-4DA5-9F34-B3E7B052C6EE}
+		{DB2D1593-A70D-4F49-B441-5C9AB5A59541} = {C18DB8B5-C8B6-4894-A937-3ED61913CC88}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {39DBFFF2-3684-4950-A500-BE6E7E69994A}

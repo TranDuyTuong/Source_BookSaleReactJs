@@ -24,11 +24,10 @@ namespace TDTConfigurationTable
             // Configuration Propeties
             builder.Property(x => x.GenderID).IsRequired(true);
             builder.Property(x => x.GenderID).HasMaxLength(10);
-            builder.Property(x => x.GenderID).HasColumnType("varchar");
 
             builder.Property(x => x.Description).IsRequired(true);
             builder.Property(x => x.Description).HasMaxLength(20);
-            builder.Property(x => x.Description).HasColumnType("Nvarchar");
+            builder.Property(x => x.Description).HasColumnType("Nvarchar(20)");
 
             builder.Property(x => x.CreateDate).IsRequired(true);
             builder.Property(x => x.LasUpdateDate).IsRequired(false);

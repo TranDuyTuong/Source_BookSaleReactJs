@@ -24,7 +24,6 @@ namespace TDTConfigurationTable
             // Configuration Properties
             builder.Property(x => x.WalletID).HasMaxLength(500);
             builder.Property(x => x.WalletID).IsRequired(true);
-            builder.Property(x => x.WalletID).HasColumnType("varchar");
 
             builder.Property(x => x.FirstDateTime).IsRequired(true);
             builder.Property(x => x.PointCurent).IsRequired(true);
@@ -38,7 +37,7 @@ namespace TDTConfigurationTable
             builder.Property(x => x.StatusWallet).IsRequired(true);
             builder.Property(x => x.Description).IsRequired(false);
             builder.Property(x => x.Description).HasMaxLength(500);
-            builder.Property(x => x.Description).HasColumnType("Nvarchar");
+            builder.Property(x => x.Description).HasColumnType("Nvarchar(500)");
 
             builder.Property(x => x.BlockDateTime).IsRequired(false);
         }

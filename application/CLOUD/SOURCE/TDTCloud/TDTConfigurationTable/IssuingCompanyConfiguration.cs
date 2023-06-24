@@ -23,15 +23,13 @@ namespace TDTConfigurationTable
             // Configuration Properties
             builder.Property(x => x.IssuingCompanyID).IsRequired(true);
             builder.Property(x => x.IssuingCompanyID).HasMaxLength(26);
-            builder.Property(x => x.IssuingCompanyID).HasColumnType("varchar");
 
             builder.Property(x => x.Description).IsRequired(true);
             builder.Property(x => x.Description).HasMaxLength(100);
-            builder.Property(x => x.Description).HasColumnType("Nvarchar");
+            builder.Property(x => x.Description).HasColumnType("Nvarchar(100)");
 
             builder.Property(x => x.TaxCode).IsRequired(true);
             builder.Property(x => x.TaxCode).HasMaxLength(250);
-            builder.Property(x => x.TaxCode).HasColumnType("varchar");
 
             builder.Property(x => x.DateOfIncorporation).IsRequired(true);
             builder.Property(x => x.DateCreate).IsRequired(true);
@@ -41,11 +39,11 @@ namespace TDTConfigurationTable
 
             builder.Property(x => x.ContentLastUpdateDate).IsRequired(false);
             builder.Property(x => x.ContentLastUpdateDate).HasMaxLength(300);
-            builder.Property(x => x.ContentLastUpdateDate).HasColumnType("Nvarchar");
+            builder.Property(x => x.ContentLastUpdateDate).HasColumnType("Nvarchar(300)");
 
             builder.Property(x => x.Address).IsRequired(true);
             builder.Property(x => x.Address).HasMaxLength(250);
-            builder.Property(x => x.Address).HasColumnType("Nvarchar");
+            builder.Property(x => x.Address).HasColumnType("Nvarchar(250)");
 
             builder.Property(x => x.IsDeleteFlag).IsRequired(true);
         }

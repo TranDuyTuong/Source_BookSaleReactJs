@@ -26,7 +26,7 @@ namespace TDTConfigurationTable
 
             builder.Property(x => x.Description).IsRequired(true);
             builder.Property(x => x.Description).HasMaxLength(300);
-            builder.Property(x => x.Description).HasColumnType("Nvarchar");
+            builder.Property(x => x.Description).HasColumnType("Nvarchar(300)");
 
             builder.Property(x => x.ApplyDate).IsRequired(true);
             builder.Property(x => x.StartDate).IsRequired(true);
@@ -38,7 +38,7 @@ namespace TDTConfigurationTable
 
             builder.Property(x => x.ContentLastUpdateDate).IsRequired(false);
             builder.Property(x => x.ContentLastUpdateDate).HasMaxLength(300);
-            builder.Property(x => x.ContentLastUpdateDate).HasColumnType("Nvarchar");
+            builder.Property(x => x.ContentLastUpdateDate).HasColumnType("Nvarchar(300)");
 
             builder.Property(x => x.Expired).IsRequired(true);
             builder.Property(x => x.IsDeleteFlag).IsRequired(true);

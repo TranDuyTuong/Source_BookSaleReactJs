@@ -21,7 +21,7 @@ namespace TDTConfigurationTable
             // Configuration primaryKey
             builder.HasKey(x => x.OrderID);
             builder.HasKey(x => x.OrderCode);
-            // Configuration Properties
+            // Configuration Properties 
 
             builder.Property(x => x.OrderID).IsRequired(true);
             builder.Property(x => x.OrderCode).IsRequired(true);
@@ -33,7 +33,7 @@ namespace TDTConfigurationTable
 
             builder.Property(x => x.FullName).IsRequired(true);
             builder.Property(x => x.FullName).HasMaxLength(50);
-            builder.Property(x => x.FullName).HasColumnType("Nvarchar");
+            builder.Property(x => x.FullName).HasColumnType("Nvarchar(50)");
 
             builder.Property(x => x.Phone).IsRequired(true);
             builder.Property(x => x.Phone).HasMaxLength(20);
@@ -51,7 +51,7 @@ namespace TDTConfigurationTable
 
             builder.Property(x => x.Description).IsRequired(false);
             builder.Property(x => x.Description).HasMaxLength(250);
-            builder.Property(x => x.Description).HasColumnType("Nvarchar");
+            builder.Property(x => x.Description).HasColumnType("Nvarchar(250)");
 
             builder.Property(x => x.EstimatedDeliveryDate).IsRequired(false);
             builder.Property(x => x.IsDelete).IsRequired(true);
@@ -60,7 +60,7 @@ namespace TDTConfigurationTable
 
             builder.Property(x => x.Note).IsRequired(false);
             builder.Property(x => x.Note).HasMaxLength(500);
-            builder.Property(x => x.Note).HasColumnType("Nvarchar");
+            builder.Property(x => x.Note).HasColumnType("Nvarchar(500)");
 
             builder.Property(x => x.DateTimeCustomerGetItem).IsRequired(false);
             builder.Property(x => x.TotalPoint).IsRequired(true);

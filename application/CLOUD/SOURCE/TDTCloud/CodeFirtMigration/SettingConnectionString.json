@@ -1,0 +1,6 @@
+{
+  "ConnectionStrings": {
+    "TXTCloud": "Server=DESKTOP-CF2F8KB\\SQLEXPRESS;Database=TXTCloud;Trusted_Connection=True;User ID=sa;Password=tranduytuong"
+    //"TXTCloud": "Server=Vinx-6GYTKG3\\SQLEXPRESS;Database=TXTCloud;Trusted_Connection=True"
+  }
+}

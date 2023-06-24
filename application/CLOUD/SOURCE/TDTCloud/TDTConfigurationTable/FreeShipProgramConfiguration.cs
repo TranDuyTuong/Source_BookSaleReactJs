@@ -25,15 +25,14 @@ namespace TDTConfigurationTable
             // Configuration Propeties
             builder.Property(x => x.CompanyCode).IsRequired(true);
             builder.Property(x => x.CompanyCode).HasMaxLength(10);
-            builder.Property(x => x.CompanyCode).HasColumnType("Nvarchar");
+            builder.Property(x => x.CompanyCode).HasColumnType("Nvarchar(10)");
 
             builder.Property(x => x.FreeShipProgramID).IsRequired(true);
             builder.Property(x => x.FreeShipProgramID).HasMaxLength(10);
-            builder.Property(x => x.FreeShipProgramID).HasColumnType("varchar");
 
             builder.Property(x => x.Description).IsRequired(true);
             builder.Property(x => x.Description).HasMaxLength(200);
-            builder.Property(x => x.Description).HasColumnType("Nvarchar");
+            builder.Property(x => x.Description).HasColumnType("Nvarchar(200)");
 
             builder.Property(x => x.ApplyDate).IsRequired(true);
             builder.Property(x => x.EndApplyDate).IsRequired(true);

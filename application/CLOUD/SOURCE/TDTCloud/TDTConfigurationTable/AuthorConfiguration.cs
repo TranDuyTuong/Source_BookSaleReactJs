@@ -27,17 +27,17 @@ namespace TDTConfigurationTable
 
             builder.Property(x => x.NameAuthor).IsRequired(true);
             builder.Property(x => x.NameAuthor).HasMaxLength(50);
-            builder.Property(x => x.NameAuthor).HasColumnType("Nvarchar");
+            builder.Property(x => x.NameAuthor).HasColumnType("Nvarchar(50)");
 
             builder.Property(x => x.Birthday).IsRequired(true);
 
             builder.Property(x => x.Hometown).IsRequired(true);
             builder.Property(x => x.Hometown).HasMaxLength(100);
-            builder.Property(x => x.Hometown).HasColumnType("Nvarchar");
+            builder.Property(x => x.Hometown).HasColumnType("Nvarchar(100)");
 
             builder.Property(x => x.Description).IsRequired(true);
             builder.Property(x => x.Description).HasMaxLength(250);
-            builder.Property(x => x.Description).HasColumnType("Nvarchar");
+            builder.Property(x => x.Description).HasColumnType("Nvarchar(250)");
 
             builder.Property(x => x.DateCreate).IsRequired(true);
 
@@ -49,7 +49,7 @@ namespace TDTConfigurationTable
 
             builder.Property(x => x.ContentLastUpdateDate).IsRequired(false);
             builder.Property(x => x.ContentLastUpdateDate).HasMaxLength(300);
-            builder.Property(x => x.ContentLastUpdateDate).HasColumnType("Nvarchar");
+            builder.Property(x => x.ContentLastUpdateDate).HasColumnType("Nvarchar(300)");
 
             builder.Property(x => x.TotalBook).IsRequired(true);
 

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Project\\v_5\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTCloud\\TDTCloud.csproj": {}
+    "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTCloud\\TDTCloud.csproj": {}
   },
   "projects": {
-    "D:\\Project\\v_5\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTCloud\\TDTCloud.csproj": {
+    "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTCloud\\TDTCloud.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Project\\v_5\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTCloud\\TDTCloud.csproj",
+        "projectUniqueName": "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTCloud\\TDTCloud.csproj",
         "projectName": "TDTCloud",
-        "projectPath": "D:\\Project\\v_5\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTCloud\\TDTCloud.csproj",
-        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\Project\\v_5\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTCloud\\obj\\",
+        "projectPath": "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTCloud\\TDTCloud.csproj",
+        "packagesPath": "C:\\Users\\duytu\\.nuget\\packages\\",
+        "outputPath": "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTCloud\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\duytu\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -51,10 +51,17 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[5.0.17, 5.0.17]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -63,7 +70,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }
