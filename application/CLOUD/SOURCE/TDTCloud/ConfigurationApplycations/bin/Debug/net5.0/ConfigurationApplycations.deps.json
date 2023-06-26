@@ -1,0 +1,47 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "ConfigurationApplycations/1.0.0": {
+        "dependencies": {
+          "ConfigurationInterfaces": "1.0.0",
+          "ModelConfiguration": "1.0.0"
+        },
+        "runtime": {
+          "ConfigurationApplycations.dll": {}
+        }
+      },
+      "ConfigurationInterfaces/1.0.0": {
+        "runtime": {
+          "ConfigurationInterfaces.dll": {}
+        }
+      },
+      "ModelConfiguration/1.0.0": {
+        "runtime": {
+          "ModelConfiguration.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "ConfigurationApplycations/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ConfigurationInterfaces/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ModelConfiguration/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

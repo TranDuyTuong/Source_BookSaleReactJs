@@ -110,7 +110,7 @@ namespace TDTSettingTable
         /// <summary>
         /// StatusPairDiscount
         /// </summary>
-        public bool StatusPairDiscount
+        public bool? StatusPairDiscount
         {
             get;
             set;
@@ -119,7 +119,7 @@ namespace TDTSettingTable
         /// <summary>
         /// StatusQuatityDiscount
         /// </summary>
-        public bool StatusQuatityDiscount
+        public bool? StatusQuatityDiscount
         {
             get;
             set;

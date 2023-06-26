@@ -30,7 +30,7 @@ namespace TDTConfigurationTable
 
             builder.Property(x => x.DateTimeCreate).IsRequired(true);
             builder.Property(x => x.LastUpdateDate).IsRequired(false);
-            builder.Property(x => x.UserID).IsRequired(true);
+            builder.Property(x => x.UserID).IsRequired(false);
             builder.Property(x => x.IsDeleteFlag).IsRequired(true);
         }
     }

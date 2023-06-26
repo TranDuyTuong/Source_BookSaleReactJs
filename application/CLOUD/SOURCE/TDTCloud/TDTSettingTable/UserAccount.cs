@@ -30,7 +30,7 @@ namespace TDTSettingTable
         /// <summary>
         /// RemmenberAccount
         /// </summary>
-        public bool RemmenberAccount
+        public bool? RemmenberAccount
         {
             get;
             set;

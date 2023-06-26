@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "G6eb0XGi8GZ0sUIALwi7WCDvhHpu7qhzYBr2SJjT9+FJaeKY2aqGZ3KJktKLJlmHD+aLDXh9FXxL1KbHxul/5w==",
+  "success": true,
+  "projectFilePath": "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\DI\\DI.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\duytu\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\5.0.0\\microsoft.extensions.dependencyinjection.abstractions.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

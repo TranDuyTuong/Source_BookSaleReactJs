@@ -74,7 +74,7 @@ namespace TDTSettingTable
         /// <summary>
         /// MethodsReceivingPoints
         /// </summary>
-        public int MethodsReceivingPoints
+        public int? MethodsReceivingPoints
         {
             get;
             set;

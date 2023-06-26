@@ -64,7 +64,7 @@ namespace TDTConfigurationTable
 
             builder.Property(x => x.DateTimeCustomerGetItem).IsRequired(false);
             builder.Property(x => x.TotalPoint).IsRequired(true);
-            builder.Property(x => x.FreeShipProgram).IsRequired(false);
+            builder.Property(x => x.FreeShipProgram).IsRequired(true);
             builder.Property(x => x.BankID).IsRequired(false);
         }
     }

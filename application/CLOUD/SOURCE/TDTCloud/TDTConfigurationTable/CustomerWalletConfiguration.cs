@@ -29,10 +29,10 @@ namespace TDTConfigurationTable
             builder.Property(x => x.PointCurent).IsRequired(true);
             builder.Property(x => x.PointMax).IsRequired(true);
             builder.Property(x => x.LastUpdateDate).IsRequired(false);
-            builder.Property(x => x.SatusPointLastUpdate).IsRequired(false);
+            builder.Property(x => x.SatusPointLastUpdate).IsRequired(true);
 
-            builder.Property(x => x.PointPlusLastUpdate).IsRequired(false);
-            builder.Property(x => x.PointMinusLastUpdate).IsRequired(false);
+            builder.Property(x => x.PointPlusLastUpdate).IsRequired(true);
+            builder.Property(x => x.PointMinusLastUpdate).IsRequired(true);
 
             builder.Property(x => x.StatusWallet).IsRequired(true);
             builder.Property(x => x.Description).IsRequired(false);

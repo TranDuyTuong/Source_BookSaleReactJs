@@ -164,7 +164,7 @@ namespace TDTSettingTable
         /// <summary>
         /// Description
         /// </summary>
-        public decimal Description
+        public string Description
         {
             get;
             set;
@@ -173,7 +173,7 @@ namespace TDTSettingTable
         /// <summary>
         /// EstimatedDeliveryDate
         /// </summary>
-        public DateTime EstimatedDeliveryDate
+        public DateTime? EstimatedDeliveryDate
         {
             get;
             set;
@@ -218,7 +218,7 @@ namespace TDTSettingTable
         /// <summary>
         /// DateTimeCustomerGetItem
         /// </summary>
-        public DateTime DateTimeCustomerGetItem
+        public DateTime? DateTimeCustomerGetItem
         {
             get;
             set;

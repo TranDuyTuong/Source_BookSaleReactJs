@@ -31,11 +31,11 @@ namespace TDTConfigurationTable
             builder.Property(x => x.Description).HasMaxLength(300);
             builder.Property(x => x.Description).HasColumnType("Nvarchar(300)");
 
-            builder.Property(x => x.StartReview).IsRequired(false);
-            builder.Property(x => x.Like).IsRequired(false);
+            builder.Property(x => x.StartReview).IsRequired(true);
+            builder.Property(x => x.Like).IsRequired(true);
 
             builder.Property(x => x.SatisfactionLevelID).IsRequired(true);
-            builder.Property(x => x.QuantityProductsPurchased).IsRequired(false);
+            builder.Property(x => x.QuantityProductsPurchased).IsRequired(true);
             builder.Property(x => x.IsDeleteFlag).IsRequired(true);
         }
     }

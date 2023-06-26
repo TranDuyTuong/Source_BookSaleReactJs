@@ -1,0 +1,12 @@
+D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\ConfigurationInterfaces\bin\Debug\net5.0\ConfigurationInterfaces.deps.json
+D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\ConfigurationInterfaces\bin\Debug\net5.0\ConfigurationInterfaces.dll
+D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\ConfigurationInterfaces\bin\Debug\net5.0\ConfigurationInterfaces.pdb
+D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\ConfigurationInterfaces\obj\Debug\net5.0\ConfigurationInterfaces.csproj.AssemblyReference.cache
+D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\ConfigurationInterfaces\obj\Debug\net5.0\ConfigurationInterfaces.GeneratedMSBuildEditorConfig.editorconfig
+D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\ConfigurationInterfaces\obj\Debug\net5.0\ConfigurationInterfaces.AssemblyInfoInputs.cache
+D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\ConfigurationInterfaces\obj\Debug\net5.0\ConfigurationInterfaces.AssemblyInfo.cs
+D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\ConfigurationInterfaces\obj\Debug\net5.0\ConfigurationInterfaces.csproj.CoreCompileInputs.cache
+D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\ConfigurationInterfaces\obj\Debug\net5.0\ConfigurationInterfaces.dll
+D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\ConfigurationInterfaces\obj\Debug\net5.0\refint\ConfigurationInterfaces.dll
+D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\ConfigurationInterfaces\obj\Debug\net5.0\ConfigurationInterfaces.pdb
+D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\ConfigurationInterfaces\obj\Debug\net5.0\ref\ConfigurationInterfaces.dll

@@ -30,7 +30,6 @@ namespace TDTConfigurationTable
             builder.Property(x => x.FeelLever).IsRequired(true);
             builder.Property(x => x.LastUpdateDate).IsRequired(false);
             builder.Property(x => x.IsDeleteFlag).IsRequired(true);
-            throw new NotImplementedException();
         }
     }
 }

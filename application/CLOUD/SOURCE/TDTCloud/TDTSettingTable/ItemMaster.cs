@@ -38,7 +38,7 @@ namespace TDTSettingTable
         /// <summary>
         /// ApplyDate
         /// </summary>
-        public DateTime ApplyDate
+        public DateTime? ApplyDate
         {
             get;
             set;
@@ -83,7 +83,7 @@ namespace TDTSettingTable
         /// <summary>
         /// PercentDiscount
         /// </summary>
-        public int PercentDiscount
+        public int? PercentDiscount
         {
             get;
             set;

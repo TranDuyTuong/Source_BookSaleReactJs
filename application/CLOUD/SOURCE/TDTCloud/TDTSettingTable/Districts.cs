@@ -56,7 +56,7 @@ namespace TDTSettingTable
         /// <summary>
         /// PriceShip
         /// </summary>
-        public decimal PriceShip
+        public decimal? PriceShip
         {
             get;
             set;
@@ -65,7 +65,7 @@ namespace TDTSettingTable
         /// <summary>
         /// ApplyDate
         /// </summary>
-        public DateTime ApplyDate
+        public DateTime? ApplyDate
         {
             get;
             set;
@@ -74,7 +74,7 @@ namespace TDTSettingTable
         /// <summary>
         /// PriceShipNew
         /// </summary>
-        public decimal PriceShipNew
+        public decimal? PriceShipNew
         {
             get;
             set;

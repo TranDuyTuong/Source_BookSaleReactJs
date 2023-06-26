@@ -29,7 +29,7 @@ namespace TDTConfigurationTable
             builder.Property(x => x.Description).HasMaxLength(100);
             builder.Property(x => x.Description).HasColumnType("Nvarchar(100)");
 
-            builder.Property(x => x.DateCreate).IsRequired(false);
+            builder.Property(x => x.DateCreate).IsRequired(true);
 
             builder.Property(x => x.UserID).IsRequired(true);
 
