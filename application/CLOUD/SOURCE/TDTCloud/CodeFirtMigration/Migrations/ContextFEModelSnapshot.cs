@@ -668,21 +668,21 @@ namespace CodeFirtMigration.Migrations
                         new
                         {
                             GenderID = "0001",
-                            CreateDate = new DateTime(2023, 6, 26, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreateDate = new DateTime(2023, 6, 27, 0, 0, 0, 0, DateTimeKind.Local),
                             Description = "Nam",
                             IsDeleteFlag = false
                         },
                         new
                         {
                             GenderID = "0002",
-                            CreateDate = new DateTime(2023, 6, 26, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreateDate = new DateTime(2023, 6, 27, 0, 0, 0, 0, DateTimeKind.Local),
                             Description = "Nữ",
                             IsDeleteFlag = false
                         },
                         new
                         {
                             GenderID = "0003",
-                            CreateDate = new DateTime(2023, 6, 26, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreateDate = new DateTime(2023, 6, 27, 0, 0, 0, 0, DateTimeKind.Local),
                             Description = "Chưa rỏ",
                             IsDeleteFlag = false
                         });
@@ -1019,21 +1019,21 @@ namespace CodeFirtMigration.Migrations
                         new
                         {
                             MarriageID = "0001",
-                            CreateDate = new DateTime(2023, 6, 26, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreateDate = new DateTime(2023, 6, 27, 0, 0, 0, 0, DateTimeKind.Local),
                             Description = "Độc thân",
                             IsDeleteFlag = false
                         },
                         new
                         {
                             MarriageID = "0002",
-                            CreateDate = new DateTime(2023, 6, 26, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreateDate = new DateTime(2023, 6, 27, 0, 0, 0, 0, DateTimeKind.Local),
                             Description = "Đã kết hôn",
                             IsDeleteFlag = false
                         },
                         new
                         {
                             MarriageID = "0003",
-                            CreateDate = new DateTime(2023, 6, 26, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreateDate = new DateTime(2023, 6, 27, 0, 0, 0, 0, DateTimeKind.Local),
                             Description = "Đã ly dị",
                             IsDeleteFlag = false
                         });
@@ -1583,6 +1583,18 @@ namespace CodeFirtMigration.Migrations
                     b.HasKey("RoleID");
 
                     b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            RoleID = "0000Admin",
+                            ConcurrencyStamp = "ef69f884-db09-45e7-9570-86e9fecdec10",
+                            DateCreate = new DateTime(2023, 6, 27, 0, 0, 0, 0, DateTimeKind.Local),
+                            Description = "Administrator",
+                            Id = new Guid("cde6664e-f48a-43af-bbe8-93e90e32c193"),
+                            IsDeleteFlag = false,
+                            UserID = "05032000"
+                        });
                 });
 
             modelBuilder.Entity("TDTSettingTable.SatisfactionLevel", b =>
@@ -1693,21 +1705,21 @@ namespace CodeFirtMigration.Migrations
                         new
                         {
                             TypeAddressID = "0001",
-                            DateTimeCreate = new DateTime(2023, 6, 26, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateTimeCreate = new DateTime(2023, 6, 27, 0, 0, 0, 0, DateTimeKind.Local),
                             Description = "Nhà riêng",
                             IsDeleteFlag = false
                         },
                         new
                         {
                             TypeAddressID = "0002",
-                            DateTimeCreate = new DateTime(2023, 6, 26, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateTimeCreate = new DateTime(2023, 6, 27, 0, 0, 0, 0, DateTimeKind.Local),
                             Description = "Văn phòng",
                             IsDeleteFlag = false
                         },
                         new
                         {
                             TypeAddressID = "0003",
-                            DateTimeCreate = new DateTime(2023, 6, 26, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateTimeCreate = new DateTime(2023, 6, 27, 0, 0, 0, 0, DateTimeKind.Local),
                             Description = "Công ty",
                             IsDeleteFlag = false
                         });
@@ -1786,6 +1798,26 @@ namespace CodeFirtMigration.Migrations
                     b.HasKey("UserID");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            UserID = "05032000",
+                            AddressCurent = " Đường Bùi Thị Xuân, phường 13, quận Tân Bình, Tp.HCM",
+                            Birthday = new DateTime(2000, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CityID = "0001",
+                            DateCreate = "6/27/2023 12:00:00 AM",
+                            DetailAddress = "Khu 13, xã Long Đức, huyện Long Thành, tỉnh Đồng Nai",
+                            DistrictID = "0001",
+                            Email = "duytuong0503@gmail.com",
+                            FistName = "Trần Duy",
+                            GenderID = "0001",
+                            IsDeleteFlag = false,
+                            LastName = "Tường",
+                            MarriageID = "0001",
+                            Phone = "0335520146",
+                            level = "Trình độ đại học, chuyên ngành CNTT"
+                        });
                 });
 
             modelBuilder.Entity("TDTSettingTable.UserAccount", b =>
@@ -1856,6 +1888,25 @@ namespace CodeFirtMigration.Migrations
                     b.HasKey("UserID");
 
                     b.ToTable("UserAccounts");
+
+                    b.HasData(
+                        new
+                        {
+                            UserID = "05032000",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "c01b191a-9747-43b7-95c3-562dc4158559",
+                            DateCreate = new DateTime(2023, 6, 27, 0, 0, 0, 0, DateTimeKind.Local),
+                            Email = "duytuong0503@gmail.com",
+                            EmailConfirmed = true,
+                            Id = new Guid("7d10d6e7-fcbd-469a-aaa4-744ab5ce65aa"),
+                            IsActiver = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAEAACcQAAAAECIN5J4riTWLfs8P90DlL0pgjWuDIZNHUUxNK3rLNk+0IInGyYs7Dvrqu8RE8lJlwg==",
+                            PhoneNumberConfirmed = false,
+                            RemmenberAccount = false,
+                            TwoFactorEnabled = false,
+                            UserName = "duytuong0503@gmail.com"
+                        });
                 });
 
             modelBuilder.Entity("TDTSettingTable.UserRole", b =>
@@ -1888,6 +1939,16 @@ namespace CodeFirtMigration.Migrations
                     b.HasKey("UserID");
 
                     b.ToTable("UserRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            UserID = "05032000",
+                            DateCreate = new DateTime(2023, 6, 27, 0, 0, 0, 0, DateTimeKind.Local),
+                            Delegator = "05032000",
+                            IsDeleteFlag = false,
+                            RoleID = "0000Admin"
+                        });
                 });
 #pragma warning restore 612, 618
         }

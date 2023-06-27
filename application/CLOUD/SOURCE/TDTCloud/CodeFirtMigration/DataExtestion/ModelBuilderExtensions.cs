@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -95,6 +96,70 @@ namespace CodeFirtMigration.DataExtestion
                          AreaCode = "10001",
                          Description = "Việt Nam - Tp.Hcm"
                      }
+                );
+
+            // Configuration Data Extensions for table Role
+            modelBuilder.Entity<Role>().HasData(
+                    new Role()
+                    {
+                        RoleID = "0000Admin",
+                        Description = "Administrator",
+                        DateCreate = DateTime.Now.Date,
+                        UserID = "05032000",
+                        IsDeleteFlag = false,
+                        Id = new Guid("CDE6664E-F48A-43AF-BBE8-93E90E32C193")
+                    }
+                );
+
+            // Configuration Data Extensions for table Users
+            modelBuilder.Entity<User>().HasData(
+                    new User()
+                    {
+                        UserID = "05032000",
+                        FistName = "Trần Duy",
+                        LastName = "Tường",
+                        Birthday = new DateTime(2000, 03, 05),
+                        GenderID = "0001",
+                        MarriageID = "0001",
+                        DetailAddress = "Khu 13, xã Long Đức, huyện Long Thành, tỉnh Đồng Nai",
+                        Phone = "0335520146",
+                        Email = "duytuong0503@gmail.com",
+                        DateCreate = DateTime.Now.Date.ToString(),
+                        level = "Trình độ đại học, chuyên ngành CNTT",
+                        AddressCurent = " Đường Bùi Thị Xuân, phường 13, quận Tân Bình, Tp.HCM",
+                        IsDeleteFlag = false,
+                        CityID = "0001",
+                        DistrictID = "0001"
+                    }
+                );
+
+            // Configuration Data Extensions for table UserAccount
+            var hasher = new PasswordHasher<UserAccount>();
+            modelBuilder.Entity<UserAccount>().HasData(
+                    new UserAccount()
+                    {
+                        UserID = "05032000",
+                        DateCreate = DateTime.Now.Date,
+                        RemmenberAccount = false,
+                        IsActiver = false,
+                        Id= new Guid("7D10D6E7-FCBD-469A-AAA4-744AB5CE65AA"),
+                        UserName = "duytuong0503@gmail.com",
+                        Email = "duytuong0503@gmail.com",
+                        EmailConfirmed = true,
+                        PasswordHash = hasher.HashPassword(null, "Tuong123$")
+                    }
+                );
+
+            // Configuraion Data Extensions for table UserRole
+            modelBuilder.Entity<UserRole>().HasData(
+                    new UserRole()
+                    {
+                        UserID = "05032000",
+                        RoleID = "0000Admin",
+                        DateCreate = DateTime.Now.Date,
+                        Delegator = "05032000",
+                        IsDeleteFlag = false
+                    }
                 );
         }
     }

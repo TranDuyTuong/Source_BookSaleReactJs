@@ -2011,10 +2011,22 @@
           "bin/placeholder/CodeFirtMigration.dll": {}
         }
       },
+      "CommonConfiguration/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/CommonConfiguration.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/CommonConfiguration.dll": {}
+        }
+      },
       "ConfigurationApplycations/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
+          "CodeFirtMigration": "1.0.0",
+          "CommonConfiguration": "1.0.0",
           "ConfigurationInterfaces": "1.0.0",
           "ModelConfiguration": "1.0.0"
         },
@@ -2028,6 +2040,9 @@
       "ConfigurationInterfaces/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "ModelConfiguration": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/ConfigurationInterfaces.dll": {}
         },
@@ -6625,6 +6640,11 @@
       "type": "project",
       "path": "../CodeFirtMigration/CodeFirtMigration.csproj",
       "msbuildProject": "../CodeFirtMigration/CodeFirtMigration.csproj"
+    },
+    "CommonConfiguration/1.0.0": {
+      "type": "project",
+      "path": "../CommonConfiguration/CommonConfiguration.csproj",
+      "msbuildProject": "../CommonConfiguration/CommonConfiguration.csproj"
     },
     "ConfigurationApplycations/1.0.0": {
       "type": "project",

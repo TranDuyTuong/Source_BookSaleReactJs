@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net5.0": {}
+    "net5.0": {
+      "ModelConfiguration/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/ModelConfiguration.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ModelConfiguration.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "ModelConfiguration/1.0.0": {
+      "type": "project",
+      "path": "../ModelConfiguration/ModelConfiguration.csproj",
+      "msbuildProject": "../ModelConfiguration/ModelConfiguration.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net5.0": []
+    "net5.0": [
+      "ModelConfiguration >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\duytu\\.nuget\\packages\\": {}
@@ -33,7 +52,11 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\ModelConfiguration\\ModelConfiguration.csproj": {
+              "projectPath": "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\ModelConfiguration\\ModelConfiguration.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

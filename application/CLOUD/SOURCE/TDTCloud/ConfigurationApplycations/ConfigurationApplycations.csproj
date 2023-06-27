@@ -5,6 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CodeFirtMigration\CodeFirtMigration.csproj" />
+    <ProjectReference Include="..\CommonConfiguration\CommonConfiguration.csproj" />
     <ProjectReference Include="..\ConfigurationInterfaces\ConfigurationInterfaces.csproj" />
     <ProjectReference Include="..\ModelConfiguration\ModelConfiguration.csproj" />
   </ItemGroup>
