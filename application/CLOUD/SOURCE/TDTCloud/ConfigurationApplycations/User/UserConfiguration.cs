@@ -1,12 +1,15 @@
 ﻿using CodeFirtMigration.DataFE;
 using CommonConfiguration.UserCommon;
 using ConfigurationInterfaces.User;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using ModelConfiguration.M_Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TDTSettingTable;
 
 namespace ConfigurationApplycations.User
 {
@@ -14,14 +17,18 @@ namespace ConfigurationApplycations.User
     {
 
         private readonly ContextFE context;
+        private readonly UserManager<UserAccount> userManager;
+        private readonly SignInManager<UserAccount> signInManager;
 
         /// <summary>
         /// Connection DBSet 
         /// </summary>
         /// <param name="_context"></param>
-        public UserConfiguration(ContextFE _context)
+        public UserConfiguration(ContextFE _context, UserManager<UserAccount> _userManager, SignInManager<UserAccount> _signInManager)
         {
             this.context = _context;
+            this.userManager = _userManager;
+            this.signInManager = _signInManager;
         }
 
         /// <summary>
@@ -38,11 +45,45 @@ namespace ConfigurationApplycations.User
             {
                 result.Status = false;
                 result.Token = null;
-                result.Message = "Login Fail";
+                result.Message = CommonConfiguration.DataCommon.IncorrectPassword;
             }
             else
             {
+                // Check Email in DB
+                var checkEmail = await this.userManager.FindByEmailAsync(request.Email);
+                if(checkEmail == null)
+                {
+                    result.Status = false;
+                    result.Token = null;
+                    result.Message = CommonConfiguration.DataCommon.NotFindEmail;
+                }
+                else
+                {
+                    // Check Account have block
+                    var checkLockAccount = await this.context.userAccounts.Where(x => x.Email == checkEmail.Email && x.IsActiver == true).ToArrayAsync();
+                    if(checkLockAccount.Any() == true)
+                    {
+                        result.Status = false;
+                        result.Token = null;
+                        result.Message = CommonConfiguration.DataCommon.LockAccount;
+                    }
+                    else
+                    {
+                        // Check Password Login
+                        var signAccount = await this.signInManager.PasswordSignInAsync(checkEmail, request.Password, true, true);
+                        if(signAccount.Succeeded == false)
+                        {
+                            result.Status = false;
+                            result.Token = null;
+                            result.Message = CommonConfiguration.DataCommon.LoginFail;
+                        }
+                        else
+                        {
+                            // Login Success, create Token
 
+                        }
+                    }
+                }
             }
             return result;
         }

@@ -24,5 +24,26 @@ namespace CommonConfiguration
         /// </summary>
         public static Regex StringRegex = new Regex("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
 
+        /// <summary>
+        /// NotFindEmail
+        /// </summary>
+        public static string NotFindEmail = "000_1";
+
+        /// <summary>
+        /// IncorrectPassword
+        /// </summary>
+        public static string IncorrectPassword = "000_2";
+
+        /// <summary>
+        /// LockAccount
+        /// </summary>
+        public static string LockAccount = "000_3";
+
+        /// <summary>
+        /// LoginFail
+        /// </summary>
+        public static string LoginFail = "000_4";
+
+
     }
 }
