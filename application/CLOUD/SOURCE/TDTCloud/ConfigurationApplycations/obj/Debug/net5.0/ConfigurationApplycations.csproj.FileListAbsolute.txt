@@ -40,3 +40,11 @@ D:\Project\v_5\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\Configur
 D:\Project\v_5\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\ConfigurationApplycations\obj\Debug\net5.0\ConfigurationApplycations.dll
 D:\Project\v_5\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\ConfigurationApplycations\obj\Debug\net5.0\ref\ConfigurationApplycations.dll
 D:\Project\v_5\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\ConfigurationApplycations\obj\Debug\net5.0\ConfigurationApplycations.pdb
+D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\ConfigurationApplycations\bin\Debug\net5.0\CodeFirtMigration.dll
+D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\ConfigurationApplycations\bin\Debug\net5.0\CommonConfiguration.dll
+D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\ConfigurationApplycations\bin\Debug\net5.0\TDTConfigurationTable.dll
+D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\ConfigurationApplycations\bin\Debug\net5.0\TDTSettingTable.dll
+D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\ConfigurationApplycations\bin\Debug\net5.0\CodeFirtMigration.pdb
+D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\ConfigurationApplycations\bin\Debug\net5.0\CommonConfiguration.pdb
+D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\ConfigurationApplycations\bin\Debug\net5.0\TDTConfigurationTable.pdb
+D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\ConfigurationApplycations\bin\Debug\net5.0\TDTSettingTable.pdb

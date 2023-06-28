@@ -44,6 +44,11 @@ namespace CommonConfiguration
         /// </summary>
         public static string LoginFail = "000_4";
 
+        /// <summary>
+        /// LoginSuccess
+        /// </summary>
+        public static string LoginSuccess = "000_5";
+
 
     }
 }
