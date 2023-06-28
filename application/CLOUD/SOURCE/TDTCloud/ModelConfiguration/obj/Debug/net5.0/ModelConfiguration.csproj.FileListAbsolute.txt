@@ -10,3 +10,15 @@ D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\CLOUD\SOU
 D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\ModelConfiguration\obj\Debug\net5.0\refint\ModelConfiguration.dll
 D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\ModelConfiguration\obj\Debug\net5.0\ModelConfiguration.pdb
 D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\ModelConfiguration\obj\Debug\net5.0\ref\ModelConfiguration.dll
+D:\Project\v_5\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\ModelConfiguration\bin\Debug\net5.0\ModelConfiguration.deps.json
+D:\Project\v_5\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\ModelConfiguration\bin\Debug\net5.0\ModelConfiguration.dll
+D:\Project\v_5\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\ModelConfiguration\bin\Debug\net5.0\ref\ModelConfiguration.dll
+D:\Project\v_5\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\ModelConfiguration\bin\Debug\net5.0\ModelConfiguration.pdb
+D:\Project\v_5\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\ModelConfiguration\obj\Debug\net5.0\ModelConfiguration.csproj.AssemblyReference.cache
+D:\Project\v_5\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\ModelConfiguration\obj\Debug\net5.0\ModelConfiguration.GeneratedMSBuildEditorConfig.editorconfig
+D:\Project\v_5\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\ModelConfiguration\obj\Debug\net5.0\ModelConfiguration.AssemblyInfoInputs.cache
+D:\Project\v_5\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\ModelConfiguration\obj\Debug\net5.0\ModelConfiguration.AssemblyInfo.cs
+D:\Project\v_5\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\ModelConfiguration\obj\Debug\net5.0\ModelConfiguration.csproj.CoreCompileInputs.cache
+D:\Project\v_5\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\ModelConfiguration\obj\Debug\net5.0\ModelConfiguration.dll
+D:\Project\v_5\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\ModelConfiguration\obj\Debug\net5.0\ref\ModelConfiguration.dll
+D:\Project\v_5\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\ModelConfiguration\obj\Debug\net5.0\ModelConfiguration.pdb

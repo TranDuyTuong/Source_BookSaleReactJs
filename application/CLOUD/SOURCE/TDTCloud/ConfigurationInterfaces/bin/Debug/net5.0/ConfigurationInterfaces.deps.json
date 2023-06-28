@@ -7,14 +7,27 @@
   "targets": {
     ".NETCoreApp,Version=v5.0": {
       "ConfigurationInterfaces/1.0.0": {
+        "dependencies": {
+          "ModelConfiguration": "1.0.0"
+        },
         "runtime": {
           "ConfigurationInterfaces.dll": {}
+        }
+      },
+      "ModelConfiguration/1.0.0": {
+        "runtime": {
+          "ModelConfiguration.dll": {}
         }
       }
     }
   },
   "libraries": {
     "ConfigurationInterfaces/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ModelConfiguration/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -1,0 +1,12 @@
+D:\Project\v_5\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\CommonConfiguration\bin\Debug\net5.0\CommonConfiguration.deps.json
+D:\Project\v_5\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\CommonConfiguration\bin\Debug\net5.0\CommonConfiguration.dll
+D:\Project\v_5\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\CommonConfiguration\bin\Debug\net5.0\ref\CommonConfiguration.dll
+D:\Project\v_5\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\CommonConfiguration\bin\Debug\net5.0\CommonConfiguration.pdb
+D:\Project\v_5\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\CommonConfiguration\obj\Debug\net5.0\CommonConfiguration.csproj.AssemblyReference.cache
+D:\Project\v_5\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\CommonConfiguration\obj\Debug\net5.0\CommonConfiguration.GeneratedMSBuildEditorConfig.editorconfig
+D:\Project\v_5\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\CommonConfiguration\obj\Debug\net5.0\CommonConfiguration.AssemblyInfoInputs.cache
+D:\Project\v_5\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\CommonConfiguration\obj\Debug\net5.0\CommonConfiguration.AssemblyInfo.cs
+D:\Project\v_5\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\CommonConfiguration\obj\Debug\net5.0\CommonConfiguration.csproj.CoreCompileInputs.cache
+D:\Project\v_5\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\CommonConfiguration\obj\Debug\net5.0\CommonConfiguration.dll
+D:\Project\v_5\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\CommonConfiguration\obj\Debug\net5.0\ref\CommonConfiguration.dll
+D:\Project\v_5\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\CommonConfiguration\obj\Debug\net5.0\CommonConfiguration.pdb

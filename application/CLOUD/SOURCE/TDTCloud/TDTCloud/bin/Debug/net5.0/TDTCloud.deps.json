@@ -1417,8 +1417,18 @@
           "CodeFirtMigration.dll": {}
         }
       },
+      "CommonConfiguration/1.0.0": {
+        "runtime": {
+          "CommonConfiguration.dll": {}
+        },
+        "compile": {
+          "CommonConfiguration.dll": {}
+        }
+      },
       "ConfigurationApplycations/1.0.0": {
         "dependencies": {
+          "CodeFirtMigration": "1.0.0",
+          "CommonConfiguration": "1.0.0",
           "ConfigurationInterfaces": "1.0.0",
           "ModelConfiguration": "1.0.0"
         },
@@ -1430,6 +1440,9 @@
         }
       },
       "ConfigurationInterfaces/1.0.0": {
+        "dependencies": {
+          "ModelConfiguration": "1.0.0"
+        },
         "runtime": {
           "ConfigurationInterfaces.dll": {}
         },
@@ -3965,6 +3978,11 @@
       "hashPath": "system.xml.xmlserializer.4.3.0.nupkg.sha512"
     },
     "CodeFirtMigration/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "CommonConfiguration/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
