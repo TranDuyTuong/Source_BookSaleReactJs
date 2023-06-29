@@ -146,7 +146,8 @@ namespace CodeFirtMigration.DataExtestion
                         UserName = "duytuong0503@gmail.com",
                         Email = "duytuong0503@gmail.com",
                         EmailConfirmed = true,
-                        PasswordHash = hasher.HashPassword(null, "Tuong123$")
+                        PasswordHash = hasher.HashPassword(null, "Tuong123$"),
+                        SecurityStamp = "ORCXRTJM2OU6MN2TASFSQX4R5K3TFVRH"
                     }
                 );
 
