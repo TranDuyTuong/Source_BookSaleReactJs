@@ -119,7 +119,11 @@
         "frameworks": {
           "net5.0": {
             "targetAlias": "net5.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\ModelConfiguration\\ModelConfiguration.csproj": {
+                "projectPath": "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\ModelConfiguration\\ModelConfiguration.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -131,6 +135,12 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -433,6 +443,9 @@
             "projectReferences": {
               "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\CodeFirtMigration\\CodeFirtMigration.csproj": {
                 "projectPath": "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\CodeFirtMigration\\CodeFirtMigration.csproj"
+              },
+              "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\CommonConfiguration\\CommonConfiguration.csproj": {
+                "projectPath": "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\CommonConfiguration\\CommonConfiguration.csproj"
               },
               "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\DI\\DI.csproj": {
                 "projectPath": "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\DI\\DI.csproj"

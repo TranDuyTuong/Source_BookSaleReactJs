@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CodeFirtMigration\CodeFirtMigration.csproj" />
+    <ProjectReference Include="..\CommonConfiguration\CommonConfiguration.csproj" />
     <ProjectReference Include="..\DI\DI.csproj" />
     <ProjectReference Include="..\ModelConfiguration\ModelConfiguration.csproj" />
   </ItemGroup>

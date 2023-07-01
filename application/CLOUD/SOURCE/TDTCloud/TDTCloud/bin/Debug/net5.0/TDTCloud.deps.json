@@ -34,6 +34,7 @@
       "TDTCloud/1.0.0": {
         "dependencies": {
           "CodeFirtMigration": "1.0.0",
+          "CommonConfiguration": "1.0.0",
           "DI": "1.0.0",
           "ModelConfiguration": "1.0.0",
           "Swashbuckle.AspNetCore": "5.6.3",
@@ -1552,6 +1553,10 @@
         }
       },
       "CommonConfiguration/1.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Json": "5.0.0",
+          "ModelConfiguration": "1.0.0"
+        },
         "runtime": {
           "CommonConfiguration.dll": {}
         },

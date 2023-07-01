@@ -2392,6 +2392,10 @@
       "CommonConfiguration/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Json": "5.0.0",
+          "ModelConfiguration": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/CommonConfiguration.dll": {}
         },
@@ -7395,6 +7399,7 @@
   "projectFileDependencyGroups": {
     "net5.0": [
       "CodeFirtMigration >= 1.0.0",
+      "CommonConfiguration >= 1.0.0",
       "DI >= 1.0.0",
       "ModelConfiguration >= 1.0.0",
       "Swashbuckle.AspNetCore >= 5.6.3"
@@ -7429,6 +7434,9 @@
           "projectReferences": {
             "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\CodeFirtMigration\\CodeFirtMigration.csproj": {
               "projectPath": "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\CodeFirtMigration\\CodeFirtMigration.csproj"
+            },
+            "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\CommonConfiguration\\CommonConfiguration.csproj": {
+              "projectPath": "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\CommonConfiguration\\CommonConfiguration.csproj"
             },
             "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\DI\\DI.csproj": {
               "projectPath": "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\DI\\DI.csproj"

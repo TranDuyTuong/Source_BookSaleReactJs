@@ -50,5 +50,22 @@ namespace CommonConfiguration
         public static string LoginSuccess = "000_5";
 
 
+        ///-------------------------------------------Event Code-------------------------------------------------
+        /// <summary>
+        /// EventRegiter
+        /// </summary>
+        public static string EventRegiter = "101";
+
+        /// <summary>
+        /// EventLogin
+        /// </summary>
+        public static string EventLogin = "102";
+
+        /// <summary>
+        /// EventError
+        /// </summary>
+        public static string EventError = "000";
+
+
     }
 }

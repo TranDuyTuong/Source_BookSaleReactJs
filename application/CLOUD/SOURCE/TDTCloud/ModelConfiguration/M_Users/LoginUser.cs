@@ -11,16 +11,33 @@ namespace ModelConfiguration.M_Users
         /// <summary>
         /// Email
         /// </summary>
-        public string Email { get; set; }
+        public string Email { 
+            get; 
+            set; 
+        }
 
         /// <summary>
         /// Password
         /// </summary>
-        public string Password { get; set; }
+        public string Password { 
+            get; 
+            set; 
+        }
 
         /// <summary>
         /// RememberMe
         /// </summary>
-        public bool RememberMe { get; set; }
+        public bool RememberMe { 
+            get; 
+            set; 
+        }
+
+        /// <summary>
+        /// EventCode
+        /// </summary>
+        public string EventCode { 
+            get; 
+            set; 
+        }
     }
 }

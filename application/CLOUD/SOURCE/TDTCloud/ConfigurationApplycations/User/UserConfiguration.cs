@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using ModelConfiguration.M_Common;
 using ModelConfiguration.M_Users;
 using System;
 using System.Collections.Generic;
@@ -176,6 +177,17 @@ namespace ConfigurationApplycations.User
             }
             await this.context.SaveChangesAsync();
             return result;
+        }
+
+        /// <summary>
+        /// RegiterUser
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public Task<ReturnCommonApi> RegiterUser(RegiterUser request)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>

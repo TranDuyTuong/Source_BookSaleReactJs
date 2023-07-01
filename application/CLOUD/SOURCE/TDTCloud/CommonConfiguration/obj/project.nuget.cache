@@ -1,8 +1,17 @@
 {
   "version": 2,
-  "dgSpecHash": "yIOjXa30E6yrkQRQNDV/FyBt1HEQePRBG0vpRhQjw+kQqq451oDwlruaqsgNi9HrD2Yg68glbE5FkTOEF9ZBKg==",
+  "dgSpecHash": "eNeTmEkHrU36g5vCDAk7juODjCHi6VtehRwkH1+osEJVVll0jXegNg+qWt0Kf0/03iKlfeBWi0QdcOaVrQdhKg==",
   "success": true,
   "projectFilePath": "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\CommonConfiguration\\CommonConfiguration.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\duytu\\.nuget\\packages\\microsoft.extensions.configuration\\5.0.0\\microsoft.extensions.configuration.5.0.0.nupkg.sha512",
+    "C:\\Users\\duytu\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\5.0.0\\microsoft.extensions.configuration.abstractions.5.0.0.nupkg.sha512",
+    "C:\\Users\\duytu\\.nuget\\packages\\microsoft.extensions.configuration.fileextensions\\5.0.0\\microsoft.extensions.configuration.fileextensions.5.0.0.nupkg.sha512",
+    "C:\\Users\\duytu\\.nuget\\packages\\microsoft.extensions.configuration.json\\5.0.0\\microsoft.extensions.configuration.json.5.0.0.nupkg.sha512",
+    "C:\\Users\\duytu\\.nuget\\packages\\microsoft.extensions.fileproviders.abstractions\\5.0.0\\microsoft.extensions.fileproviders.abstractions.5.0.0.nupkg.sha512",
+    "C:\\Users\\duytu\\.nuget\\packages\\microsoft.extensions.fileproviders.physical\\5.0.0\\microsoft.extensions.fileproviders.physical.5.0.0.nupkg.sha512",
+    "C:\\Users\\duytu\\.nuget\\packages\\microsoft.extensions.filesystemglobbing\\5.0.0\\microsoft.extensions.filesystemglobbing.5.0.0.nupkg.sha512",
+    "C:\\Users\\duytu\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.0\\microsoft.extensions.primitives.5.0.0.nupkg.sha512"
+  ],
   "logs": []
 }

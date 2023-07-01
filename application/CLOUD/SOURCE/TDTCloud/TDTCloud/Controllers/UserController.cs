@@ -1,5 +1,8 @@
-﻿using ConfigurationInterfaces.User;
+﻿using CommonConfiguration;
+using CommonConfiguration.UserCommon;
+using ConfigurationInterfaces.User;
 using Microsoft.AspNetCore.Mvc;
+using ModelConfiguration.M_Common;
 using ModelConfiguration.M_Users;
 using System.Threading.Tasks;
 
@@ -21,11 +24,37 @@ namespace TDTCloud.Controllers
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost("Login")]
         public async Task<IActionResult> Login(LoginUser request)
         {
-            var result = await this.context.AuthorzirationUser(request);
-            return Ok(result);
+            // Check eventCode
+            var checkEventCode = ValidationEventCode.CheckEventCode(request.EventCode);
+            if (checkEventCode.Status == true) 
+            {
+                var login = await this.context.AuthorzirationUser(request);
+                // converJson
+                var result = ConverToJson<ReturnLoginApi>.ConverObjectToJson(login);
+                return new JsonResult(result);
+            }
+            else
+            {
+                // converJson
+                var result = ConverToJson<ReturnCommonApi>.ConverObjectToJson(checkEventCode);
+                return new JsonResult(checkEventCode);
+            }
         }
+
+        /// <summary>
+        /// Regiter User
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="EventCode"></param>
+        /// <returns></returns>
+        [HttpPost("Regiter")]
+        public async Task<IActionResult> Regiter(RegiterUser request)
+        {
+            return Ok();
+        }
+
     }
 }

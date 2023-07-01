@@ -116,7 +116,6 @@ D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\CLOUD\SOU
 D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\TDTCloud\obj\Debug\net5.0\TDTCloud.AssemblyInfoInputs.cache
 D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\TDTCloud\obj\Debug\net5.0\TDTCloud.AssemblyInfo.cs
 D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\TDTCloud\obj\Debug\net5.0\TDTCloud.csproj.CoreCompileInputs.cache
-D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\TDTCloud\obj\Debug\net5.0\TDTCloud.MvcApplicationPartsAssemblyInfo.cs
 D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\TDTCloud\obj\Debug\net5.0\TDTCloud.MvcApplicationPartsAssemblyInfo.cache
 D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\TDTCloud\obj\Debug\net5.0\scopedcss\bundle\TDTCloud.styles.css
 D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\TDTCloud\obj\Debug\net5.0\staticwebassets\TDTCloud.StaticWebAssets.Manifest.cache
@@ -180,3 +179,4 @@ D:\Project\v_5\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\TDTCloud
 D:\Project\v_5\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\TDTCloud\obj\Debug\net5.0\TDTCloud.csproj.AssemblyReference.cache
 D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\TDTCloud\bin\Debug\net5.0\CommonConfiguration.dll
 D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\TDTCloud\bin\Debug\net5.0\CommonConfiguration.pdb
+D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\TDTCloud\obj\Debug\net5.0\TDTCloud.MvcApplicationPartsAssemblyInfo.cs

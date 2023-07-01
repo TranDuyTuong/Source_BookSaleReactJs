@@ -1,4 +1,5 @@
-﻿using ModelConfiguration.M_Users;
+﻿using ModelConfiguration.M_Common;
+using ModelConfiguration.M_Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +16,12 @@ namespace ConfigurationInterfaces.User
         /// <param name="request"></param>
         /// <returns></returns>
         Task<ReturnLoginApi> AuthorzirationUser(LoginUser request);
+
+        /// <summary>
+        /// RegiterUser
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<ReturnCommonApi> RegiterUser(RegiterUser request);
     }
 }
