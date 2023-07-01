@@ -14,6 +14,12 @@ namespace TXTKikanSystem.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Login
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult Login(string email, string password) {
             return new JsonResult(0);
