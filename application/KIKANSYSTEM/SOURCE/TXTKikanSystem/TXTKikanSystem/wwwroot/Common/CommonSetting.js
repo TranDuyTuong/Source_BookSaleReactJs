@@ -1,4 +1,5 @@
-﻿import { PasswordMin, PasswordMax } from '../Common/CommonDataDefault'
+﻿import { PasswordMin, PasswordMax } from '../Common/CommonDataDefault.js'
+
 // Validation Length password 
 export function LenghtPassword(pasword) {
     var checkLenght = pasword.length;
@@ -6,5 +7,14 @@ export function LenghtPassword(pasword) {
         return true;
     } else {
         return false
+    }
+}
+
+// Validation Email 
+export function NullEmail(email) {
+    if (email == null || email == undefined || email == "") {
+        return false;
+    } else {
+        return true;
     }
 }
