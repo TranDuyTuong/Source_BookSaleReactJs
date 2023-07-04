@@ -42,12 +42,6 @@ $("form").submit(function (e) {
         $("#ErrorMessageRemoveCookies").append(MessageRemoveCookiesFail);
         return;
     } else {
-        var someObj = {
-            Email: email,
-            Password: password,
-            EventCode: EventLogin,
-            RememberMe: true,
-        }
         // Call Api
         $.ajax({
             url: "/SignIn/Login",

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using TXTKikanSystem.ApiConnections.IConnections;
@@ -25,14 +26,15 @@ namespace TXTKikanSystem.ApiConnections.Connections
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public string ApiLoginUser(string request)
+        public async Task<string> ApiLoginUser(string request)
         {
             try {
                 var httpContext = new StringContent(request, Encoding.UTF8, "application/json");
                 HttpClient client = httpClientFactory.CreateClient();
                 client.BaseAddress = new Uri(this.configuration["LocalhostCloud"]);
-                var response = client.PostAsync(CommonApi.CommonUrlDefaultApi.UserLogin_Post, httpContext);
-                return response.ToString();
+                HttpResponseMessage response = await client.PostAsJsonAsync(CommonApi.CommonUrlDefaultApi.UserLogin_Post, request);
+                response.EnsureSuccessStatusCode();
+                return response.Headers.Location.ToString();
             }catch(Exception e)
             {
                 return e.ToString();

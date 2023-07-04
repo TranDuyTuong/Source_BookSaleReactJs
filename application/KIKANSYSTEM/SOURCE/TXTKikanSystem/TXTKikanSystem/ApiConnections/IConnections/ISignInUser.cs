@@ -12,6 +12,6 @@ namespace TXTKikanSystem.ApiConnections.IConnections
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        string ApiLoginUser(string request);
+        Task<string> ApiLoginUser(string request);
     }
 }

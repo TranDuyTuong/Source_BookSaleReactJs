@@ -25,23 +25,24 @@ namespace TDTCloud.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost("Login")]
-        public async Task<IActionResult> Login(LoginUser request)
+        public async Task<IActionResult> Login(string request)
         {
-            // Check eventCode
-            var checkEventCode = ValidationEventCode.CheckEventCode(request.EventCode);
-            if (checkEventCode.Status == true) 
-            {
-                var login = await this.context.AuthorzirationUser(request);
-                // converJson
-                var result = ConverToJson<ReturnLoginApi>.ConverObjectToJson(login);
-                return new JsonResult(result);
-            }
-            else
-            {
-                // converJson
-                var result = ConverToJson<ReturnCommonApi>.ConverObjectToJson(checkEventCode);
-                return new JsonResult(checkEventCode);
-            }
+            //// Check eventCode
+            //var checkEventCode = ValidationEventCode.CheckEventCode(request.EventCode);
+            //if (checkEventCode.Status == true) 
+            //{
+            //    var login = await this.context.AuthorzirationUser(request);
+            //    // converJson
+            //    var result = ConverToJson<ReturnLoginApi>.ConverObjectToJson(login);
+            //    return new JsonResult(result);
+            //}
+            //else
+            //{
+            //    // converJson
+            //    var result = ConverToJson<ReturnCommonApi>.ConverObjectToJson(checkEventCode);
+            //    return new JsonResult(checkEventCode);
+            //}
+            return Ok();
         }
 
         /// <summary>

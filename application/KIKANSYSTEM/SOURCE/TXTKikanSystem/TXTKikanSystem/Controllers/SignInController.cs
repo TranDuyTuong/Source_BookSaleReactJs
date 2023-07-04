@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using TXTKikanSystem.ApiConnections.IConnections;
 using TXTKikanSystem.Models;
 
@@ -30,7 +31,7 @@ namespace TXTKikanSystem.Controllers
         /// <param name="password"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult Login(LoginUser request) {
+        public async Task<IActionResult> Login(LoginUser request) {
 
             var result = new LoginUser()
             {
@@ -42,7 +43,7 @@ namespace TXTKikanSystem.Controllers
             // conver objec to json
             var jsonResult = JsonHeper<LoginUser>.CoverObjectToJson(result);
             // Call Api
-            var resultLogin = this.context.ApiLoginUser(jsonResult);
+            var resultLogin = await this.context.ApiLoginUser(jsonResult);
 
             return new JsonResult(0);
         }
