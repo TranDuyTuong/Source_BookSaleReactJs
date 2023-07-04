@@ -808,3 +808,6 @@ D:\Project\v_5\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSys
 D:\Project\v_5\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\TXTKikanSystem\obj\Debug\net5.0\TXTKikanSystem.genruntimeconfig.cache
 D:\Project\v_5\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\TXTKikanSystem\bin\Debug\net5.0\CommonApi.dll
 D:\Project\v_5\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\TXTKikanSystem\bin\Debug\net5.0\CommonApi.pdb
+D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\TXTKikanSystem\bin\Debug\net5.0\TXTKikanSystem.StaticWebAssets.xml
+D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\TXTKikanSystem\bin\Debug\net5.0\CommonApi.dll
+D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\TXTKikanSystem\bin\Debug\net5.0\CommonApi.pdb

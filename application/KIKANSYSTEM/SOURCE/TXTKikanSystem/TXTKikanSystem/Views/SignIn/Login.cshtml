@@ -13,27 +13,24 @@
             </div>
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                 <h1 style="font-family: initial; text-align: center;">Login TDT Import System</h1>
-                <form asp-action="Login" asp-controller="SignIn">
                     <!-- Email input -->
                     <div class="form-outline mb-4">
                         <input type="email" id="TxtEmail" class="form-control form-control-lg"
-                               placeholder="Nhập vào Email..." name="Email" />
+                               placeholder="Nhập vào Email..."/>
                         <span id="ErrorEmail" style="font-size: 15px;font-family: initial;color: red;font-weight: 600;"></span>
                     </div>
 
                     <!-- Password input -->
                     <div class="form-outline mb-3">
                         <input type="password" id="TxtPassword" class="form-control form-control-lg"
-                               placeholder="Nhập vào mật khẩu..." name="Password" />
+                               placeholder="Nhập vào mật khẩu..."/>
                         <span id="ErrorPassword" style="font-size: 15px;font-family: initial;color: red;font-weight: 600;"></span>
                     </div>
 
                     <div class="text-center text-lg-start mt-4 pt-2">
                         <input type="submit" class="btn btn-primary btn-lg"
-                               style="padding-left: 2.5rem; padding-right: 2.5rem;" value="Đăng Nhập"/>
+                               style="padding-left: 2.5rem; padding-right: 2.5rem;" value="Đăng Nhập" id="Login"/>
                     </div>
-
-                </form>
             </div>
         </div>
     </div>

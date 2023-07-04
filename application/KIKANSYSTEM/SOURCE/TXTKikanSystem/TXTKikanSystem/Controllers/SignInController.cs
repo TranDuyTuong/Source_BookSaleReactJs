@@ -31,21 +31,25 @@ namespace TXTKikanSystem.Controllers
         /// <param name="password"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> Login(LoginUser request) {
+        public async Task<IActionResult> Login(string email, string password)
+        {
+            // Concat string
+            string eventCode = string.Concat(CommonApi.CommonEventCode.FistCode, CommonApi.CommonEventCode.EventLogin);
 
             var result = new LoginUser()
             {
-                Email = request.Email,
-                Password = request.Password,
+                Email = email,
+                Password = password,
                 RememberMe = true,
-                EventCode = CommonApi.CommonEventCode.EventLogin
+                EventCode = eventCode
             };
-            // conver objec to json
+            // conver object to json
             var jsonResult = JsonHeper<LoginUser>.CoverObjectToJson(result);
+
             // Call Api
             var resultLogin = await this.context.ApiLoginUser(jsonResult);
 
-            return new JsonResult(0);
+            return new JsonResult(resultLogin);
         }
 
     }

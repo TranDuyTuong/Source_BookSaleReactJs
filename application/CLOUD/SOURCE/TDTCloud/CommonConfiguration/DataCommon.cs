@@ -49,6 +49,16 @@ namespace CommonConfiguration
         /// </summary>
         public static string LoginSuccess = "000_5";
 
+        /// <summary>
+        /// MessageErrorEvent
+        /// </summary>
+        public static string MessageErrorEvent = "Not Find Event Request, Please Contact Manager";
+
+        /// <summary>
+        /// MessageNullData
+        /// </summary>
+        public static string MessageNullData = "Value Is Null, Please Contact Manager";
+
 
         ///-------------------------------------------Event Code-------------------------------------------------
         /// <summary>

@@ -29,13 +29,13 @@ namespace TXTKikanSystem.ApiConnections.Connections
         public async Task<string> ApiLoginUser(string request)
         {
             try {
-                var httpContext = new StringContent(request, Encoding.UTF8, "application/json");
                 HttpClient client = httpClientFactory.CreateClient();
                 client.BaseAddress = new Uri(this.configuration["LocalhostCloud"]);
                 HttpResponseMessage response = await client.PostAsJsonAsync(CommonApi.CommonUrlDefaultApi.UserLogin_Post, request);
-                response.EnsureSuccessStatusCode();
-                return response.Headers.Location.ToString();
-            }catch(Exception e)
+                var result = await response.Content.ReadAsStringAsync();
+                return result;
+            }
+            catch(Exception e)
             {
                 return e.ToString();
             }

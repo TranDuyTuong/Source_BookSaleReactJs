@@ -25,24 +25,47 @@ namespace TDTCloud.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost("Login")]
-        public async Task<IActionResult> Login(string request)
+        public async Task<IActionResult> Login([FromBody] string request)
         {
-            //// Check eventCode
-            //var checkEventCode = ValidationEventCode.CheckEventCode(request.EventCode);
-            //if (checkEventCode.Status == true) 
-            //{
-            //    var login = await this.context.AuthorzirationUser(request);
-            //    // converJson
-            //    var result = ConverToJson<ReturnLoginApi>.ConverObjectToJson(login);
-            //    return new JsonResult(result);
-            //}
-            //else
-            //{
-            //    // converJson
-            //    var result = ConverToJson<ReturnCommonApi>.ConverObjectToJson(checkEventCode);
-            //    return new JsonResult(checkEventCode);
-            //}
-            return Ok();
+            // Conver Json to Object
+            var dataConver = ConverToJson<LoginUser>.ConverJsonToObject(request);
+            if(dataConver != null)
+            {
+                // Check eventCode
+                var checkEventCode = ValidationEventCode.CheckEventCode(dataConver.EventCode);
+                if (checkEventCode.Status == true)
+                {
+                    // handle login
+                    var login = await this.context.AuthorzirationUser(dataConver);
+
+                    // conver to Json
+                    var result = ConverToJson<ReturnLoginApi>.ConverObjectToJson(login);
+                    return Ok(result);
+                }
+                else
+                {
+                    checkEventCode.Status = false;
+                    checkEventCode.IdPlugin = DataCommon.EventError;
+                    checkEventCode.Message = DataCommon.MessageErrorEvent;
+
+                    // conver to Json
+                    var result = ConverToJson<ReturnCommonApi>.ConverObjectToJson(checkEventCode);
+                    return Ok(result);
+                }
+            }
+            else
+            {
+                var NullData = new ReturnCommonApi()
+                {
+                    Status = false,
+                    IdPlugin = DataCommon.EventError,
+                    Message = DataCommon.MessageNullData,
+                };
+
+                // Conver to Json
+                var result = ConverToJson<ReturnCommonApi>.ConverObjectToJson(NullData);
+                return Ok(result);
+            }
         }
 
         /// <summary>

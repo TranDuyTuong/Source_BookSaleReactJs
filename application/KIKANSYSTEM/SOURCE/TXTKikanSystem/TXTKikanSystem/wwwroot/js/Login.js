@@ -1,7 +1,7 @@
 ﻿import { LenghtPassword, NullEmail, RemoveCookies } from '../Common/CommonSetting.js'
 import { MessageErrorLenght, MessageEmailNull, UserLogin, MessageRemoveCookiesFail } from '../Common/CommonDataDefault.js'
 
-$("form").submit(function (e) {
+$("#Login").click(function () {
     var email = $("#TxtEmail").val();
     var password = $("#TxtPassword").val();
     $("#ErrorPassword").empty();
@@ -15,7 +15,6 @@ $("form").submit(function (e) {
         document.getElementById("TxtEmail").style.border = "2px solid red";
         document.getElementById("TxtEmail").style.background = "yellow";
         $("#ErrorEmail").append(MessageEmailNull);
-        e.preventDefault();
         return;
     } else {
         document.getElementById("TxtEmail").style.border = "1px solid";
@@ -24,12 +23,11 @@ $("form").submit(function (e) {
 
     // Check lenght for password
     var checkLengthPassword = LenghtPassword(password);
-   
+
     if (checkLengthPassword != true) {
         document.getElementById("TxtPassword").style.border = "2px solid red";
         document.getElementById("TxtPassword").style.background = "yellow";
         $("#ErrorPassword").append(MessageErrorLenght);
-        e.preventDefault();
         return;
     } else {
         document.getElementById("TxtEmail").style.border = "1px solid";
@@ -46,14 +44,12 @@ $("form").submit(function (e) {
         $.ajax({
             url: "/SignIn/Login",
             type: "post",
-            data: JSON.stringify({
-                Email: email,
-                Password: password,
-                RememberMe: true,
-            }),
-            dataType: "json",
+            data: {
+                email: email,
+                password: password
+            },
             success: function (result) {
-
+                console.log(result);
             }
         })
     }

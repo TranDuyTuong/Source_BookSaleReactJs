@@ -9,6 +9,11 @@ namespace CommonApi
     public static class CommonEventCode
     {
         /// <summary>
+        /// FistCode
+        /// </summary>
+        public static string FistCode = "000_";
+
+        /// <summary>
         /// EventLogin
         /// </summary>
         public static string EventLogin = "102";
