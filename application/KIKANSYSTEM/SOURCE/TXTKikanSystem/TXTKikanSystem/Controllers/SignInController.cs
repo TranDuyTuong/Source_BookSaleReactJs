@@ -1,9 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TXTKikanSystem.ApiConnections.IConnections;
+using TXTKikanSystem.Models;
 
 namespace TXTKikanSystem.Controllers
 {
     public class SignInController : Controller
     {
+        private readonly ISignInUser context;
+
+        public SignInController(ISignInUser _context)
+        {
+            this.context = _context;
+        }
+
         /// <summary>
         /// Login KikanSystem
         /// </summary>
@@ -21,7 +30,20 @@ namespace TXTKikanSystem.Controllers
         /// <param name="password"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult Login(string email, string password) {
+        public IActionResult Login(LoginUser request) {
+
+            var result = new LoginUser()
+            {
+                Email = request.Email,
+                Password = request.Password,
+                RememberMe = true,
+                EventCode = CommonApi.CommonEventCode.EventLogin
+            };
+            // conver objec to json
+            var jsonResult = JsonHeper<LoginUser>.CoverObjectToJson(result);
+            // Call Api
+            var resultLogin = this.context.ApiLoginUser(jsonResult);
+
             return new JsonResult(0);
         }
 

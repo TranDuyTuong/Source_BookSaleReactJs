@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TXTKikanSystem.ApiConnections.Connections;
+using TXTKikanSystem.ApiConnections.IConnections;
 
 namespace TXTKikanSystem
 {
@@ -23,6 +25,12 @@ namespace TXTKikanSystem
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Configuration Call Api
+            services.AddHttpClient();
+            
+            // DI Service
+            services.AddTransient<ISignInUser, SignInUser>();
+
             //RazorRunTime
             services.AddRazorPages().AddRazorRuntimeCompilation();
 

@@ -25,3 +25,6 @@ D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\CLOUD\SOU
 D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\CommonConfiguration\bin\Debug\net5.0\ModelConfiguration.dll
 D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\CommonConfiguration\bin\Debug\net5.0\ModelConfiguration.pdb
 D:\Development_Project\Dev_ShopBook\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\CommonConfiguration\obj\Debug\net5.0\CommonConfiguration.csproj.CopyComplete
+D:\Project\v_5\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\CommonConfiguration\bin\Debug\net5.0\ModelConfiguration.dll
+D:\Project\v_5\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\CommonConfiguration\bin\Debug\net5.0\ModelConfiguration.pdb
+D:\Project\v_5\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\CommonConfiguration\obj\Debug\net5.0\CommonConfiguration.csproj.CopyComplete

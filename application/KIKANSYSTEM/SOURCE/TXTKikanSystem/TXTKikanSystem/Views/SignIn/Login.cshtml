@@ -5,30 +5,32 @@
 }
 <section class="vh-100">
     <div class="container-fluid h-custom">
+        <span style="color: red; font-family: initial; font-weight: 600" id="ErrorMessageRemoveCookies"></span>
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-md-9 col-lg-6 col-xl-5">
                 <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
                      class="img-fluid" alt="Sample image">
             </div>
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                <form>
+                <h1 style="font-family: initial; text-align: center;">Login TDT Import System</h1>
+                <form id="SubmitLogin" asp-action="Login" asp-controller="SignIn">
                     <!-- Email input -->
                     <div class="form-outline mb-4">
                         <input type="email" id="TxtEmail" class="form-control form-control-lg"
-                               placeholder="Nhập vào Email..." />
+                               placeholder="Nhập vào Email..." name="Email" />
                         <span id="ErrorEmail" style="font-size: 15px;font-family: initial;color: red;font-weight: 600;"></span>
                     </div>
 
                     <!-- Password input -->
                     <div class="form-outline mb-3">
                         <input type="password" id="TxtPassword" class="form-control form-control-lg"
-                               placeholder="Nhập vào mật khẩu..." />
+                               placeholder="Nhập vào mật khẩu..." name="Password" />
                         <span id="ErrorPassword" style="font-size: 15px;font-family: initial;color: red;font-weight: 600;"></span>
                     </div>
 
                     <div class="text-center text-lg-start mt-4 pt-2">
                         <input type="submit" class="btn btn-primary btn-lg"
-                               style="padding-left: 2.5rem; padding-right: 2.5rem;" value="Đăng Nhập">
+                               style="padding-left: 2.5rem; padding-right: 2.5rem;" value="Đăng Nhập"/>
                     </div>
 
                 </form>
@@ -38,7 +40,7 @@
     <div class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
         <!-- Copyright -->
         <div class="text-white mb-3 mb-md-0">
-            TXT System
+            TDT Import System 2023
         </div>
         <!-- Copyright -->
     </div>

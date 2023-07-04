@@ -9,3 +9,10 @@ export let MessageErrorLenght = "Password greater than 6 and less than 10";
 
 // MessageErrorEmail null value
 export let MessageEmailNull = "Email not null";
+
+// Cookies Name Login User
+export let UserLogin = "LoginTDTImportKikanSystem";
+
+// Message Remove Cookies Fail
+export let MessageRemoveCookiesFail = ". Remove Cookies Fail, Please Contact Manager";
+
