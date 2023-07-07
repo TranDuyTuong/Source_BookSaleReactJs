@@ -59,6 +59,11 @@ namespace CommonConfiguration
         /// </summary>
         public static string MessageNullData = "Value Is Null, Please Contact Manager";
 
+        /// <summary>
+        /// MessageNullToken
+        /// </summary>
+        public static string MessageNullToken = "Token Is Null, Please Contact Manager";
+
 
         ///-------------------------------------------Event Code-------------------------------------------------
         /// <summary>

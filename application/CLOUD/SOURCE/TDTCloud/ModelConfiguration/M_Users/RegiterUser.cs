@@ -160,5 +160,14 @@ namespace ModelConfiguration.M_Users
             get;
             set;
         }
+
+        /// <summary>
+        /// Token
+        /// </summary>
+        public string Token
+        {
+            get;
+            set;
+        }
     }
 }
