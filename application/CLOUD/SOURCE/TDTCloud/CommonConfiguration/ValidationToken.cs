@@ -1,4 +1,5 @@
-﻿using ModelConfiguration.M_Common;
+﻿using ConfigurationInterfaces.DataCommon;
+using ModelConfiguration.M_Common;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -10,12 +11,18 @@ namespace CommonConfiguration
 {
     public class ValidationToken
     {
+        private readonly IContactCommon context;
+        public ValidationToken(IContactCommon _context)
+        {
+            this.context = _context;
+        }
+
         /// <summary>
         /// ReadContentToken
         /// </summary>
         /// <param name="token"></param>
         /// <returns></returns>
-        public ReturnCommonApi ReadContentToken(string token)
+        public ReturnCommonApi ReadContentToken(string token, string eventcode)
         {
             var result = new ReturnCommonApi();
             var handler = new JwtSecurityTokenHandler();
@@ -30,8 +37,9 @@ namespace CommonConfiguration
         /// <param name="roleId"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public bool CheckRoleUser(string roleId, string userId)
+        public bool CheckRoleUser(string roleId, string userId, string eventCode)
         {
+            var result = this.context.ValidationRoleUser(roleId, userId, eventCode);
             return true;
         }
 

@@ -134,6 +134,7 @@ namespace TDTCloud.Controllers
                 var result = ConverToJson<ReturnCommonApi>.ConverObjectToJson(nullData);
                 return Ok(result);
             }
+            return Ok();
         }
 
     }

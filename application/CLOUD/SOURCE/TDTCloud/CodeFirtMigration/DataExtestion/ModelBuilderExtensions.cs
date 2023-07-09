@@ -157,6 +157,7 @@ namespace CodeFirtMigration.DataExtestion
                     {
                         UserID = "05032000",
                         RoleID = "0000Admin",
+                        EventCodeLimit = "101",
                         DateCreate = DateTime.Now.Date,
                         Delegator = "05032000",
                         IsDeleteFlag = false

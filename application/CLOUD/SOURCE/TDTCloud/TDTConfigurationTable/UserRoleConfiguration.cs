@@ -30,6 +30,7 @@ namespace TDTConfigurationTable
             builder.Property(x => x.DateCreate).IsRequired(true);
             builder.Property(x => x.LastUpdateDate).IsRequired(false);
             builder.Property(x => x.Delegator).IsRequired(true);
+            builder.Property(x => x.EventCodeLimit).IsRequired(true);
 
             builder.Property(x => x.ContentLastUpdateDtae).IsRequired(false);
             builder.Property(x => x.ContentLastUpdateDtae).HasMaxLength(250);

@@ -27,6 +27,15 @@ namespace TDTSettingTable
         }
 
         /// <summary>
+        /// EventCodeLimit
+        /// </summary>
+        public string EventCodeLimit
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// DateCreate
         /// </summary>
         public DateTime DateCreate
