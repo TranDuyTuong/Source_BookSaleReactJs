@@ -26,7 +26,33 @@ namespace ConfigurationApplycations.DataCommon
         /// <exception cref="NotImplementedException"></exception>
         public bool ValidationRoleUser(string role, string UserId, string eventCode)
         {
-            throw new NotImplementedException();
+            // check role
+            var getRole = this.context.Roles.Where(x => x.RoleID == role).ToArray();
+
+            if (getRole.Length <= 0) 
+            {
+                return false;
+            }
+
+            var getUser = this.context.userAccounts.FirstOrDefault(x => x.Email == UserId);
+
+            if (getUser == null)
+            {
+                return false;
+            }
+
+            // check user role
+            var checkUserRole = this.context.userRoles.Where(x => x.RoleID == role && 
+                                                                x.UserID == UserId && 
+                                                                    x.EventCodeLimit == eventCode).ToArray();
+            
+            if(checkUserRole.Any()) 
+            { 
+                return true;
+            }
+
+            return false;
+
         }
 
 

@@ -105,6 +105,15 @@ namespace TDTCloud.Controllers
                     else
                     {
                         // Check Content Token
+                        var tokenResult = ValidationToken.ReadContentToken(dataConver.Token, dataConver.EventCode);
+                        if(tokenResult.Status == false)
+                        {
+
+                        }
+                        else
+                        {
+
+                        }
                     }
                 }
                 else

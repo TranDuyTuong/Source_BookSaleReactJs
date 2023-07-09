@@ -64,6 +64,16 @@ namespace CommonConfiguration
         /// </summary>
         public static string MessageNullToken = "Token Is Null, Please Contact Manager";
 
+        /// <summary>
+        /// MessageNullRoleNulUser
+        /// </summary>
+        public static string MessageNullRoleNulUser = "Role Is Null And User Is Null";
+
+        /// <summary>
+        /// MessageRoleUserLimit
+        /// </summary>
+        public static string MessageRoleUserLimit = "User Have Limit Role";
+
 
         ///-------------------------------------------Event Code-------------------------------------------------
         /// <summary>

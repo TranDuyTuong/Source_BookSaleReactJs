@@ -22,12 +22,49 @@ namespace CommonConfiguration
         /// </summary>
         /// <param name="token"></param>
         /// <returns></returns>
-        public ReturnCommonApi ReadContentToken(string token, string eventcode)
+        public static ReturnCommonApi ReadContentToken(string token, string eventcode)
         {
             var result = new ReturnCommonApi();
             var handler = new JwtSecurityTokenHandler();
             var jsonToken = handler.ReadToken(token);
             var tokens = jsonToken as JwtSecurityToken;
+            // check RoleUser Limit by eventCode
+            string roleUser = tokens.Claims.FirstOrDefault(claim => claim.Type == "Role").Value;
+            string userId = tokens.Claims.FirstOrDefault(claim => claim.Type == "Email").Value;
+            string experiedToken = tokens.Claims.FirstOrDefault(claim => claim.Type == "DateOfBirth").Value;
+
+            if(roleUser == null || userId == null || experiedToken == null)
+            {
+                result.Status = false;
+                result.IdPlugin = DataCommon.EventError;
+                result.Message = DataCommon.MessageNullRoleNulUser;
+            }
+            else
+            {
+                bool checkRoleUser = CheckRoleUser(roleUser, userId, eventcode);
+
+                if(checkRoleUser == true) 
+                {
+                    // Have Role User Limit 
+                    result.Status = false;
+                    result.IdPlugin = DataCommon.EventError;
+                    result.Message = DataCommon.MessageRoleUserLimit;
+                }
+                else
+                {
+                    // Check Time Expired
+                    DateTime dateTimeExperied = DateTime.Parse(experiedToken);
+                    bool checkExperiedToken = CheckDateTimeToken(dateTimeExperied);
+                    if(checkExperiedToken == true)
+                    {
+
+                    }
+                    else
+                    {
+
+                    }
+                }
+            }
             return result;
         }
 
@@ -37,10 +74,20 @@ namespace CommonConfiguration
         /// <param name="roleId"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public bool CheckRoleUser(string roleId, string userId, string eventCode)
+        private bool CheckRoleUser(string roleId, string userId, string eventCode)
         {
             var result = this.context.ValidationRoleUser(roleId, userId, eventCode);
-            return true;
+
+            if(result == true)
+            {
+                // Find UserRole limit
+                return true;
+            }
+            else
+            {
+                // Not Find UserRole limit
+                return false;
+            }
         }
 
 
@@ -49,7 +96,7 @@ namespace CommonConfiguration
         /// </summary>
         /// <param name="ExpiredDateTime"></param>
         /// <returns></returns>
-        public bool CheckDateTimeToken(DateTime ExpiredDateTime)
+        private bool CheckDateTimeToken(DateTime ExpiredDateTime)
         {
             return true;
         }

@@ -125,7 +125,7 @@ namespace ConfigurationApplycations.User
                                 new Claim(ClaimTypes.Name, queryUser.FistName + "" + queryUser.LastName),
                                 new Claim(ClaimTypes.Role, queryRole.RoleID),
                                 new Claim(ClaimTypes.Actor, queryRole.Description),
-                                new Claim(ClaimTypes.DateOfBirth, DateTime.Now.ToString())
+                                new Claim(ClaimTypes.DateOfBirth, DateTime.Now.AddMinutes(30).ToString())
                             };
 
                                 // Create Token string
