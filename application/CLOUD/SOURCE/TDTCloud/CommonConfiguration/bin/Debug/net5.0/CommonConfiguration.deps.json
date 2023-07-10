@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v5.0": {
       "CommonConfiguration/1.0.0": {
         "dependencies": {
+          "ConfigurationInterfaces": "1.0.0",
           "Microsoft.Extensions.Configuration.Json": "5.0.0",
           "ModelConfiguration": "1.0.0",
           "Newtonsoft.Json": "13.0.3",
@@ -197,6 +198,14 @@
       },
       "System.Text.Encodings.Web/4.7.2": {},
       "System.Text.Json/4.7.2": {},
+      "ConfigurationInterfaces/1.0.0": {
+        "dependencies": {
+          "ModelConfiguration": "1.0.0"
+        },
+        "runtime": {
+          "ConfigurationInterfaces.dll": {}
+        }
+      },
       "ModelConfiguration/1.0.0": {
         "runtime": {
           "ModelConfiguration.dll": {}
@@ -363,6 +372,11 @@
       "sha512": "sha512-TcMd95wcrubm9nHvJEQs70rC0H/8omiSGGpU4FQ/ZA1URIqD4pjmFJh2Mfv1yH1eHgJDWTi2hMDXwTET+zOOyg==",
       "path": "system.text.json/4.7.2",
       "hashPath": "system.text.json.4.7.2.nupkg.sha512"
+    },
+    "ConfigurationInterfaces/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "ModelConfiguration/1.0.0": {
       "type": "project",

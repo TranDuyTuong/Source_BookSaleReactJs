@@ -1375,6 +1375,7 @@
       },
       "CommonConfiguration/1.0.0": {
         "dependencies": {
+          "ConfigurationInterfaces": "1.0.0",
           "Microsoft.Extensions.Configuration.Json": "5.0.0",
           "ModelConfiguration": "1.0.0",
           "Newtonsoft.Json": "13.0.3",

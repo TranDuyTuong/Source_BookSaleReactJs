@@ -14,7 +14,14 @@ namespace CommonConfiguration
         private readonly IContactCommon context;
         public ValidationToken(IContactCommon _context)
         {
-            this.context = _context;
+            context = _context;
+        }
+
+        /// <summary>
+        /// Contructor
+        /// </summary>
+        public ValidationToken()
+        {
         }
 
         /// <summary>
@@ -22,7 +29,7 @@ namespace CommonConfiguration
         /// </summary>
         /// <param name="token"></param>
         /// <returns></returns>
-        public static ReturnCommonApi ReadContentToken(string token, string eventcode)
+        public ReturnCommonApi ReadContentToken(string token, string eventcode)
         {
             var result = new ReturnCommonApi();
             var handler = new JwtSecurityTokenHandler();
@@ -57,11 +64,14 @@ namespace CommonConfiguration
                     bool checkExperiedToken = CheckDateTimeToken(dateTimeExperied);
                     if(checkExperiedToken == true)
                     {
-
+                        // Token was expire
+                        result.Status = false;
+                        result.IdPlugin = DataCommon.EventError;
+                        result.Message = DataCommon.MessageTokenWasExpire;
                     }
                     else
                     {
-
+                        result.Status = true;
                     }
                 }
             }
@@ -98,7 +108,13 @@ namespace CommonConfiguration
         /// <returns></returns>
         private bool CheckDateTimeToken(DateTime ExpiredDateTime)
         {
-            return true;
+            bool result = false;
+            
+            if(ExpiredDateTime < DateTime.Now)
+            {
+                result = true;
+            }
+            return result;
         }
 
 

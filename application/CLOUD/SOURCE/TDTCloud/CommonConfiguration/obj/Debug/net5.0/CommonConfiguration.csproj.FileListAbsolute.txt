@@ -43,3 +43,5 @@ D:\Dev_Project\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\CommonCo
 D:\Dev_Project\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\CommonConfiguration\obj\Debug\net5.0\refint\CommonConfiguration.dll
 D:\Dev_Project\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\CommonConfiguration\obj\Debug\net5.0\CommonConfiguration.pdb
 D:\Dev_Project\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\CommonConfiguration\obj\Debug\net5.0\ref\CommonConfiguration.dll
+D:\Dev_Project\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\CommonConfiguration\bin\Debug\net5.0\ConfigurationInterfaces.dll
+D:\Dev_Project\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\CommonConfiguration\bin\Debug\net5.0\ConfigurationInterfaces.pdb

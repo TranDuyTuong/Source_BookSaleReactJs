@@ -79,6 +79,7 @@ namespace TDTCloud.Controllers
         [HttpPost("Regiter")]
         public async Task<IActionResult> Regiter([FromBody] string request)
         {
+            string result;
             // Conver Json to Object
             var dataConver = ConverToJson<RegiterUser>.ConverJsonToObject(request);
             if(dataConver != null)
@@ -99,20 +100,23 @@ namespace TDTCloud.Controllers
                         };
 
                         // Conver Object to json
-                        var result = ConverToJson<ReturnCommonApi>.ConverObjectToJson(tokenNull);
-                        return Ok(result);
+                        result = ConverToJson<ReturnCommonApi>.ConverObjectToJson(tokenNull);
                     }
                     else
                     {
                         // Check Content Token
-                        var tokenResult = ValidationToken.ReadContentToken(dataConver.Token, dataConver.EventCode);
+                        var f_CheckValidationToken = new ValidationToken();
+                        var tokenResult = f_CheckValidationToken.ReadContentToken(dataConver.Token, dataConver.EventCode);
                         if(tokenResult.Status == false)
                         {
-
+                            result = ConverToJson<ReturnCommonApi>.ConverObjectToJson(tokenResult);
                         }
                         else
                         {
-
+                            // Regiter To DB
+                            var resultRegiter = await this.context.RegiterUser(dataConver);
+                            // Conver Object to json
+                            result = ConverToJson<ReturnCommonApi>.ConverObjectToJson(resultRegiter);
                         }
                     }
                 }
@@ -126,8 +130,7 @@ namespace TDTCloud.Controllers
                     };
 
                     // Conver Object to Json
-                    var result = ConverToJson<ReturnCommonApi>.ConverObjectToJson(errorEventCode);
-                    return Ok(result);
+                    result = ConverToJson<ReturnCommonApi>.ConverObjectToJson(errorEventCode);
                 }
             }
             else
@@ -140,10 +143,9 @@ namespace TDTCloud.Controllers
                 };
 
                 // Conver Object to Json
-                var result = ConverToJson<ReturnCommonApi>.ConverObjectToJson(nullData);
-                return Ok(result);
+                result = ConverToJson<ReturnCommonApi>.ConverObjectToJson(nullData);
             }
-            return Ok();
+            return Ok(result);
         }
 
     }

@@ -74,6 +74,31 @@ namespace CommonConfiguration
         /// </summary>
         public static string MessageRoleUserLimit = "User Have Limit Role";
 
+        /// <summary>
+        /// MessageTokenWasExpire
+        /// </summary>
+        public static string MessageTokenWasExpire = "Token Was Expire, Please Contact Manager";
+
+        /// <summary>
+        /// MessageNotFindCityDistrict
+        /// </summary>
+        public static string MessageNotFindCityDistrict = "Not Find City Or District You Request, Please Contact Manager";
+
+        /// <summary>
+        /// MessageNotFindGender
+        /// </summary>
+        public static string MessageNotFindGender = "Not Find Gender You Request, Please Contact Manager";
+
+        /// <summary>
+        /// MessageNotFindMarriage
+        /// </summary>
+        public static string MessageNotFindMarriage = "Not Find Marriage You Request, Please Contact Manager";
+
+        /// <summary>
+        /// MessageEmailExist
+        /// </summary>
+        public static string MessageEmailExist = "Email You Requet Was Exist, Please Choose New Email";
+
 
         ///-------------------------------------------Event Code-------------------------------------------------
         /// <summary>

@@ -1,5 +1,6 @@
 ﻿using CodeFirtMigration.DataFE;
 using CommonConfiguration.UserCommon;
+using ConfigurationInterfaces.DataCommon;
 using ConfigurationInterfaces.User;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +26,7 @@ namespace ConfigurationApplycations.User
         private readonly UserManager<UserAccount> userManager;
         private readonly SignInManager<UserAccount> signInManager;
         private readonly IConfiguration configuration;
+        private readonly IContactCommon contactCommon;
 
         /// <summary>
         /// Connection DBSet 
@@ -33,12 +35,14 @@ namespace ConfigurationApplycations.User
         public UserConfiguration(ContextFE _context, 
                                  UserManager<UserAccount> _userManager, 
                                  SignInManager<UserAccount> _signInManager,
-                                 IConfiguration _configuration)
+                                 IConfiguration _configuration,
+                                 IContactCommon _contactCommon)
         {
             this.context = _context;
             this.userManager = _userManager;
             this.signInManager = _signInManager;
             this.configuration = _configuration;
+            this.contactCommon = _contactCommon;
         }
 
         /// <summary>
@@ -185,9 +189,56 @@ namespace ConfigurationApplycations.User
         /// <param name="request"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public Task<ReturnCommonApi> RegiterUser(RegiterUser request)
+        public async Task<ReturnCommonApi> RegiterUser(RegiterUser request)
         {
-            throw new NotImplementedException();
+            var result = new ReturnCommonApi();
+            // Check Common 
+            bool checkCityDistrict = this.contactCommon.ValidationCityDistrict(request.CityID, request.DistrictID);
+
+            if (!checkCityDistrict)
+            {
+                result.Status = false;
+                result.IdPlugin = CommonConfiguration.DataCommon.EventError;
+                result.Message = CommonConfiguration.DataCommon.MessageNotFindCityDistrict;
+            }
+            else
+            {
+                var checkGender = this.contactCommon.ValidationGender(request.GenderID);
+
+                if (!checkGender)
+                {
+                    result.Status = false;
+                    result.IdPlugin = CommonConfiguration.DataCommon.EventError;
+                    result.Message = CommonConfiguration.DataCommon.MessageNotFindCityDistrict;
+                }
+                else
+                {
+                    var checkMarriage = this.contactCommon.ValidationMarriage(request.MarriageID);
+
+                    if (!checkMarriage)
+                    {
+                        result.Status = false;
+                        result.IdPlugin = CommonConfiguration.DataCommon.EventError;
+                        result.Message = CommonConfiguration.DataCommon.MessageNotFindMarriage;
+                    }
+                    else
+                    {
+                        var checkEmail = this.contactCommon.ValidationEmailEmployee(request.Email);
+
+                        if(!checkEmail)
+                        {
+                            result.Status = false;
+                            result.IdPlugin = CommonConfiguration.DataCommon.EventError;
+                            result.Message = CommonConfiguration.DataCommon.MessageEmailExist;
+                        }
+                        else
+                        {
+                            // Regiter User Into System
+                        }
+                    }
+                }
+            }
+            return  result;
         }
 
         /// <summary>
