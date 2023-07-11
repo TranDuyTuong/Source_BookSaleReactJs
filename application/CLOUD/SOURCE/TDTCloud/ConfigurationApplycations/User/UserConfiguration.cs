@@ -192,20 +192,13 @@ namespace ConfigurationApplycations.User
         public async Task<ReturnCommonApi> RegiterUser(RegiterUser request)
         {
             var result = new ReturnCommonApi();
-            // Check Common 
-            bool checkCityDistrict = this.contactCommon.ValidationCityDistrict(request.CityID, request.DistrictID);
-
-            if (!checkCityDistrict)
+            try
             {
-                result.Status = false;
-                result.IdPlugin = CommonConfiguration.DataCommon.EventError;
-                result.Message = CommonConfiguration.DataCommon.MessageNotFindCityDistrict;
-            }
-            else
-            {
-                var checkGender = this.contactCommon.ValidationGender(request.GenderID);
+                // Check Common 
+                // Check City And District
+                bool checkCityDistrict = this.contactCommon.ValidationCityDistrict(request.CityID, request.DistrictID);
 
-                if (!checkGender)
+                if (!checkCityDistrict)
                 {
                     result.Status = false;
                     result.IdPlugin = CommonConfiguration.DataCommon.EventError;
@@ -213,31 +206,160 @@ namespace ConfigurationApplycations.User
                 }
                 else
                 {
-                    var checkMarriage = this.contactCommon.ValidationMarriage(request.MarriageID);
+                    // Check Gender
+                    var checkGender = this.contactCommon.ValidationGender(request.GenderID);
 
-                    if (!checkMarriage)
+                    if (!checkGender)
                     {
                         result.Status = false;
                         result.IdPlugin = CommonConfiguration.DataCommon.EventError;
-                        result.Message = CommonConfiguration.DataCommon.MessageNotFindMarriage;
+                        result.Message = CommonConfiguration.DataCommon.MessageNotFindCityDistrict;
                     }
                     else
                     {
-                        var checkEmail = this.contactCommon.ValidationEmailEmployee(request.Email);
+                        // Check Marriage
+                        var checkMarriage = this.contactCommon.ValidationMarriage(request.MarriageID);
 
-                        if(!checkEmail)
+                        if (!checkMarriage)
                         {
                             result.Status = false;
                             result.IdPlugin = CommonConfiguration.DataCommon.EventError;
-                            result.Message = CommonConfiguration.DataCommon.MessageEmailExist;
+                            result.Message = CommonConfiguration.DataCommon.MessageNotFindMarriage;
                         }
                         else
                         {
-                            // Regiter User Into System
+                            // Check Email And Password Illegal
+                            var validationEmailPassword = ValidationLogin(request.Email, request.Password);
+                            if (!validationEmailPassword)
+                            {
+                                result.Status = false;
+                                result.IdPlugin = CommonConfiguration.DataCommon.EventError;
+                                result.Message = CommonConfiguration.DataCommon.MessageEmailOrPasswordIllegal;
+                            }
+                            else
+                            {
+                                // Check Email have Exist in DB 
+                                var checkEmail = this.contactCommon.ValidationEmailEmployee(request.Email);
+
+                                if (!checkEmail)
+                                {
+                                    result.Status = false;
+                                    result.IdPlugin = CommonConfiguration.DataCommon.EventError;
+                                    result.Message = CommonConfiguration.DataCommon.MessageEmailExist;
+                                }
+                                else
+                                {
+                                    // Regiter User Into System
+                                    int idUser = 0;
+                                    var getUserMaxID = await this.context.users.OrderByDescending(x => x.UserID).FirstOrDefaultAsync();
+                                    if (getUserMaxID != null)
+                                    {
+                                        idUser = Convert.ToInt32(getUserMaxID.UserID) + 1;
+                                    }
+                                    else
+                                    {
+                                        // ID Defaul
+                                        idUser = 000001;
+                                    }
+
+                                    // Create Info Employee
+                                    var regiterEmployee = new TDTSettingTable.User()
+                                    {
+                                        UserID = idUser.ToString(),
+                                        FistName = request.FistName,
+                                        LastName = request.LastName,
+                                        Birthday = request.Birthday,
+                                        GenderID = request.GenderID,
+                                        MarriageID = request.MarriageID,
+                                        DetailAddress = request.DetailAddress,
+                                        Phone = request.Phone,
+                                        Email = request.Email,
+                                        DateCreate = DateTime.Now.ToString(),
+                                        level = request.level,
+                                        AddressCurent = request.AddressCurent,
+                                        IsDeleteFlag = request.IsDeleteFlag,
+                                        CityID = request.CityID,
+                                        DistrictID = request.DistrictID,
+                                    };
+
+                                    // Create Account Employee
+                                    var regiterAccount = new TDTSettingTable.UserAccount()
+                                    {
+                                        UserID = idUser.ToString(),
+                                        DateCreate = DateTime.Now,
+                                        RemmenberAccount = false,
+                                        IsActiver = false,
+                                        Id = new Guid(),
+                                        UserName = request.Email,
+                                        Email = request.Email,
+                                        PhoneNumber = request.Phone,
+                                        EmailConfirmed = true
+                                    };
+
+                                    // Insert Into DB
+                                    var insertEmployee = await this.userManager.CreateAsync(regiterAccount, request.Password);
+
+                                    if (!insertEmployee.Succeeded)
+                                    {
+                                        // Create Fail
+                                        result.Status = false;
+                                        result.IdPlugin = CommonConfiguration.DataCommon.EventError;
+                                        result.Message = CommonConfiguration.DataCommon.MessageRegiterFail;
+
+                                        // Save Log
+                                        var log = new Log()
+                                        {
+                                            Id = new Guid(),
+                                            UserID = request.UserRegieter,
+                                            Message = "Fail: Regiter Employee Fail Email Regiter: " + request.Email + " ,EventCode: " + request.EventCode,
+                                            Status = false,
+                                            DateCreate = DateTime.Now,
+                                        };
+                                        await this.context.logs.AddAsync(log);
+                                    }
+                                    else
+                                    {
+                                        // Create Success
+                                        // Regiter Infomation Employee
+                                        await this.context.users.AddAsync(regiterEmployee);
+                                        result.Status = true;
+                                        result.IdPlugin = CommonConfiguration.DataCommon.EventSuccess;
+                                        result.Message = CommonConfiguration.DataCommon.MessageRegiterSuccess;
+
+                                        // Save Log
+                                        var log = new Log()
+                                        {
+                                            Id = new Guid(),
+                                            UserID = request.UserRegieter,
+                                            Message = "Success: Regiter Employee Success With: " + idUser.ToString() + " Email Regiter: " + request.Email + " ,EventCode: " + request.EventCode,
+                                        };
+                                        await this.context.logs.AddAsync(log);
+                                    }
+
+                                }
+                            }
                         }
                     }
                 }
             }
+            catch(Exception ex)
+            {
+                result.Status = false;
+                result.IdPlugin = CommonConfiguration.DataCommon.EventError;
+                result.Message = ex.Message;
+
+                // Save Log Exception
+                var log = new Log()
+                {
+                    Id = new Guid(),
+                    UserID = request.UserRegieter,
+                    Message = "Exception is: " + ex.Message + " ,EventCode: " + request.EventCode,
+                    DateCreate = DateTime.Now,
+                };
+                await this.context.logs.AddAsync(log);
+            }
+
+            await this.context.SaveChangesAsync();
             return  result;
         }
 

@@ -2237,7 +2237,8 @@
           "CommonConfiguration": "1.0.0",
           "ConfigurationInterfaces": "1.0.0",
           "Microsoft.AspNetCore.Identity": "2.2.0",
-          "ModelConfiguration": "1.0.0"
+          "ModelConfiguration": "1.0.0",
+          "TDTSettingTable": "1.0.0"
         },
         "compile": {
           "bin/placeholder/ConfigurationApplycations.dll": {}

@@ -99,6 +99,20 @@ namespace CommonConfiguration
         /// </summary>
         public static string MessageEmailExist = "Email You Requet Was Exist, Please Choose New Email";
 
+        /// <summary>
+        /// MessageRegiterFail
+        /// </summary>
+        public static string MessageRegiterFail = "Regiter Employee Fail, Please Contact Manager";
+
+        /// <summary>
+        /// MessageRegiterSuccess
+        /// </summary>
+        public static string MessageRegiterSuccess = "Regiter Success, User Can Use Account";
+
+        /// <summary>
+        /// MessageEmailOrPasswordIllegal
+        /// </summary>
+        public static string MessageEmailOrPasswordIllegal = "Email Or Password Illegal, Please Check Again";
 
         ///-------------------------------------------Event Code-------------------------------------------------
         /// <summary>
@@ -115,6 +129,11 @@ namespace CommonConfiguration
         /// EventError
         /// </summary>
         public static string EventError = "000";
+
+        /// <summary>
+        /// EventSuccess
+        /// </summary>
+        public static string EventSuccess = "001";
 
 
     }

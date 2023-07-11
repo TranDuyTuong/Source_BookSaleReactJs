@@ -169,5 +169,6 @@ namespace ModelConfiguration.M_Users
             get;
             set;
         }
+
     }
 }

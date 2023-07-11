@@ -13,6 +13,7 @@
     <ProjectReference Include="..\CommonConfiguration\CommonConfiguration.csproj" />
     <ProjectReference Include="..\ConfigurationInterfaces\ConfigurationInterfaces.csproj" />
     <ProjectReference Include="..\ModelConfiguration\ModelConfiguration.csproj" />
+    <ProjectReference Include="..\TDTSettingTable\TDTSettingTable.csproj" />
   </ItemGroup>
 
 </Project>

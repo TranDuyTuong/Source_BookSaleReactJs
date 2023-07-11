@@ -6858,7 +6858,8 @@
       "CommonConfiguration >= 1.0.0",
       "ConfigurationInterfaces >= 1.0.0",
       "Microsoft.AspNetCore.Identity >= 2.2.0",
-      "ModelConfiguration >= 1.0.0"
+      "ModelConfiguration >= 1.0.0",
+      "TDTSettingTable >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -6899,6 +6900,9 @@
             },
             "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\ModelConfiguration\\ModelConfiguration.csproj": {
               "projectPath": "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\ModelConfiguration\\ModelConfiguration.csproj"
+            },
+            "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTSettingTable\\TDTSettingTable.csproj": {
+              "projectPath": "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTSettingTable\\TDTSettingTable.csproj"
             }
           }
         }
