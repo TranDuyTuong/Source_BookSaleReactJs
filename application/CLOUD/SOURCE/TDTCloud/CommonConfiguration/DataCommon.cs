@@ -114,6 +114,11 @@ namespace CommonConfiguration
         /// </summary>
         public static string MessageEmailOrPasswordIllegal = "Email Or Password Illegal, Please Check Again";
 
+        /// <summary>
+        /// MessageMotFindTypeEmail
+        /// </summary>
+        public static string MessageNotFindTypeEmail = "Not Find Type Email In Sustem, Please Contact Manager";
+
         ///-------------------------------------------Event Code-------------------------------------------------
         /// <summary>
         /// EventRegiter
@@ -135,6 +140,19 @@ namespace CommonConfiguration
         /// </summary>
         public static string EventSuccess = "001";
 
+
+        ///--------------------------------------------Type Email-------------------------------------------------
+        /// <summary>
+        /// TypeRegiter
+        /// </summary>
+        public static int TypeRegiter = 01;
+
+
+        ///--------------------------------------------Title sent Email-------------------------------------------------
+        /// <summary>
+        /// TitleEmailRegiter
+        /// </summary>
+        public static string TitleEmailRegiter = "TDT System Regiter Success";
 
     }
 }

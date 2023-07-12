@@ -334,6 +334,24 @@ namespace ConfigurationApplycations.User
                                             Message = "Success: Regiter Employee Success With: " + idUser.ToString() + " Email Regiter: " + request.Email + " ,EventCode: " + request.EventCode,
                                         };
                                         await this.context.logs.AddAsync(log);
+
+                                        // Sent Email
+                                        var sentMail = new CommonConfiguration.SentEmailCommon.SentEmail();
+                                        bool resultSent = sentMail.SentEmailCommons(this.configuration["Smtp:UserName"],
+                                                                                    this.configuration["Smtp:Password"],
+                                                                                    request.Email,
+                                                                                    CommonConfiguration.DataCommon.TypeRegiter,
+                                                                                    CommonConfiguration.DataCommon.TitleEmailRegiter,
+                                                                                    this.configuration["Smtp:Post"],
+                                                                                    this.configuration["Smtp:Host"],
+                                                                                    request.FistName + request.LastName);
+
+                                        // If sent Email Fail break and not save Infomation User into DB
+                                        if (!resultSent)
+                                        {
+                                            return result;
+                                        }
+
                                     }
 
                                 }
@@ -357,20 +375,6 @@ namespace ConfigurationApplycations.User
                     DateCreate = DateTime.Now,
                 };
                 await this.context.logs.AddAsync(log);
-            }
-
-            // Sent Email
-            var sentMail = new CommonConfiguration.SentEmailCommon.SentEmail();
-
-
-            bool resultSent = sentMail.SentEmailCommons(this.configuration["Smtp:UserName"], this.configuration["Smtp:Password"], );
-            if (!resultSent)
-            {
-
-            }
-            else
-            {
-
             }
             await this.context.SaveChangesAsync();
             return  result;

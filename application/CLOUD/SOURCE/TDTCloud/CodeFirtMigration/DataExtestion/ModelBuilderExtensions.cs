@@ -163,6 +163,23 @@ namespace CodeFirtMigration.DataExtestion
                         IsDeleteFlag = false
                     }
                 );
+
+            // Configuration Data Extensions for table EmailTemplate
+            modelBuilder.Entity<EmailTemplate>().HasData(
+                    new EmailTemplate()
+                    {
+                        ID = new Guid("C0198715-F805-419D-8249-C7851DE721AE"),
+                        TypeCode = "01",
+                        Description = "Email",
+                        DateCreate = DateTime.Now,
+                        IsActiver = false,
+                        TitleBody = "Dear:",
+                        ContentBody = "Wellcome you become a member, system TDT now you can use this account login into system. If have problem you can contact for Manage",
+                        Goodbye = "Wish you a good job",
+                        TemSystem = "TDT SYSTEM WELLCOM",
+                        PhoneContact = "Phone Number: 0335520146"
+                    }
+                );
         }
     }
 }
