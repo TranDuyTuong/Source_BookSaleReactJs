@@ -359,6 +359,19 @@ namespace ConfigurationApplycations.User
                 await this.context.logs.AddAsync(log);
             }
 
+            // Sent Email
+            var sentMail = new CommonConfiguration.SentEmailCommon.SentEmail();
+
+
+            bool resultSent = sentMail.SentEmailCommons(this.configuration["Smtp:UserName"], this.configuration["Smtp:Password"], );
+            if (!resultSent)
+            {
+
+            }
+            else
+            {
+
+            }
             await this.context.SaveChangesAsync();
             return  result;
         }
