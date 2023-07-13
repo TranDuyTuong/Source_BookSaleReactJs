@@ -22,5 +22,6 @@ namespace CommonApi
         /// EventRegiter
         /// </summary>
         public static string EventRegiter = "101";
+
     }
 }

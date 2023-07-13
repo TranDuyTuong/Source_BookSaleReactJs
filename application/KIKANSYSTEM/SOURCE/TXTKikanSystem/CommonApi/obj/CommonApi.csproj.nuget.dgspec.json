@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\CommonApi\\CommonApi.csproj": {}
+    "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\CommonApi\\CommonApi.csproj": {}
   },
   "projects": {
-    "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\CommonApi\\CommonApi.csproj": {
+    "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\CommonApi\\CommonApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\CommonApi\\CommonApi.csproj",
+        "projectUniqueName": "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\CommonApi\\CommonApi.csproj",
         "projectName": "CommonApi",
-        "projectPath": "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\CommonApi\\CommonApi.csproj",
-        "packagesPath": "C:\\Users\\duytu\\.nuget\\packages\\",
-        "outputPath": "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\CommonApi\\obj\\",
+        "projectPath": "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\CommonApi\\CommonApi.csproj",
+        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+        "outputPath": "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\CommonApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\duytu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -55,7 +55,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
         }
       }
     }

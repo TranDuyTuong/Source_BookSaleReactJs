@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\TXTKikanSystem\\TXTKikanSystem.csproj": {}
+    "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\TXTKikanSystem\\TXTKikanSystem.csproj": {}
   },
   "projects": {
-    "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\CommonApi\\CommonApi.csproj": {
+    "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\CommonApi\\CommonApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\CommonApi\\CommonApi.csproj",
+        "projectUniqueName": "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\CommonApi\\CommonApi.csproj",
         "projectName": "CommonApi",
-        "projectPath": "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\CommonApi\\CommonApi.csproj",
-        "packagesPath": "C:\\Users\\duytu\\.nuget\\packages\\",
-        "outputPath": "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\CommonApi\\obj\\",
+        "projectPath": "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\CommonApi\\CommonApi.csproj",
+        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+        "outputPath": "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\CommonApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\duytu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -55,21 +55,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\TXTKikanSystem\\TXTKikanSystem.csproj": {
+    "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\TXTKikanSystem\\TXTKikanSystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\TXTKikanSystem\\TXTKikanSystem.csproj",
+        "projectUniqueName": "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\TXTKikanSystem\\TXTKikanSystem.csproj",
         "projectName": "TXTKikanSystem",
-        "projectPath": "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\TXTKikanSystem\\TXTKikanSystem.csproj",
-        "packagesPath": "C:\\Users\\duytu\\.nuget\\packages\\",
-        "outputPath": "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\TXTKikanSystem\\obj\\",
+        "projectPath": "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\TXTKikanSystem\\TXTKikanSystem.csproj",
+        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+        "outputPath": "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\TXTKikanSystem\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\duytu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -77,14 +77,15 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\sdk\\7.0.304\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\CommonApi\\CommonApi.csproj": {
-                "projectPath": "D:\\Development_Project\\Dev_ShopBook\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\CommonApi\\CommonApi.csproj"
+              "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\CommonApi\\CommonApi.csproj": {
+                "projectPath": "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\CommonApi\\CommonApi.csproj"
               }
             }
           }
@@ -119,12 +120,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[5.0.17, 5.0.17]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -133,7 +128,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
         }
       }
     }

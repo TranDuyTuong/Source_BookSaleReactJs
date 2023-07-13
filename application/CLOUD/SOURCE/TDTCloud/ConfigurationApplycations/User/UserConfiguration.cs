@@ -133,10 +133,10 @@ namespace ConfigurationApplycations.User
                             };
 
                                 // Create Token string
-                                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.configuration["Tokens:Issuer"]));
+                                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.configuration["Tokens:Key"]));
                                 var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-                                var token = new JwtSecurityToken(this.configuration["Tokens:Issuer"],
-                                    this.configuration["Tokens:Issuer"],
+                                var token = new JwtSecurityToken(this.configuration["Tokens:Key"],
+                                    this.configuration["Tokens:Key"],
                                     claims,
                                     expires: DateTime.Now.AddMinutes(30),
                                     signingCredentials: creds
@@ -349,11 +349,14 @@ namespace ConfigurationApplycations.User
                                         // If sent Email Fail break and not save Infomation User into DB
                                         if (!resultSent)
                                         {
+                                            result.Status = false;
+                                            result.IdPlugin = CommonConfiguration.DataCommon.EventError;
+                                            result.Message = CommonConfiguration.DataCommon.MessageRegiterFail;
                                             return result;
                                         }
 
                                     }
-
+                                    await this.context.SaveChangesAsync();
                                 }
                             }
                         }
@@ -375,8 +378,8 @@ namespace ConfigurationApplycations.User
                     DateCreate = DateTime.Now,
                 };
                 await this.context.logs.AddAsync(log);
+                await this.context.SaveChangesAsync();
             }
-            await this.context.SaveChangesAsync();
             return  result;
         }
 

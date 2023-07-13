@@ -36,7 +36,7 @@ namespace TXTKikanSystem.Controllers
             // Concat string
             string eventCode = string.Concat(CommonApi.CommonEventCode.FistCode, CommonApi.CommonEventCode.EventLogin);
 
-            var result = new LoginUser()
+             var result = new LoginUser()
             {
                 Email = email,
                 Password = password,
@@ -48,6 +48,8 @@ namespace TXTKikanSystem.Controllers
 
             // Call Api
             var resultLogin = await this.context.ApiLoginUser(jsonResult);
+
+            // Read Token
 
             return new JsonResult(resultLogin);
         }

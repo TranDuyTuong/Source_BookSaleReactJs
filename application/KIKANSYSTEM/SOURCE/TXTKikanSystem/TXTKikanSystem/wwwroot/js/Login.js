@@ -49,7 +49,19 @@ $("#Login").click(function () {
                 password: password
             },
             success: function (result) {
-                console.log(result);
+                var converJSON = JSON.parse(result);
+                console.log(converJSON);
+                if (converJSON.Status == true) {
+                    switch (converJSON.Message) {
+                        case "000_5":
+                            break;
+                        default:
+                            break;
+                    }
+                } else {
+
+                }
+                return;
             }
         })
     }
