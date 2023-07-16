@@ -13,5 +13,7 @@ namespace CommonApi
         /// </summary>
         public static string UserLogin_Post = "/User/Login";
 
+        public static string UserSignOut_Post = "/User/SignOut";
+
     }
 }

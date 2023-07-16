@@ -29,6 +29,7 @@ namespace TDTCloud.Controllers
         {
             // Conver Json to Object
             var dataConver = ConverToJson<LoginUser>.ConverJsonToObject(request);
+            var resultLogin = new ReturnLoginApi();
 
             if(dataConver != null)
             {
@@ -38,34 +39,28 @@ namespace TDTCloud.Controllers
                 if (checkEventCode.Status == true)
                 {
                     // handle login
-                    var login = await this.context.AuthorzirationUser(dataConver);
-
+                    resultLogin = await this.context.AuthorzirationUser(dataConver);
                     // conver to Json
-                    var result = ConverToJson<ReturnLoginApi>.ConverObjectToJson(login);
+                    var result = ConverToJson<ReturnLoginApi>.ConverObjectToJson(resultLogin);
                     return Ok(result);
                 }
                 else
                 {
-                    checkEventCode.Status = false;
-                    checkEventCode.IdPlugin = DataCommon.EventError;
-                    checkEventCode.Message = DataCommon.MessageErrorEvent;
-
+                    resultLogin.Status = false;
+                    resultLogin.Token = null;
+                    resultLogin.Message = DataCommon.MessageErrorEvent;
                     // conver to Json
-                    var result = ConverToJson<ReturnCommonApi>.ConverObjectToJson(checkEventCode);
+                    var result = ConverToJson<ReturnLoginApi>.ConverObjectToJson(resultLogin);
                     return Ok(result);
                 }
             }
             else
             {
-                var NullData = new ReturnCommonApi()
-                {
-                    Status = false,
-                    IdPlugin = DataCommon.EventError,
-                    Message = DataCommon.MessageNullData,
-                };
-
+                resultLogin.Status = false;
+                resultLogin.Token = null;
+                resultLogin.Message = DataCommon.MessageNullData;
                 // Conver to Json
-                var result = ConverToJson<ReturnCommonApi>.ConverObjectToJson(NullData);
+                var result = ConverToJson<ReturnLoginApi>.ConverObjectToJson(resultLogin);
                 return Ok(result);
             }
         }
@@ -79,7 +74,7 @@ namespace TDTCloud.Controllers
         [HttpPost("Regiter")]
         public async Task<IActionResult> Regiter([FromBody] string request)
         {
-            string result;
+            string result = null;
             // Conver Json to Object
             var dataConver = ConverToJson<RegiterUser>.ConverJsonToObject(request);
             if(dataConver != null)
@@ -145,6 +140,74 @@ namespace TDTCloud.Controllers
                 // Conver Object to Json
                 result = ConverToJson<ReturnCommonApi>.ConverObjectToJson(nullData);
             }
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// SignOut
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost("SignOut")]
+        public async Task<IActionResult> SignOut([FromBody] string request)
+        {
+            string result = null;
+            // Conver Json to Object
+            var dataConver = CommonConfiguration.ConverToJson<SignOutUser>.ConverJsonToObject(request);
+            var resultSignOut = new ReturnCommonApi();
+
+            // Check Null Token
+            if(dataConver != null)
+            {
+                // Check Eventcode
+                var ev = ValidationEventCode.CheckEventCode(dataConver.EventCode);
+
+                if(ev.Status == false)
+                {
+                    resultSignOut.Status = false;
+                    resultSignOut.IdPlugin = DataCommon.EventError;
+                    resultSignOut.Message = DataCommon.MessageErrorEvent;
+                    result = ConverToJson<ReturnCommonApi>.ConverObjectToJson(resultSignOut);
+                }
+                else
+                {
+                    // Check Token Null
+                    if(dataConver.Token == null || dataConver.Token == "")
+                    {
+                        resultSignOut.Status = false;
+                        resultSignOut.IdPlugin = DataCommon.EventError;
+                        resultSignOut.Message = DataCommon.MessageNullToken;
+                        result = ConverToJson<ReturnCommonApi>.ConverObjectToJson(resultSignOut);
+                    }
+                    else
+                    {
+                        // Check Content Token
+                        var f_CheckValidationToken = new ValidationToken();
+                        var tokenContent = f_CheckValidationToken.ReadContentToken(dataConver.Token, dataConver.EventCode);
+                        
+                        if(tokenContent.Status == false) 
+                        {
+                            // Conver Object to json
+                            result = ConverToJson<ReturnCommonApi>.ConverObjectToJson(resultSignOut);
+                        }
+                        else
+                        {
+                            // SignOut DB
+                        }
+
+                    }
+                }
+
+            }
+            else
+            {
+                resultSignOut.Status = false;
+                resultSignOut.IdPlugin = DataCommon.EventError;
+                resultSignOut.Message = DataCommon.MessageNullData;
+                // Conver Object To Json
+                result = ConverToJson<ReturnCommonApi>.ConverObjectToJson(resultSignOut);
+            }
+
             return Ok(result);
         }
 

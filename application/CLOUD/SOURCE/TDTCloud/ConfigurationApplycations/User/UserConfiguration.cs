@@ -125,11 +125,12 @@ namespace ConfigurationApplycations.User
                                 // Create claims infomation
                                 var claims = new[]
                                 {
-                                new Claim(ClaimTypes.Email, queryUser.Email),
-                                new Claim(ClaimTypes.Name, queryUser.FistName + "" + queryUser.LastName),
-                                new Claim(ClaimTypes.Role, queryRole.RoleID),
-                                new Claim(ClaimTypes.Actor, queryRole.Description),
-                                new Claim(ClaimTypes.DateOfBirth, DateTime.Now.AddMinutes(30).ToString())
+                                new Claim("email", queryUser.Email),
+                                new Claim("employerName", queryUser.FistName + "" + queryUser.LastName),
+                                new Claim("roleID", queryRole.RoleID),
+                                new Claim("nameRole", queryRole.Description),
+                                new Claim("experiedDate", DateTime.Now.AddMinutes(30).ToString()),
+                                new Claim("userID", queryUser.UserID)
                             };
 
                                 // Create Token string

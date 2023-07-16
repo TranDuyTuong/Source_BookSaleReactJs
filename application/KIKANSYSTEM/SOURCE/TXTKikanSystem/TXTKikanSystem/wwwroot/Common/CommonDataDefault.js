@@ -16,6 +16,5 @@ export let UserLogin = "LoginTDTImportKikanSystem";
 // Message Remove Cookies Fail
 export let MessageRemoveCookiesFail = ". Remove Cookies Fail, Please Contact Manager";
 
-// Result Event Login Success
-export let LoginSuccess = "000_5";
+
 

@@ -36,9 +36,9 @@ namespace CommonConfiguration
             var jsonToken = handler.ReadToken(token);
             var tokens = jsonToken as JwtSecurityToken;
             // check RoleUser Limit by eventCode
-            string roleUser = tokens.Claims.FirstOrDefault(claim => claim.Type == "Role").Value;
-            string userId = tokens.Claims.FirstOrDefault(claim => claim.Type == "Email").Value;
-            string experiedToken = tokens.Claims.FirstOrDefault(claim => claim.Type == "DateOfBirth").Value;
+            string roleUser = tokens.Claims.FirstOrDefault(claim => claim.Type == "roleID").Value;
+            string userId = tokens.Claims.FirstOrDefault(claim => claim.Type == "userID").Value;
+            string experiedToken = tokens.Claims.FirstOrDefault(claim => claim.Type == "experiedDate").Value;
 
             if(roleUser == null || userId == null || experiedToken == null)
             {

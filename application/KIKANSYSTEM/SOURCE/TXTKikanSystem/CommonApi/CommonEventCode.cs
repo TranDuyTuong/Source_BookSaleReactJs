@@ -23,5 +23,10 @@ namespace CommonApi
         /// </summary>
         public static string EventRegiter = "101";
 
+        /// <summary>
+        /// EventSignOut
+        /// </summary>
+        public static string EventSignOut = "103";
+
     }
 }

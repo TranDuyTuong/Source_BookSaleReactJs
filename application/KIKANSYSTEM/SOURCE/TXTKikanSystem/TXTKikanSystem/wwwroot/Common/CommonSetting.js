@@ -21,6 +21,9 @@ export function NullEmail(email) {
 
 // Create Cookies
 export function CreateCookies(cookiesName, cookiesValue, daysToExpire) {
+
+    console.log(cookiesName, cookiesValue, daysToExpire);
+
     // create daysToExpire
     var date = new Date();
 
@@ -33,10 +36,8 @@ export function CreateCookies(cookiesName, cookiesValue, daysToExpire) {
     if (cookiesValue == null || cookiesValue == undefined || cookiesValue == "") {
         return false;
     }
-
-    date.setTime(date.getTime() + (daysToExpire * 24 * 60 * 60 * 1000));
     // create cookies
-    document.cookie = cookiesName + "=" + cookiesValue + ", expires=" + date.toGMTString();
+    document.cookie = cookiesName + "=" + cookiesValue + ", expires=" + daysToExpire;
     return true;
 }
 

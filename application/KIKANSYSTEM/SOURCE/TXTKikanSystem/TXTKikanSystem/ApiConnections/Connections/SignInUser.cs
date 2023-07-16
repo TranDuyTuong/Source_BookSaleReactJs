@@ -41,5 +41,25 @@ namespace TXTKikanSystem.ApiConnections.Connections
             }
         }
 
+        /// <summary>
+        /// ApiLogoutUser
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<string> ApiLogoutUser(string request)
+        {
+            try
+            {
+                HttpClient client = httpClientFactory.CreateClient();
+                client.BaseAddress = new Uri(this.configuration["LocalhostCloud"]);
+                HttpResponseMessage response = await client.PostAsJsonAsync(CommonApi.CommonUrlDefaultApi.UserSignOut_Post, request);
+                var result = await response.Content.ReadAsStringAsync();
+                return result;
+            }catch(Exception e)
+            {
+                return e.ToString();
+            }
+        }
+
     }
 }

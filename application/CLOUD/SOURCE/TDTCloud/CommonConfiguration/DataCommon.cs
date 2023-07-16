@@ -27,22 +27,22 @@ namespace CommonConfiguration
         /// <summary>
         /// NotFindEmail
         /// </summary>
-        public static string NotFindEmail = "000_1";
+        public static string NotFindEmail = "Email Fail";
 
         /// <summary>
         /// IncorrectPassword
         /// </summary>
-        public static string IncorrectPassword = "000_2";
+        public static string IncorrectPassword = "Password Fail";
 
         /// <summary>
         /// LockAccount
         /// </summary>
-        public static string LockAccount = "000_3";
+        public static string LockAccount = "Account Was Lock, Please Contact Manager";
 
         /// <summary>
         /// LoginFail
         /// </summary>
-        public static string LoginFail = "000_4";
+        public static string LoginFail = "SignIn Fail, Please Contact Manager";
 
         /// <summary>
         /// LoginSuccess
@@ -117,7 +117,7 @@ namespace CommonConfiguration
         /// <summary>
         /// MessageMotFindTypeEmail
         /// </summary>
-        public static string MessageNotFindTypeEmail = "Not Find Type Email In Sustem, Please Contact Manager";
+        public static string MessageNotFindTypeEmail = "Not Find Type Email In System, Please Contact Manager";
 
         ///-------------------------------------------Event Code-------------------------------------------------
         /// <summary>
@@ -129,6 +129,11 @@ namespace CommonConfiguration
         /// EventLogin
         /// </summary>
         public static string EventLogin = "102";
+
+        /// <summary>
+        /// EventSignOut
+        /// </summary>
+        public static string EventSignOut = "103";
 
         /// <summary>
         /// EventError
