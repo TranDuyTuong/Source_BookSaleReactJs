@@ -193,6 +193,8 @@ namespace TDTCloud.Controllers
                         else
                         {
                             // SignOut DB
+                            resultSignOut = await this.context.SignOut(dataConver);
+                            result = ConverToJson<ReturnCommonApi>.ConverObjectToJson(resultSignOut);
                         }
 
                     }

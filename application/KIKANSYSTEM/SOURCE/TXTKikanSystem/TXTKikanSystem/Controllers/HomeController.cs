@@ -18,7 +18,7 @@ namespace TXTKikanSystem.Controllers
             else
             {
                 // Check Carshier data
-                string[] inputData = Carshier.Split("_");
+                string[] inputData = Carshier.Split("+");
                 return View();
             }
         }

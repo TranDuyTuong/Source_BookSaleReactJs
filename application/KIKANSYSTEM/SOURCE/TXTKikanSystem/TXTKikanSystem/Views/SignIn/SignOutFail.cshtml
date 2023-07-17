@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewData["Title"] = "SignOut Fail";
+    Layout = "~/Views/Shared/_Template404.cshtml";
+}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <!-- 404 Error Text -->
+    <div class="text-center">
+        <div class="error mx-auto" data-text="404">SignOut Fail</div>
+        <p class="lead text-gray-800 mb-5">Page Notication Error</p>
+        <p class="text-gray-500 mb-0">@ViewBag.messageError</p>
+        <a href="" asp-controller="SignIn" asp-action="Login" id="btn_BackLogin">&larr; Back to Login Page</a>
+    </div>
+</div>
+

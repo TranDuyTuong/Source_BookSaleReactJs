@@ -1228,3 +1228,5 @@ D:\Dev_Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSys
 D:\Dev_Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\TXTKikanSystem\obj\Debug\net5.0\Razor\Views\Shared\_Template.cshtml.g.cs
 D:\Dev_Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\TXTKikanSystem\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
 D:\Dev_Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\TXTKikanSystem\obj\Debug\net5.0\Razor\Views\Home\HeaderMenu.cshtml.g.cs
+D:\Dev_Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\TXTKikanSystem\obj\Debug\net5.0\Razor\Views\Shared\_Template404.cshtml.g.cs
+D:\Dev_Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\TXTKikanSystem\obj\Debug\net5.0\Razor\Views\SignIn\SignOutFail.cshtml.g.cs

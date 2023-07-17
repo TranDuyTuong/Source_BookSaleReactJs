@@ -93,7 +93,7 @@ $(document).ready(function () {
                             var cookiesname = GetCookies(UserLogin);
                             // Setting string for Carshier
                             var queryString = location.origin;
-                            var stringData = localStorage.getItem("UserID") + "_" + localStorage.getItem("RoleEmployer") + "_" + cookiesname;
+                            var stringData = localStorage.getItem("UserID") + "+" + localStorage.getItem("RoleEmployer") + "+" + cookiesname;
                             window.location.href = queryString + "/" + HomePage + "?Carshier=" + stringData;
                         } else {
                             // Show Message Error

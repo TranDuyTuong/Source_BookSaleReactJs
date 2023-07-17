@@ -97,9 +97,18 @@ namespace TXTKikanSystem.Controllers
             string jsonConver = CommonConverJsonToObject<SignOutUser>.CoverObjectToJson(result);
             
             // Call Api
-
+            var resultData = await this.context.ApiLogoutUser(jsonConver);
+            // Conver Json to object
+            var signOutResult = CommonConverJsonToObject<ReturnCommonApi>.ConverJsonToObject(resultData);
             
-            return new JsonResult(result);
+            return new JsonResult(signOutResult);
+        }
+
+        [HttpGet]
+        public IActionResult SignOutFail(string messageError)
+        {
+            ViewBag.messageError = messageError;
+            return View();
         }
 
     }
