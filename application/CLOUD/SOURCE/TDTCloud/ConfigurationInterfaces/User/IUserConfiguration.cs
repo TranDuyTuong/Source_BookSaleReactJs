@@ -23,5 +23,12 @@ namespace ConfigurationInterfaces.User
         /// <param name="request"></param>
         /// <returns></returns>
         Task<ReturnCommonApi> RegiterUser(RegiterUser request);
+
+        /// <summary>
+        /// SignOut
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<ReturnCommonApi> SignOut(SignOutUser request);
     }
 }

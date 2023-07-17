@@ -8,9 +8,28 @@ namespace TXTKikanSystem.Controllers
         /// Home Page Index 
         /// </summary>
         /// <returns></returns>
-        public IActionResult Index()
+        public IActionResult Index(string Carshier)
         {
-            return View();
+            // Check input data
+            if(Carshier == null)
+            {
+                return RedirectToAction("Login", "SignIn");
+            }
+            else
+            {
+                // Check Carshier data
+                string[] inputData = Carshier.Split("_");
+                return View();
+            }
+        }
+
+        /// <summary>
+        /// HeaderMenu
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult HeaderMenu()
+        {
+            return PartialView();
         }
     }
 }

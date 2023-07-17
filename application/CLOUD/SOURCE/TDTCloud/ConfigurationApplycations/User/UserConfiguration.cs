@@ -126,7 +126,7 @@ namespace ConfigurationApplycations.User
                                 var claims = new[]
                                 {
                                 new Claim("email", queryUser.Email),
-                                new Claim("employerName", queryUser.FistName + "" + queryUser.LastName),
+                                new Claim("employerName", queryUser.FistName + " " + queryUser.LastName),
                                 new Claim("roleID", queryRole.RoleID),
                                 new Claim("nameRole", queryRole.Description),
                                 new Claim("experiedDate", DateTime.Now.AddMinutes(30).ToString()),
@@ -382,6 +382,74 @@ namespace ConfigurationApplycations.User
                 await this.context.SaveChangesAsync();
             }
             return  result;
+        }
+
+        /// <summary>
+        /// SignOut
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<ReturnCommonApi> SignOut(SignOutUser request)
+        {
+            var result = new ReturnCommonApi();
+            try
+            {
+                // Query Data
+                var queryUser = await this.context.userAccounts.Where(x => x.UserID == request.UserID).ToArrayAsync();
+
+                
+                if (!queryUser.Any())
+                {
+                    // SingOut Fail
+                    result.Status = false;
+                    result.IdPlugin = CommonConfiguration.DataCommon.EventError;
+                    result.Message = CommonConfiguration.DataCommon.MessageSignOutFail;
+
+                    // Save Log
+                    var log = new Log()
+                    {
+                        Id = new Guid(),
+                        UserID = request.UserID,
+                        Message = "Fail: SingOut Fail: " + request.UserID.ToString() + " DateTime SignOut: " + request.ExpirationDate + " ,EventCode: " + request.EventCode
+                    };
+
+                    await this.context.logs.AddAsync(log);
+                }
+                else
+                {
+                    // SingOut Success
+                    result.Status = true;
+                    result.IdPlugin = CommonConfiguration.DataCommon.EventSuccess;
+                    result.Message = CommonConfiguration.DataCommon.MessageSingOutSuccess;
+
+                    var log = new Log()
+                    {
+                        Id = new Guid(),
+                        UserID = request.UserID,
+                        Message = "Success: SingOut Success: " + request.UserID.ToString() + "DateTime Signout: " + request.ExpirationDate + " ,EventCode: " + request.EventCode
+                    };
+
+                    await this.context.logs.AddAsync(log);
+                }
+
+                await this.context.SaveChangesAsync();
+                return result;
+            }
+            catch(Exception ex )
+            {
+                result.Status = false;
+                result.IdPlugin = CommonConfiguration.DataCommon.EventError;
+                result.Message = ex.Message;
+
+                // Save Log
+                var log = new Log()
+                {
+                    Id = new Guid(),
+                    UserID = request.UserID,
+                    Message = "Exception is: " + ex.Message + " ,EventCode: " + request.EventCode,
+                };
+                return result;
+            }
         }
 
         /// <summary>

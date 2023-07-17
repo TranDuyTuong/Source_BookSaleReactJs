@@ -20,24 +20,14 @@ export function NullEmail(email) {
 }
 
 // Create Cookies
-export function CreateCookies(cookiesName, cookiesValue, daysToExpire) {
-
-    console.log(cookiesName, cookiesValue, daysToExpire);
-
-    // create daysToExpire
-    var date = new Date();
-
-    // check daysToExpire null
-    if (daysToExpire == null || daysToExpire == undefined || daysToExpire == 0 || daysToExpire == "") {
-        return false;
-    }
+export function CreateCookies(cookiesName, cookiesValue) {
 
     // check cookiesValue
     if (cookiesValue == null || cookiesValue == undefined || cookiesValue == "") {
         return false;
     }
     // create cookies
-    document.cookie = cookiesName + "=" + cookiesValue + ", expires=" + daysToExpire;
+    document.cookie = cookiesName + "=" + cookiesValue;
     return true;
 }
 
@@ -50,4 +40,11 @@ export function RemoveCookies(cookiesName) {
         document.cookie = cookiesName + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
         return true;
     }
+}
+
+// Get Cookies
+export function GetCookies(cookie_name) {
+    const value = "; " + document.cookie;
+    const parts = value.split("; " + cookie_name + "=");
+    if (parts.length === 2) return parts.pop().split(";").shift();
 }

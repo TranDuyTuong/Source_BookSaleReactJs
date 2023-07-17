@@ -39,6 +39,14 @@ namespace CommonConfiguration.UserCommon
                         Message = "Success EventCodeLogin"
                     };
                     break;
+                case var item when item == DataCommon.EventSignOut:
+                    result = new ReturnCommonApi()
+                    {
+                        Status = true,
+                        IdPlugin = DataCommon.EventSignOut,
+                        Message = "Success EventCodeSignOut"
+                    };
+                    break;
                 default:
                     result = new ReturnCommonApi()
                     {

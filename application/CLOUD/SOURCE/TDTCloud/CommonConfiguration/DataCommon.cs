@@ -119,6 +119,16 @@ namespace CommonConfiguration
         /// </summary>
         public static string MessageNotFindTypeEmail = "Not Find Type Email In System, Please Contact Manager";
 
+        /// <summary>
+        /// MessageSignOutFail
+        /// </summary>
+        public static string MessageSignOutFail = "Not Find User Request SingOut, But System Still SignOut Infomation User. Please Contact Manager Support";
+
+        /// <summary>
+        /// MessageSingOutSuccess
+        /// </summary>
+        public static string MessageSingOutSuccess = "SingOut Success";
+
         ///-------------------------------------------Event Code-------------------------------------------------
         /// <summary>
         /// EventRegiter

@@ -1,4 +1,4 @@
-﻿import { LenghtPassword, NullEmail, RemoveCookies, CreateCookies } from '../Common/CommonSetting.js'
+﻿import { LenghtPassword, NullEmail, RemoveCookies, CreateCookies, GetCookies } from '../Common/CommonSetting.js'
 import { MessageErrorLenght, MessageEmailNull, UserLogin, MessageRemoveCookiesFail } from '../Common/CommonDataDefault.js'
 import { HomePage } from '../Common/CommonUrl.js'
 import { DomModalLoading } from '../Common/CommonLoading.js'
@@ -7,6 +7,12 @@ $(document).ready(function () {
     // Forcus Input Email when load page
     document.getElementById("TxtEmail").focus();
     var iconError = '<i class="fas fa-exclamation-triangle"></i>';
+    // Clear Local Storage
+    localStorage.clear();
+    // Remove Cookies Curent
+    RemoveCookies(UserLogin);
+    // Clear time check ExpirationDate
+    clearInterval(1000);
 
     // Login System
     $("#Login").click(function () {
@@ -83,7 +89,12 @@ $(document).ready(function () {
                             localStorage.setItem("DescriptionRole", result.descriptionRole);
                             localStorage.setItem("ExpirationDate", result.expirationDate);
                             localStorage.setItem("UserID", result.userID);
-                            window.location.href = HomePage;
+
+                            var cookiesname = GetCookies(UserLogin);
+                            // Setting string for Carshier
+                            var queryString = location.origin;
+                            var stringData = localStorage.getItem("UserID") + "_" + localStorage.getItem("RoleEmployer") + "_" + cookiesname;
+                            window.location.href = queryString + "/" + HomePage + "?Carshier=" + stringData;
                         } else {
                             // Show Message Error
                             $("#MessageErrorLogin").append(iconError + " " + "Not Create Cookies, Please Contact To Manager");
