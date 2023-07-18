@@ -30,6 +30,8 @@ namespace TXTKikanSystem
             
             // DI Service
             services.AddTransient<ISignInUser, SignInUser>();
+            services.AddTransient<IHomeKikanSystem, HomeKikanSystem>();
+            services.AddTransient<ICommonKikanSystem, CommonKikanSystem>();
 
             //RazorRunTime
             services.AddRazorPages().AddRazorRuntimeCompilation();

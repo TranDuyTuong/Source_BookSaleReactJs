@@ -47,6 +47,14 @@ namespace CommonConfiguration.UserCommon
                         Message = "Success EventCodeSignOut"
                     };
                     break;
+                case var item when item == DataCommon.EventValidationToken:
+                    result = new ReturnCommonApi()
+                    {
+                        Status = true,
+                        IdPlugin = DataCommon.EventValidationToken,
+                        Message = "Success EventValidationToken"
+                    };
+                    break;
                 default:
                     result = new ReturnCommonApi()
                     {

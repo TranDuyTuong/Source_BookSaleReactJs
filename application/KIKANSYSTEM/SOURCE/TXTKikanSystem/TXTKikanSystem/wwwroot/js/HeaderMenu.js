@@ -39,7 +39,7 @@ $(document).ready(function () {
     // SingOut System
     $("#btn_SignOut").click(function () {
         $.ajax({
-            url: "SignIn/SignOut",
+            url: "/SignIn/SignOut",
             type: "post",
             data: {
                 token: cookiesname,

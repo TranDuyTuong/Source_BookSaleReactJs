@@ -1,14 +1,26 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CommonApi;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+using TXTKikanSystem.ApiConnections.IConnections;
+using TXTKikanSystem.FunctionLocation;
+using TXTKikanSystem.Models;
 
 namespace TXTKikanSystem.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ICommonKikanSystem context;
+
+        public HomeController(ICommonKikanSystem _context)
+        {
+            this.context = _context;
+        }
+
         /// <summary>
         /// Home Page Index 
         /// </summary>
         /// <returns></returns>
-        public IActionResult Index(string Carshier)
+        public async Task<IActionResult> Index(string Carshier)
         {
             // Check input data
             if(Carshier == null)
@@ -17,9 +29,20 @@ namespace TXTKikanSystem.Controllers
             }
             else
             {
-                // Check Carshier data
-                string[] inputData = Carshier.Split("+");
-                return View();
+                // Check token result
+                var resultCheck = new FunctionValidationToken();
+                bool tokenValidationResult = await resultCheck.ValidationTokenEmployeer(Carshier);
+
+                if (tokenValidationResult == true) 
+                {
+                    // Reditrectoaction Home Page
+                    return View();
+                }
+                else
+                {
+                    // Reditrectoaction Login Page
+                    return RedirectToAction("Login", "SignIn");
+                }
             }
         }
 

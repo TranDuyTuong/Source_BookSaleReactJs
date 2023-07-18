@@ -4,6 +4,7 @@ using ConfigurationInterfaces.User;
 using Microsoft.AspNetCore.Mvc;
 using ModelConfiguration.M_Common;
 using ModelConfiguration.M_Users;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace TDTCloud.Controllers
@@ -101,7 +102,7 @@ namespace TDTCloud.Controllers
                     {
                         // Check Content Token
                         var f_CheckValidationToken = new ValidationToken();
-                        var tokenResult = f_CheckValidationToken.ReadContentToken(dataConver.Token, dataConver.EventCode);
+                        var tokenResult = f_CheckValidationToken.ReadContentToken(dataConver.Token, ev.IdPlugin);
                         if(tokenResult.Status == false)
                         {
                             result = ConverToJson<ReturnCommonApi>.ConverObjectToJson(tokenResult);
@@ -183,7 +184,7 @@ namespace TDTCloud.Controllers
                     {
                         // Check Content Token
                         var f_CheckValidationToken = new ValidationToken();
-                        var tokenContent = f_CheckValidationToken.ReadContentToken(dataConver.Token, dataConver.EventCode);
+                        var tokenContent = f_CheckValidationToken.ReadContentToken(dataConver.Token, ev.IdPlugin);
                         
                         if(tokenContent.Status == false) 
                         {
@@ -210,6 +211,88 @@ namespace TDTCloud.Controllers
                 result = ConverToJson<ReturnCommonApi>.ConverObjectToJson(resultSignOut);
             }
 
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// ValidationTokenUser
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost("ValidationTokenUser")]
+        public async Task<IActionResult> ValidationTokenUser([FromBody] string request)
+        {
+            string result = null;
+            // Conver Json to Object
+            var dataConver = ConverToJson<ResultCommonCheckToken>.ConverJsonToObject(request);
+            if (dataConver != null)
+            {
+                // Check event code
+                var ev = ValidationEventCode.CheckEventCode(dataConver.EventCode);
+
+                if (ev.Status == true)
+                {
+                    // Check Token Null
+                    if (dataConver.Token == null || dataConver.Token == "")
+                    {
+                        var tokenNull = new ReturnCommonApi()
+                        {
+                            Status = false,
+                            IdPlugin = DataCommon.EventError,
+                            Message = DataCommon.MessageNullToken
+                        };
+
+                        // Conver Object to json
+                        result = ConverToJson<ReturnCommonApi>.ConverObjectToJson(tokenNull);
+                    }
+                    else
+                    {
+                        // Check Content Token
+                        var f_CheckValidationToken = new ValidationToken();
+                        var tokenResult = f_CheckValidationToken.ReadContentToken(dataConver.Token, ev.IdPlugin);
+                        if (tokenResult.Status == false)
+                        {
+                            result = ConverToJson<ReturnCommonApi>.ConverObjectToJson(tokenResult);
+                        }
+                        else
+                        {
+                            // Token Success
+                            ReturnCommonApi returnCheckToken = new ReturnCommonApi()
+                            {
+                                Status = true,
+                                IdPlugin = DataCommon.EventSuccess,
+                                Message = DataCommon.MessageToken
+                            };
+                            // Conver Object to json
+                            result = ConverToJson<ReturnCommonApi>.ConverObjectToJson(returnCheckToken);
+                        }
+                    }
+                }
+                else
+                {
+                    var errorEventCode = new ReturnCommonApi()
+                    {
+                        Status = false,
+                        IdPlugin = DataCommon.EventError,
+                        Message = DataCommon.MessageErrorEvent
+                    };
+
+                    // Conver Object to Json
+                    result = ConverToJson<ReturnCommonApi>.ConverObjectToJson(errorEventCode);
+                }
+            }
+            else
+            {
+                var nullData = new ReturnCommonApi()
+                {
+                    Status = false,
+                    IdPlugin = DataCommon.EventError,
+                    Message = DataCommon.MessageNullData
+                };
+
+                // Conver Object to Json
+                result = ConverToJson<ReturnCommonApi>.ConverObjectToJson(nullData);
+            }
             return Ok(result);
         }
 

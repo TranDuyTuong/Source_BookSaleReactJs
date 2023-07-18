@@ -129,6 +129,11 @@ namespace CommonConfiguration
         /// </summary>
         public static string MessageSingOutSuccess = "SingOut Success";
 
+        /// <summary>
+        /// MessageToken
+        /// </summary>
+        public static string MessageToken = "Token Is Still Valid";
+
         ///-------------------------------------------Event Code-------------------------------------------------
         /// <summary>
         /// EventRegiter
@@ -146,6 +151,11 @@ namespace CommonConfiguration
         public static string EventSignOut = "103";
 
         /// <summary>
+        /// EventValidationToken
+        /// </summary>
+        public static string EventValidationToken = "104";
+
+        /// <summary>
         /// EventError
         /// </summary>
         public static string EventError = "000";
@@ -154,7 +164,6 @@ namespace CommonConfiguration
         /// EventSuccess
         /// </summary>
         public static string EventSuccess = "001";
-
 
         ///--------------------------------------------Type Email-------------------------------------------------
         /// <summary>

@@ -394,45 +394,57 @@ namespace ConfigurationApplycations.User
             var result = new ReturnCommonApi();
             try
             {
-                // Query Data
-                var queryUser = await this.context.userAccounts.Where(x => x.UserID == request.UserID).ToArrayAsync();
+                // Check Role
+                var queryRole = from r in this.context.userRoles
+                                where r.RoleID == request.RoleID && r.UserID == request.UserID
+                                select r;
 
-                
-                if (!queryUser.Any())
+                if (queryRole.Any() == false)
                 {
-                    // SingOut Fail
+                    // Not find role with this userID
                     result.Status = false;
                     result.IdPlugin = CommonConfiguration.DataCommon.EventError;
                     result.Message = CommonConfiguration.DataCommon.MessageSignOutFail;
-
-                    // Save Log
-                    var log = new Log()
-                    {
-                        Id = new Guid(),
-                        UserID = request.UserID,
-                        Message = "Fail: SingOut Fail: " + request.UserID.ToString() + " DateTime SignOut: " + request.ExpirationDate + " ,EventCode: " + request.EventCode
-                    };
-
-                    await this.context.logs.AddAsync(log);
                 }
                 else
                 {
-                    // SingOut Success
-                    result.Status = true;
-                    result.IdPlugin = CommonConfiguration.DataCommon.EventSuccess;
-                    result.Message = CommonConfiguration.DataCommon.MessageSingOutSuccess;
+                    // Find role by this userID
+                    // Query Data
+                    var queryUser = await this.context.userAccounts.Where(x => x.UserID == request.UserID).ToArrayAsync();
 
-                    var log = new Log()
+                    if (!queryUser.Any())
                     {
-                        Id = new Guid(),
-                        UserID = request.UserID,
-                        Message = "Success: SingOut Success: " + request.UserID.ToString() + "DateTime Signout: " + request.ExpirationDate + " ,EventCode: " + request.EventCode
-                    };
+                        // SingOut Fail
+                        result.Status = false;
+                        result.IdPlugin = CommonConfiguration.DataCommon.EventError;
+                        result.Message = CommonConfiguration.DataCommon.MessageSignOutFail;
+                        // Save Log
+                        var log = new Log()
+                        {
+                            Id = new Guid(),
+                            UserID = request.UserID,
+                            Message = "Fail: SingOut Fail: " + request.UserID.ToString() + " DateTime SignOut: " + request.ExpirationDate + " ,EventCode: " + request.EventCode
+                        };
+                        await this.context.logs.AddAsync(log);
+                    }
+                    else
+                    {
+                        // SingOut Success
+                        result.Status = true;
+                        result.IdPlugin = CommonConfiguration.DataCommon.EventSuccess;
+                        result.Message = CommonConfiguration.DataCommon.MessageSingOutSuccess;
+                        // Save Log
+                        var log = new Log()
+                        {
+                            Id = new Guid(),
+                            UserID = request.UserID,
+                            Message = "Success: SingOut Success: " + request.UserID.ToString() + "DateTime Signout: " + request.ExpirationDate + " ,EventCode: " + request.EventCode
+                        };
+                        await this.context.logs.AddAsync(log);
+                    }
 
-                    await this.context.logs.AddAsync(log);
+                    await this.context.SaveChangesAsync();
                 }
-
-                await this.context.SaveChangesAsync();
                 return result;
             }
             catch(Exception ex )
@@ -440,7 +452,6 @@ namespace ConfigurationApplycations.User
                 result.Status = false;
                 result.IdPlugin = CommonConfiguration.DataCommon.EventError;
                 result.Message = ex.Message;
-
                 // Save Log
                 var log = new Log()
                 {

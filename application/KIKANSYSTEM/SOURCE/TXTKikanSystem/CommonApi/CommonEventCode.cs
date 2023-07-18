@@ -28,5 +28,10 @@ namespace CommonApi
         /// </summary>
         public static string EventSignOut = "103";
 
+        /// <summary>
+        /// EventValidationToken
+        /// </summary>
+        public static string EventValidationToken = "104";
+
     }
 }

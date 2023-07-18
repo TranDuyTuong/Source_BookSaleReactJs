@@ -11,12 +11,6 @@ namespace CommonConfiguration
 {
     public class ValidationToken
     {
-        private readonly IContactCommon context;
-        public ValidationToken(IContactCommon _context)
-        {
-            context = _context;
-        }
-
         /// <summary>
         /// Contructor
         /// </summary>
@@ -48,58 +42,24 @@ namespace CommonConfiguration
             }
             else
             {
-                bool checkRoleUser = CheckRoleUser(roleUser, userId, eventcode);
+                // Check ExpiredDateTime Token
+                bool expiredToken = this.CheckDateTimeToken(DateTime.Parse(experiedToken));
 
-                if(checkRoleUser == true) 
+                if (expiredToken)
                 {
-                    // Have Role User Limit 
+                    // Toke ExpiredDateTime
                     result.Status = false;
                     result.IdPlugin = DataCommon.EventError;
-                    result.Message = DataCommon.MessageRoleUserLimit;
+                    result.Message = DataCommon.MessageTokenWasExpire;
                 }
                 else
                 {
-                    // Check Time Expired
-                    DateTime dateTimeExperied = DateTime.Parse(experiedToken);
-                    bool checkExperiedToken = CheckDateTimeToken(dateTimeExperied);
-                    if(checkExperiedToken == true)
-                    {
-                        // Token was expire
-                        result.Status = false;
-                        result.IdPlugin = DataCommon.EventError;
-                        result.Message = DataCommon.MessageTokenWasExpire;
-                    }
-                    else
-                    {
-                        result.Status = true;
-                    }
+                    // Token not ExpiredDateTime
+                    result.Status = true;
                 }
             }
             return result;
         }
-
-        /// <summary>
-        /// CheckRoleUser
-        /// </summary>
-        /// <param name="roleId"></param>
-        /// <param name="userId"></param>
-        /// <returns></returns>
-        private bool CheckRoleUser(string roleId, string userId, string eventCode)
-        {
-            var result = this.context.ValidationRoleUser(roleId, userId, eventCode);
-
-            if(result == true)
-            {
-                // Find UserRole limit
-                return true;
-            }
-            else
-            {
-                // Not Find UserRole limit
-                return false;
-            }
-        }
-
 
         /// <summary>
         /// CheckDateTimeToken
