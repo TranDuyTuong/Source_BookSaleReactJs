@@ -33,5 +33,10 @@ namespace CommonApi
         /// </summary>
         public static string EventValidationToken = "104";
 
+        /// <summary>
+        /// EventInitialization
+        /// </summary>
+        public static string EventInitialization = "105";
+
     }
 }

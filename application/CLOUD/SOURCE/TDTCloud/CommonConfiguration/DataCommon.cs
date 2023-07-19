@@ -156,6 +156,11 @@ namespace CommonConfiguration
         public static string EventValidationToken = "104";
 
         /// <summary>
+        /// EventInitialization
+        /// </summary>
+        public static string EventInitialization = "105";
+
+        /// <summary>
         /// EventError
         /// </summary>
         public static string EventError = "000";

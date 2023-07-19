@@ -23,5 +23,10 @@ namespace CommonApi
         /// </summary>
         public static string TokenValidation_Post = "/User/ValidationTokenUser";
 
+        /// <summary>
+        /// InitializationHome_Get
+        /// </summary>
+        public static string InitializationHome_Post = "/KikanSystem/DataInitializationHome";
+
     }
 }

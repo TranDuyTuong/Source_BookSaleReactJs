@@ -55,6 +55,14 @@ namespace CommonConfiguration.UserCommon
                         Message = "Success EventValidationToken"
                     };
                     break;
+                case var item when item == DataCommon.EventInitialization:
+                    result = new ReturnCommonApi()
+                    {
+                        Status = true,
+                        IdPlugin = DataCommon.EventInitialization,
+                        Message = "Success EventInitialization"
+                    };
+                    break;
                 default:
                     result = new ReturnCommonApi()
                     {

@@ -14,10 +14,6 @@ namespace TXTKikanSystem.FunctionLocation
             this.context = _context;
         }
 
-        public FunctionValidationToken()
-        {
-        }
-
         /// <summary>
         /// ValidationTokenEmployeer
         /// </summary>
