@@ -41,6 +41,33 @@ namespace TXTKikanSystem.Models
         }
 
         /// <summary>
+        /// Company
+        /// </summary>
+        public string Company
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// AreaCode
+        /// </summary>
+        public string AreaCode
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// StoreCode
+        /// </summary>
+        public string StoreCode
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// ListDataInitia
         /// </summary>
         public List<string> ListDataInitia { get; set; } = new List<string>();

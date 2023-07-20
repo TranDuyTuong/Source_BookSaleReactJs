@@ -3,7 +3,7 @@
     ViewData["Title"] = "Home";
     Layout = "~/Views/Shared/_Template.cshtml";
 }
-
+<link href="~/styletemplate/css/homepage.css" rel="stylesheet" />
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -19,7 +19,7 @@
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 Book Number
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.books</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-book fa-2x text-gray-300"></i>
@@ -37,7 +37,7 @@
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 Category
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.category</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-th-list fa-2x text-gray-300"></i>
@@ -55,7 +55,7 @@
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 Citys
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.citys</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-city fa-2x text-gray-300"></i>
@@ -73,7 +73,7 @@
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 District
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.district</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-building fa-2x text-gray-300"></i>
@@ -91,7 +91,7 @@
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 Authors
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.author</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-user-secret fa-2x text-gray-300"></i>
@@ -109,7 +109,7 @@
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 Publishing Company
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.publishingCompany</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-industry fa-2x text-gray-300"></i>
@@ -127,7 +127,7 @@
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 Publisher
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.publisher</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-laptop-house fa-2x text-gray-300"></i>
@@ -145,7 +145,7 @@
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 Banks Suport
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.bankSuport</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-university fa-2x text-gray-300"></i>

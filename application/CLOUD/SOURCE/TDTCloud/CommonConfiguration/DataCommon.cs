@@ -134,6 +134,11 @@ namespace CommonConfiguration
         /// </summary>
         public static string MessageToken = "Token Is Still Valid";
 
+        /// <summary>
+        /// MessageBaseInfo
+        /// </summary>
+        public static string MessageBaseInfo = "Infomation Base Not Validation";
+
         ///-------------------------------------------Event Code-------------------------------------------------
         /// <summary>
         /// EventRegiter

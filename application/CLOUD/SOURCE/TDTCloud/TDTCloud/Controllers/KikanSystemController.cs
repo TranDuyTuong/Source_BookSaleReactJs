@@ -67,7 +67,7 @@ namespace TDTCloud.Controllers
                         else
                         {
                             // InitializationDataHome To DB
-                            var resultInitialization = await this.context.initializationDataHome();
+                            var resultInitialization = await this.context.initializationDataHome(dataConver.Company, dataConver.AreaCode, dataConver.StoreCode);
                             resultInitialization.Token = dataConver.Token;
                             // Conver Object to json
                             result = ConverToJson<InitializationDataHome>.ConverObjectToJson(resultInitialization);

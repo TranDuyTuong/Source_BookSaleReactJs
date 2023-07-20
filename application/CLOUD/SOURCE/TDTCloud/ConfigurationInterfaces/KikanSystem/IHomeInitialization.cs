@@ -13,6 +13,6 @@ namespace ConfigurationInterfaces.KikanSystem
         /// initializationDataHome
         /// </summary>
         /// <returns></returns>
-        Task<InitializationDataHome> initializationDataHome();
+        Task<InitializationDataHome> initializationDataHome(string companyCode, string areaCode, string storeCode);
     }
 }

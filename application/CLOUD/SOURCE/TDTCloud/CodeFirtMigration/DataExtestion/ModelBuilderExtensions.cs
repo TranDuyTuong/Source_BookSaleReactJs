@@ -180,6 +180,18 @@ namespace CodeFirtMigration.DataExtestion
                         PhoneContact = "Phone Number: 0335520146"
                     }
                 );
+
+            // Configuration Data Extensions for table Store
+            modelBuilder.Entity<Store>().HasData(
+                new Store()
+                {
+                    StoreCode = "0001",
+                    Description = "Store Tân Bình",
+                    DateCreate = DateTime.Now,
+                    IsDeleteFlag = false,
+                    Address = "Phường 2, Quận Tân Bình, Tp.HCM"
+                }
+                );
         }
     }
 }

@@ -633,7 +633,7 @@ namespace CodeFirtMigration.Migrations
 
                     b.Property<string>("PhoneContact")
                         .IsRequired()
-                        .HasColumnType("NVARCHAR(20)");
+                        .HasColumnType("NVARCHAR(250)");
 
                     b.Property<string>("TemSystem")
                         .IsRequired()
@@ -657,7 +657,7 @@ namespace CodeFirtMigration.Migrations
                         {
                             ID = new Guid("c0198715-f805-419d-8249-c7851de721ae"),
                             ContentBody = "Wellcome you become a member, system TDT now you can use this account login into system. If have problem you can contact for Manage",
-                            DateCreate = new DateTime(2023, 7, 12, 21, 32, 26, 831, DateTimeKind.Local).AddTicks(117),
+                            DateCreate = new DateTime(2023, 7, 20, 20, 49, 28, 998, DateTimeKind.Local).AddTicks(457),
                             Description = "Email",
                             Goodbye = "Wish you a good job",
                             IsActiver = false,
@@ -732,21 +732,21 @@ namespace CodeFirtMigration.Migrations
                         new
                         {
                             GenderID = "0001",
-                            CreateDate = new DateTime(2023, 7, 12, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreateDate = new DateTime(2023, 7, 20, 0, 0, 0, 0, DateTimeKind.Local),
                             Description = "Nam",
                             IsDeleteFlag = false
                         },
                         new
                         {
                             GenderID = "0002",
-                            CreateDate = new DateTime(2023, 7, 12, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreateDate = new DateTime(2023, 7, 20, 0, 0, 0, 0, DateTimeKind.Local),
                             Description = "Nữ",
                             IsDeleteFlag = false
                         },
                         new
                         {
                             GenderID = "0003",
-                            CreateDate = new DateTime(2023, 7, 12, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreateDate = new DateTime(2023, 7, 20, 0, 0, 0, 0, DateTimeKind.Local),
                             Description = "Chưa rỏ",
                             IsDeleteFlag = false
                         });
@@ -1108,21 +1108,21 @@ namespace CodeFirtMigration.Migrations
                         new
                         {
                             MarriageID = "0001",
-                            CreateDate = new DateTime(2023, 7, 12, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreateDate = new DateTime(2023, 7, 20, 0, 0, 0, 0, DateTimeKind.Local),
                             Description = "Độc thân",
                             IsDeleteFlag = false
                         },
                         new
                         {
                             MarriageID = "0002",
-                            CreateDate = new DateTime(2023, 7, 12, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreateDate = new DateTime(2023, 7, 20, 0, 0, 0, 0, DateTimeKind.Local),
                             Description = "Đã kết hôn",
                             IsDeleteFlag = false
                         },
                         new
                         {
                             MarriageID = "0003",
-                            CreateDate = new DateTime(2023, 7, 12, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreateDate = new DateTime(2023, 7, 20, 0, 0, 0, 0, DateTimeKind.Local),
                             Description = "Đã ly dị",
                             IsDeleteFlag = false
                         });
@@ -1677,8 +1677,8 @@ namespace CodeFirtMigration.Migrations
                         new
                         {
                             RoleID = "0000Admin",
-                            ConcurrencyStamp = "ec467608-f61b-4a83-9e6c-3fcb3d536795",
-                            DateCreate = new DateTime(2023, 7, 12, 0, 0, 0, 0, DateTimeKind.Local),
+                            ConcurrencyStamp = "5dcc9d72-a331-4f9c-abaf-bfcf63150eae",
+                            DateCreate = new DateTime(2023, 7, 20, 0, 0, 0, 0, DateTimeKind.Local),
                             Description = "Administrator",
                             Id = new Guid("cde6664e-f48a-43af-bbe8-93e90e32c193"),
                             IsDeleteFlag = false,
@@ -1763,6 +1763,47 @@ namespace CodeFirtMigration.Migrations
                     b.ToTable("SpecialDiscounts");
                 });
 
+            modelBuilder.Entity("TDTSettingTable.Store", b =>
+                {
+                    b.Property<string>("StoreCode")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("Nvarchar(450)");
+
+                    b.Property<DateTime>("DateCreate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("Nvarchar(250)");
+
+                    b.Property<DateTime?>("HeadquartersLastUpdateDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleteFlag")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastUpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("StoreCode");
+
+                    b.ToTable("Stores");
+
+                    b.HasData(
+                        new
+                        {
+                            StoreCode = "0001",
+                            Address = "Phường 2, Quận Tân Bình, Tp.HCM",
+                            DateCreate = new DateTime(2023, 7, 20, 20, 49, 28, 998, DateTimeKind.Local).AddTicks(2823),
+                            Description = "Store Tân Bình",
+                            IsDeleteFlag = false
+                        });
+                });
+
             modelBuilder.Entity("TDTSettingTable.TypeAddress", b =>
                 {
                     b.Property<string>("TypeAddressID")
@@ -1794,21 +1835,21 @@ namespace CodeFirtMigration.Migrations
                         new
                         {
                             TypeAddressID = "0001",
-                            DateTimeCreate = new DateTime(2023, 7, 12, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateTimeCreate = new DateTime(2023, 7, 20, 0, 0, 0, 0, DateTimeKind.Local),
                             Description = "Nhà riêng",
                             IsDeleteFlag = false
                         },
                         new
                         {
                             TypeAddressID = "0002",
-                            DateTimeCreate = new DateTime(2023, 7, 12, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateTimeCreate = new DateTime(2023, 7, 20, 0, 0, 0, 0, DateTimeKind.Local),
                             Description = "Văn phòng",
                             IsDeleteFlag = false
                         },
                         new
                         {
                             TypeAddressID = "0003",
-                            DateTimeCreate = new DateTime(2023, 7, 12, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateTimeCreate = new DateTime(2023, 7, 20, 0, 0, 0, 0, DateTimeKind.Local),
                             Description = "Công ty",
                             IsDeleteFlag = false
                         });
@@ -1895,7 +1936,7 @@ namespace CodeFirtMigration.Migrations
                             AddressCurent = " Đường Bùi Thị Xuân, phường 13, quận Tân Bình, Tp.HCM",
                             Birthday = new DateTime(2000, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CityID = "0001",
-                            DateCreate = "7/12/2023 12:00:00 AM",
+                            DateCreate = "7/20/2023 12:00:00 AM",
                             DetailAddress = "Khu 13, xã Long Đức, huyện Long Thành, tỉnh Đồng Nai",
                             DistrictID = "0001",
                             Email = "duytuong0503@gmail.com",
@@ -1983,14 +2024,14 @@ namespace CodeFirtMigration.Migrations
                         {
                             UserID = "05032000",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b3bab24e-09f7-4107-b54c-4ceea84e1924",
-                            DateCreate = new DateTime(2023, 7, 12, 0, 0, 0, 0, DateTimeKind.Local),
+                            ConcurrencyStamp = "d0f29877-e5c5-4854-9ca8-1662019e9b5a",
+                            DateCreate = new DateTime(2023, 7, 20, 0, 0, 0, 0, DateTimeKind.Local),
                             Email = "duytuong0503@gmail.com",
                             EmailConfirmed = true,
                             Id = new Guid("7d10d6e7-fcbd-469a-aaa4-744ab5ce65aa"),
                             IsActiver = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAENUkJdomitKWH/Nx6c9DRvCZDaQZOf8lGWrXePnAdLtNepTHyLdGnd7BPTrZmiHVqA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGv+CchgF2oJSJQCKGCP27U6tyx5xh7/GcHJonROD0ZO/Zr5Gr8NtUpyJ/HNFtRCKg==",
                             PhoneNumberConfirmed = false,
                             RemmenberAccount = false,
                             SecurityStamp = "ORCXRTJM2OU6MN2TASFSQX4R5K3TFVRH",
@@ -2038,7 +2079,7 @@ namespace CodeFirtMigration.Migrations
                         new
                         {
                             UserID = "05032000",
-                            DateCreate = new DateTime(2023, 7, 12, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateCreate = new DateTime(2023, 7, 20, 0, 0, 0, 0, DateTimeKind.Local),
                             Delegator = "05032000",
                             EventCodeLimit = "101",
                             IsDeleteFlag = false,
