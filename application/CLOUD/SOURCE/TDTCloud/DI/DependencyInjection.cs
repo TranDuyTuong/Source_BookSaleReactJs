@@ -14,7 +14,10 @@ namespace DI
         {
             services.AddTransient<IUserConfiguration, UserConfiguration>();
             services.AddTransient<IContactCommon, ContactCommon>();
+
+            // KikanSystem
             services.AddTransient<IHomeInitialization, HomeInitialization>();
+            services.AddTransient<IimportDataKikanSystem, ImportDataKikanSystem>();
             return services;
         }
     }

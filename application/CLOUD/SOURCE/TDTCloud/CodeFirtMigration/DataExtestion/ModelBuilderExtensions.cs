@@ -142,7 +142,7 @@ namespace CodeFirtMigration.DataExtestion
                         DateCreate = DateTime.Now.Date,
                         RemmenberAccount = false,
                         IsActiver = false,
-                        Id= new Guid("7D10D6E7-FCBD-469A-AAA4-744AB5CE65AA"),
+                        Id = new Guid("7D10D6E7-FCBD-469A-AAA4-744AB5CE65AA"),
                         UserName = "duytuong0503@gmail.com",
                         Email = "duytuong0503@gmail.com",
                         EmailConfirmed = true,
@@ -183,14 +183,92 @@ namespace CodeFirtMigration.DataExtestion
 
             // Configuration Data Extensions for table Store
             modelBuilder.Entity<Store>().HasData(
-                new Store()
-                {
-                    StoreCode = "0001",
-                    Description = "Store Tân Bình",
-                    DateCreate = DateTime.Now,
-                    IsDeleteFlag = false,
-                    Address = "Phường 2, Quận Tân Bình, Tp.HCM"
-                }
+                    new Store()
+                    {
+                        StoreCode = "0001",
+                        Description = "Store Tân Bình",
+                        DateCreate = DateTime.Now,
+                        IsDeleteFlag = false,
+                        Address = "Phường 2, Quận Tân Bình, Tp.HCM"
+                    }
+                );
+
+            // Configuration Data Extensions for table TemplateImport
+            modelBuilder.Entity<TemplateImport>().HasData(
+                    new TemplateImport()
+                    {
+                        ID = new Guid("E5D9B502-150F-44E2-8FDA-DE1A3957A72E"),
+                        TypeId = "Excelimport_Books",
+                        Description = "ImportBooksKikanSystem.xlsx",
+                        Content = "ItemCode,CompanyCode,StoreCode,ApplyDate,Description,DescriptionShort,DescriptionLong,PriceOrigin,PercentDiscount,priceSale,QuantityDiscountID (NULL),PairDiscountID (NULL),SpecialDiscountID (NULL),Quantity,Viewer (0),Buy (0),CategoryItemMasterID,AuthorID,DateCreate,IssuingCompanyID,PublicationDate,size,PageNumber,PublishingCompanyID,IsSale,LastUpdateDate (NULL),Note,HeadquartersLastUpdateDateTime,IsDeleteFlag,UserID,TaxGroupCodeID (NULL)",
+                        DateCreate = DateTime.Now,
+                        IsDelete = false,
+
+                    },
+                    new TemplateImport()
+                    {
+                        ID = new Guid("597FA09B-56B3-40A8-AAD4-4CBDD8EFE445"),
+                        TypeId = "Excelimport_Category",
+                        Description = "ImportCategoryKikanSystem.xlsx",
+                        Content = "CategoryItemMasterID,Description,DateCreate,UserID,LastUpdateDate,HeadquartersLastUpdateDateTime,ContentLastUpdateDate,JobID,IsDeleteFlag",
+                        DateCreate = DateTime.Now,
+                        IsDelete = false,
+                    },
+                    new TemplateImport()
+                    {
+                        ID = new Guid("3D8B3620-EC8B-44E7-8CDB-2B688C406AC2"),
+                        TypeId = "Excelimport_City",
+                        Description = "ImportCityKikanSystem.xlsx",
+                        Content = "CityID,Description,AreaCode,Symbol,HeadquartersLastUpdateDateTime,UserID,IsDeleteFlag",
+                        DateCreate = DateTime.Now,
+                        IsDelete = false,
+                    },
+                    new TemplateImport()
+                    {
+                        ID = new Guid("092D5D54-4499-4F26-8152-7783F0182086"),
+                        TypeId = "Excelimport_District",
+                        Description = "ImportDistrictKikanSystem.xlsx",
+                        Content = "DistrictID,CityID,Description,Identifier,DateCreate,PriceShip,ApplyDate,PriceShipNew,LasUpdateDate,HeadquartersLastUpdateDateTime,UserID,IsDeleteFlag",
+                        DateCreate = DateTime.Now,
+                        IsDelete = false,
+                    },
+                    new TemplateImport()
+                    {
+                        ID = new Guid("0C0A1511-2955-4015-9792-0A42E11D011B"),
+                        TypeId = "Excelimport_Author",
+                        Description = "ImportAuthorKikanSystem.xlsx",
+                        Content = "AuthorID,NameAuthor,Birthday,Hometown,Description,DateCreate,UserID,HeadquartersLastUpdateDateTime,LasUpdateDate,ContentLastUpdateDate,TotalBook,IsDeleteFlag",
+                        DateCreate = DateTime.Now,
+                        IsDelete = false,
+                    },
+                    new TemplateImport()
+                    {
+                        ID = new Guid("56AD3CF4-F6CC-4030-8570-2B3CC5CF2E4D"),
+                        TypeId = "Excelimport_PublishingCompany",
+                        Description = "ImportPublishingCompanyKikanSystem.xlsx",
+                        Content = "PublishingCompanyID,Description,Address,DateCraete,DateOfIncorporation,UserID,HeadquartersLastUpdateDateTime,LasUpdateDate,ContentLastUpdateDate,IsDeleteFlag",
+                        DateCreate = DateTime.Now,
+                        IsDelete = false,
+                    },
+                    new TemplateImport()
+                    {
+                        ID = new Guid("DA2F7E92-722C-43A5-B180-A4B741FD8A04"),
+                        TypeId = "Excelimport_IssuingCompanys",
+                        Description = "ImportIssuingCompanysCompanyKikanSystem.xlsx",
+                        Content = "IssuingCompanyID,Description,TaxCode,DateOfIncorporation,DateCreate,UserID,HeadquartersLastUpdateDateTime,LasUpdateDate,ContentLastUpdateDate,Address,IsDeleteFlag",
+                        DateCreate = DateTime.Now,
+                        IsDelete = false,
+                    },
+                    new TemplateImport()
+                    {
+                        ID = new Guid("D25B73EE-B319-4565-BE89-9BD6120CF759"),
+                        TypeId = "Excelimport_BankSuport",
+                        Description = "ImportBankSuportKikanSystem.xlsx",
+                        Content = "BankID,Description,BankCode,DateCreate,UserID,LasUpdateDate,Content,UrlImageBank,IsDeleteFlag",
+                        DateCreate = DateTime.Now,
+                        IsDelete = false,
+                    }
+
                 );
         }
     }

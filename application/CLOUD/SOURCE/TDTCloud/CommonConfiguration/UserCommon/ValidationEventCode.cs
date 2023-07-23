@@ -63,6 +63,14 @@ namespace CommonConfiguration.UserCommon
                         Message = "Success EventInitialization"
                     };
                     break;
+                case var item when item == DataCommon.EventImportBooks:
+                    result = new ReturnCommonApi()
+                    {
+                        Status = true,
+                        IdPlugin = DataCommon.EventImportBooks,
+                        Message = "Success EventImportBooks"
+                    };
+                    break;
                 default:
                     result = new ReturnCommonApi()
                     {

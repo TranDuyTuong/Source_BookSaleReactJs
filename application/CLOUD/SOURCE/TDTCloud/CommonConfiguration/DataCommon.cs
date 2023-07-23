@@ -166,6 +166,11 @@ namespace CommonConfiguration
         public static string EventInitialization = "105";
 
         /// <summary>
+        /// EventImportBooks
+        /// </summary>
+        public static string EventImportBooks = "106";
+
+        /// <summary>
         /// EventError
         /// </summary>
         public static string EventError = "000";

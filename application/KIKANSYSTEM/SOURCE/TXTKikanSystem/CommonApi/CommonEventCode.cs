@@ -39,6 +39,11 @@ namespace CommonApi
         public static string EventInitialization = "105";
 
         /// <summary>
+        /// EventImportBooks
+        /// </summary>
+        public static string EventImportBooks = "106";
+
+        /// <summary>
         /// CompanyCode
         /// </summary>
         public static string CompanyCode = "10000005";

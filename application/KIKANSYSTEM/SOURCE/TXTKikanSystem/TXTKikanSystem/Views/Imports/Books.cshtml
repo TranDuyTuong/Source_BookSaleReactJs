@@ -1,0 +1,65 @@
+﻿@{
+    ViewData["Title"] = "Import Books";
+    Layout = "~/Views/Shared/_Template.cshtml";
+}
+<link href="~/styletemplate/css/importbookpage.css" rel="stylesheet" />
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800" style="font-family: initial;">Books</h1>
+    </div>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb" style="color: black;">
+            <li class="breadcrumb-item">
+                <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="Btn_ReditrectHome" style="color: #030000; font-family: initial;">
+                    Home
+                </a>
+                </li>
+            <li class="breadcrumb-item active" aria-current="page" style="color: #030000; font-family: initial;">Import Book</li>
+        </ol>
+    </nav>
+
+    <!-- Check Data Result When InitData-->
+    @if(ViewBag.InitDataNull != null)
+    {
+        <!-- Can not get Template Import -->
+        <h1 class="h3 mb-0 text-gray-800" style="font-family: initial; color: red; font-weight: 600">
+            @ViewBag.InitDataNull
+        </h1>
+    }
+    else
+    {
+        <!-- File Name Request -->
+        <p style="color:red; font-family: initial; font-weight:600; text-align: right">
+            File Name: @ViewBag.fileName
+        </p>
+
+        <span style="font-family: initial;color: black;"><i class="fas fa-star-of-life"></i> @ViewBag.instruct</span>
+        <br />
+        <span style="font-family: initial; color: black;"> Note: @ViewBag.getRecol</span>
+        <!-- Table Template -->
+        <div style="overflow-x: auto; overflow-y: hidden">
+            <table class="table table-hover">
+                <thead style="border: 2px solid;">
+                    <tr class="styleTr">
+                        @foreach (var item in ViewBag.listTemplate)
+                        {
+                            <th scope="col" id="HeaderTable">@item</th>
+                        }
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <!-- button get file import Template -->
+        <p style="text-align: right">
+            <button type="button" class="btn btn-primary" style="margin: 20px 0px;"><i class="fas fa-file-excel"></i> Import File</button>
+        </p>
+    }
+
+</div>
+<!-- /.container-fluid -->
+@section Scripts{
+    <script src="~/js/books.js" type="module" asp-append-version="true"></script>
+}
+

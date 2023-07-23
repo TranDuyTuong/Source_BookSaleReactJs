@@ -63,6 +63,7 @@ namespace CodeFirtMigration.DataFE
             modelBuilder.ApplyConfiguration(new LogConfiguration());
             modelBuilder.ApplyConfiguration(new EmailTemplateConfiguration());
             modelBuilder.ApplyConfiguration(new StoreConfiguration());
+            modelBuilder.ApplyConfiguration(new TemplateImportConfiguration());
 
             // Configuration Anorder Table By Request EntityFramework
             modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("AppUserClaims");
@@ -115,6 +116,7 @@ namespace CodeFirtMigration.DataFE
         public DbSet<Log> logs { get; set; }
         public DbSet<EmailTemplate> emailTemplates { get; set; }
         public DbSet<Store> stores { get; set; }
+        public DbSet<TemplateImport> templateImports { get; set; }
 
     }
 }

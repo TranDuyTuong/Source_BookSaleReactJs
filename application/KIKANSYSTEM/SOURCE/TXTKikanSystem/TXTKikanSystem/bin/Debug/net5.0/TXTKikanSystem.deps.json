@@ -34,6 +34,7 @@
       "TXTKikanSystem/1.0.0": {
         "dependencies": {
           "CommonApi": "1.0.0",
+          "MessageNotification": "1.0.0",
           "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": "5.0.0",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "5.0.2",
           "System.IdentityModel.Tokens.Jwt": "6.32.0",
@@ -1685,6 +1686,14 @@
         },
         "compile": {
           "CommonApi.dll": {}
+        }
+      },
+      "MessageNotification/1.0.0": {
+        "runtime": {
+          "MessageNotification.dll": {}
+        },
+        "compile": {
+          "MessageNotification.dll": {}
         }
       },
       "Microsoft.AspNetCore.Antiforgery/5.0.0.0": {
@@ -4220,6 +4229,11 @@
       "hashPath": "system.xml.xdocument.4.3.0.nupkg.sha512"
     },
     "CommonApi/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "MessageNotification/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

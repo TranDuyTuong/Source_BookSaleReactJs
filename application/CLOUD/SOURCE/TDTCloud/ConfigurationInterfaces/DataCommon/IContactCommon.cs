@@ -45,5 +45,14 @@ namespace ConfigurationInterfaces.DataCommon
         /// <param name="email"></param>
         /// <returns></returns>
         bool ValidationEmailEmployee(string email);
+
+        /// <summary>
+        /// ValidationRoleUser
+        /// </summary>
+        /// <param name="role"></param>
+        /// <param name="UserId"></param>
+        /// <param name="eventCode"></param>
+        /// <returns></returns>
+        bool ValidationRoleUserLimit(string role, string UserId, string eventCode);
     }
 }

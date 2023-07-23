@@ -2157,6 +2157,16 @@
         "runtime": {
           "bin/placeholder/CommonApi.dll": {}
         }
+      },
+      "MessageNotification/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/MessageNotification.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/MessageNotification.dll": {}
+        }
       }
     }
   },
@@ -6870,11 +6880,17 @@
       "type": "project",
       "path": "../CommonApi/CommonApi.csproj",
       "msbuildProject": "../CommonApi/CommonApi.csproj"
+    },
+    "MessageNotification/1.0.0": {
+      "type": "project",
+      "path": "../MessageNotification/MessageNotification.csproj",
+      "msbuildProject": "../MessageNotification/MessageNotification.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
       "CommonApi >= 1.0.0",
+      "MessageNotification >= 1.0.0",
       "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation >= 5.0.0",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 5.0.2",
       "System.IdentityModel.Tokens.Jwt >= 6.32.0"
@@ -6910,6 +6926,9 @@
           "projectReferences": {
             "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\CommonApi\\CommonApi.csproj": {
               "projectPath": "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\CommonApi\\CommonApi.csproj"
+            },
+            "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\MessageNotification\\MessageNotification.csproj": {
+              "projectPath": "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\MessageNotification\\MessageNotification.csproj"
             }
           }
         }

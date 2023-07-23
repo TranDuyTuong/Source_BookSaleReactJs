@@ -1,0 +1,12 @@
+D:\Dev_Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\MessageNotification\bin\Debug\net5.0\MessageNotification.deps.json
+D:\Dev_Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\MessageNotification\bin\Debug\net5.0\MessageNotification.dll
+D:\Dev_Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\MessageNotification\bin\Debug\net5.0\MessageNotification.pdb
+D:\Dev_Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\MessageNotification\obj\Debug\net5.0\MessageNotification.csproj.AssemblyReference.cache
+D:\Dev_Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\MessageNotification\obj\Debug\net5.0\MessageNotification.GeneratedMSBuildEditorConfig.editorconfig
+D:\Dev_Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\MessageNotification\obj\Debug\net5.0\MessageNotification.AssemblyInfoInputs.cache
+D:\Dev_Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\MessageNotification\obj\Debug\net5.0\MessageNotification.AssemblyInfo.cs
+D:\Dev_Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\MessageNotification\obj\Debug\net5.0\MessageNotification.csproj.CoreCompileInputs.cache
+D:\Dev_Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\MessageNotification\obj\Debug\net5.0\MessageNotification.dll
+D:\Dev_Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\MessageNotification\obj\Debug\net5.0\refint\MessageNotification.dll
+D:\Dev_Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\MessageNotification\obj\Debug\net5.0\MessageNotification.pdb
+D:\Dev_Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\MessageNotification\obj\Debug\net5.0\ref\MessageNotification.dll

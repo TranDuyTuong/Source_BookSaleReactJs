@@ -3,7 +3,7 @@
     ViewData["Title"] = "Home";
     Layout = "~/Views/Shared/_Template.cshtml";
 }
-<link href="~/styletemplate/css/homepage.css" rel="stylesheet" />
+<link href="~/styletemplate/css/homepage.css" rel="stylesheet" asp-append-version="true" />
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -161,9 +161,19 @@
     <div class="row">
 
         <div class="col-lg-6 mb-4">
-            <div class="card bg-primary text-white shadow" id="btn_ImportBook">
-                <div class="card-body">
-                    <i class="fas fa-database"></i> Import Books
+            <a href="#" id="btn_ImportBooks">
+                <div class="card bg-primary text-white shadow">
+                    <div class="card-body">
+                        <i class="fas fa-database"></i> Import Books
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-6 mb-4">
+            <div class="card bg-primary text-white shadow">
+                <div class="card-body">                  
+                    <i class="fas fa-database"></i> Import Categorys
                 </div>
             </div>
         </div>
@@ -171,8 +181,7 @@
         <div class="col-lg-6 mb-4">
             <div class="card bg-primary text-white shadow">
                 <div class="card-body">
-                    Primary
-                    <div class="text-white-50 small">#4e73df</div>
+                    <i class="fas fa-database"></i> Import Citys
                 </div>
             </div>
         </div>
@@ -180,8 +189,7 @@
         <div class="col-lg-6 mb-4">
             <div class="card bg-primary text-white shadow">
                 <div class="card-body">
-                    Primary
-                    <div class="text-white-50 small">#4e73df</div>
+                    <i class="fas fa-database"></i> Import District
                 </div>
             </div>
         </div>
@@ -189,8 +197,7 @@
         <div class="col-lg-6 mb-4">
             <div class="card bg-primary text-white shadow">
                 <div class="card-body">
-                    Primary
-                    <div class="text-white-50 small">#4e73df</div>
+                    <i class="fas fa-database"></i> Authors
                 </div>
             </div>
         </div>
@@ -198,8 +205,7 @@
         <div class="col-lg-6 mb-4">
             <div class="card bg-primary text-white shadow">
                 <div class="card-body">
-                    Primary
-                    <div class="text-white-50 small">#4e73df</div>
+                    <i class="fas fa-database"></i> Publishing Company
                 </div>
             </div>
         </div>
@@ -207,10 +213,19 @@
         <div class="col-lg-6 mb-4">
             <div class="card bg-primary text-white shadow">
                 <div class="card-body">
-                    Primary
-                    <div class="text-white-50 small">#4e73df</div>
+                    <i class="fas fa-database"></i> Publisher
                 </div>
             </div>
+        </div>
+
+        <div class="col-lg-6 mb-4">
+            <a href="#" id="styleBanksSuport">
+                <div class="card bg-primary text-white shadow">
+                    <div class="card-body">
+                        <i class="fas fa-database"></i> Banks Suport
+                    </div>
+                </div>
+            </a>
         </div>
 
 

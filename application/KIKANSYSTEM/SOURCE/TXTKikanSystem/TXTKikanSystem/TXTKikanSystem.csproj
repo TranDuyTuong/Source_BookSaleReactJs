@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CommonApi\CommonApi.csproj" />
+    <ProjectReference Include="..\MessageNotification\MessageNotification.csproj" />
   </ItemGroup>
 
 </Project>
