@@ -27,5 +27,10 @@ namespace MessageNotification.CommonMesage
         /// MessageSystemGet1000Recol
         /// </summary>
         public static string MessageSystemGet1000Recol = "System Will Get 1000 Recol Fist In File!";
+
+        /// <summary>
+        /// MessageTemplateOrFileNameNull
+        /// </summary>
+        public static string MessageTemplateOrFileNameNull = "Template Dowload Is Null Or File Name Dowload Is Null, Please Contac Manager !";
     }
 }

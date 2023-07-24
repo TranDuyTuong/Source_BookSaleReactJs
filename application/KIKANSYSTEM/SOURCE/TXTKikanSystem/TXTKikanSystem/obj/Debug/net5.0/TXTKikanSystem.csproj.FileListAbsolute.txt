@@ -1233,3 +1233,11 @@ D:\Dev_Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSys
 D:\Dev_Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\TXTKikanSystem\obj\Debug\net5.0\TXTKikanSystem.pdb
 D:\Dev_Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\TXTKikanSystem\obj\Debug\net5.0\TXTKikanSystem.genruntimeconfig.cache
 D:\Dev_Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\TXTKikanSystem\obj\Debug\net5.0\ref\TXTKikanSystem.dll
+D:\Dev_Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\TXTKikanSystem\bin\Debug\net5.0\ClosedXML.dll
+D:\Dev_Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\TXTKikanSystem\bin\Debug\net5.0\DocumentFormat.OpenXml.dll
+D:\Dev_Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\TXTKikanSystem\bin\Debug\net5.0\ExcelNumberFormat.dll
+D:\Dev_Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\TXTKikanSystem\bin\Debug\net5.0\Irony.dll
+D:\Dev_Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\TXTKikanSystem\bin\Debug\net5.0\SixLabors.Fonts.dll
+D:\Dev_Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\TXTKikanSystem\bin\Debug\net5.0\System.IO.Packaging.dll
+D:\Dev_Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\TXTKikanSystem\bin\Debug\net5.0\XLParser.dll
+D:\Dev_Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\TXTKikanSystem\obj\Debug\net5.0\Razor\Views\Imports\ErrorMessagePage.cshtml.g.cs

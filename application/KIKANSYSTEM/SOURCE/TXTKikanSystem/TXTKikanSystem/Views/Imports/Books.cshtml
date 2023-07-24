@@ -15,13 +15,13 @@
                 <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="Btn_ReditrectHome" style="color: #030000; font-family: initial;">
                     Home
                 </a>
-                </li>
+            </li>
             <li class="breadcrumb-item active" aria-current="page" style="color: #030000; font-family: initial;">Import Book</li>
         </ol>
     </nav>
 
     <!-- Check Data Result When InitData-->
-    @if(ViewBag.InitDataNull != null)
+    @if (ViewBag.InitDataNull != null)
     {
         <!-- Can not get Template Import -->
         <h1 class="h3 mb-0 text-gray-800" style="font-family: initial; color: red; font-weight: 600">
@@ -53,11 +53,29 @@
         </div>
         <!-- button get file import Template -->
         <p style="text-align: right">
+            <button type="button" class="btn btn-primary" style="margin: 20px 0px;" id="btn_DowloadTemplate">
+                <i class="fas fa-file-download"></i> DowLoad Template
+            </button>
             <button type="button" class="btn btn-primary" style="margin: 20px 0px;" id="btn_ShowDialogFile"><i class="fas fa-file-excel"></i> Import File</button>
         </p>
     }
 </div>
-<div id="ImportFile"></div>
+<div class="modal" tabindex="-1" id="dialogImport" style="background-color: #0000009e;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Import Books File</h5>
+                <button type="button" id="btn_closeImportFile" style="background: none;border: none;color: red;font-weight: 600">X</button>
+            </div><div class="modal-body">
+                <div class="mb-3">
+                    <input style="color: black;border: none; " class="form-control" type="file" id="formFile">
+                </div>
+            </div><div class="modal-footer">
+                <button type="button" class="btn btn-primary"><i class="fas fa-plus-square"></i> Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- /.container-fluid -->
 @section Scripts{
     <script src="~/js/Books.js" type="module" asp-append-version="true"></script>

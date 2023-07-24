@@ -10,3 +10,6 @@ table {
     background: #efff00cf;
     color: black;
 }
+#btn_closeImportFile:hover{
+    border: 2px solid black;
+}
