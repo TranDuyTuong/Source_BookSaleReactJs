@@ -31,6 +31,16 @@ namespace MessageNotification.CommonMesage
         /// <summary>
         /// MessageTemplateOrFileNameNull
         /// </summary>
-        public static string MessageTemplateOrFileNameNull = "Template Dowload Is Null Or File Name Dowload Is Null, Please Contac Manager !";
+        public static string MessageTemplateOrFileNameNull = "Template Dowload Is Null Or File Name Dowload Is Null, Please Contact Manager !";
+
+        /// <summary>
+        /// MessageFileNameIncorrect
+        /// </summary>
+        public static string MessageFileNameIncorrect = "File Name Incorrect With Template, Please Contact Manager !";
+
+        /// <summary>
+        /// MessageCannotReadHeaderTemplate
+        /// </summary>
+        public static string MessageCannotReadHeaderTemplate = "Can Not Read Header Template File, Please Contact Manager !";
     }
 }

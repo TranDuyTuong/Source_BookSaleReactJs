@@ -16,5 +16,14 @@ namespace TXTKikanSystem.Models
             get; 
             set; 
         }
+
+        /// <summary>
+        /// Carshier
+        /// </summary>
+        public string Carshier
+        {
+            get;
+            set;
+        }
     }
 }

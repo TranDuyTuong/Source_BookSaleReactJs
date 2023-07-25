@@ -48,6 +48,16 @@ $(document).ready(function () {
                 submitFile.append("ImportExcelBook", file[i]);
             }
 
+            // Get Info Employeer
+            var cookiesname = GetCookies(UserLogin);
+            // Setting string for Carshier
+            var stringData = localStorage.getItem("UserID") + "*" + localStorage.getItem("RoleEmployer") + "*" + cookiesname;
+
+            var employeer = {
+                Carshier: stringData
+            };
+            submitFile.append("Carshier", JSON.stringify(employeer));
+
             // Sent File Ajax
             $.ajax({
                 url: "/Imports/ReadContentFileImport",

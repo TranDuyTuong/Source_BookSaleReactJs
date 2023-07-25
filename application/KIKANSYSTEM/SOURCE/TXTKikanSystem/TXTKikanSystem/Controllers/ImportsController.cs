@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using TXTKikanSystem.ApiConnections.IConnections;
 using TXTKikanSystem.FunctionLocation;
 using TXTKikanSystem.Models;
+using TXTKikanSystem.Models.Imports;
 
 namespace TXTKikanSystem.Controllers
 {
@@ -40,9 +41,19 @@ namespace TXTKikanSystem.Controllers
         private static string _cutentPage = string.Empty;
 
         /// <summary>
-        /// Save Memory strem
+        /// Save Memory Stream
         /// </summary>
         private static byte[] _saveContentMemoryStream;
+
+        /// <summary>
+        /// Save Sheet Name
+        /// </summary>
+        private static string _sheetName = string.Empty;
+
+        /// <summary>
+        /// Save Type Import
+        /// </summary>
+        private static string _typeImport = string.Empty;
 
         public ImportsController(ICommonKikanSystem _context, IHomeKikanSystem _homeKikanSystem, IimportDataKikaSystem _importData)
         {
@@ -58,12 +69,14 @@ namespace TXTKikanSystem.Controllers
         [HttpGet]
         public async Task<IActionResult> Books(string Carshier)
         {
-            // Reset List Template Excel local And File Name And MessageError And curentPage And byte memory
+            // Reset List Template Excel local And File Name And MessageError And curentPage And byte memory And Sheet name And Type Import
             _templateExcel = new List<string>();
             _fileName = string.Empty;
             _messageErrorDowload = string.Empty;
             _cutentPage = string.Empty;
             _saveContentMemoryStream = new byte[0];
+            _sheetName = string.Empty;
+            _typeImport = string.Empty;
 
             // Check input data
             if (Carshier == null)
@@ -142,6 +155,12 @@ namespace TXTKikanSystem.Controllers
 
                             // Save Curent Page
                             _cutentPage = "Books";
+
+                            // Save Sheet Name
+                            _sheetName = "Books";
+
+                            // Save Type Import
+                            _typeImport = EnumImportData.Excelimport_Books;
                         }
 
                     }
@@ -198,7 +217,7 @@ namespace TXTKikanSystem.Controllers
                             using(var workbook = new XLWorkbook())
                             {
                                 // Create WorkSheet Name
-                                IXLWorksheet worksheet = workbook.Worksheets.Add("Books");
+                                IXLWorksheet worksheet = workbook.Worksheets.Add(_sheetName);
 
                                 worksheet.ColumnWidth = 27;
                                 worksheet.RowHeight = 30;
@@ -250,7 +269,122 @@ namespace TXTKikanSystem.Controllers
         [HttpPost]
         public async Task<IActionResult> ReadContentFileImport(ImportExcelFile request)
         {
-            return new JsonResult(0);
+            // Check input data
+            if (request.Carshier == null)
+            {
+                return RedirectToAction("Login", "SignIn");
+            }
+            else
+            {
+                // Check token result
+                var resultCheck = new FunctionValidationToken(this.context);
+                bool tokenValidationResult = await resultCheck.ValidationTokenEmployeer(request.Carshier);
+
+                if (tokenValidationResult == true)
+                {
+                    try
+                    {
+                        // Check file Name
+                        var fileName = request.ImportExcelBook.FileName;
+
+                        if(fileName != _fileName)
+                        {
+                            // Save Message Error
+                            _messageErrorDowload = Message.MessageFileNameIncorrect;
+                            // Reditrectoaction Page Notication Dowload Error
+                            return RedirectToAction("ErrorMessagePage", "Imports");
+                        }
+                        else
+                        {                      
+                            bool isReadSuccess = false;
+
+                            // Read Content file excel
+                            using(var stream = new MemoryStream())
+                            {
+                                await request.ImportExcelBook.CopyToAsync(stream);
+                                using(var xbook = new XLWorkbook(stream))
+                                {
+                                    var sheetName = xbook.Worksheet(_sheetName);
+                                    var rowCount = sheetName.RowCount();
+
+                                    // Get header Template data
+                                    List<string> l_headerTemplate = new List<string>();
+                                    for(int i = 1; i < _templateExcel.Count; i++)
+                                    {
+                                        // Get Fist Row
+                                        string header = sheetName.Cell(1, i).Value.ToString().Trim();
+                                        var compapeHeader = _templateExcel.FirstOrDefault(x => x == header);
+
+                                        if(compapeHeader != null)
+                                        {
+                                            l_headerTemplate.Add(header);
+                                            isReadSuccess = true;
+                                        }
+                                        else
+                                        {
+                                            isReadSuccess = false;
+                                            break;
+                                        }
+                                    }
+
+                                    // Check Read Header Excel File
+                                    if (isReadSuccess == false)
+                                    {
+                                        // Save Message Error
+                                        _messageErrorDowload = Message.MessageCannotReadHeaderTemplate;
+                                        // Reditrectoaction Page Notication Dowload Error
+                                        return RedirectToAction("ErrorMessagePage", "Imports");
+                                    }
+                                    else
+                                    {
+                                        // Concat string
+                                        string eventCode = string.Concat(CommonApi.CommonEventCode.FistCode, CommonApi.CommonEventCode.EventImportBooks);
+                                        var cookies = Request.Cookies["LoginTDTImportKikanSystem"].ToString();
+                                        // Get User And Role Request
+                                        string[] inputData = request.Carshier.Split("*");
+
+                                        var infoImport = new MainImportSystem();
+                                        // Setting Base Info
+                                        infoImport.Company = CommonEventCode.CompanyCode;
+                                        infoImport.AreaCode = CommonEventCode.AreaCode;
+                                        infoImport.StoreCode = CommonEventCode.StoreCode;
+                                        infoImport.EventCode = eventCode;
+                                        infoImport.Token = cookies;
+                                        infoImport.UserID = inputData[0];
+                                        infoImport.RoleID = inputData[1];
+
+
+                                        switch (_typeImport)
+                                        {
+                                            case var item when item == EnumImportData.Excelimport_Books:
+                                                // Books Import
+
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                    }
+
+                                }
+                            }
+
+                        }
+                    }
+                    catch(Exception ex)
+                    {
+                        // Save Message Error
+                        _messageErrorDowload = ex.Message;
+                        // Reditrectoaction Page Notication Dowload Error
+                        return RedirectToAction("ErrorMessagePage", "Imports");
+                    }
+                }
+                else
+                {
+                    // Reditrectoaction Login Page
+                    return RedirectToAction("Login", "SignIn");
+                }
+
+            }
         }
 
         /// <summary>
