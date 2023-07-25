@@ -243,6 +243,17 @@ namespace TXTKikanSystem.Controllers
         }
 
         /// <summary>
+        /// ReadContentFileImport
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> ReadContentFileImport(ImportExcelFile request)
+        {
+            return new JsonResult(0);
+        }
+
+        /// <summary>
         /// Error Message Page
         /// </summary>
         /// <returns></returns>
