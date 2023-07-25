@@ -56,7 +56,7 @@ $(document).ready(function () {
             var employeer = {
                 Carshier: stringData
             };
-            submitFile.append("Carshier", JSON.stringify(employeer));
+            submitFile.append("Carshier", stringData);
 
             // Sent File Ajax
             $.ajax({
@@ -66,7 +66,18 @@ $(document).ready(function () {
                 contentType: false,
                 processData: false,
                 success: function (result) {
-
+                    var queryString = location.origin;
+                    switch (result)
+                    {
+                        case 0:
+                            window.location.href = queryString;
+                            break;
+                        case 1:
+                            window.location.href = queryString + "/Imports/ErrorMessagePage";
+                            break;
+                        default:
+                            break;
+                    }
                 }
             })
         }

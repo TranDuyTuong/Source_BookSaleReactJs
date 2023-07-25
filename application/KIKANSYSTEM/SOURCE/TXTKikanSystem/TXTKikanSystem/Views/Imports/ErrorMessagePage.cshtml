@@ -9,7 +9,7 @@
 
     <!-- Message Error Text -->
     <div class="text-center">
-        <div class="error mx-auto" data-text="404">@ViewBag.messageError</div>
+        <div data-text="@ViewBag.messageError" style="font-size: 50px; font-family: initial; font-weight: 600;">@ViewBag.messageError</div>
         <p class="lead text-gray-800 mb-5">Page Notification Message Error</p>
         <input type="hidden" value="@ViewBag.curentPage" id="Txt_CurentPage" />
         <a href="#" id="btn_ReditectHome">&larr; Back to Home</a>

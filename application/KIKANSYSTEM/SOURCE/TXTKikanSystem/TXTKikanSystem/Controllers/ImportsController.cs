@@ -222,16 +222,20 @@ namespace TXTKikanSystem.Controllers
                                 worksheet.ColumnWidth = 27;
                                 worksheet.RowHeight = 30;
 
+                                // Count Colums Excel
+                                int count = 0;
+
                                 // Create cell in file
-                                for(int i = 1; i < _templateExcel.Count; i++) 
+                                for(int i = 0; i < _templateExcel.Count; i++) 
                                 {
-                                    worksheet.Cell(1, i).Value = _templateExcel[i];
-                                    worksheet.Cell(1, i).Style.Fill.BackgroundColor = XLColor.Yellow;
-                                    worksheet.Cell(1, i).Style.Border.BottomBorder = XLBorderStyleValues.Double;
-                                    worksheet.Cell(1, i).Style.Border.TopBorder = XLBorderStyleValues.Double;
-                                    worksheet.Cell(1, i).Style.Border.LeftBorder = XLBorderStyleValues.Double;
-                                    worksheet.Cell(1, i).Style.Border.RightBorder = XLBorderStyleValues.Double;
-                                    worksheet.Cell(1, i).Style.Font.Bold = true;
+                                    count++;
+                                    worksheet.Cell(1, count).Value = _templateExcel[i];
+                                    worksheet.Cell(1, count).Style.Fill.BackgroundColor = XLColor.Yellow;
+                                    worksheet.Cell(1, count).Style.Border.BottomBorder = XLBorderStyleValues.Double;
+                                    worksheet.Cell(1, count).Style.Border.TopBorder = XLBorderStyleValues.Double;
+                                    worksheet.Cell(1, count).Style.Border.LeftBorder = XLBorderStyleValues.Double;
+                                    worksheet.Cell(1, count).Style.Border.RightBorder = XLBorderStyleValues.Double;
+                                    worksheet.Cell(1, count).Style.Font.Bold = true;
                                 }
 
                                 // Save into Memory
@@ -272,7 +276,7 @@ namespace TXTKikanSystem.Controllers
             // Check input data
             if (request.Carshier == null)
             {
-                return RedirectToAction("Login", "SignIn");
+                return new JsonResult(0);
             }
             else
             {
@@ -292,7 +296,7 @@ namespace TXTKikanSystem.Controllers
                             // Save Message Error
                             _messageErrorDowload = Message.MessageFileNameIncorrect;
                             // Reditrectoaction Page Notication Dowload Error
-                            return RedirectToAction("ErrorMessagePage", "Imports");
+                            return new JsonResult(1);
                         }
                         else
                         {                      
@@ -333,7 +337,7 @@ namespace TXTKikanSystem.Controllers
                                         // Save Message Error
                                         _messageErrorDowload = Message.MessageCannotReadHeaderTemplate;
                                         // Reditrectoaction Page Notication Dowload Error
-                                        return RedirectToAction("ErrorMessagePage", "Imports");
+                                        return new JsonResult(1);
                                     }
                                     else
                                     {
@@ -357,17 +361,68 @@ namespace TXTKikanSystem.Controllers
                                         switch (_typeImport)
                                         {
                                             case var item when item == EnumImportData.Excelimport_Books:
-                                                // Books Import
 
+                                                // Get Row in excel
+                                                for(int i = 2; i <= rowCount; i++)
+                                                {
+                                                    // If Data Null Break
+                                                    var checkNull = sheetName.Cell(i, 1).Value.ToString().Trim();
+                                                    if(checkNull == null || checkNull == "")
+                                                    {
+                                                        break;
+                                                    }
+
+                                                    // Get Data in Excel And Save Into List
+                                                    var itemRow = new BooksImport()
+                                                    {
+                                                        ItemCode = sheetName.Cell(i, 1).Value.ToString().Trim(),
+                                                        CompanyCode = sheetName.Cell(i, 2).Value.ToString().Trim(),
+                                                        StoreCode = sheetName.Cell(i, 3).Value.ToString().Trim(),
+                                                        ApplyDate = Convert.ToDateTime(sheetName.Cell(i, 4).Value.ToString().Trim()),
+                                                        Description = sheetName.Cell(i, 5).Value.ToString().Trim(),
+                                                        DescriptionShort = sheetName.Cell(i, 6).Value.ToString().Trim(),
+                                                        DescriptionLong = sheetName.Cell(i, 7).Value.ToString().Trim(),
+                                                        PriceOrigin = Convert.ToDecimal(sheetName.Cell(i, 8).Value.ToString().Trim()),
+                                                        PercentDiscount = Convert.ToInt32(sheetName.Cell(i, 9).Value.ToString().Trim()),
+                                                        priceSale = Convert.ToDecimal(sheetName.Cell(i, 10).Value.ToString().Trim()),
+                                                        QuantityDiscountID = null,
+                                                        PairDiscountID = null,
+                                                        SpecialDiscountID = null,
+                                                        Quantity = Convert.ToInt32(sheetName.Cell(i, 14).Value.ToString().Trim()),
+                                                        Viewer = Convert.ToInt32(sheetName.Cell(i, 15).Value.ToString().Trim()),
+                                                        Buy = Convert.ToInt32(sheetName.Cell(i, 16).Value.ToString().Trim()),
+                                                        CategoryItemMasterID = sheetName.Cell(i, 17).Value.ToString().Trim(),
+                                                        AuthorID = sheetName.Cell(i, 18).Value.ToString().Trim(),
+                                                        DateCreate = Convert.ToDateTime(sheetName.Cell(i, 19).Value.ToString().Trim()),
+                                                        IssuingCompanyID = sheetName.Cell(i, 20).Value.ToString().Trim(),
+                                                        PublicationDate = Convert.ToDateTime(sheetName.Cell(i, 21).Value.ToString().Trim()),
+                                                        size = sheetName.Cell(i, 22).Value.ToString().Trim(),
+                                                        PageNumber = Convert.ToInt32(sheetName.Cell(i, 23).Value.ToString().Trim()),
+                                                        PublishingCompanyID = sheetName.Cell(i, 24).Value.ToString().Trim(),
+                                                        IsSale = Convert.ToBoolean(sheetName.Cell(i, 25).Value.ToString().Trim().ToUpper()),
+                                                        LastUpdateDate = null,
+                                                        Note = sheetName.Cell(i, 27).Value.ToString().Trim(),
+                                                        HeadquartersLastUpdateDateTime = Convert.ToDateTime(sheetName.Cell(i, 28).Value.ToString().Trim()),
+                                                        IsDeleteFlag = Convert.ToBoolean(sheetName.Cell(i, 29).Value.ToString().Trim().ToUpper()),
+                                                        UserID = sheetName.Cell(i, 30).Value.ToString().Trim(),
+                                                        TaxGroupCodeID = null
+                                                    };
+                                                    infoImport.listBooks.Add(itemRow);
+                                                }
                                                 break;
                                             default:
                                                 break;
                                         }
+
+                                        // Success
+                                        // Save Message Error
+                                        _messageErrorDowload = Message.MessageImportFileFail;
+                                        // Reditrectoaction Page Notication Dowload Error
+                                        return new JsonResult(1);
                                     }
 
                                 }
                             }
-
                         }
                     }
                     catch(Exception ex)
@@ -375,13 +430,13 @@ namespace TXTKikanSystem.Controllers
                         // Save Message Error
                         _messageErrorDowload = ex.Message;
                         // Reditrectoaction Page Notication Dowload Error
-                        return RedirectToAction("ErrorMessagePage", "Imports");
+                        return new JsonResult(1);
                     }
                 }
                 else
                 {
                     // Reditrectoaction Login Page
-                    return RedirectToAction("Login", "SignIn");
+                    return new JsonResult(0);
                 }
 
             }

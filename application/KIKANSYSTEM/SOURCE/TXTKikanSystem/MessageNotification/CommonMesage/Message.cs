@@ -42,5 +42,10 @@ namespace MessageNotification.CommonMesage
         /// MessageCannotReadHeaderTemplate
         /// </summary>
         public static string MessageCannotReadHeaderTemplate = "Can Not Read Header Template File, Please Contact Manager !";
+
+        /// <summary>
+        /// MessageImportFileFail
+        /// </summary>
+        public static string MessageImportFileFail = "Import File Fail, Please Contact Manager";
     }
 }
