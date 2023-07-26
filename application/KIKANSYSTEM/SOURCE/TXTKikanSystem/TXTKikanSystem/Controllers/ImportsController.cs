@@ -111,7 +111,7 @@ namespace TXTKikanSystem.Controllers
                     };
                     // Conver Object to Json
                     string jsonConver = CommonConverJsonToObject<TemplateImportKikanSystem>.CoverObjectToJson(dataInitia);
-                    var result = await this.importData.ImportDataByKikaSystem(jsonConver);
+                    var result = await this.importData.GetTemplateByKikaSystemBook(jsonConver);
                     // Conver Json to Object
                     var InitData = CommonConverJsonToObject<TemplateImportKikanSystem>.ConverJsonToObject(result);
 
@@ -341,8 +341,6 @@ namespace TXTKikanSystem.Controllers
                                     }
                                     else
                                     {
-                                        // Concat string
-                                        string eventCode = string.Concat(CommonApi.CommonEventCode.FistCode, CommonApi.CommonEventCode.EventImportBooks);
                                         var cookies = Request.Cookies["LoginTDTImportKikanSystem"].ToString();
                                         // Get User And Role Request
                                         string[] inputData = request.Carshier.Split("*");
@@ -352,19 +350,23 @@ namespace TXTKikanSystem.Controllers
                                         infoImport.Company = CommonEventCode.CompanyCode;
                                         infoImport.AreaCode = CommonEventCode.AreaCode;
                                         infoImport.StoreCode = CommonEventCode.StoreCode;
-                                        infoImport.EventCode = eventCode;
                                         infoImport.Token = cookies;
                                         infoImport.UserID = inputData[0];
                                         infoImport.RoleID = inputData[1];
-
+                                        infoImport.TypeImport = _typeImport;
 
                                         switch (_typeImport)
                                         {
                                             // Books
                                             case var item when item == EnumImportData.Excelimport_Books:
+                                                // Get File Name
+                                                infoImport.FileName = CommonFileNameImports.ImportBooksKikanSystem;
+                                                // Concat string
+                                                string eventCode = string.Concat(CommonApi.CommonEventCode.FistCode, CommonApi.CommonEventCode.EventImportBooks);
+                                                infoImport.EventCode = eventCode;
 
                                                 // Get Row in excel
-                                                for(int i = 2; i <= rowCount; i++)
+                                                for (int i = 2; i <= rowCount; i++)
                                                 {
                                                     // If Data Null Break
                                                     var checkNull = sheetName.Cell(i, 1).Value.ToString().Trim();
@@ -432,11 +434,13 @@ namespace TXTKikanSystem.Controllers
                                                 return new JsonResult(1);
                                         }
 
-                                        // Success
-                                        // Save Message Error
-                                        _messageErrorDowload = Message.MessageImportFileFail;
-                                        // Reditrectoaction Page Notication Dowload Error
-                                        return new JsonResult(1);
+                                        // Conver Object to Json
+                                        string jsonConver = CommonConverJsonToObject<MainImportSystem>.CoverObjectToJson(infoImport);
+                                        // Call Api
+                                        var result = await this.importData.ImportDataIntoKikaSystem(jsonConver);
+                                        // Conver Json to Object 
+                                        var resultConver = CommonConverJsonToObject<ReturnCommonApi>.ConverJsonToObject(result);
+                                        return new JsonResult(resultConver);
                                     }
 
                                 }

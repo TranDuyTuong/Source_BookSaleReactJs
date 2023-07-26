@@ -188,5 +188,88 @@ namespace TDTCloud.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Import Data Into System
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost("ImportDataIntoSystem")]
+        public async Task<IActionResult> ImportDataIntoSystem([FromBody] string request)
+        {
+            string result = null;
+            // Conver Json to Object
+            var dataConver = ConverToJson<MainImportSystem>.ConverJsonToObject(request);
+            if (dataConver != null)
+            {
+                // Check event code
+                var ev = ValidationEventCode.CheckEventCode(dataConver.EventCode);
+
+                if (ev.Status == true)
+                {
+                    // Check Token Null
+                    if (dataConver.Token == null || dataConver.Token == "")
+                    {
+                        var tokenNull = new ReturnCommonApi()
+                        {
+                            Status = false
+                        };
+
+                        // Conver Object to json
+                        result = ConverToJson<ReturnCommonApi>.ConverObjectToJson(tokenNull);
+                    }
+                    else
+                    {
+                        // Check Content Token
+                        var f_CheckValidationToken = new ValidationToken();
+                        var tokenResult = f_CheckValidationToken.ReadContentToken(dataConver.Token, ev.IdPlugin);
+                        if (tokenResult.Status == false)
+                        {
+                            var resultContent = new ReturnCommonApi()
+                            {
+                                Status = tokenResult.Status,
+                                IdPlugin = DataCommon.EventError,
+                                Message = CommonConfiguration.DataCommon.MessageTokenWasExpire
+
+                            };
+                            result = ConverToJson<ReturnCommonApi>.ConverObjectToJson(resultContent);
+                        }
+                        else
+                        {
+                            dataConver.EventCode = ev.IdPlugin;
+                            // ImportData To DB
+                            var resultImport = await this.importData.ImportDataIntoSystem(dataConver);
+                            // Conver Object to json
+                            result = ConverToJson<ReturnCommonApi>.ConverObjectToJson(resultImport);
+                        }
+                    }
+                }
+                else
+                {
+                    var errorEventCode = new ReturnCommonApi()
+                    {
+                        Status = false,
+                        IdPlugin = DataCommon.EventError,
+                        Message = CommonConfiguration.DataCommon.MessageErrorEvent
+                    };
+
+                    // Conver Object to Json
+                    result = ConverToJson<ReturnCommonApi>.ConverObjectToJson(errorEventCode);
+                }
+            }
+            else
+            {
+                var nullData = new ReturnCommonApi()
+                {
+                    Status = false,
+                    IdPlugin = DataCommon.EventError,
+                    Message = CommonConfiguration.DataCommon.MessageNullData
+                };
+
+                // Conver Object to Json
+                result = ConverToJson<ReturnCommonApi>.ConverObjectToJson(nullData);
+            }
+            return Ok(result);
+        }
+
     }
 }

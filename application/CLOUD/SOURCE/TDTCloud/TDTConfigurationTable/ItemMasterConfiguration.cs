@@ -22,6 +22,7 @@ namespace TDTConfigurationTable
             builder.HasKey(x => x.CompanyCode);
             builder.HasKey(x => x.StoreCode);
             builder.HasKey(x => x.ItemCode);
+            builder.HasKey(x => x.ApplyDate);
 
             // Configuration Properties
             builder.Property(x => x.CompanyCode).IsRequired(true);
@@ -33,7 +34,7 @@ namespace TDTConfigurationTable
             builder.Property(x => x.ItemCode).IsRequired(true);
             builder.Property(x => x.ItemCode).HasMaxLength(26);
 
-            builder.Property(x => x.ApplyDate).IsRequired(false);
+            builder.Property(x => x.ApplyDate).IsRequired(true);
 
             builder.Property(x => x.Description).IsRequired(true);
             builder.Property(x => x.Description).HasMaxLength(50);

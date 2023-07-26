@@ -67,17 +67,29 @@ $(document).ready(function () {
                 processData: false,
                 success: function (result) {
                     var queryString = location.origin;
-                    switch (result)
-                    {
-                        case 0:
-                            window.location.href = queryString;
+                    if (result == 0) {
+                        window.location.href = queryString;
+                    }
+                    if (result == 1) {
+                        window.location.href = queryString + "/Imports/ErrorMessagePage";
+                    }
+
+                    // If Have Call Api Success
+                    switch (result.status) {
+                        case true:
+                            $("#formFile").val('');
+                            $("#dialogImport").hide();
+                            alert
                             break;
-                        case 1:
-                            window.location.href = queryString + "/Imports/ErrorMessagePage";
+                        case false:
+                            $("#formFile").val('');
+                            $("#dialogImport").hide();
+
                             break;
                         default:
-                            break;
+                            return;
                     }
+
                 }
             })
         }

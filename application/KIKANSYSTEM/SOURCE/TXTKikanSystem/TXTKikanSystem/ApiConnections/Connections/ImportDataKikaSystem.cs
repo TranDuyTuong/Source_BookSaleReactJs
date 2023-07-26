@@ -19,18 +19,18 @@ namespace TXTKikanSystem.ApiConnections.Connections
         }
 
         /// <summary>
-        /// ImportDataByKikaSystem
+        /// GetTemplateByKikaSystemBook
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         /// <exception cref="System.NotImplementedException"></exception>
-        public async Task<string> ImportDataByKikaSystem(string request)
+        public async Task<string> GetTemplateByKikaSystemBook(string request)
         {
             try
             {
                 HttpClient client = httpClientFactory.CreateClient();
                 client.BaseAddress = new Uri(this.configuration["LocalhostCloud"]);
-                HttpResponseMessage response = await client.PostAsJsonAsync(CommonApi.CommonUrlDefaultApi.ImportDataKikanSystem_Post, request);
+                HttpResponseMessage response = await client.PostAsJsonAsync(CommonApi.CommonUrlDefaultApi.GetTemplateKikanSystemBook_Post, request);
                 var result = await response.Content.ReadAsStringAsync();
                 return result;
             }
@@ -39,5 +39,28 @@ namespace TXTKikanSystem.ApiConnections.Connections
                 return e.ToString();
             }
         }
+
+        /// <summary>
+        /// ImportDataIntoKikaSystem
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task<string> ImportDataIntoKikaSystem(string request)
+        {
+            try
+            {
+                HttpClient client = httpClientFactory.CreateClient();
+                client.BaseAddress = new Uri(this.configuration["LocalhostCloud"]);
+                HttpResponseMessage response = await client.PostAsJsonAsync(CommonApi.CommonUrlDefaultApi.ImportDataIntoSystem_Post, request);
+                var result = await response.Content.ReadAsStringAsync();
+                return result;
+            }
+            catch (Exception e)
+            {
+                return e.ToString();
+            }
+        }
+
     }
 }

@@ -31,7 +31,12 @@ namespace CommonApi
         /// <summary>
         /// GetTemplateImport_Post
         /// </summary>
-        public static string ImportDataKikanSystem_Post = "/KikanSystem/GetTemplateImportBooks";
+        public static string GetTemplateKikanSystemBook_Post = "/KikanSystem/GetTemplateImportBooks";
+
+        /// <summary>
+        /// ImportDataIntoSystem_Post
+        /// </summary>
+        public static string ImportDataIntoSystem_Post = "/KikanSystem/ImportDataIntoSystem";
 
     }
 }

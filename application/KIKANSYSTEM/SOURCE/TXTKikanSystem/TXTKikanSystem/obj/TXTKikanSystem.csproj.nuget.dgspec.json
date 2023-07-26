@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Project\\v_5\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\TXTKikanSystem\\TXTKikanSystem.csproj": {}
+    "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\TXTKikanSystem\\TXTKikanSystem.csproj": {}
   },
   "projects": {
-    "D:\\Project\\v_5\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\CommonApi\\CommonApi.csproj": {
+    "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\CommonApi\\CommonApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Project\\v_5\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\CommonApi\\CommonApi.csproj",
+        "projectUniqueName": "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\CommonApi\\CommonApi.csproj",
         "projectName": "CommonApi",
-        "projectPath": "D:\\Project\\v_5\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\CommonApi\\CommonApi.csproj",
-        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\Project\\v_5\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\CommonApi\\obj\\",
+        "projectPath": "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\CommonApi\\CommonApi.csproj",
+        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+        "outputPath": "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\CommonApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -51,7 +51,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -60,21 +61,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Project\\v_5\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\MessageNotification\\MessageNotification.csproj": {
+    "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\MessageNotification\\MessageNotification.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Project\\v_5\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\MessageNotification\\MessageNotification.csproj",
+        "projectUniqueName": "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\MessageNotification\\MessageNotification.csproj",
         "projectName": "MessageNotification",
-        "projectPath": "D:\\Project\\v_5\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\MessageNotification\\MessageNotification.csproj",
-        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\Project\\v_5\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\MessageNotification\\obj\\",
+        "projectPath": "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\MessageNotification\\MessageNotification.csproj",
+        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+        "outputPath": "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\MessageNotification\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -105,7 +106,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -114,21 +116,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Project\\v_5\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\TXTKikanSystem\\TXTKikanSystem.csproj": {
+    "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\TXTKikanSystem\\TXTKikanSystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Project\\v_5\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\TXTKikanSystem\\TXTKikanSystem.csproj",
+        "projectUniqueName": "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\TXTKikanSystem\\TXTKikanSystem.csproj",
         "projectName": "TXTKikanSystem",
-        "projectPath": "D:\\Project\\v_5\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\TXTKikanSystem\\TXTKikanSystem.csproj",
-        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\Project\\v_5\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\TXTKikanSystem\\obj\\",
+        "projectPath": "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\TXTKikanSystem\\TXTKikanSystem.csproj",
+        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+        "outputPath": "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\TXTKikanSystem\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -136,17 +138,18 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\sdk\\7.0.304\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "D:\\Project\\v_5\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\CommonApi\\CommonApi.csproj": {
-                "projectPath": "D:\\Project\\v_5\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\CommonApi\\CommonApi.csproj"
+              "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\CommonApi\\CommonApi.csproj": {
+                "projectPath": "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\CommonApi\\CommonApi.csproj"
               },
-              "D:\\Project\\v_5\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\MessageNotification\\MessageNotification.csproj": {
-                "projectPath": "D:\\Project\\v_5\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\MessageNotification\\MessageNotification.csproj"
+              "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\MessageNotification\\MessageNotification.csproj": {
+                "projectPath": "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\MessageNotification\\MessageNotification.csproj"
               }
             }
           }
@@ -184,7 +187,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -196,7 +200,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
         }
       }
     }

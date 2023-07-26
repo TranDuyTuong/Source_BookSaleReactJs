@@ -1,4 +1,5 @@
-﻿using ModelConfiguration.M_KikanSystem;
+﻿using ModelConfiguration.M_Common;
+using ModelConfiguration.M_KikanSystem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +16,12 @@ namespace ConfigurationInterfaces.KikanSystem
         /// <param name="request"></param>
         /// <returns></returns>
         Task<TemplateImportKikanSystem> GetTemplateImport(TemplateImportKikanSystem request);
+
+        /// <summary>
+        /// ImportDataIntoSystem
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<ReturnCommonApi> ImportDataIntoSystem(MainImportSystem request);
     }
 }
