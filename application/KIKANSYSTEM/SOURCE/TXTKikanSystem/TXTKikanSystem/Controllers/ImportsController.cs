@@ -360,6 +360,7 @@ namespace TXTKikanSystem.Controllers
 
                                         switch (_typeImport)
                                         {
+                                            // Books
                                             case var item when item == EnumImportData.Excelimport_Books:
 
                                                 // Get Row in excel
@@ -410,8 +411,25 @@ namespace TXTKikanSystem.Controllers
                                                     infoImport.listBooks.Add(itemRow);
                                                 }
                                                 break;
-                                            default:
+                                            case var item when item == EnumImportData.Excelimport_Author:
                                                 break;
+                                            case var item when item == EnumImportData.Excelimport_PublishingCompany:
+                                                break;
+                                            case var item when item == EnumImportData.Excelimport_City:
+                                                break;
+                                            case var item when item == EnumImportData.Excelimport_Category:
+                                                break;
+                                            case var item when item == EnumImportData.Excelimport_District:
+                                                break;
+                                            case var item when item == EnumImportData.Excelimport_BankSuport:
+                                                break;
+                                            case var item when item == EnumImportData.Excelimport_IssuingCompanys:
+                                                break;
+                                            default:
+                                                // Fail not find TypeImport
+                                                // Save Message Error
+                                                _messageErrorDowload = Message.MessageErroNotFindTypeImport;
+                                                return new JsonResult(1);
                                         }
 
                                         // Success

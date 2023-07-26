@@ -47,5 +47,10 @@ namespace MessageNotification.CommonMesage
         /// MessageImportFileFail
         /// </summary>
         public static string MessageImportFileFail = "Import File Fail, Please Contact Manager";
+
+        /// <summary>
+        /// MessageErroNotFindTypeImport
+        /// </summary>
+        public static string MessageErroNotFindTypeImport = "Can Not Find Type Import File, Please Contact Manager !";
     }
 }
