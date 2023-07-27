@@ -44,3 +44,4 @@ D:\Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\
 D:\Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\CommonApi\obj\Debug\net5.0\CommonApi.dll
 D:\Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\CommonApi\obj\Debug\net5.0\ref\CommonApi.dll
 D:\Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\CommonApi\obj\Debug\net5.0\CommonApi.pdb
+D:\Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\CommonApi\obj\Debug\net5.0\CommonApi.csproj.AssemblyReference.cache

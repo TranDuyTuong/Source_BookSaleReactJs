@@ -4,7 +4,6 @@ import { HomePage } from '../Common/CommonUrl.js'
 import { DomModalLoading } from '../Common/CommonLoading.js'
 
 $(document).ready(function () {
-    var idCloseDialog;
 
     // Reditrect Home Page
     $("#Btn_ReditrectHome").click(function () {
@@ -36,8 +35,7 @@ $(document).ready(function () {
     })
 
     // Submit file Import
-    $("#btn_SubmitFile").click(function ()
-    {
+    $("#btn_SubmitFile").click(function () {
         // Check File Import
         if ($("#formFile").val() == null || $("#formFile").val() == undefined || $("#formFile").val() == "") {
             alert("Please choose a File");

@@ -65,6 +65,7 @@ namespace TXTKikanSystem.Controllers
         /// <summary>
         /// Books
         /// </summary>
+        /// /// <param name="Carshier"></param>
         /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> Books(string Carshier)
@@ -175,6 +176,293 @@ namespace TXTKikanSystem.Controllers
                 }
 
             }
+        }
+
+        /// <summary>
+        /// Authors
+        /// </summary>
+        /// <param name="Carshier"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> Authors(string Carshier)
+        {
+            // Reset List Template Excel local And File Name And MessageError And curentPage And byte memory And Sheet name And Type Import
+            _templateExcel = new List<string>();
+            _fileName = string.Empty;
+            _messageErrorDowload = string.Empty;
+            _cutentPage = string.Empty;
+            _saveContentMemoryStream = new byte[0];
+            _sheetName = string.Empty;
+            _typeImport = string.Empty;
+
+            // Check input data
+            if (Carshier == null)
+            {
+                return RedirectToAction("Login", "SignIn");
+            }
+            else
+            {
+                // Check token result
+                var resultCheck = new FunctionValidationToken(this.context);
+                bool tokenValidationResult = await resultCheck.ValidationTokenEmployeer(Carshier);
+
+                if (tokenValidationResult == true)
+                {
+                    // Concat string
+                    string eventCode = string.Concat(CommonApi.CommonEventCode.FistCode, CommonApi.CommonEventCode.EventImportAuthor);
+                    var cookies = Request.Cookies["LoginTDTImportKikanSystem"].ToString();
+                    // Get User And Role Request
+                    string[] inputData = Carshier.Split("*");
+                    // Innit Number Data 
+                    var dataInitia = new TemplateImportKikanSystem()
+                    {
+                        Token = cookies,
+                        EventCode = eventCode,
+                        Company = CommonEventCode.CompanyCode,
+                        AreaCode = CommonEventCode.AreaCode,
+                        StoreCode = CommonEventCode.StoreCode,
+                        TypeImport = EnumImportData.Excelimport_Author,
+                        UserID = inputData[0],
+                        Role = inputData[1]
+
+                    };
+                    // Conver Object to Json
+                    string jsonConver = CommonConverJsonToObject<TemplateImportKikanSystem>.CoverObjectToJson(dataInitia);
+                    var result = await this.importData.GetTemplateByKikaSystemBook(jsonConver);
+                    // Conver Json to Object
+                    var InitData = CommonConverJsonToObject<TemplateImportKikanSystem>.ConverJsonToObject(result);
+
+                    if (InitData == null)
+                    {
+                        ViewBag.InitDataNull = MessageNotification.CommonMesage.Message.MessageErrorCallAPIfali;
+                    }
+                    else
+                    {
+                        // Check result
+                        if (InitData.Status == false)
+                        {
+                            ViewBag.InitDataNull = MessageNotification.CommonMesage.Message.MessageInitializationDataFail;
+                        }
+                        else
+                        {
+                            // Get Content Template
+                            List<string> l_TitleTemplate = new List<string>();
+                            string[] templateContent = InitData.ContentTemplate.Split(",");
+
+                            for (int i = 0; i < templateContent.Length; i++)
+                            {
+                                l_TitleTemplate.Add(templateContent[i]);
+                            }
+
+                            // Save List Template into ViewBag
+                            ViewBag.listTemplate = l_TitleTemplate;
+
+                            // Get File Name Request
+                            ViewBag.fileName = InitData.NameFile;
+
+                            // Suport Create File Import By Template
+                            ViewBag.instruct = MessageNotification.CommonMesage.Message.MessageSuportCreateByTemplate;
+
+                            // Notification Get 1000 Recol
+                            ViewBag.getRecol = MessageNotification.CommonMesage.Message.MessageSystemGet1000Recol;
+
+                            // Save List Template in local And File Name
+                            _templateExcel = l_TitleTemplate;
+                            _fileName = InitData.NameFile;
+
+                            // Save Curent Page
+                            _cutentPage = "Authors";
+
+                            // Save Sheet Name
+                            _sheetName = "Authors";
+
+                            // Save Type Import
+                            _typeImport = EnumImportData.Excelimport_Author;
+                        }
+
+                    }
+
+                    // Reditrectoaction Home Page
+                    return View();
+                }
+                else
+                {
+                    // Reditrectoaction Login Page
+                    return RedirectToAction("Login", "SignIn");
+                }
+
+            }
+        }
+
+        /// <summary>
+        /// PublishingCompany
+        /// </summary>
+        /// <param name="Carshier"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> PublishingCompany(string Carshier)
+        {
+            // Reset List Template Excel local And File Name And MessageError And curentPage And byte memory And Sheet name And Type Import
+            _templateExcel = new List<string>();
+            _fileName = string.Empty;
+            _messageErrorDowload = string.Empty;
+            _cutentPage = string.Empty;
+            _saveContentMemoryStream = new byte[0];
+            _sheetName = string.Empty;
+            _typeImport = string.Empty;
+
+            // Check input data
+            if (Carshier == null)
+            {
+                return RedirectToAction("Login", "SignIn");
+            }
+            else
+            {
+                // Check token result
+                var resultCheck = new FunctionValidationToken(this.context);
+                bool tokenValidationResult = await resultCheck.ValidationTokenEmployeer(Carshier);
+
+                if (tokenValidationResult == true)
+                {
+                    // Concat string
+                    string eventCode = string.Concat(CommonApi.CommonEventCode.FistCode, CommonApi.CommonEventCode.EventPublishingCompany);
+                    var cookies = Request.Cookies["LoginTDTImportKikanSystem"].ToString();
+                    // Get User And Role Request
+                    string[] inputData = Carshier.Split("*");
+                    // Innit Number Data 
+                    var dataInitia = new TemplateImportKikanSystem()
+                    {
+                        Token = cookies,
+                        EventCode = eventCode,
+                        Company = CommonEventCode.CompanyCode,
+                        AreaCode = CommonEventCode.AreaCode,
+                        StoreCode = CommonEventCode.StoreCode,
+                        TypeImport = EnumImportData.Excelimport_PublishingCompany,
+                        UserID = inputData[0],
+                        Role = inputData[1]
+
+                    };
+                    // Conver Object to Json
+                    string jsonConver = CommonConverJsonToObject<TemplateImportKikanSystem>.CoverObjectToJson(dataInitia);
+                    var result = await this.importData.GetTemplateByKikaSystemBook(jsonConver);
+                    // Conver Json to Object
+                    var InitData = CommonConverJsonToObject<TemplateImportKikanSystem>.ConverJsonToObject(result);
+
+                    if (InitData == null)
+                    {
+                        ViewBag.InitDataNull = MessageNotification.CommonMesage.Message.MessageErrorCallAPIfali;
+                    }
+                    else
+                    {
+                        // Check result
+                        if (InitData.Status == false)
+                        {
+                            ViewBag.InitDataNull = MessageNotification.CommonMesage.Message.MessageInitializationDataFail;
+                        }
+                        else
+                        {
+                            // Get Content Template
+                            List<string> l_TitleTemplate = new List<string>();
+                            string[] templateContent = InitData.ContentTemplate.Split(",");
+
+                            for (int i = 0; i < templateContent.Length; i++)
+                            {
+                                l_TitleTemplate.Add(templateContent[i]);
+                            }
+
+                            // Save List Template into ViewBag
+                            ViewBag.listTemplate = l_TitleTemplate;
+
+                            // Get File Name Request
+                            ViewBag.fileName = InitData.NameFile;
+
+                            // Suport Create File Import By Template
+                            ViewBag.instruct = MessageNotification.CommonMesage.Message.MessageSuportCreateByTemplate;
+
+                            // Notification Get 1000 Recol
+                            ViewBag.getRecol = MessageNotification.CommonMesage.Message.MessageSystemGet1000Recol;
+
+                            // Save List Template in local And File Name
+                            _templateExcel = l_TitleTemplate;
+                            _fileName = InitData.NameFile;
+
+                            // Save Curent Page
+                            _cutentPage = "PublishingCompany";
+
+                            // Save Sheet Name
+                            _sheetName = "PublishingCompany";
+
+                            // Save Type Import
+                            _typeImport = EnumImportData.Excelimport_PublishingCompany;
+                        }
+
+                    }
+
+                    // Reditrectoaction Home Page
+                    return View();
+                }
+                else
+                {
+                    // Reditrectoaction Login Page
+                    return RedirectToAction("Login", "SignIn");
+                }
+
+            }
+        }
+
+        /// <summary>
+        /// Citys
+        /// </summary>
+        /// <param name="Carshier"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> Citys(string Carshier)
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// Categorys
+        /// </summary>
+        /// <param name="Carshier"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> Categorys(string Carshier)
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// Districts
+        /// </summary>
+        /// <param name="Carshier"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> Districts(string Carshier)
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// BankSuports
+        /// </summary>
+        /// <param name="Carshier"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> BankSuports(string Carshier)
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// IssuingCompanys
+        /// </summary>
+        /// <param name="Carshier"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> IssuingCompanys(string Carshier)
+        {
+            return View();
         }
 
         /// <summary>
@@ -413,8 +701,46 @@ namespace TXTKikanSystem.Controllers
                                                     infoImport.listBooks.Add(itemRow);
                                                 }
                                                 break;
+
+                                            // Author
                                             case var item when item == EnumImportData.Excelimport_Author:
+                                                // Get File Name
+                                                infoImport.FileName = CommonFileNameImports.ImportAuthorKikanSystem;
+                                                // Concat string
+                                                string eventCode1 = string.Concat(CommonApi.CommonEventCode.FistCode, CommonApi.CommonEventCode.EventImportAuthor);
+                                                infoImport.EventCode = eventCode1;
+
+                                                // Get Row in excel
+                                                for (int i = 2; i <= rowCount; i++)
+                                                {
+                                                    // If Data Null Break
+                                                    var checkNull = sheetName.Cell(i, 1).Value.ToString().Trim();
+                                                    if (checkNull == null || checkNull == "")
+                                                    {
+                                                        break;
+                                                    }
+
+                                                    // Get Data in Excel And Save Into List                                               
+                                                    var itemRow = new AuthorsImport()
+                                                    {
+                                                        AuthorID = sheetName.Cell(i, 1).Value.ToString().Trim(),
+                                                        NameAuthor = sheetName.Cell(i, 2).Value.ToString().Trim(),
+                                                        Birthday = Convert.ToDateTime(sheetName.Cell(i, 3).Value.ToString().Trim()),
+                                                        Hometown = sheetName.Cell(i, 4).Value.ToString().Trim(),
+                                                        Description = sheetName.Cell(i, 5).Value.ToString().Trim(),
+                                                        DateCreate = Convert.ToDateTime(sheetName.Cell(i, 6).Value.ToString().Trim()),
+                                                        UserID = sheetName.Cell(i, 7).Value.ToString().Trim(),
+                                                        HeadquartersLastUpdateDateTime = Convert.ToDateTime(sheetName.Cell(i, 8).Value.ToString().Trim()),
+                                                        LasUpdateDate = null,
+                                                        ContentLastUpdateDate = string.Empty,
+                                                        TotalBook = Convert.ToInt32(sheetName.Cell(i, 11).Value.ToString().Trim()),
+                                                        IsDeleteFlag = Convert.ToBoolean(sheetName.Cell(i, 12).Value.ToString().Trim().ToUpper()),
+                                                    };
+                                                    infoImport.listAuthor.Add(itemRow);
+                                                }
                                                 break;
+
+                                            // PublishingCompany
                                             case var item when item == EnumImportData.Excelimport_PublishingCompany:
                                                 break;
                                             case var item when item == EnumImportData.Excelimport_City:

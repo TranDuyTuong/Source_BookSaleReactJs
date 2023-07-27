@@ -1666,3 +1666,10 @@ D:\Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\
 D:\Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\TXTKikanSystem\obj\Debug\net5.0\ref\TXTKikanSystem.dll
 D:\Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\TXTKikanSystem\obj\Debug\net5.0\TXTKikanSystem.pdb
 D:\Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\TXTKikanSystem\obj\Debug\net5.0\TXTKikanSystem.genruntimeconfig.cache
+D:\Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\TXTKikanSystem\obj\Debug\net5.0\Razor\Views\Imports\Authors.cshtml.g.cs
+D:\Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\TXTKikanSystem\obj\Debug\net5.0\Razor\Views\Imports\PublishingCompany.cshtml.g.cs
+D:\Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\TXTKikanSystem\obj\Debug\net5.0\Razor\Views\Imports\Citys.cshtml.g.cs
+D:\Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\TXTKikanSystem\obj\Debug\net5.0\Razor\Views\Imports\Categorys.cshtml.g.cs
+D:\Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\TXTKikanSystem\obj\Debug\net5.0\Razor\Views\Imports\Districts.cshtml.g.cs
+D:\Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\TXTKikanSystem\obj\Debug\net5.0\Razor\Views\Imports\BankSuports.cshtml.g.cs
+D:\Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\TXTKikanSystem\obj\Debug\net5.0\Razor\Views\Imports\IssuingCompanys.cshtml.g.cs

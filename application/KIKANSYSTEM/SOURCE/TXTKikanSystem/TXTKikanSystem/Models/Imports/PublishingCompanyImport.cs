@@ -5,48 +5,48 @@ using System.Threading.Tasks;
 
 namespace TXTKikanSystem.Models.Imports
 {
-    public class MainImportSystem
+    public class PublishingCompanyImport
     {
         /// <summary>
-        /// listBooks
+        /// PublishingCompanyID
         /// </summary>
-        public List<BooksImport> listBooks
-        {
-            get;
-            set;
-        } = new List<BooksImport>();
-
-        /// <summary>
-        /// listAuthor
-        /// </summary>
-        public List<AuthorsImport> listAuthor
-        {
-            get;
-            set;
-        } = new List<AuthorsImport>();
-
-        /// <summary>
-        /// listPublishingCompany
-        /// </summary>
-        public List<PublishingCompanyImport> listPublishingCompany
-        {
-            get;
-            set;
-        } = new List<PublishingCompanyImport>();
-
-        /// <summary>
-        /// FileName
-        /// </summary>
-        public string FileName
+        public string PublishingCompanyID
         {
             get;
             set;
         }
 
         /// <summary>
-        /// TypeImport
+        /// Description
         /// </summary>
-        public string TypeImport
+        public string Description
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Address
+        /// </summary>
+        public string Address
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// DateCraete
+        /// </summary>
+        public DateTime DateCraete
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// DateOfIncorporation
+        /// </summary>
+        public string DateOfIncorporation
         {
             get;
             set;
@@ -62,57 +62,40 @@ namespace TXTKikanSystem.Models.Imports
         }
 
         /// <summary>
-        /// RoleID
+        /// HeadquartersLastUpdateDateTime
         /// </summary>
-        public string RoleID
+        public DateTime? HeadquartersLastUpdateDateTime
         {
             get;
             set;
         }
 
         /// <summary>
-        /// Token
+        /// LasUpdateDate
         /// </summary>
-        public string Token
+        public DateTime? LasUpdateDate
         {
             get;
             set;
         }
 
         /// <summary>
-        /// EventCode
+        /// ContentLastUpdateDate
         /// </summary>
-        public string EventCode
+        public string ContentLastUpdateDate
         {
             get;
             set;
         }
 
         /// <summary>
-        /// Company
+        /// IsDeleteFlag
         /// </summary>
-        public string Company
+        public bool IsDeleteFlag
         {
             get;
             set;
         }
 
-        /// <summary>
-        /// AreaCode
-        /// </summary>
-        public string AreaCode
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// StoreCode
-        /// </summary>
-        public string StoreCode
-        {
-            get;
-            set;
-        }
     }
 }

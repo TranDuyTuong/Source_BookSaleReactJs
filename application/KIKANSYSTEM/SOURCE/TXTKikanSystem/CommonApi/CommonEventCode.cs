@@ -44,6 +44,16 @@ namespace CommonApi
         public static string EventImportBooks = "106";
 
         /// <summary>
+        /// EventImportAuthor
+        /// </summary>
+        public static string EventImportAuthor = "107";
+
+        /// <summary>
+        /// EventPublishingCompany
+        /// </summary>
+        public static string EventPublishingCompany = "108";
+
+        /// <summary>
         /// CompanyCode
         /// </summary>
         public static string CompanyCode = "10000005";

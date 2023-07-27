@@ -1,8 +1,9 @@
-﻿@{
-    ViewData["Title"] = "Import Books";
+﻿
+@{
+    ViewData["Title"] = "Import Authors";
     Layout = "~/Views/Shared/_Template.cshtml";
 }
-<link href="~/styletemplate/css/importbookpage.css" rel="stylesheet" />
+
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -16,7 +17,7 @@
                     Home
                 </a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page" style="color: #030000; font-family: initial;">Import Book</li>
+            <li class="breadcrumb-item active" aria-current="page" style="color: #030000; font-family: initial;">Import Author</li>
         </ol>
     </nav>
 
@@ -64,7 +65,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Import Books File</h5>
+                <h5 class="modal-title">Import Author File</h5>
                 <button type="button" id="btn_closeImportFile" style="background: none;border: none;color: red;font-weight: 600">X</button>
             </div><div class="modal-body">
                 <div class="mb-3">
@@ -80,5 +81,6 @@
 <div id="Loading"></div>
 @section Scripts{
     <script src="~/js/Books.js" type="module" asp-append-version="true"></script>
+    <script src="~/js/Authors.js" type="module" asp-append-version="true"></script>
 }
 

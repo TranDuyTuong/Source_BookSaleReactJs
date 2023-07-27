@@ -5,52 +5,62 @@ using System.Threading.Tasks;
 
 namespace TXTKikanSystem.Models.Imports
 {
-    public class MainImportSystem
+    public class AuthorsImport
     {
         /// <summary>
-        /// listBooks
+        /// AuthorID
         /// </summary>
-        public List<BooksImport> listBooks
-        {
-            get;
-            set;
-        } = new List<BooksImport>();
-
-        /// <summary>
-        /// listAuthor
-        /// </summary>
-        public List<AuthorsImport> listAuthor
-        {
-            get;
-            set;
-        } = new List<AuthorsImport>();
-
-        /// <summary>
-        /// listPublishingCompany
-        /// </summary>
-        public List<PublishingCompanyImport> listPublishingCompany
-        {
-            get;
-            set;
-        } = new List<PublishingCompanyImport>();
-
-        /// <summary>
-        /// FileName
-        /// </summary>
-        public string FileName
+        public string AuthorID
         {
             get;
             set;
         }
 
         /// <summary>
-        /// TypeImport
+        /// NameAuthor
         /// </summary>
-        public string TypeImport
+        public string NameAuthor
         {
             get;
             set;
         }
+
+        /// <summary>
+        /// Birthday
+        /// </summary>
+        public DateTime Birthday
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Hometown
+        /// </summary>
+        public string Hometown
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Description
+        /// </summary>
+        public string Description
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// DateCreate
+        /// </summary>
+        public DateTime DateCreate
+        {
+            get;
+            set;
+        }
+
 
         /// <summary>
         /// UserID
@@ -62,57 +72,49 @@ namespace TXTKikanSystem.Models.Imports
         }
 
         /// <summary>
-        /// RoleID
+        /// HeadquartersLastUpdateDateTime
         /// </summary>
-        public string RoleID
+        public DateTime? HeadquartersLastUpdateDateTime
         {
             get;
             set;
         }
 
         /// <summary>
-        /// Token
+        /// LasUpdateDate
         /// </summary>
-        public string Token
+        public DateTime? LasUpdateDate
         {
             get;
             set;
         }
 
         /// <summary>
-        /// EventCode
+        /// ContentLastUpdateDate
         /// </summary>
-        public string EventCode
+        public string ContentLastUpdateDate
         {
             get;
             set;
         }
 
         /// <summary>
-        /// Company
+        /// TotalBook
         /// </summary>
-        public string Company
+        public int TotalBook
         {
             get;
             set;
         }
 
         /// <summary>
-        /// AreaCode
+        /// IsDeleteFlag
         /// </summary>
-        public string AreaCode
+        public bool IsDeleteFlag
         {
             get;
             set;
-        }
-
-        /// <summary>
-        /// StoreCode
-        /// </summary>
-        public string StoreCode
-        {
-            get;
-            set;
-        }
+        }       
+            
     }
 }
