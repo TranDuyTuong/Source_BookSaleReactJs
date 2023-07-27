@@ -742,6 +742,38 @@ namespace TXTKikanSystem.Controllers
 
                                             // PublishingCompany
                                             case var item when item == EnumImportData.Excelimport_PublishingCompany:
+                                                // Get File Name
+                                                infoImport.FileName = CommonFileNameImports.ImportAuthorKikanSystem;
+                                                // Concat string
+                                                string eventCode2 = string.Concat(CommonApi.CommonEventCode.FistCode, CommonApi.CommonEventCode.EventPublishingCompany);
+                                                infoImport.EventCode = eventCode2;
+
+                                                // Get Row in excel
+                                                for (int i = 2; i <= rowCount; i++)
+                                                {
+                                                    // If Data Null Break
+                                                    var checkNull = sheetName.Cell(i, 1).Value.ToString().Trim();
+                                                    if (checkNull == null || checkNull == "")
+                                                    {
+                                                        break;
+                                                    }
+
+                                                    // Get Data in Excel And Save Into List                                               
+                                                    var itemRow = new PublishingCompanyImport()
+                                                    {
+                                                        PublishingCompanyID = sheetName.Cell(i, 1).Value.ToString().Trim(),
+                                                        Description = sheetName.Cell(i, 2).Value.ToString().Trim(),
+                                                        Address = sheetName.Cell(i, 3).Value.ToString().Trim(),
+                                                        DateCraete = Convert.ToDateTime(sheetName.Cell(i, 4).Value.ToString().Trim()),
+                                                        DateOfIncorporation = Convert.ToDateTime(sheetName.Cell(i, 5).Value.ToString().Trim()),
+                                                        UserID = sheetName.Cell(i, 6).Value.ToString().Trim(),
+                                                        HeadquartersLastUpdateDateTime = Convert.ToDateTime(sheetName.Cell(i, 7).Value.ToString().Trim()),
+                                                        LasUpdateDate = null,
+                                                        ContentLastUpdateDate = null,
+                                                        IsDeleteFlag = Convert.ToBoolean(sheetName.Cell(i, 10).Value.ToString().Trim().ToUpper())
+                                                    };
+                                                    infoImport.listPublishingCompany.Add(itemRow);
+                                                }
                                                 break;
                                             case var item when item == EnumImportData.Excelimport_City:
                                                 break;

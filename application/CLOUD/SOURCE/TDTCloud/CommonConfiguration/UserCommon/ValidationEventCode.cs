@@ -71,6 +71,22 @@ namespace CommonConfiguration.UserCommon
                         Message = "Success EventImportBooks"
                     };
                     break;
+                case var item when item == DataCommon.EventImportAuthor:
+                    result = new ReturnCommonApi()
+                    {
+                        Status = true,
+                        IdPlugin = DataCommon.EventImportAuthor,
+                        Message = "Success EventImportAuthor"
+                    };
+                    break;
+                case var item when item == DataCommon.EventPublishingCompany:
+                    result = new ReturnCommonApi()
+                    {
+                        Status = true,
+                        IdPlugin = DataCommon.EventPublishingCompany,
+                        Message = "Success EventPublishingCompany"
+                    };
+                    break;
                 default:
                     result = new ReturnCommonApi()
                     {

@@ -19,6 +19,15 @@ namespace ModelConfiguration.M_KikanSystem
         } = new List<BooksImport>();
 
         /// <summary>
+        /// listAuthor
+        /// </summary>
+        public List<AuthorsImport> listAuthor
+        {
+            get;
+            set;
+        } = new List<AuthorsImport>();
+
+        /// <summary>
         /// FileName
         /// </summary>
         public string FileName

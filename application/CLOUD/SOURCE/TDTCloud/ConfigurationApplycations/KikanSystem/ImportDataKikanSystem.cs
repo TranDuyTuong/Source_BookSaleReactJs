@@ -59,7 +59,7 @@ namespace ConfigurationApplycations.KikanSystem
                     {
                         // Get Template By TypeId
                         var queryTemplate = from tm in this.context.templateImports
-                                            where (tm.IsDelete == false && tm.TypeId == EnumTypeImportCommon.Excelimport_Books)
+                                            where (tm.IsDelete == false && tm.TypeId == request.TypeImport)
                                             select tm;
 
                         // Check result query
@@ -75,7 +75,7 @@ namespace ConfigurationApplycations.KikanSystem
                             // Find template by TypeId
                             result.Status = true;
                             result.EventCode = CommonConfiguration.DataCommon.EventSuccess;
-                            result.TypeImport = EnumTypeImportCommon.Excelimport_Books;
+                            result.TypeImport = request.TypeImport;
                             result.Company = request.Company;
                             result.StoreCode = request.StoreCode;
                             result.AreaCode = request.AreaCode;
@@ -96,7 +96,7 @@ namespace ConfigurationApplycations.KikanSystem
 
 
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 result.Status = false;
                 result.EventCode = CommonConfiguration.DataCommon.EventError;
@@ -132,7 +132,7 @@ namespace ConfigurationApplycations.KikanSystem
                     bool checkUserRole = this.contactCommon.ValidationRoleUserLimit(request.RoleID, request.UserID, request.EventCode);
 
                     if (checkUserRole)
-                    { 
+                    {
                         // Check Fail
                         result.Status = false;
                         result.IdPlugin = CommonConfiguration.DataCommon.EventError;
@@ -142,8 +142,8 @@ namespace ConfigurationApplycations.KikanSystem
                     {
                         // Validation File Name Import
                         bool checkFileName = this.ValidationFileNameImport(request.FileName);
-                        
-                        if(!checkFileName)
+
+                        if (!checkFileName)
                         {
                             result.Status = false;
                             result.IdPlugin = CommonConfiguration.DataCommon.EventError;
@@ -154,7 +154,7 @@ namespace ConfigurationApplycations.KikanSystem
                         {
                             DateTime curentDate = DateTime.Now;
                             // Select Type Import
-                            switch(request.TypeImport) 
+                            switch (request.TypeImport)
                             {
                                 case var item when item == CommonConfiguration.KikianSystemCommon.EnumTypeImportCommon.Excelimport_Books:
                                     // Get All item in DB
@@ -165,7 +165,7 @@ namespace ConfigurationApplycations.KikanSystem
                                     foreach (var book in request.listBooks)
                                     {
                                         // Check Applydate must more than current date 
-                                        if(book.ApplyDate <= curentDate)
+                                        if (book.ApplyDate <= curentDate)
                                         {
                                             result.Status = false;
                                             result.IdPlugin = CommonConfiguration.DataCommon.EventError;
@@ -175,7 +175,7 @@ namespace ConfigurationApplycations.KikanSystem
                                         }
 
                                         // Check ItemCode and Applydate
-                                        var findItem = queryItemMaster.Where(x => x.ItemCode == book.ItemCode 
+                                        var findItem = queryItemMaster.Where(x => x.ItemCode == book.ItemCode
                                                                             && x.ApplyDate == book.ApplyDate).ToArray();
 
                                         if (findItem.Any())
@@ -228,7 +228,7 @@ namespace ConfigurationApplycations.KikanSystem
                                         result.Status = true;
                                     }
 
-                                    if(result.Status != false)
+                                    if (result.Status != false)
                                     {
                                         // Save In DB
                                         await this.context.itemMasters.AddRangeAsync(listMaster);
@@ -241,15 +241,77 @@ namespace ConfigurationApplycations.KikanSystem
                                             Message = "Import Book Into System By KikanSystem, " + listMaster.Count + "Row",
                                             Status = true
                                         };
+                                        await this.context.logs.AddAsync(logger);
                                         // Success Import
                                         result.Status = true;
                                         result.IdPlugin = CommonConfiguration.DataCommon.EventSuccess;
                                         result.Message = CommonConfiguration.KikianSystemCommon.MessageNotificationKikanSystemCommon
                                                             .MessageImportSuccess + " " + listMaster.Count + " " + " Row";
                                     }
-
                                     break;
+
                                 case var item when item == CommonConfiguration.KikianSystemCommon.EnumTypeImportCommon.Excelimport_Author:
+                                    // Get All item in DB
+                                    var queryAuthor = await this.context.authors.ToArrayAsync();
+                                    // List Save Author Import
+                                    List<Author> listAuthor = new List<Author>();
+
+                                    foreach (var author in request.listAuthor)
+                                    {
+                                        // Check ItemCode and Applydate
+                                        var findItem = queryAuthor.Where(x => x.AuthorID == author.AuthorID).ToArray();
+
+                                        if (findItem.Any())
+                                        {
+                                            // Duplicate Data
+                                            result.Status = false;
+                                            result.IdPlugin = CommonConfiguration.DataCommon.EventError;
+                                            result.Message = CommonConfiguration.KikianSystemCommon.MessageNotificationKikanSystemCommon
+                                                                .MessageDuplicateData + " " + "(" + author.AuthorID + ")";
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            var authorItem = new Author()
+                                            {
+                                                AuthorID = author.AuthorID,
+                                                NameAuthor = author.NameAuthor,
+                                                Birthday = author.Birthday,
+                                                Hometown = author.Hometown,
+                                                Description = author.Description,
+                                                DateCreate = author.DateCreate,
+                                                UserID = author.UserID,
+                                                HeadquartersLastUpdateDateTime = author.HeadquartersLastUpdateDateTime,
+                                                LastUpdateDate = author.LasUpdateDate,
+                                                ContentLastUpdateDate = author.ContentLastUpdateDate,
+                                                TotalBook = author.TotalBook,
+                                                IsDeleteFlag = author.IsDeleteFlag,
+                                            };
+                                            listAuthor.Add(authorItem);
+                                        }
+                                        result.Status = true;
+                                    }
+
+                                    if (result.Status != false)
+                                    {
+                                        // Save In DB
+                                        await this.context.authors.AddRangeAsync(listAuthor);
+                                        // Save Log
+                                        var logger = new Log()
+                                        {
+                                            Id = new Guid(),
+                                            UserID = request.UserID,
+                                            DateCreate = DateTime.Now,
+                                            Message = "Import Book Into System By KikanSystem, " + listAuthor.Count + "Row",
+                                            Status = true
+                                        };
+                                        await this.context.logs.AddAsync(logger);
+                                        // Success Import
+                                        result.Status = true;
+                                        result.IdPlugin = CommonConfiguration.DataCommon.EventSuccess;
+                                        result.Message = CommonConfiguration.KikianSystemCommon.MessageNotificationKikanSystemCommon
+                                                            .MessageImportSuccess + " " + listAuthor.Count + " " + " Row";
+                                    }
                                     break;
                                 case var item when item == CommonConfiguration.KikianSystemCommon.EnumTypeImportCommon.Excelimport_PublishingCompany:
                                     break;
@@ -319,7 +381,7 @@ namespace ConfigurationApplycations.KikanSystem
             // Get file Name In DB
             var queryFileName = this.context.templateImports.Where(x => x.Description == fileName).ToArray();
 
-            if(queryFileName.Any()) 
+            if (queryFileName.Any())
             {
                 // Get In Local File
                 switch (fileName)

@@ -171,6 +171,16 @@ namespace CommonConfiguration
         public static string EventImportBooks = "106";
 
         /// <summary>
+        /// EventImportAuthor
+        /// </summary>
+        public static string EventImportAuthor = "107";
+
+        /// <summary>
+        /// EventPublishingCompany
+        /// </summary>
+        public static string EventPublishingCompany = "108";
+
+        /// <summary>
         /// EventError
         /// </summary>
         public static string EventError = "000";

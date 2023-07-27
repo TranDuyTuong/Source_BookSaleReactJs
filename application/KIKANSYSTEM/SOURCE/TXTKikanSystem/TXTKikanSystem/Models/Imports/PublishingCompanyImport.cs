@@ -46,7 +46,7 @@ namespace TXTKikanSystem.Models.Imports
         /// <summary>
         /// DateOfIncorporation
         /// </summary>
-        public string DateOfIncorporation
+        public DateTime DateOfIncorporation
         {
             get;
             set;

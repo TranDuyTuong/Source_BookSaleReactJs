@@ -1,5 +1,5 @@
 ﻿import { GetCookies } from '../Common/CommonSetting.js'
-import { UserLogin, MessageSuccess, MessageError } from '../Common/CommonDataDefault.js'
+import { UserLogin } from '../Common/CommonDataDefault.js'
 import { HomePage } from '../Common/CommonUrl.js'
 import { DomModalLoading } from '../Common/CommonLoading.js'
 
@@ -35,6 +35,8 @@ $(document).ready(function () {
 
     // Submit file Import
     $("#btn_SubmitFile").click(function () {
+        preventDefault();
+        stopImmediatePropagation();
         // Check File Import
         if ($("#formFile").val() == null || $("#formFile").val() == undefined || $("#formFile").val() == "") {
             alert("Please choose a File");
@@ -82,10 +84,10 @@ $(document).ready(function () {
                     // If Have Call Api Success
                     switch (result.status) {
                         case true:
-                            toastr.success(MessageSuccess, result.message);
+                            toastr.success("Success !", result.message);
                             break;
                         case false:
-                            toastr.error(MessageError, result.message);
+                            toastr.error("Error !", result.message);
                             break;
                         default:
                             return;
