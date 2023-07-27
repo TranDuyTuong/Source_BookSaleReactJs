@@ -33,3 +33,14 @@ D:\Dev_Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSys
 D:\Dev_Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\CommonApi\obj\Debug\net5.0\refint\CommonApi.dll
 D:\Dev_Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\CommonApi\obj\Debug\net5.0\CommonApi.pdb
 D:\Dev_Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\CommonApi\obj\Debug\net5.0\ref\CommonApi.dll
+D:\Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\CommonApi\bin\Debug\net5.0\CommonApi.deps.json
+D:\Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\CommonApi\bin\Debug\net5.0\CommonApi.dll
+D:\Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\CommonApi\bin\Debug\net5.0\ref\CommonApi.dll
+D:\Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\CommonApi\bin\Debug\net5.0\CommonApi.pdb
+D:\Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\CommonApi\obj\Debug\net5.0\CommonApi.GeneratedMSBuildEditorConfig.editorconfig
+D:\Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\CommonApi\obj\Debug\net5.0\CommonApi.AssemblyInfoInputs.cache
+D:\Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\CommonApi\obj\Debug\net5.0\CommonApi.AssemblyInfo.cs
+D:\Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\CommonApi\obj\Debug\net5.0\CommonApi.csproj.CoreCompileInputs.cache
+D:\Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\CommonApi\obj\Debug\net5.0\CommonApi.dll
+D:\Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\CommonApi\obj\Debug\net5.0\ref\CommonApi.dll
+D:\Project\Source_BookSaleReactJs\application\KIKANSYSTEM\SOURCE\TXTKikanSystem\CommonApi\obj\Debug\net5.0\CommonApi.pdb
