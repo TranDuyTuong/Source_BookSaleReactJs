@@ -27,6 +27,15 @@ namespace TDTSettingTable
         }
 
         /// <summary>
+        /// ApplyDate
+        /// </summary>
+        public DateTime ApplyDate
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// Description
         /// </summary>
         public string Description
@@ -57,15 +66,6 @@ namespace TDTSettingTable
         /// PriceShip
         /// </summary>
         public decimal? PriceShip
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// ApplyDate
-        /// </summary>
-        public DateTime? ApplyDate
         {
             get;
             set;

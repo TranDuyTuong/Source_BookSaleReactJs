@@ -20,10 +20,13 @@ namespace TDTConfigurationTable
             builder.ToTable("Districts");
             // Configuration PrimaryKey
             builder.HasKey(x => x.DistrictID);
+            builder.HasKey(x => x.ApplyDate);
 
             // Configuration Properties
             builder.Property(x => x.DistrictID).IsRequired(true);
             builder.Property(x => x.DistrictID).HasMaxLength(50);
+
+            builder.Property(x => x.ApplyDate).IsRequired(true);
 
             builder.Property(x => x.CityID).IsRequired(true);
 
@@ -33,7 +36,6 @@ namespace TDTConfigurationTable
             builder.Property(x => x.DateCreate).IsRequired(true);
 
             builder.Property(x => x.PriceShip).IsRequired(false);
-            builder.Property(x => x.ApplyDate).IsRequired(false);
             builder.Property(x => x.PriceShipNew).IsRequired(false);
             builder.Property(x => x.LasUpdateDate).IsRequired(false);
             builder.Property(x => x.HeadquartersLastUpdateDateTime).IsRequired(false);

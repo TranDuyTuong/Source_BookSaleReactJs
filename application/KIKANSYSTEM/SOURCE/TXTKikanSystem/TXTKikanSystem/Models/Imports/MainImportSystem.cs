@@ -35,6 +35,33 @@ namespace TXTKikanSystem.Models.Imports
         } = new List<PublishingCompanyImport>();
 
         /// <summary>
+        /// listCitys
+        /// </summary>
+        public List<CitysImport> listCitys
+        {
+            get;
+            set;
+        } = new List<CitysImport>();
+
+        /// <summary>
+        /// listCategory
+        /// </summary>
+        public List<CategorysImport> listCategory
+        {
+            get;
+            set;
+        } = new List<CategorysImport>();
+
+        /// <summary>
+        /// listDistrict
+        /// </summary>
+        public List<DistrictsImport> listDistrict
+        {
+            get;
+            set;
+        } = new List<DistrictsImport>();
+
+        /// <summary>
         /// FileName
         /// </summary>
         public string FileName

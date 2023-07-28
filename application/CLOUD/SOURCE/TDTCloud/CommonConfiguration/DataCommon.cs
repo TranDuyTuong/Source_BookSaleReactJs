@@ -181,6 +181,16 @@ namespace CommonConfiguration
         public static string EventPublishingCompany = "108";
 
         /// <summary>
+        /// EventCity
+        /// </summary>
+        public static string EventCity = "109";
+
+        /// <summary>
+        /// EventCategory
+        /// </summary>
+        public static string EventCategory = "110";
+
+        /// <summary>
         /// EventError
         /// </summary>
         public static string EventError = "000";

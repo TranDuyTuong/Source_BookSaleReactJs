@@ -743,7 +743,7 @@ namespace TXTKikanSystem.Controllers
                                             // PublishingCompany
                                             case var item when item == EnumImportData.Excelimport_PublishingCompany:
                                                 // Get File Name
-                                                infoImport.FileName = CommonFileNameImports.ImportAuthorKikanSystem;
+                                                infoImport.FileName = CommonFileNameImports.ImportPublishingCompanyKikanSystem;
                                                 // Concat string
                                                 string eventCode2 = string.Concat(CommonApi.CommonEventCode.FistCode, CommonApi.CommonEventCode.EventPublishingCompany);
                                                 infoImport.EventCode = eventCode2;
@@ -775,12 +775,113 @@ namespace TXTKikanSystem.Controllers
                                                     infoImport.listPublishingCompany.Add(itemRow);
                                                 }
                                                 break;
+
+                                            // Citys
                                             case var item when item == EnumImportData.Excelimport_City:
+                                                // Get File Name
+                                                infoImport.FileName = CommonFileNameImports.ImportCityKikanSystem;
+                                                // Concat string
+                                                string eventCode3 = string.Concat(CommonApi.CommonEventCode.FistCode, CommonApi.CommonEventCode.EventCity);
+                                                infoImport.EventCode = eventCode3;
+
+                                                // Get Row in excel
+                                                for (int i = 2; i <= rowCount; i++)
+                                                {
+                                                    // If Data Null Break
+                                                    var checkNull = sheetName.Cell(i, 1).Value.ToString().Trim();
+                                                    if (checkNull == null || checkNull == "")
+                                                    {
+                                                        break;
+                                                    }
+
+                                                    // Get Data in Excel And Save Into List                                               
+                                                    var itemRow = new CitysImport()
+                                                    {
+                                                        CityID = sheetName.Cell(i, 1).Value.ToString().Trim(),
+                                                        Description = sheetName.Cell(i, 2).Value.ToString().Trim(),
+                                                        AreaCode = sheetName.Cell(i, 3).Value.ToString().Trim(),
+                                                        Symbol = sheetName.Cell(i, 4).Value.ToString().Trim(),
+                                                        HeadquartersLastUpdateDateTime = Convert.ToDateTime(sheetName.Cell(i, 5).Value.ToString().Trim()),
+                                                        UserID = sheetName.Cell(i, 6).Value.ToString().Trim(),
+                                                        IsDeleteFlag = Convert.ToBoolean(sheetName.Cell(i, 7).Value.ToString().Trim().ToUpper())
+                                                    };
+                                                    infoImport.listCitys.Add(itemRow);
+                                                }
                                                 break;
+                                            
+                                            // Category
                                             case var item when item == EnumImportData.Excelimport_Category:
+                                                // Get File Name
+                                                infoImport.FileName = CommonFileNameImports.ImportCategoryKikanSystem;
+                                                // Concat string
+                                                string eventCode4 = string.Concat(CommonApi.CommonEventCode.FistCode, CommonApi.CommonEventCode.EventCategory);
+                                                infoImport.EventCode = eventCode4;
+
+                                                // Get Row in excel
+                                                for (int i = 2; i <= rowCount; i++)
+                                                {
+                                                    // If Data Null Break
+                                                    var checkNull = sheetName.Cell(i, 1).Value.ToString().Trim();
+                                                    if (checkNull == null || checkNull == "")
+                                                    {
+                                                        break;
+                                                    }
+
+                                                    // Get Data in Excel And Save Into List                                               
+                                                    var itemRow = new CategorysImport()
+                                                    {
+                                                        CategoryItemMasterID = sheetName.Cell(i, 1).Value.ToString().Trim(),
+                                                        Description = sheetName.Cell(i, 2).Value.ToString().Trim(),
+                                                        DateCreate = Convert.ToDateTime(sheetName.Cell(i, 3).Value.ToString().Trim()),
+                                                        UserID = sheetName.Cell(i, 4).Value.ToString().Trim(),
+                                                        LastUpdateDate = null,
+                                                        HeadquartersLastUpdateDateTime = Convert.ToDateTime(sheetName.Cell(i, 6).Value.ToString().Trim()),
+                                                        ContentLastUpdateDate = null,
+                                                        JobID = sheetName.Cell(i, 8).Value.ToString().Trim(),
+                                                        IsDeleteFlag = Convert.ToBoolean(sheetName.Cell(i, 9).Value.ToString().Trim().ToUpper())
+                                                    };
+                                                    infoImport.listCategory.Add(itemRow);
+                                                }
                                                 break;
+                                            
+                                            // District
                                             case var item when item == EnumImportData.Excelimport_District:
+                                                // Get File Name
+                                                infoImport.FileName = CommonFileNameImports.ImportDistrictKikanSystem;
+                                                // Concat string
+                                                string eventCode5 = string.Concat(CommonApi.CommonEventCode.FistCode, CommonApi.CommonEventCode.EventDistrict);
+                                                infoImport.EventCode = eventCode5;
+
+                                                // Get Row in excel
+                                                for (int i = 2; i <= rowCount; i++)
+                                                {
+                                                    // If Data Null Break
+                                                    var checkNull = sheetName.Cell(i, 1).Value.ToString().Trim();
+                                                    if (checkNull == null || checkNull == "")
+                                                    {
+                                                        break;
+                                                    }
+
+                                                    // Get Data in Excel And Save Into List                                               
+                                                    var itemRow = new DistrictsImport()
+                                                    {
+                                                        DistrictID = sheetName.Cell(i, 1).Value.ToString().Trim(),
+                                                        CityID = sheetName.Cell(i, 2).Value.ToString().Trim(),
+                                                        ApplyDate = Convert.ToDateTime(sheetName.Cell(i, 3).Value.ToString().Trim()),
+                                                        Description = sheetName.Cell(i, 4).Value.ToString().Trim(),
+                                                        Identifier = sheetName.Cell(i, 5).Value.ToString().Trim(),
+                                                        DateCreate = Convert.ToDateTime(sheetName.Cell(i, 6).Value.ToString().Trim()),
+                                                        PriceShip = Convert.ToDecimal(sheetName.Cell(i, 7).Value.ToString().Trim()),
+                                                        PriceShipNew = null,
+                                                        LasUpdateDate = null,
+                                                        HeadquartersLastUpdateDateTime = Convert.ToDateTime(sheetName.Cell(i, 10).Value.ToString().Trim().ToUpper()),
+                                                        UserID = sheetName.Cell(i, 11).Value.ToString().Trim(),
+                                                        IsDeleteFlag = Convert.ToBoolean(sheetName.Cell(i, 12).Value.ToString().Trim().ToUpper())
+                                                    };
+                                                    infoImport.listDistrict.Add(itemRow);
+                                                }
                                                 break;
+
                                             case var item when item == EnumImportData.Excelimport_BankSuport:
                                                 break;
                                             case var item when item == EnumImportData.Excelimport_IssuingCompanys:

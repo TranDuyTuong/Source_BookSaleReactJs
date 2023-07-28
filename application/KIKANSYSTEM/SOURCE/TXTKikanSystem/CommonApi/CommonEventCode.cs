@@ -54,6 +54,21 @@ namespace CommonApi
         public static string EventPublishingCompany = "108";
 
         /// <summary>
+        /// EventCity
+        /// </summary>
+        public static string EventCity = "109";
+
+        /// <summary>
+        /// EventCategory
+        /// </summary>
+        public static string EventCategory = "110";
+
+        /// <summary>
+        /// EventDistrict
+        /// </summary>
+        public static string EventDistrict = "111";
+
+        /// <summary>
         /// CompanyCode
         /// </summary>
         public static string CompanyCode = "10000005";

@@ -37,5 +37,10 @@ namespace CommonConfiguration.KikianSystemCommon
         /// MessageImportSuccess
         /// </summary>
         public static string MessageImportSuccess = "Import Data Success";
+
+        /// <summary>
+        /// MessageCityNotExist
+        /// </summary>
+        public static string MessageCityNotExist = "City Not Exist, Please Contact Manager!";
     }
 }

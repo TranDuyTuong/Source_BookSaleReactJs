@@ -28,6 +28,42 @@ namespace ModelConfiguration.M_KikanSystem
         } = new List<AuthorsImport>();
 
         /// <summary>
+        /// listpublishingCompany
+        /// </summary>
+        public List<PublishingCompanyImport> listPublishingCompany
+        {
+            get;
+            set;
+        } = new List<PublishingCompanyImport>();
+
+        /// <summary>
+        /// listCitysImports
+        /// </summary>
+        public List<CitysImport> listCitys
+        {
+            get;
+            set;
+        } = new List<CitysImport>();
+
+        /// <summary>
+        /// listCategorys
+        /// </summary>
+        public List<CategorysImport> listCategorys
+        {
+            get;
+            set;
+        } = new List<CategorysImport>();
+
+        /// <summary>
+        /// listDitricts
+        /// </summary>
+        public List<DistrictsImport> listDitricts
+        {
+            get;
+            set;
+        } = new List<DistrictsImport>();
+
+        /// <summary>
         /// FileName
         /// </summary>
         public string FileName

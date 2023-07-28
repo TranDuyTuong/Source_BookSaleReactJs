@@ -3,6 +3,83 @@
     ViewData["Title"] = "Import Districts";
     Layout = "~/Views/Shared/_Template.cshtml";
 }
+<link href="~/styleTemplate/css/ImportDistrictPage.css" rel="stylesheet" />
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800" style="font-family: initial;">District</h1>
+    </div>
 
-<h1>Districts</h1>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb" style="color: black;">
+            <li class="breadcrumb-item">
+                <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="Btn_ReditrectHome" style="color: #030000; font-family: initial;">
+                    Home
+                </a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page" style="color: #030000; font-family: initial;">Import Districts</li>
+        </ol>
+    </nav>
+
+    <!-- Check Data Result When InitData-->
+    @if (ViewBag.InitDataNull != null)
+    {
+        <!-- Can not get Template Import -->
+        <h1 class="h3 mb-0 text-gray-800" style="font-family: initial; color: red; font-weight: 600">
+            @ViewBag.InitDataNull
+        </h1>
+    }
+    else
+    {
+        <!-- File Name Request -->
+        <p style="color:red; font-family: initial; font-weight:600; text-align: right">
+            File Name: @ViewBag.fileName
+        </p>
+
+        <span style="font-family: initial;color: black;"><i class="fas fa-star-of-life"></i> @ViewBag.instruct</span>
+        <br />
+        <span style="font-family: initial; color: black;"> Note: @ViewBag.getRecol</span>
+        <!-- Table Template -->
+        <div style="overflow-x: auto; overflow-y: hidden">
+            <table class="table table-hover">
+                <thead style="border: 2px solid;">
+                    <tr class="styleTr">
+                        @foreach (var item in ViewBag.listTemplate)
+                        {
+                            <th scope="col" id="HeaderTable">@item</th>
+                        }
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <!-- button get file import Template -->
+        <p style="text-align: right">
+            <button type="button" class="btn btn-primary" style="margin: 20px 0px;" id="btn_DowloadTemplate">
+                <i class="fas fa-file-download"></i> DowLoad Template
+            </button>
+            <button type="button" class="btn btn-primary" style="margin: 20px 0px;" id="btn_ShowDialogFile"><i class="fas fa-file-excel"></i> Import File</button>
+        </p>
+    }
+</div>
+<div class="modal" tabindex="-1" id="dialogImport" style="background-color: #0000009e;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Import Author File</h5>
+                <button type="button" id="btn_closeImportFile" style="background: none;border: none;color: red;font-weight: 600">X</button>
+            </div><div class="modal-body">
+                <div class="mb-3">
+                    <input style="color: black;border: none; " class="form-control" type="file" id="formFile">
+                </div>
+            </div><div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btn_SubmitFile"><i class="fas fa-plus-square"></i> Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.container-fluid -->
+<div id="Loading"></div>
+@section Scripts{
+    <script src="~/js/Districts.js" type="module" asp-append-version="true"></script>
+}
 

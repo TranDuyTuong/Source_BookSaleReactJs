@@ -87,6 +87,14 @@ namespace CommonConfiguration.UserCommon
                         Message = "Success EventPublishingCompany"
                     };
                     break;
+                case var item when item == DataCommon.EventCity:
+                    result = new ReturnCommonApi()
+                    {
+                        Status = true,
+                        IdPlugin = DataCommon.EventCity,
+                        Message = "Success EventCity"
+                    };
+                    break;
                 default:
                     result = new ReturnCommonApi()
                     {
