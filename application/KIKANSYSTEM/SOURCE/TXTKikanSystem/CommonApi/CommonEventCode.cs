@@ -69,6 +69,16 @@ namespace CommonApi
         public static string EventDistrict = "111";
 
         /// <summary>
+        /// EventBankSupport
+        /// </summary>
+        public static string EventBankSupport = "112";
+
+        /// <summary>
+        /// EventIssuingCompanys
+        /// </summary>
+        public static string EventIssuingCompanys = "113";
+
+        /// <summary>
         /// CompanyCode
         /// </summary>
         public static string CompanyCode = "10000005";

@@ -178,17 +178,32 @@ namespace CommonConfiguration
         /// <summary>
         /// EventPublishingCompany
         /// </summary>
-        public static string EventPublishingCompany = "108";
+        public static string EventImportPublishingCompany = "108";
 
         /// <summary>
         /// EventCity
         /// </summary>
-        public static string EventCity = "109";
+        public static string EventImportCity = "109";
 
         /// <summary>
         /// EventCategory
         /// </summary>
-        public static string EventCategory = "110";
+        public static string EventImportCategory = "110";
+
+        /// <summary>
+        /// EventDistrict
+        /// </summary>
+        public static string EventImportDistrict = "111";
+
+        /// <summary>
+        /// EventBankSupport
+        /// </summary>
+        public static string EventImportBankSupport = "112";
+
+        /// <summary>
+        /// EventIssuingCompanys
+        /// </summary>
+        public static string EventImportIssuingCompanys = "113";
 
         /// <summary>
         /// EventError

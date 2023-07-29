@@ -62,6 +62,24 @@ namespace TXTKikanSystem.Models.Imports
         } = new List<DistrictsImport>();
 
         /// <summary>
+        /// listBankSupport
+        /// </summary>
+        public List<BankSupportImport> listBankSupport
+        {
+            get;
+            set;
+        } = new List<BankSupportImport>();
+
+        /// <summary>
+        /// listIssuingCompanyImport
+        /// </summary>
+        public List<IssuingCompanyImport> listIssuingCompanyImport
+        {
+            get;
+            set;
+        } = new List<IssuingCompanyImport>();
+
+        /// <summary>
         /// FileName
         /// </summary>
         public string FileName

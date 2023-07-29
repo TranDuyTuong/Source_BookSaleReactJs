@@ -42,5 +42,10 @@ namespace CommonConfiguration.KikianSystemCommon
         /// MessageCityNotExist
         /// </summary>
         public static string MessageCityNotExist = "City Not Exist, Please Contact Manager!";
+
+        /// <summary>
+        /// MessageDistrictNotExist
+        /// </summary>
+        public static string MessageDistrictNotExist = "District Not Exist, Please Contact Manager!";
     }
 }

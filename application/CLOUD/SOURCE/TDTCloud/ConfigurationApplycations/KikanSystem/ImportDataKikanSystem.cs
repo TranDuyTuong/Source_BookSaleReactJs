@@ -331,7 +331,7 @@ namespace ConfigurationApplycations.KikanSystem
                                             result.Status = false;
                                             result.IdPlugin = CommonConfiguration.DataCommon.EventError;
                                             result.Message = CommonConfiguration.KikianSystemCommon.MessageNotificationKikanSystemCommon
-                                                                .MessageDuplicateData + " " + "( " + publishingCompany.PublishingCompanyID + " " + publishingCompany.Description +  " )";
+                                                                .MessageDuplicateData + " " + "( " + publishingCompany.PublishingCompanyID + " " + publishingCompany.Description + " )";
                                             break;
                                         }
                                         else
@@ -510,7 +510,7 @@ namespace ConfigurationApplycations.KikanSystem
                                             result.Status = false;
                                             result.IdPlugin = CommonConfiguration.DataCommon.EventError;
                                             result.Message = CommonConfiguration.KikianSystemCommon.MessageNotificationKikanSystemCommon
-                                                                .MessageApplydateError + " " + "(" + district.DistrictID + ")";
+                                                                .MessageApplydateError + " " + "( " + district.DistrictID + " " + district.ApplyDate + " )";
                                             break;
                                         }
 
@@ -522,12 +522,12 @@ namespace ConfigurationApplycations.KikanSystem
                                             result.Status = false;
                                             result.IdPlugin = CommonConfiguration.DataCommon.EventError;
                                             result.Message = CommonConfiguration.KikianSystemCommon.MessageNotificationKikanSystemCommon
-                                                                .MessageCityNotExist + " " + "(" + district.CityID + ")";
+                                                                .MessageCityNotExist + " " + "( " + district.DistrictID + " " + district.CityID + " )";
                                             break;
-                                        } 
+                                        }
 
                                         // Check District
-                                        var findItem = queryDistrict.Where(x => x.DistrictID == district.DistrictID 
+                                        var findItem = queryDistrict.Where(x => x.DistrictID == district.DistrictID
                                                                         && x.ApplyDate == district.ApplyDate).ToArray();
 
                                         if (findItem.Any())
@@ -536,12 +536,12 @@ namespace ConfigurationApplycations.KikanSystem
                                             result.Status = false;
                                             result.IdPlugin = CommonConfiguration.DataCommon.EventError;
                                             result.Message = CommonConfiguration.KikianSystemCommon.MessageNotificationKikanSystemCommon
-                                                                .MessageDuplicateData + " " + "( " + district.DistrictID + " " + district.Description + " " + district.ApplyDate +  " )";
+                                                                .MessageDuplicateData + " " + "( " + district.DistrictID + " " + district.Description + " " + district.ApplyDate + " )";
                                             break;
                                         }
                                         else
                                         {
-                                            var itemDistrict= new Districts()
+                                            var itemDistrict = new Districts()
                                             {
                                                 DistrictID = district.DistrictID,
                                                 CityID = district.CityID,
@@ -584,8 +584,125 @@ namespace ConfigurationApplycations.KikanSystem
                                     break;
 
                                 case var item when item == CommonConfiguration.KikianSystemCommon.EnumTypeImportCommon.Excelimport_BankSuport:
+                                    // Get All item in DB
+                                    var queryBankSupport = await this.context.bankSuports.ToArrayAsync();
+                                    // List Save District Import
+                                    List<BankSuports> listBankSupport = new List<BankSuports>();
+
+                                    foreach (var bankSupport in request.listBankSupport)
+                                    {
+                                        // Check City exist in DB
+                                        var findItem = await this.context.bankSuports.Where(x => x.BankID == bankSupport.BankID).ToArrayAsync();
+
+                                        if (findItem.Any())
+                                        {
+                                            // Duplicate Data
+                                            result.Status = false;
+                                            result.IdPlugin = CommonConfiguration.DataCommon.EventError;
+                                            result.Message = CommonConfiguration.KikianSystemCommon.MessageNotificationKikanSystemCommon
+                                                                .MessageDuplicateData + " " + "( " + bankSupport.BankID + " )";
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            var itemBankSupport = new BankSuports()
+                                            {
+                                                BankID = bankSupport.BankID,
+                                                Description = bankSupport.Description,
+                                                BankCode = bankSupport.BankCode,
+                                                UserID = bankSupport.UserID,
+                                                LastUpdateDate = bankSupport.LasUpdateDate,
+                                                Content = bankSupport.Content,
+                                                UrlImageBank = bankSupport.UrlImageBank,
+                                                IsDeleteFlag = bankSupport.IsDeleteFlag
+                                            };
+                                            listBankSupport.Add(itemBankSupport);
+                                        }
+                                        result.Status = true;
+                                    }
+
+                                    if (result.Status != false)
+                                    {
+                                        // Save In DB
+                                        await this.context.bankSuports.AddRangeAsync(listBankSupport);
+                                        // Save Log
+                                        var logger = new Log()
+                                        {
+                                            Id = new Guid(),
+                                            UserID = request.UserID,
+                                            DateCreate = DateTime.Now,
+                                            Message = "Import BankSupport Into System By KikanSystem, " + listBankSupport.Count + "Row",
+                                            Status = true
+                                        };
+                                        await this.context.logs.AddAsync(logger);
+                                        // Success Import
+                                        result.Status = true;
+                                        result.IdPlugin = CommonConfiguration.DataCommon.EventSuccess;
+                                        result.Message = CommonConfiguration.KikianSystemCommon.MessageNotificationKikanSystemCommon
+                                                            .MessageImportSuccess + " " + listBankSupport.Count + " " + " Row";
+                                    }
                                     break;
+
                                 case var item when item == CommonConfiguration.KikianSystemCommon.EnumTypeImportCommon.Excelimport_IssuingCompanys:
+                                    // Get All item in DB
+                                    var queryIssuingCompany = await this.context.issuingCompanies.ToArrayAsync();
+                                    // List Save District Import
+                                    List<IssuingCompany> listIssuingCompany = new List<IssuingCompany>();
+
+                                    foreach (var issuingCompany in request.ListIssuingCompany)
+                                    {
+                                        // Check City exist in DB
+                                        var findItem = queryIssuingCompany.Where(x => x.IssuingCompanyID == issuingCompany.IssuingCompanyID).ToArray();
+
+                                        if (findItem.Any())
+                                        {
+                                            // Duplicate Data
+                                            result.Status = false;
+                                            result.IdPlugin = CommonConfiguration.DataCommon.EventError;
+                                            result.Message = CommonConfiguration.KikianSystemCommon.MessageNotificationKikanSystemCommon
+                                                                .MessageDuplicateData + " " + "( " + issuingCompany.IssuingCompanyID + " )";
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            var itemPublishingCompany = new IssuingCompany()
+                                            {
+                                                IssuingCompanyID = issuingCompany.IssuingCompanyID,
+                                                Description = issuingCompany.Description,
+                                                TaxCode = issuingCompany.TaxCode,
+                                                DateOfIncorporation = issuingCompany.DateOfIncorporation,
+                                                DateCreate = issuingCompany.DateCreate,
+                                                UserID = issuingCompany.UserID,
+                                                HeadquartersLastUpdateDateTime = issuingCompany.HeadquartersLastUpdateDateTime,
+                                                LastUpdateDate = issuingCompany.LasUpdateDate,
+                                                Address = issuingCompany.Address,
+                                                IsDeleteFlag = issuingCompany.IsDeleteFlag
+                                            };
+                                            listIssuingCompany.Add(itemPublishingCompany);
+                                        }
+                                        result.Status = true;
+                                    }
+
+                                    if (result.Status != false)
+                                    {
+                                        // Save In DB
+                                        await this.context.issuingCompanies.AddRangeAsync(listIssuingCompany);
+                                        // Save Log
+                                        var logger = new Log()
+                                        {
+                                            Id = new Guid(),
+                                            UserID = request.UserID,
+                                            DateCreate = DateTime.Now,
+                                            Message = "Import IssuingCompany Into System By KikanSystem, " + listIssuingCompany.Count + "Row",
+                                            Status = true
+                                        };
+                                        await this.context.logs.AddAsync(logger);
+                                        // Success Import
+                                        result.Status = true;
+                                        result.IdPlugin = CommonConfiguration.DataCommon.EventSuccess;
+                                        result.Message = CommonConfiguration.KikianSystemCommon.MessageNotificationKikanSystemCommon
+                                                            .MessageImportSuccess + " " + listIssuingCompany.Count + " " + " Row";
+                                    }
                                     break;
                                 default:
                                     result.Status = false;

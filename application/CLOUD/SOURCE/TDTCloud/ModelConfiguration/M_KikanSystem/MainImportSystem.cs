@@ -64,6 +64,24 @@ namespace ModelConfiguration.M_KikanSystem
         } = new List<DistrictsImport>();
 
         /// <summary>
+        /// 
+        /// </summary>
+        public List<BankSupportImport> listBankSupport
+        {
+            get;
+            set;
+        } = new List<BankSupportImport>();
+
+        /// <summary>
+        /// ListIssuingCompany
+        /// </summary>
+        public List<IssuingCompanyImport> ListIssuingCompany
+        {
+            get;
+            set;
+        } = new List<IssuingCompanyImport>();
+
+        /// <summary>
         /// FileName
         /// </summary>
         public string FileName

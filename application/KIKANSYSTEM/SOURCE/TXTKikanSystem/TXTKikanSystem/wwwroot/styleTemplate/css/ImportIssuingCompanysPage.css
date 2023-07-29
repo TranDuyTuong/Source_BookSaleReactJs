@@ -1,0 +1,17 @@
+﻿table, th, td {
+    border: 1px solid black;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+.styleTr {
+    font-family: initial;
+    background: #efff00cf;
+    color: black;
+}
+
+#btn_closeImportFile:hover {
+    border: 2px solid black;
+}

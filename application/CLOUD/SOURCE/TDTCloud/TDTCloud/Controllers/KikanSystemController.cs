@@ -153,7 +153,7 @@ namespace TDTCloud.Controllers
                         {
                             // ImportData To DB
                             dataConver.EventCode = ev.IdPlugin;
-                           var resultTemplate = await this.importData.GetTemplateImport(dataConver);
+                            var resultTemplate = await this.importData.GetTemplateImport(dataConver);
                             resultTemplate.Token = dataConver.Token;
                             // Conver Object to json
                             result = ConverToJson<TemplateImportKikanSystem>.ConverObjectToJson(resultTemplate);

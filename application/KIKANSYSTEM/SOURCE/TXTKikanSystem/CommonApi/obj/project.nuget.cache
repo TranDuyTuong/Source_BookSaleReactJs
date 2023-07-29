@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "PDlJOv+6NwX8bE/dhbs0mR0v4kvCR5tOSeyDjqmyoCz2L4ApR6dOBkUKJ4MfZy1cUW9D8lEz8yZKE/dpNds6ag==",
+  "dgSpecHash": "NocQIdtAWZ5haAnlhE304LtMhbJUP5WHGL+gnfLVYvYi5FSdCprtIr80a3tsggkhhmvKENhrshWSDFL/g9HhTg==",
   "success": true,
-  "projectFilePath": "D:\\Project\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\CommonApi\\CommonApi.csproj",
+  "projectFilePath": "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\KIKANSYSTEM\\SOURCE\\TXTKikanSystem\\CommonApi\\CommonApi.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Admin\\.nuget\\packages\\newtonsoft.json\\11.0.2\\newtonsoft.json.11.0.2.nupkg.sha512"
+    "C:\\Users\\user\\.nuget\\packages\\newtonsoft.json\\11.0.2\\newtonsoft.json.11.0.2.nupkg.sha512"
   ],
   "logs": []
 }

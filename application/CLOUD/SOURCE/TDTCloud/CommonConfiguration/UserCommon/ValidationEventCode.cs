@@ -39,6 +39,7 @@ namespace CommonConfiguration.UserCommon
                         Message = "Success EventCodeLogin"
                     };
                     break;
+                // event singout
                 case var item when item == DataCommon.EventSignOut:
                     result = new ReturnCommonApi()
                     {
@@ -47,6 +48,7 @@ namespace CommonConfiguration.UserCommon
                         Message = "Success EventCodeSignOut"
                     };
                     break;
+                // event validation token
                 case var item when item == DataCommon.EventValidationToken:
                     result = new ReturnCommonApi()
                     {
@@ -55,6 +57,7 @@ namespace CommonConfiguration.UserCommon
                         Message = "Success EventValidationToken"
                     };
                     break;
+                // event Initialization
                 case var item when item == DataCommon.EventInitialization:
                     result = new ReturnCommonApi()
                     {
@@ -63,6 +66,7 @@ namespace CommonConfiguration.UserCommon
                         Message = "Success EventInitialization"
                     };
                     break;
+                // event ImportBooks
                 case var item when item == DataCommon.EventImportBooks:
                     result = new ReturnCommonApi()
                     {
@@ -71,6 +75,7 @@ namespace CommonConfiguration.UserCommon
                         Message = "Success EventImportBooks"
                     };
                     break;
+                // event ImportAuthor
                 case var item when item == DataCommon.EventImportAuthor:
                     result = new ReturnCommonApi()
                     {
@@ -79,20 +84,58 @@ namespace CommonConfiguration.UserCommon
                         Message = "Success EventImportAuthor"
                     };
                     break;
-                case var item when item == DataCommon.EventPublishingCompany:
+                // event ImportPublishingCompany
+                case var item when item == DataCommon.EventImportPublishingCompany:
                     result = new ReturnCommonApi()
                     {
                         Status = true,
-                        IdPlugin = DataCommon.EventPublishingCompany,
+                        IdPlugin = DataCommon.EventImportPublishingCompany,
                         Message = "Success EventPublishingCompany"
                     };
                     break;
-                case var item when item == DataCommon.EventCity:
+                // event ImportCity
+                case var item when item == DataCommon.EventImportCity:
                     result = new ReturnCommonApi()
                     {
                         Status = true,
-                        IdPlugin = DataCommon.EventCity,
+                        IdPlugin = DataCommon.EventImportCity,
                         Message = "Success EventCity"
+                    };
+                    break;
+                // event ImportCategory
+                case var item when item == DataCommon.EventImportCategory:
+                    result = new ReturnCommonApi()
+                    {
+                        Status = true,
+                        IdPlugin = DataCommon.EventImportCategory,
+                        Message = "Success EventCategory"
+                    };
+                    break;
+                // event ImportDistrict
+                case var item when item == DataCommon.EventImportDistrict:
+                    result = new ReturnCommonApi()
+                    {
+                        Status = true,
+                        IdPlugin = DataCommon.EventImportDistrict,
+                        Message = "Success EventDistrict"
+                    };
+                    break;
+                // event ImportBankSupport
+                case var item when item == DataCommon.EventImportBankSupport:
+                    result = new ReturnCommonApi()
+                    {
+                        Status = true,
+                        IdPlugin = DataCommon.EventImportBankSupport,
+                        Message = "Success EventBankSupport"
+                    };
+                    break;
+                // event ImportIssuingCompanys
+                case var item when item == DataCommon.EventImportIssuingCompanys:
+                    result = new ReturnCommonApi()
+                    {
+                        Status = true,
+                        IdPlugin = DataCommon.EventImportIssuingCompanys,
+                        Message = "Success EventIssuingCompanys"
                     };
                     break;
                 default:
