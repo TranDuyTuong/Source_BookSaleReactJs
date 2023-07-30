@@ -41,7 +41,7 @@ namespace CommonConfiguration.KikianSystemCommon
         /// <summary>
         /// ImportIssuingCompanysCompanyKikanSystem
         /// </summary>
-        public static string ImportIssuingCompanysCompanyKikanSystem = "ImportIssuingCompanysCompanyKikanSystem.xlsx";
+        public static string ImportIssuingCompanysCompanyKikanSystem = "ImportIssuingCompanyKikanSystem.xlsx";
 
         /// <summary>
         /// ImportBooksKikanSystem

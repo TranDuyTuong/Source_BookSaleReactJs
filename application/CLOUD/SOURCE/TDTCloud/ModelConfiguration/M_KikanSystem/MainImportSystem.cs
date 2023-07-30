@@ -57,7 +57,7 @@ namespace ModelConfiguration.M_KikanSystem
         /// <summary>
         /// listDitricts
         /// </summary>
-        public List<DistrictsImport> listDitricts
+        public List<DistrictsImport> listDistrict
         {
             get;
             set;
@@ -75,7 +75,7 @@ namespace ModelConfiguration.M_KikanSystem
         /// <summary>
         /// ListIssuingCompany
         /// </summary>
-        public List<IssuingCompanyImport> ListIssuingCompany
+        public List<IssuingCompanyImport> listIssuingCompany
         {
             get;
             set;

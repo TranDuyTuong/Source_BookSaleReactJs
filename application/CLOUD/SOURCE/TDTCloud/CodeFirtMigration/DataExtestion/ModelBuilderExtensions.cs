@@ -254,7 +254,7 @@ namespace CodeFirtMigration.DataExtestion
                     {
                         ID = new Guid("DA2F7E92-722C-43A5-B180-A4B741FD8A04"),
                         TypeId = "Excelimport_IssuingCompanys",
-                        Description = "ImportIssuingCompanysCompanyKikanSystem.xlsx",
+                        Description = "ImportIssuingCompanyKikanSystem.xlsx",
                         Content = "IssuingCompanyID,Description,TaxCode,DateOfIncorporation,DateCreate,UserID,HeadquartersLastUpdateDateTime,LasUpdateDate (NULL),ContentLastUpdateDate (NULL),Address,IsDeleteFlag (TRUE/FALSE)",
                         DateCreate = DateTime.Now,
                         IsDelete = false,

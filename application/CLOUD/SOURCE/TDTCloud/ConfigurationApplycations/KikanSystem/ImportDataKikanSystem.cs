@@ -502,7 +502,7 @@ namespace ConfigurationApplycations.KikanSystem
                                     // List Save District Import
                                     List<Districts> listDistrict = new List<Districts>();
 
-                                    foreach (var district in request.listDitricts)
+                                    foreach (var district in request.listDistrict)
                                     {
                                         // Check Applydate must more than current date 
                                         if (district.ApplyDate <= curentDate)
@@ -649,7 +649,7 @@ namespace ConfigurationApplycations.KikanSystem
                                     // List Save District Import
                                     List<IssuingCompany> listIssuingCompany = new List<IssuingCompany>();
 
-                                    foreach (var issuingCompany in request.ListIssuingCompany)
+                                    foreach (var issuingCompany in request.listIssuingCompany)
                                     {
                                         // Check City exist in DB
                                         var findItem = queryIssuingCompany.Where(x => x.IssuingCompanyID == issuingCompany.IssuingCompanyID).ToArray();

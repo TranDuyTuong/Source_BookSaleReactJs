@@ -1350,7 +1350,7 @@ namespace TXTKikanSystem.Controllers
                                                         JobID = sheetName.Cell(i, 8).Value.ToString().Trim(),
                                                         IsDeleteFlag = Convert.ToBoolean(sheetName.Cell(i, 9).Value.ToString().Trim().ToUpper())
                                                     };
-                                                    infoImport.listCategory.Add(itemRow);
+                                                    infoImport.listCategorys.Add(itemRow);
                                                 }
                                                 break;
 
@@ -1372,17 +1372,20 @@ namespace TXTKikanSystem.Controllers
                                                         break;
                                                     }
 
+                                                    var contactCityID = Convert.ToInt32(sheetName.Cell(i, 2).Value.ToString().Trim()) <= 9 ?
+                                                        "00" + sheetName.Cell(i, 2).Value.ToString().Trim() : "0" + sheetName.Cell(i, 2).Value.ToString().Trim();
+
                                                     // Get Data in Excel And Save Into List                                               
                                                     var itemRow = new DistrictsImport()
                                                     {
                                                         DistrictID = sheetName.Cell(i, 1).Value.ToString().Trim(),
-                                                        CityID = sheetName.Cell(i, 2).Value.ToString().Trim(),
-                                                        ApplyDate = Convert.ToDateTime(sheetName.Cell(i, 3).Value.ToString().Trim()),
-                                                        Description = sheetName.Cell(i, 4).Value.ToString().Trim(),
-                                                        Identifier = sheetName.Cell(i, 5).Value.ToString().Trim(),
-                                                        DateCreate = Convert.ToDateTime(sheetName.Cell(i, 6).Value.ToString().Trim()),
-                                                        PriceShip = Convert.ToDecimal(sheetName.Cell(i, 7).Value.ToString().Trim()),
-                                                        PriceShipNew = null,
+                                                        CityID = contactCityID,
+                                                        Description = sheetName.Cell(i, 3).Value.ToString().Trim(),
+                                                        Identifier = sheetName.Cell(i, 4).Value.ToString().Trim(),
+                                                        DateCreate = Convert.ToDateTime(sheetName.Cell(i, 5).Value.ToString().Trim()),
+                                                        PriceShip = Convert.ToDecimal(sheetName.Cell(i, 6).Value.ToString().Trim()),
+                                                        ApplyDate = Convert.ToDateTime(sheetName.Cell(i, 7).Value.ToString().Trim()),
+                                                        PriceShipNew = Convert.ToDecimal(sheetName.Cell(i, 8).Value.ToString().Trim()),
                                                         LasUpdateDate = null,
                                                         HeadquartersLastUpdateDateTime = Convert.ToDateTime(sheetName.Cell(i, 10).Value.ToString().Trim().ToUpper()),
                                                         UserID = sheetName.Cell(i, 11).Value.ToString().Trim(),
@@ -1430,7 +1433,7 @@ namespace TXTKikanSystem.Controllers
                                             // IssuingCompanys
                                             case var item when item == EnumImportData.Excelimport_IssuingCompanys:
                                                 // Get File Name
-                                                infoImport.FileName = CommonFileNameImports.ImportIssuingCompanysCompanyKikanSystem;
+                                                infoImport.FileName = CommonFileNameImports.ImportIssuingCompanyKikanSystem;
                                                 // Concat string
                                                 string eventCode7 = string.Concat(CommonApi.CommonEventCode.FistCode, CommonApi.CommonEventCode.EventIssuingCompanys);
                                                 infoImport.EventCode = eventCode7;
@@ -1460,7 +1463,7 @@ namespace TXTKikanSystem.Controllers
                                                         Address = sheetName.Cell(i, 10).Value.ToString().Trim(),
                                                         IsDeleteFlag = Convert.ToBoolean(sheetName.Cell(i, 11).Value.ToString().Trim().ToUpper())
                                                     };
-                                                    infoImport.listIssuingCompanyImport.Add(itemRow);
+                                                    infoImport.listIssuingCompany.Add(itemRow);
                                                 }
                                                 break;
 

@@ -46,7 +46,7 @@ namespace TXTKikanSystem.Models.Imports
         /// <summary>
         /// listCategory
         /// </summary>
-        public List<CategorysImport> listCategory
+        public List<CategorysImport> listCategorys
         {
             get;
             set;
@@ -71,9 +71,9 @@ namespace TXTKikanSystem.Models.Imports
         } = new List<BankSupportImport>();
 
         /// <summary>
-        /// listIssuingCompanyImport
+        /// listIssuingCompany
         /// </summary>
-        public List<IssuingCompanyImport> listIssuingCompanyImport
+        public List<IssuingCompanyImport> listIssuingCompany
         {
             get;
             set;

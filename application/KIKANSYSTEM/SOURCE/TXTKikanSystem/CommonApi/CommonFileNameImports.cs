@@ -41,7 +41,7 @@ namespace CommonApi
         /// <summary>
         /// ImportIssuingCompanysCompanyKikanSystem
         /// </summary>
-        public static string ImportIssuingCompanysCompanyKikanSystem = "ImportIssuingCompanysCompanyKikanSystem.xlsx";
+        public static string ImportIssuingCompanyKikanSystem = "ImportIssuingCompanyKikanSystem.xlsx";
 
         /// <summary>
         /// ImportBooksKikanSystem

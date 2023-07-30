@@ -36,8 +36,8 @@ $(document).ready(function () {
 
     // Submit file Import
     $("#btn_SubmitFile").click(function () {
-        preventDefault();
-        stopImmediatePropagation();
+        //preventDefault();
+        //stopImmediatePropagation();
         // Check File Import
         if ($("#formFile").val() == null || $("#formFile").val() == undefined || $("#formFile").val() == "") {
             alert("Please choose a File");
