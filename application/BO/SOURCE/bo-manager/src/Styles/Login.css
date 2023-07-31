@@ -29,3 +29,9 @@
 .alinebutton {
   text-align: right;
 }
+
+.errorMessage {
+  color: red;
+  font-family: initial;
+  font-weight: 600;
+}
