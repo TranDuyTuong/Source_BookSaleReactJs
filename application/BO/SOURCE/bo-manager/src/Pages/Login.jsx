@@ -5,12 +5,18 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import "../Styles/Login.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignInAlt } from "@fortawesome/free-solid-svg-icons";
-import { validationLogin } from "../ObjectCommon/Object";
 import {
-  messageNullEmail,
-  messageNullPassword,
-} from "../MessageCommon/Message";
+  faSignInAlt,
+  faTriangleExclamation,
+} from "@fortawesome/free-solid-svg-icons";
+import {
+  ValidationInput,
+  RemoveCookies,
+  LenghtPassword,
+  ConcatStringEvent,
+} from "../ObjectCommon/FunctionCommon";
+import { UserLogin, FistCode, EventLogin } from "../ObjectCommon/EventCommon";
+import { LoginUser } from "../ObjectCommon/Object";
 
 // Main Function
 function Login() {
@@ -19,7 +25,14 @@ function Login() {
 
   // Reload Page
   useEffect(() => {
+    // Focus input email
     document.getElementById("idEmail").focus();
+    // Clear Local Storage
+    localStorage.clear();
+    // Remove Cookie Curent
+    RemoveCookies(UserLogin);
+    // Clear time check ExpirationDate
+    clearInterval(1000);
   }, []);
 
   // Setting Email And Password
@@ -32,27 +45,60 @@ function Login() {
     // Call function check null email and password
     var ischeckNull = ValidationInput(email, password);
 
+    // Icon Error
+    var iconError = "<FontAwesomeIcon icon={" + faTriangleExclamation + "} />";
+
     if (ischeckNull.Status === false) {
-      setError(ischeckNull.Message);
+      setError(iconError + " " + ischeckNull.Message);
       // Check Type Error
       switch (ischeckNull.Type) {
         case 1:
           // Forcus Email Input
           document.getElementById("idEmail").focus();
           document.getElementById("idEmail").style.border = "3px solid red";
+          document.getElementById("idPassword").style.border =
+            "3px solid rgba(43, 121, 236, 0.658)";
           break;
+
         case 2:
           // Forcus Password Imput
           document.getElementById("idPassword").focus();
+          document.getElementById("idPassword").style.border = "3px solid red";
           document.getElementById("idEmail").style.border =
             "3px solid rgba(43, 121, 236, 0.658)";
-          document.getElementById("idPassword").style.border = "3px solid red";
           break;
+
         default:
           break;
       }
       e.preventDefault();
     } else {
+      // Check Lenght password
+      var isCheckLenghtPassword = LenghtPassword(password);
+
+      if (isCheckLenghtPassword === false) {
+        setError(iconError + " " + isCheckLenghtPassword.Message);
+        document.getElementById("idPassword").focus();
+        document.getElementById("idPassword").style.border = "3px solid red";
+        document.getElementById("idEmail").style.border =
+          "3px solid rgba(43, 121, 236, 0.658)";
+        document.getElementById("idPassword").value("");
+        e.preventDefault();
+      } else {
+        // Concat string event
+        var stringEvent = ConcatStringEvent(FistCode, EventLogin);
+
+        // Set Infomation Login
+        var result = LoginUser;
+        result.Email = email;
+        result.Password = password;
+        result.RememberMe = true;
+        result.EventCode = stringEvent;
+
+        // Conver Object to json
+        var jsonresult = JSON.stringify(result);
+        // Call Api
+      }
     }
   };
 
@@ -95,27 +141,6 @@ function Login() {
       </Row>
     </Container>
   );
-}
-
-// Validation Input
-function ValidationInput(email, password) {
-  validationLogin.Status = true;
-
-  // Check Null Email
-  if (email === null || email === "" || email === undefined) {
-    validationLogin.Status = false;
-    validationLogin.Message = messageNullEmail;
-    validationLogin.Type = 1; // Email
-  } else {
-    // Check Null Password
-    if (password === null || password === "" || password === undefined) {
-      validationLogin.Status = false;
-      validationLogin.Message = messageNullPassword;
-      validationLogin.Type = 2; // Password
-    }
-  }
-
-  return validationLogin;
 }
 
 export default Login;
