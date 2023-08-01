@@ -8,6 +8,9 @@ function RouterSytem() {
         <li>
           <Link to="/">Login</Link>
         </li>
+        <li>
+          <Link to="/home/*">Home</Link>
+        </li>
       </ul>
     </nav>
   </React.Fragment>;

@@ -98,6 +98,8 @@ function Login() {
         // Conver Object to json
         var jsonresult = JSON.stringify(result);
         // Call Api
+        var queryString = window.location.origin;
+        window.location.href = queryString + "/" + "home";
       }
     }
   };
