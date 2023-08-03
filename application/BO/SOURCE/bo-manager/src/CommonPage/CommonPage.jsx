@@ -8,13 +8,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import MenuCommon from "./MenuCommon";
 import Home from "../Pages/Home";
 import { Routes, Route } from "react-router-dom";
+import HeaderCommon from "./HeaderCommon";
 
 // Main Page
 function CommonPage() {
   return (
     <Container fluid>
+      <HeaderCommon></HeaderCommon>
       <Row>
-        <Col xs={3}>
+        <Col xs={2}>
           <MenuCommon></MenuCommon>
         </Col>
         <Col>

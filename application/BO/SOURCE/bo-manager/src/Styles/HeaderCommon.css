@@ -1,0 +1,22 @@
+.header {
+  background-color: rgb(6, 128, 250);
+  width: 100%;
+  height: 50px;
+}
+.title {
+  font-family: initial;
+  font-size: 35px;
+  color: white;
+  margin: 1px 0px;
+  margin-left: -50px;
+}
+.infoUser {
+  text-align: right;
+  font-family: initial;
+  font-size: 20px;
+  margin: 7px 5px;
+}
+.positionInfo {
+  color: white;
+  margin-right: 50px;
+}
