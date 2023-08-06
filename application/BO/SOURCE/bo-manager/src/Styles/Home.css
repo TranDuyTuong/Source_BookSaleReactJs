@@ -5,3 +5,24 @@
   font-family: initial;
   margin: 10px 0px;
 }
+.selecYearChart {
+  font-family: initial;
+  font-weight: 600;
+}
+.titelChartBook {
+  text-align: center;
+  font-family: initial;
+  font-weight: 600;
+}
+.total {
+  text-align: right;
+  font-family: initial;
+  font-weight: 600;
+}
+.showMore {
+  text-align: right;
+  font-family: initial;
+}
+.filterbtn {
+  font-family: initial;
+}

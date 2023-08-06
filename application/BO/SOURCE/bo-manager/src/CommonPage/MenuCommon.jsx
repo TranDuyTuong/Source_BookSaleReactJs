@@ -24,7 +24,7 @@ function MenuCommon() {
       <Navbar className="bg-body-tertiary">
         <Container>
           <Link href="#home" className="itemChild">
-            Areae
+            Area
           </Link>
         </Container>
       </Navbar>

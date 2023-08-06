@@ -1,18 +1,41 @@
 import React, { useState } from "react";
+import Chart from "chart.js/auto";
+import "../Styles/Home.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import "../Styles/Home.css";
+import Form from "react-bootstrap/Form";
+import Table from "react-bootstrap/Table";
+import Button from "react-bootstrap/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChartSimple } from "@fortawesome/free-solid-svg-icons";
-import Chart from "chart.js/auto";
+import {
+  faChartSimple,
+  faCartShopping,
+  faFilter,
+} from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
+import { DataBooks } from "../TemplateCommon/ChartCommon";
+import {
+  Year2023,
+  Year2024,
+  Year2025,
+  Year2026,
+  Year2027,
+  Year2028,
+  Year2029,
+  Year2030,
+  ListMonths,
+  ListYear,
+} from "../Contants/DataContant";
 
 // Main Function
 function Home() {
   useEffect(() => {
-    ChartBooks();
-  });
+    // Chart Book
+    ChartBooks("myChartBook");
+    // Chart User
+    ChartBooks("myChartUser");
+  }, []);
   return (
     <Container fluid>
       <p className="titleChart">
@@ -21,19 +44,115 @@ function Home() {
       <hr />
       <Row>
         <Col>
-          <canvas id="myChart"></canvas>
+          <p className="titelChartBook">Chart Book</p>
+          <Form.Select
+            aria-label="Default select example"
+            className="selecYearChart"
+          >
+            <option value="0">Select Year (2023 - 2030)</option>
+            <option value={Year2023}>{Year2023}</option>
+            <option value={Year2024}>{Year2024}</option>
+            <option value={Year2025}>{Year2025}</option>
+            <option value={Year2026}>{Year2026}</option>
+            <option value={Year2027}>{Year2027}</option>
+            <option value={Year2028}>{Year2028}</option>
+            <option value={Year2029}>{Year2029}</option>
+            <option value={Year2030}>{Year2030}</option>
+          </Form.Select>
+          <canvas id="myChartBook"></canvas>
+          <p className="total">Total:</p>
         </Col>
-        <Col>Chart User</Col>
-        <Col>Chart Order By Month</Col>
+        <Col>
+          <p className="titelChartBook">Chart User</p>
+          <Form.Select
+            aria-label="Default select example"
+            className="selecYearChart"
+          >
+            <option value="0">Select Year (2023 - 2030)</option>
+            <option value={Year2023}>{Year2023}</option>
+            <option value={Year2024}>{Year2024}</option>
+            <option value={Year2025}>{Year2025}</option>
+            <option value={Year2026}>{Year2026}</option>
+            <option value={Year2027}>{Year2027}</option>
+            <option value={Year2028}>{Year2028}</option>
+            <option value={Year2029}>{Year2029}</option>
+            <option value={Year2030}>{Year2030}</option>
+          </Form.Select>
+          <canvas id="myChartUser"></canvas>
+          <p className="total">Total:</p>
+        </Col>
       </Row>
+
+      <p className="titleChart">
+        <FontAwesomeIcon icon={faCartShopping} /> Orders Of The Month
+      </p>
+      <hr></hr>
+      <Row>
+        <Col xs={2}>
+          <Form.Select
+            aria-label="Default select example"
+            className="selecYearChart"
+          >
+            <option value="0">Select Month</option>
+            {ListMonths.map((item) => (
+              <option value={item.id} key={item.id}>
+                {item.monthName}
+              </option>
+            ))}
+          </Form.Select>
+        </Col>
+        <Col xs={2}>
+          <Form.Select
+            aria-label="Default select example"
+            className="selecYearChart"
+          >
+            <option value="0">Select Year</option>
+            {ListYear.map((item) => (
+              <option value={item.id} key={item.id}>
+                {item.yearName}
+              </option>
+            ))}
+          </Form.Select>
+        </Col>
+        <Col xs={2}>
+          <Button variant="primary" className="filterbtn">
+            <FontAwesomeIcon icon={faFilter} /> Filter
+          </Button>
+        </Col>
+        <Col>
+          <p className="total">Total:</p>
+        </Col>
+      </Row>
+      <br></br>
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>UserID</th>
+            <th>Full Name</th>
+            <th>Total Orders</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+          </tr>
+        </tbody>
+      </Table>
+      <p className="showMore">
+        <Button variant="link">Show More</Button>
+      </p>
     </Container>
   );
 }
 
 // Design Chart Book
-function ChartBooks() {
-  const ctx = document.getElementById("myChart");
-  var getData = DataBooks();
+function ChartBooks(idName) {
+  const ctx = document.getElementById(idName);
+  var getData = DataBooks(idName);
   new Chart(ctx, {
     type: "bar",
     data: getData,
@@ -45,70 +164,6 @@ function ChartBooks() {
       },
     },
   });
-}
-
-// Design Data Books For chart
-function DataBooks() {
-  const labels = months({ count: 12 });
-  const data = {
-    labels: labels,
-    datasets: [
-      {
-        label: "My First Dataset",
-        data: [65, 59, 80, 81, 56, 55, 40, 88, 79, 10, 12, 34],
-        backgroundColor: [
-          "rgba(255, 99, 132, 0.2)",
-          "rgba(255, 159, 64, 0.2)",
-          "rgba(255, 205, 86, 0.2)",
-          "rgba(75, 192, 192, 0.2)",
-          "rgba(54, 162, 235, 0.2)",
-          "rgba(153, 102, 255, 0.2)",
-          "rgba(201, 203, 207, 0.2)",
-        ],
-        borderColor: [
-          "rgb(255, 99, 132)",
-          "rgb(255, 159, 64)",
-          "rgb(255, 205, 86)",
-          "rgb(75, 192, 192)",
-          "rgb(54, 162, 235)",
-          "rgb(153, 102, 255)",
-          "rgb(201, 203, 207)",
-        ],
-        borderWidth: 1,
-      },
-    ],
-  };
-  console.log(data);
-  return data;
-}
-
-function months(config) {
-  const MONTHS = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-  var cfg = config || {};
-  var count = cfg.count || 12;
-  var section = cfg.section;
-  var values = [];
-  var i, value;
-
-  for (i = 0; i < count; ++i) {
-    value = MONTHS[Math.ceil(i) % 12];
-    values.push(value.substring(0, section));
-  }
-
-  return values;
 }
 
 export default Home;
