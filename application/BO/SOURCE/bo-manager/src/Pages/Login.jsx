@@ -3,20 +3,21 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
+import jwt_decode from "jwt-decode";
 import "../Styles/Login.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faSignInAlt,
-  faTriangleExclamation,
-} from "@fortawesome/free-solid-svg-icons";
+import { faSignInAlt } from "@fortawesome/free-solid-svg-icons";
 import {
   ValidationInput,
   RemoveCookies,
   LenghtPassword,
   ConcatStringEvent,
+  CreateCookies,
 } from "../ObjectCommon/FunctionCommon";
 import { UserLogin, FistCode, EventLogin } from "../ObjectCommon/EventCommon";
-import { LoginUser } from "../ObjectCommon/Object";
+import { LoginUser, ResultLogin } from "../ObjectCommon/Object";
+import { postDataLoginAPI } from "../ApiLablary/LoginApi";
+import { messageCreateCookieFail } from "../MessageCommon/Message";
 
 // Main Function
 function Login() {
@@ -41,15 +42,12 @@ function Login() {
   const [error, setError] = useState("");
 
   // Submit Hander form
-  const onSubmitHander = (e) => {
+  const onSubmitHander = async (e) => {
     // Call function check null email and password
     var ischeckNull = ValidationInput(email, password);
 
-    // Icon Error
-    var iconError = "<FontAwesomeIcon icon={" + faTriangleExclamation + "} />";
-
     if (ischeckNull.Status === false) {
-      setError(iconError + " " + ischeckNull.Message);
+      setError(ischeckNull.Message);
       // Check Type Error
       switch (ischeckNull.Type) {
         case 1:
@@ -77,7 +75,7 @@ function Login() {
       var isCheckLenghtPassword = LenghtPassword(password);
 
       if (isCheckLenghtPassword === false) {
-        setError(iconError + " " + isCheckLenghtPassword.Message);
+        setError(isCheckLenghtPassword.Message);
         document.getElementById("idPassword").focus();
         document.getElementById("idPassword").style.border = "3px solid red";
         document.getElementById("idEmail").style.border =
@@ -89,17 +87,21 @@ function Login() {
         var stringEvent = ConcatStringEvent(FistCode, EventLogin);
 
         // Set Infomation Login
-        var result = LoginUser;
-        result.Email = email;
-        result.Password = password;
-        result.RememberMe = true;
-        result.EventCode = stringEvent;
-
-        // Conver Object to json
-        var jsonresult = JSON.stringify(result);
+        var info = LoginUser;
+        info.Email = email;
+        info.Password = password;
+        info.RememberMe = true;
+        info.EventCode = stringEvent;
         // Call Api
-        var queryString = window.location.origin;
-        window.location.href = queryString + "/" + "home";
+        var result = await fetchData(info);
+        // Check result
+        if (result.Status === false) {
+          setError(result.Message);
+        } else {
+          var queryString = window.location.origin;
+          window.location.href = queryString + "/home";
+        }
+        e.preventDefault();
       }
     }
   };
@@ -110,8 +112,8 @@ function Login() {
         {/* nofitication message error when submit */}
         <p className="errorMessage">{error}</p>
 
-        <Form className="form" onSubmit={onSubmitHander}>
-          <p className="title"> Login System </p>
+        <Form className="form">
+          <p className="titleLogin"> Login System </p>
           <Form.Group className="mb-3">
             <Form.Control
               className="input-title"
@@ -135,7 +137,12 @@ function Login() {
           </Form.Group>
 
           <p className="alinebutton">
-            <Button className="btn-login" variant="primary" type="submit">
+            <Button
+              className="btn-login"
+              variant="primary"
+              type="button"
+              onClick={onSubmitHander}
+            >
               <FontAwesomeIcon icon={faSignInAlt} /> Login
             </Button>
           </p>
@@ -144,5 +151,46 @@ function Login() {
     </Container>
   );
 }
+
+// Call Api
+const fetchData = async (info) => {
+  var login = new FormData();
+  login.append("Email", info.Email);
+  login.append("Password", info.Password);
+  login.append("RememberMe", info.RememberMe);
+  login.append("EventCode", info.EventCode);
+  const data = await postDataLoginAPI(login);
+  // check result login
+  var result = ResultLogin;
+
+  if (data.Status === true) {
+    // Read Value Token
+    const tokenValue = jwt_decode(data.Token);
+
+    // Create Cookie for Employer Login save in local
+    var cookieResult = CreateCookies(UserLogin, data.Token);
+
+    if (cookieResult === true) {
+      // Create Success save infomation Employer into Local Storage
+      window.localStorage.setItem("Employer", tokenValue.employerName);
+      window.localStorage.setItem("RoleEmployer", tokenValue.roleID);
+      window.localStorage.setItem("DescriptionRole", tokenValue.nameRole);
+      window.localStorage.setItem("ExpirationDate", tokenValue.experiedDate);
+      window.localStorage.setItem("UserID", tokenValue.userID);
+      // Login Success
+      result.Status = data.Status;
+    } else {
+      // Show Message Error
+      result.Status = false;
+      result.Message = messageCreateCookieFail;
+    }
+  } else {
+    // Login Fail
+    result.Status = data.Status;
+    result.Message = data.Message;
+  }
+
+  return result;
+};
 
 export default Login;

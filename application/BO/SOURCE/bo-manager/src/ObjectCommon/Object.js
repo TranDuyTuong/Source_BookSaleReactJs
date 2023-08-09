@@ -12,3 +12,9 @@ export var LoginUser = {
   RememberMe: "",
   EventCode: "",
 };
+
+// Result Login User
+export var ResultLogin = {
+  Status: "",
+  Message: "",
+};

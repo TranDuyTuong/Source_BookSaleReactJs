@@ -5,6 +5,7 @@ import {
   messageErrorLenghtPassword,
 } from "../MessageCommon/Message";
 import { PasswordMin, PasswordMax } from "../ObjectCommon/EventCommon";
+import Cookies from "js-cookie";
 
 // Validation Input
 export function ValidationInput(email, password) {
@@ -29,7 +30,7 @@ export function ValidationInput(email, password) {
 // Remove Cookies
 export function RemoveCookies(cookiesName) {
   // check cookiesName
-  if (cookiesName == null || cookiesName == undefined || cookiesName == "") {
+  if (cookiesName == null || cookiesName === undefined || cookiesName === "") {
     return false;
   } else {
     document.cookie = cookiesName + "=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
@@ -40,11 +41,15 @@ export function RemoveCookies(cookiesName) {
 // Create Cookies
 export function CreateCookies(cookiesName, cookiesValue) {
   // check cookiesValue
-  if (cookiesValue == null || cookiesValue == undefined || cookiesValue == "") {
+  if (
+    cookiesValue == null ||
+    cookiesValue === undefined ||
+    cookiesValue === ""
+  ) {
     return false;
   }
   // create cookies
-  document.cookie = cookiesName + "=" + cookiesValue;
+  Cookies.set(cookiesName, cookiesValue);
   return true;
 }
 

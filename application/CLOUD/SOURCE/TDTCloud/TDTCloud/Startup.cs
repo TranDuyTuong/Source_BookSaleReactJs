@@ -59,6 +59,12 @@ namespace TDTCloud
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TDTCloud v1"));
             }
 
+            app.UseCors((option) =>
+                    option.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                );
+
             app.UseHttpsRedirection();
 
             app.UseRouting();

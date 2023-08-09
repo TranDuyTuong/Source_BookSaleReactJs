@@ -26,8 +26,11 @@ namespace TDTCloud.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost("Login")]
-        public async Task<IActionResult> Login([FromBody] string request)
+        public async Task<IActionResult> Login([FromForm] LoginUser login)
         {
+            // Conver Object to Json
+            string request = ConverToJson<LoginUser>.ConverObjectToJson(login);
+
             // Conver Json to Object
             var dataConver = ConverToJson<LoginUser>.ConverJsonToObject(request);
             var resultLogin = new ReturnLoginApi();
@@ -72,7 +75,7 @@ namespace TDTCloud.Controllers
         /// <param name="request"></param>
         /// <param name="EventCode"></param>
         /// <returns></returns>
-        [HttpPost("Regiter")]
+        [HttpGet("Regiter")]
         public async Task<IActionResult> Regiter([FromBody] string request)
         {
             string result = null;
