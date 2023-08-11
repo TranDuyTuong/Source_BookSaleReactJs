@@ -9,4 +9,9 @@
 .menuSibar {
   border: 2px solid rgb(6, 128, 250);
   margin: 5px 0px;
+  margin-top: 60px;
+  width: inherit;
+  position: fixed;
+  overflow: auto;
+  height: 690px;
 }

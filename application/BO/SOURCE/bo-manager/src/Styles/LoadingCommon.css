@@ -1,0 +1,17 @@
+.loadingModal {
+  text-align: center;
+  margin: 10px 0px;
+}
+.animationLoading {
+  margin: 10px 0px;
+  margin-right: 30px;
+}
+
+.potionAline {
+  margin: 200px 0px;
+}
+
+.modal-content {
+  background: none;
+  border: none;
+}

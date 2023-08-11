@@ -215,6 +215,12 @@ namespace CommonConfiguration
         /// </summary>
         public static string EventSuccess = "001";
 
+        //---------------------------------------------Event Code Bo---------------------------------------------
+        /// <summary>
+        /// EventBO_Home
+        /// </summary>
+        public static string EventBO_Home = "BO001";
+
         ///--------------------------------------------Type Email-------------------------------------------------
         /// <summary>
         /// TypeRegiter

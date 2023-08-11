@@ -6,6 +6,7 @@ import {
 } from "../MessageCommon/Message";
 import { PasswordMin, PasswordMax } from "../ObjectCommon/EventCommon";
 import Cookies from "js-cookie";
+import { HandleValidationToken } from "../ApiLablary/ValidationApi";
 
 // Validation Input
 export function ValidationInput(email, password) {
@@ -77,3 +78,10 @@ export function ConcatStringEvent(str1, str2) {
   var result = str1 + str2;
   return result;
 }
+
+// Check Infomation Staff
+export const HandleCheckTokenStaff = async (request) => {
+  // Check Token
+  var result = await HandleValidationToken(request);
+  return result;
+};

@@ -3,7 +3,8 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import jwt_decode from "jwt-decode";
+import Modal from "react-bootstrap/Modal";
+import Spinner from "react-bootstrap/Spinner";
 import "../Styles/Login.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignInAlt } from "@fortawesome/free-solid-svg-icons";
@@ -12,12 +13,11 @@ import {
   RemoveCookies,
   LenghtPassword,
   ConcatStringEvent,
-  CreateCookies,
 } from "../ObjectCommon/FunctionCommon";
 import { UserLogin, FistCode, EventLogin } from "../ObjectCommon/EventCommon";
-import { LoginUser, ResultLogin } from "../ObjectCommon/Object";
-import { postDataLoginAPI } from "../ApiLablary/LoginApi";
-import { messageCreateCookieFail } from "../MessageCommon/Message";
+import { LoginUser } from "../ObjectCommon/Object";
+import { ServiceHandleLogin } from "../ApiLablary/LoginApi";
+import LoadingModal from "../CommonPage/LoadingCommon";
 
 // Main Function
 function Login() {
@@ -40,6 +40,7 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [show, setShow] = useState(false);
 
   // Submit Hander form
   const onSubmitHander = async (e) => {
@@ -69,7 +70,6 @@ function Login() {
         default:
           break;
       }
-      e.preventDefault();
     } else {
       // Check Lenght password
       var isCheckLenghtPassword = LenghtPassword(password);
@@ -81,7 +81,6 @@ function Login() {
         document.getElementById("idEmail").style.border =
           "3px solid rgba(43, 121, 236, 0.658)";
         document.getElementById("idPassword").value("");
-        e.preventDefault();
       } else {
         // Concat string event
         var stringEvent = ConcatStringEvent(FistCode, EventLogin);
@@ -92,8 +91,22 @@ function Login() {
         info.Password = password;
         info.RememberMe = true;
         info.EventCode = stringEvent;
+
+        var login = new FormData();
+        login.append("Email", info.Email);
+        login.append("Password", info.Password);
+        login.append("RememberMe", info.RememberMe);
+        login.append("EventCode", info.EventCode);
+
+        // Show modal Loading
+        setShow(true);
+
         // Call Api
-        var result = await fetchData(info);
+        var result = await ServiceHandleLogin(login);
+
+        // Hide modal Loading
+        setShow(false);
+
         // Check result
         if (result.Status === false) {
           setError(result.Message);
@@ -101,10 +114,11 @@ function Login() {
           var queryString = window.location.origin;
           window.location.href = queryString + "/home";
         }
-        e.preventDefault();
       }
     }
   };
+
+  // Mount and Unmount Modal Loading
 
   return (
     <Container>
@@ -147,50 +161,30 @@ function Login() {
             </Button>
           </p>
         </Form>
+        <Modal show={show} className="potionAline">
+          <Modal.Body className="modalcontent">
+            <p className="loadingModal">
+              <Spinner
+                animation="border"
+                variant="success"
+                className="animationLoading"
+              />
+              <Spinner
+                animation="border"
+                variant="danger"
+                className="animationLoading"
+              />
+              <Spinner
+                animation="border"
+                variant="warning"
+                className="animationLoading"
+              />
+            </p>
+          </Modal.Body>
+        </Modal>
       </Row>
+      {show && <LoadingModal />}
     </Container>
   );
 }
-
-// Call Api
-const fetchData = async (info) => {
-  var login = new FormData();
-  login.append("Email", info.Email);
-  login.append("Password", info.Password);
-  login.append("RememberMe", info.RememberMe);
-  login.append("EventCode", info.EventCode);
-  const data = await postDataLoginAPI(login);
-  // check result login
-  var result = ResultLogin;
-
-  if (data.Status === true) {
-    // Read Value Token
-    const tokenValue = jwt_decode(data.Token);
-
-    // Create Cookie for Employer Login save in local
-    var cookieResult = CreateCookies(UserLogin, data.Token);
-
-    if (cookieResult === true) {
-      // Create Success save infomation Employer into Local Storage
-      window.localStorage.setItem("Employer", tokenValue.employerName);
-      window.localStorage.setItem("RoleEmployer", tokenValue.roleID);
-      window.localStorage.setItem("DescriptionRole", tokenValue.nameRole);
-      window.localStorage.setItem("ExpirationDate", tokenValue.experiedDate);
-      window.localStorage.setItem("UserID", tokenValue.userID);
-      // Login Success
-      result.Status = data.Status;
-    } else {
-      // Show Message Error
-      result.Status = false;
-      result.Message = messageCreateCookieFail;
-    }
-  } else {
-    // Login Fail
-    result.Status = data.Status;
-    result.Message = data.Message;
-  }
-
-  return result;
-};
-
 export default Login;

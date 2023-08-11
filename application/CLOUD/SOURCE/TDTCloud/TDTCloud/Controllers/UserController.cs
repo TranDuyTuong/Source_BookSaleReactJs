@@ -223,8 +223,9 @@ namespace TDTCloud.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost("ValidationTokenUser")]
-        public async Task<IActionResult> ValidationTokenUser([FromBody] string request)
+        public async Task<IActionResult> ValidationTokenUser([FromBody] ResultCommonCheckToken token)
         {
+            string request = ConverToJson<ResultCommonCheckToken>.ConverObjectToJson(token);
             string result = null;
             // Conver Json to Object
             var dataConver = ConverToJson<ResultCommonCheckToken>.ConverJsonToObject(request);

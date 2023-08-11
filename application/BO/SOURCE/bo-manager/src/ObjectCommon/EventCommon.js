@@ -14,6 +14,9 @@ export var EventValidationToken = "104";
 //EventInitialization
 export var EventInitialization = "105";
 
+// Event go to Home
+export var EventHome = "BO001";
+
 //---------------------------------------------------------------------------
 //UserLogin
 export var UserLogin = "LoginTDTImportKikanSystem";

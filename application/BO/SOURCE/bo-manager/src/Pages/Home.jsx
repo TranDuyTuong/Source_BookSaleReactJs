@@ -15,6 +15,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
 import { DataBooks } from "../TemplateCommon/ChartCommon";
+import { ResultCommonCheckToken } from "../ObjectCommon/Object";
 import {
   Year2023,
   Year2024,
@@ -27,17 +28,51 @@ import {
   ListMonths,
   ListYear,
 } from "../Contants/DataContant";
+import {
+  ConcatStringEvent,
+  GetCookies,
+  HandleCheckTokenStaff,
+} from "../ObjectCommon/FunctionCommon";
+import { UserLogin, FistCode, EventHome } from "../ObjectCommon/EventCommon";
+import DiaLogTokenError from "../CommonPage/DialogTokenErrorCommon";
 
 // Main Function
 function Home() {
+  // Show DiaLog Error Toekn
+  const [show, setShow] = useState(false);
+  const [messageErrorToken, getMessageErrorToken] = useState("");
+
   useEffect(() => {
-    // Chart Book
-    ChartBooks("myChartBook");
-    // Chart User
-    ChartBooks("myChartUser");
+    // Validation Token And Role Staff
+    var token = GetCookies(UserLogin);
+
+    // Get Event Code
+    var eventCode = ConcatStringEvent(FistCode, EventHome);
+
+    // Set Object check Token Data
+    var objectCheckToken = ResultCommonCheckToken;
+    objectCheckToken.Token = token;
+    objectCheckToken.UserID = window.localStorage.getItem("UserID");
+    objectCheckToken.RoleID = window.localStorage.getItem("RoleEmployer");
+    objectCheckToken.EventCode = eventCode;
+
+    // Call Api Check Validation Token
+    const CheckToken = async () => {
+      var resultCheckToken = await HandleCheckTokenStaff(objectCheckToken);
+      if (resultCheckToken.Status === false) {
+        getMessageErrorToken(resultCheckToken.Message);
+        setShow(true);
+      } else {
+        // Chart Book
+        ChartBooks("myChartBook");
+        // Chart User
+        ChartBooks("myChartUser");
+      }
+    };
+    CheckToken();
   }, []);
   return (
-    <Container fluid>
+    <Container fluid className="fixedPotionHome">
       <p className="titleChart">
         <FontAwesomeIcon icon={faChartSimple} /> Chart
       </p>
@@ -145,6 +180,7 @@ function Home() {
       <p className="showMore">
         <Button variant="link">Show More</Button>
       </p>
+      {show && <DiaLogTokenError Message={messageErrorToken} />}
     </Container>
   );
 }

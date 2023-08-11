@@ -8,5 +8,9 @@ export var messageNullPassword = "Password Not Null, Please Check Again!";
 export var messageErrorLenghtPassword =
   "Password Must Be Greater Than 6, And Small Than 10";
 
+// messageCreateCookieFail
 export var messageCreateCookieFail =
   "Not Create Cookies, Please Contact To Manager";
+
+// messageTitleErrorToken
+export const messageTitleErrorToken = "Token Error";

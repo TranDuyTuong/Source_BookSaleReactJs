@@ -138,6 +138,14 @@ namespace CommonConfiguration.UserCommon
                         Message = "Success EventIssuingCompanys"
                     };
                     break;
+                case var item when item == DataCommon.EventBO_Home:
+                    result = new ReturnCommonApi()
+                    {
+                        Status = true,
+                        IdPlugin = DataCommon.EventBO_Home,
+                        Message = "Success Event Bo Home"
+                    };
+                    break;
                 default:
                     result = new ReturnCommonApi()
                     {
