@@ -1,27 +1,3 @@
-// Year 2023
-export const Year2023 = "2023";
-
-// Year 2024
-export const Year2024 = "2024";
-
-// Year 2025
-export const Year2025 = "2025";
-
-// Year 2026
-export const Year2026 = "2026";
-
-// Year 2027
-export const Year2027 = "2027";
-
-// Year 2028
-export const Year2028 = "2028";
-
-// Year 2029
-export const Year2029 = "2029";
-
-// Year 2030
-export const Year2030 = "2030";
-
 // List Year
 export const ListYear = [
   {

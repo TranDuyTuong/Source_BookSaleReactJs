@@ -23,7 +23,7 @@ function MenuCommon() {
       <br />
       <Navbar className="bg-body-tertiary">
         <Container>
-          <Link href="#home" className="itemChild">
+          <Link to="/area" className="itemChild">
             Area
           </Link>
         </Container>

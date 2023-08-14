@@ -6,7 +6,11 @@ import {
 } from "../MessageCommon/Message";
 import { PasswordMin, PasswordMax } from "../ObjectCommon/EventCommon";
 import Cookies from "js-cookie";
-import { HandleValidationToken } from "../ApiLablary/ValidationApi";
+import {
+  HandleValidationToken,
+  HandleValidationRole,
+} from "../ApiLablary/ValidationApi";
+import { messageTimeOutToken } from "../MessageCommon/Message";
 
 // Validation Input
 export function ValidationInput(email, password) {
@@ -84,4 +88,22 @@ export const HandleCheckTokenStaff = async (request) => {
   // Check Token
   var result = await HandleValidationToken(request);
   return result;
+};
+
+// Check User Have Role Handle
+export const HandleCheckRoleStaff = async (request) => {
+  // Check Role
+  var result = await HandleValidationRole(request);
+  return result;
+};
+
+// Check TimeOut Token User
+export const HandleCheckTimeOut = () => {
+  var timeOut = Date.parse(window.localStorage.getItem("ExpirationDate"));
+  var currentDate = Date.now();
+  if (timeOut <= currentDate) {
+    clearInterval();
+    alert(messageTimeOutToken);
+    window.location.href = window.location.origin;
+  }
 };

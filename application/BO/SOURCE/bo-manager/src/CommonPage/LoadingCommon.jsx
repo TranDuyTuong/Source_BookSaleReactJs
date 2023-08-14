@@ -6,7 +6,7 @@ function LoadingModal() {
   return (
     <Modal show={true} className="potionAline">
       <Modal.Body className="modalcontent">
-        <p className="loadingModal">
+        <div className="alineLoading">
           <Spinner
             animation="border"
             variant="success"
@@ -22,7 +22,7 @@ function LoadingModal() {
             variant="warning"
             className="animationLoading"
           />
-        </p>
+        </div>
       </Modal.Body>
     </Modal>
   );

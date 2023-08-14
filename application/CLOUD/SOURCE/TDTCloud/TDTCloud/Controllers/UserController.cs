@@ -1,9 +1,11 @@
 ﻿using CommonConfiguration;
 using CommonConfiguration.UserCommon;
+using ConfigurationInterfaces.DataCommon;
 using ConfigurationInterfaces.User;
 using Microsoft.AspNetCore.Mvc;
 using ModelConfiguration.M_Common;
 using ModelConfiguration.M_Users;
+using Newtonsoft.Json.Linq;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
@@ -14,10 +16,12 @@ namespace TDTCloud.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserConfiguration context;
+        private readonly IContactCommon contactCommon;
 
-        public UserController(IUserConfiguration _context)
+        public UserController(IUserConfiguration _context, IContactCommon _contactCommon )
         {
             this.context = _context;
+            this.contactCommon = _contactCommon;
         }
 
         /// <summary>
@@ -153,9 +157,11 @@ namespace TDTCloud.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost("SignOut")]
-        public async Task<IActionResult> SignOut([FromBody] string request)
+        public async Task<IActionResult> SignOut([FromForm] SignOutUser signOut)
         {
             string result = null;
+            // Conver Object to Json
+            string request = CommonConfiguration.ConverToJson<SignOutUser>.ConverObjectToJson(signOut);
             // Conver Json to Object
             var dataConver = CommonConfiguration.ConverToJson<SignOutUser>.ConverJsonToObject(request);
             var resultSignOut = new ReturnCommonApi();
@@ -266,6 +272,83 @@ namespace TDTCloud.Controllers
                                 Status = true,
                                 IdPlugin = DataCommon.EventSuccess,
                                 Message = DataCommon.MessageToken
+                            };
+                            // Conver Object to json
+                            result = ConverToJson<ReturnCommonApi>.ConverObjectToJson(returnCheckToken);
+                        }
+                    }
+                }
+                else
+                {
+                    var errorEventCode = new ReturnCommonApi()
+                    {
+                        Status = false,
+                        IdPlugin = DataCommon.EventError,
+                        Message = DataCommon.MessageErrorEvent
+                    };
+
+                    // Conver Object to Json
+                    result = ConverToJson<ReturnCommonApi>.ConverObjectToJson(errorEventCode);
+                }
+            }
+            else
+            {
+                var nullData = new ReturnCommonApi()
+                {
+                    Status = false,
+                    IdPlugin = DataCommon.EventError,
+                    Message = DataCommon.MessageNullData
+                };
+
+                // Conver Object to Json
+                result = ConverToJson<ReturnCommonApi>.ConverObjectToJson(nullData);
+            }
+            return Ok(result);
+        }
+
+        [HttpPost("ValidationRoleUser")]
+        public async Task<IActionResult> ValidationRoleUser([FromBody] ResultCommonCheckToken userRole)
+        {
+            string request = ConverToJson<ResultCommonCheckToken>.ConverObjectToJson(userRole);
+            string result = null;
+            // Conver Json to Object
+            var dataConver = ConverToJson<ResultCommonCheckToken>.ConverJsonToObject(request);
+            if (dataConver != null)
+            {
+                // Check event code
+                var ev = ValidationEventCode.CheckEventCode(dataConver.EventCode);
+
+                if (ev.Status == true)
+                {
+                    // Check Token Null
+                    if (dataConver.Token == null || dataConver.Token == "")
+                    {
+                        var tokenNull = new ReturnCommonApi()
+                        {
+                            Status = false,
+                            IdPlugin = DataCommon.EventError,
+                            Message = DataCommon.MessageNullToken
+                        };
+
+                        // Conver Object to json
+                        result = ConverToJson<ReturnCommonApi>.ConverObjectToJson(tokenNull);
+                    }
+                    else
+                    {
+                        // Check Content Token
+                        var f_CheckValidationToken = new ValidationToken();
+                        var tokenResult = f_CheckValidationToken.ReadContentToken(dataConver.Token, ev.IdPlugin);
+                        if (tokenResult.Status == false)
+                        {
+                            result = ConverToJson<ReturnCommonApi>.ConverObjectToJson(tokenResult);
+                        }
+                        else
+                        {
+                            // Check User Have Role ?
+                            bool checkUserRole = this.contactCommon.ValidationRoleUserLimit(dataConver.RoleID, dataConver.UserID, ev.IdPlugin);
+                            ReturnCommonApi returnCheckToken = new ReturnCommonApi()
+                            {
+                                Status = checkUserRole,
                             };
                             // Conver Object to json
                             result = ConverToJson<ReturnCommonApi>.ConverObjectToJson(returnCheckToken);

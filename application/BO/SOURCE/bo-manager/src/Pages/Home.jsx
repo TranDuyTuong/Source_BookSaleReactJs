@@ -16,33 +16,34 @@ import {
 import { useEffect } from "react";
 import { DataBooks } from "../TemplateCommon/ChartCommon";
 import { ResultCommonCheckToken } from "../ObjectCommon/Object";
-import {
-  Year2023,
-  Year2024,
-  Year2025,
-  Year2026,
-  Year2027,
-  Year2028,
-  Year2029,
-  Year2030,
-  ListMonths,
-  ListYear,
-} from "../Contants/DataContant";
+import { ListMonths, ListYear } from "../Contants/DataContant";
 import {
   ConcatStringEvent,
   GetCookies,
   HandleCheckTokenStaff,
+  HandleCheckRoleStaff,
 } from "../ObjectCommon/FunctionCommon";
 import { UserLogin, FistCode, EventHome } from "../ObjectCommon/EventCommon";
 import DiaLogTokenError from "../CommonPage/DialogTokenErrorCommon";
+import { useSelector } from "react-redux";
+import { OldURLReducer } from "../ReduxCommon/ReducerCommon/ReducerURL";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { messageTitleErrorToken } from "../MessageCommon/Message";
 
 // Main Function
 function Home() {
   // Show DiaLog Error Toekn
   const [show, setShow] = useState(false);
   const [messageErrorToken, getMessageErrorToken] = useState("");
+  const OldUrldata = useSelector((item) => item.oldUrl.ListoldUrlItem);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
+    // Setting Titel Page
+    document.title = "Home";
+
     // Validation Token And Role Staff
     var token = GetCookies(UserLogin);
 
@@ -56,17 +57,41 @@ function Home() {
     objectCheckToken.RoleID = window.localStorage.getItem("RoleEmployer");
     objectCheckToken.EventCode = eventCode;
 
-    // Call Api Check Validation Token
+    // Call Api Check Validation Token And Role User
     const CheckToken = async () => {
       var resultCheckToken = await HandleCheckTokenStaff(objectCheckToken);
       if (resultCheckToken.Status === false) {
+        // Token Fail
         getMessageErrorToken(resultCheckToken.Message);
         setShow(true);
       } else {
-        // Chart Book
-        ChartBooks("myChartBook");
-        // Chart User
-        ChartBooks("myChartUser");
+        // Check User Role
+        var resultCheckRole = await HandleCheckRoleStaff(objectCheckToken);
+        if (resultCheckRole.Status === true) {
+          // var OldURL = window.localStorage.getItem("oldURL");
+          alert(resultCheckRole.Message);
+          // User Don't have Role
+          if (OldUrldata[0] === window.location.origin) {
+            // redirect to Login Pgae
+            window.location.href = window.location.origin;
+          } else {
+            // redirect to page before
+            navigate(OldUrldata);
+          }
+        } else {
+          // Reomve Old  Url
+          window.localStorage.removeItem("oldURL");
+
+          // Create New Url
+          dispatch(OldURLReducer.actions.DeleteURL());
+          dispatch(OldURLReducer.actions.AddUrl("/home"));
+          window.localStorage.setItem("oldURL", "/home");
+
+          // Chart Book
+          ChartBooks("myChartBook");
+          // Chart User
+          ChartBooks("myChartUser");
+        }
       }
     };
     CheckToken();
@@ -85,14 +110,11 @@ function Home() {
             className="selecYearChart"
           >
             <option value="0">Select Year (2023 - 2030)</option>
-            <option value={Year2023}>{Year2023}</option>
-            <option value={Year2024}>{Year2024}</option>
-            <option value={Year2025}>{Year2025}</option>
-            <option value={Year2026}>{Year2026}</option>
-            <option value={Year2027}>{Year2027}</option>
-            <option value={Year2028}>{Year2028}</option>
-            <option value={Year2029}>{Year2029}</option>
-            <option value={Year2030}>{Year2030}</option>
+            {ListYear.map((item) => (
+              <option value={item.id} key={item.id}>
+                {item.yearName}
+              </option>
+            ))}
           </Form.Select>
           <canvas id="myChartBook"></canvas>
           <p className="total">Total:</p>
@@ -104,14 +126,11 @@ function Home() {
             className="selecYearChart"
           >
             <option value="0">Select Year (2023 - 2030)</option>
-            <option value={Year2023}>{Year2023}</option>
-            <option value={Year2024}>{Year2024}</option>
-            <option value={Year2025}>{Year2025}</option>
-            <option value={Year2026}>{Year2026}</option>
-            <option value={Year2027}>{Year2027}</option>
-            <option value={Year2028}>{Year2028}</option>
-            <option value={Year2029}>{Year2029}</option>
-            <option value={Year2030}>{Year2030}</option>
+            {ListYear.map((item) => (
+              <option value={item.id} key={item.id}>
+                {item.yearName}
+              </option>
+            ))}
           </Form.Select>
           <canvas id="myChartUser"></canvas>
           <p className="total">Total:</p>
@@ -180,7 +199,12 @@ function Home() {
       <p className="showMore">
         <Button variant="link">Show More</Button>
       </p>
-      {show && <DiaLogTokenError Message={messageErrorToken} />}
+      {show && (
+        <DiaLogTokenError
+          Message={messageErrorToken}
+          TileError={messageTitleErrorToken}
+        />
+      )}
     </Container>
   );
 }

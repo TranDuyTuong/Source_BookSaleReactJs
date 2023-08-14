@@ -18,11 +18,16 @@ import { UserLogin, FistCode, EventLogin } from "../ObjectCommon/EventCommon";
 import { LoginUser } from "../ObjectCommon/Object";
 import { ServiceHandleLogin } from "../ApiLablary/LoginApi";
 import LoadingModal from "../CommonPage/LoadingCommon";
+import { OldURLReducer } from "../ReduxCommon/ReducerCommon/ReducerURL";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 // Main Function
 function Login() {
   // Title Page
   document.title = "Login System";
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // Reload Page
   useEffect(() => {
@@ -112,7 +117,11 @@ function Login() {
           setError(result.Message);
         } else {
           var queryString = window.location.origin;
-          window.location.href = queryString + "/home";
+          // Save Current URL in Redux
+          dispatch(OldURLReducer.actions.AddUrl(queryString));
+          window.localStorage.setItem("oldURL", queryString);
+          // Redirect to new url
+          navigate("/home");
         }
       }
     }
@@ -161,27 +170,6 @@ function Login() {
             </Button>
           </p>
         </Form>
-        <Modal show={show} className="potionAline">
-          <Modal.Body className="modalcontent">
-            <p className="loadingModal">
-              <Spinner
-                animation="border"
-                variant="success"
-                className="animationLoading"
-              />
-              <Spinner
-                animation="border"
-                variant="danger"
-                className="animationLoading"
-              />
-              <Spinner
-                animation="border"
-                variant="warning"
-                className="animationLoading"
-              />
-            </p>
-          </Modal.Body>
-        </Modal>
       </Row>
       {show && <LoadingModal />}
     </Container>

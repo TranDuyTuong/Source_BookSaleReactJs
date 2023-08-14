@@ -1,14 +1,12 @@
-import React, { useState } from "react";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import React from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import MenuCommon from "./MenuCommon";
-import Home from "../Pages/Home";
 import { Routes, Route } from "react-router-dom";
+import MenuCommon from "./MenuCommon";
 import HeaderCommon from "./HeaderCommon";
+import Home from "../Pages/Home";
+import Area from "../Pages/Area";
 
 // Main Page
 function CommonPage() {
@@ -22,6 +20,7 @@ function CommonPage() {
         <Col>
           <Routes>
             <Route path="/home" element={<Home />}></Route>
+            <Route path="/area" element={<Area />}></Route>
           </Routes>
         </Col>
       </Row>

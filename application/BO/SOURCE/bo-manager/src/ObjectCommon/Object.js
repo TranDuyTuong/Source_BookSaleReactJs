@@ -33,3 +33,11 @@ export var ReturnCommonApi = {
   IdPlugin: "",
   Message: "",
 };
+
+export var SignOutUser = {
+  Token: "",
+  UserID: "",
+  RoleID: "",
+  ExpirationDate: "",
+  EventCode: "",
+};
