@@ -49,6 +49,28 @@ namespace ConfigurationApplycations.DataCommon
         }
 
         /// <summary>
+        /// ValidationCompanyCode
+        /// </summary>
+        /// <param name="companyID"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public bool ValidationCompanyCode(string companyID)
+        {
+            bool result = false;
+            // Check CompanyCode
+            var queryCompanyCode = from c in this.context.areaMasters
+                                   where c.CompanyCode == companyID
+                                   select c;
+
+            if (queryCompanyCode.Any() == true)
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
+        /// <summary>
         /// ValidationEmailEmployee
         /// </summary>
         /// <param name="email"></param>

@@ -54,5 +54,12 @@ namespace ConfigurationInterfaces.DataCommon
         /// <param name="eventCode"></param>
         /// <returns></returns>
         bool ValidationRoleUserLimit(string role, string UserId, string eventCode);
+
+        /// <summary>
+        /// ValidationCompanyCode
+        /// </summary>
+        /// <param name="companyID"></param>
+        /// <returns></returns>
+        bool ValidationCompanyCode(string companyID);
     }
 }

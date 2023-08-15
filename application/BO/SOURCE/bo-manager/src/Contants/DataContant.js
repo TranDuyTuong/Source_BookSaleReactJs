@@ -85,3 +85,17 @@ export const ListMonths = [
     monthName: "Month 12",
   },
 ];
+
+// Create Data
+export const Create = "CREATE";
+
+// Update Data
+export const Update = "UPDATE";
+
+// Delete Data
+export const Delete = "DELETE";
+
+// Type Api
+export const post = "post";
+
+export const get = "get";

@@ -14,6 +14,6 @@ namespace ConfigurationInterfaces.BoSystem
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<M_ListArea> SeachArea(string request, string userID, string roleID, string token, string eventCode);
+        Task<M_ListArea> SeachArea(string request, string userID, string roleID, string token, string eventCode, string companyCode);
     }
 }

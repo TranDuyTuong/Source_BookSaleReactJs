@@ -34,10 +34,33 @@ export var ReturnCommonApi = {
   Message: "",
 };
 
+// SignOut User
 export var SignOutUser = {
   Token: "",
   UserID: "",
   RoleID: "",
   ExpirationDate: "",
   EventCode: "",
+};
+
+// Area
+export var M_Area = {
+  CompanyCode: "",
+  AreaCode: "",
+  Description: "",
+  TypeOf: "",
+};
+
+// M_ListArea
+export var M_ListArea = {
+  Token: "",
+  UserID: "",
+  RoleID: "",
+  EventCode: "",
+  TotalArea: "",
+  MessageError: "",
+  Status: "",
+  KeySeach: "",
+  CompanyCode: "",
+  ListArea: [],
 };

@@ -77,7 +77,7 @@ namespace CommonConfiguration
         /// <summary>
         /// MessageRoleUserLimit
         /// </summary>
-        public static string MessageRoleUserLimit = "User Have Limit Role";
+        public static string MessageRoleUserLimit = "You Do Not Have Permission To Use";
 
         /// <summary>
         /// MessageTokenWasExpire
@@ -143,6 +143,16 @@ namespace CommonConfiguration
         /// MessageBaseInfo
         /// </summary>
         public static string MessageBaseInfo = "Infomation Base Not Validation";
+
+        /// <summary>
+        /// MessageNotFindData
+        /// </summary>
+        public static string MessageNotFindData = "Not Find Data, Please Contact Manager!";
+
+        /// <summary>
+        /// MessageNotFindCompanyCode
+        /// </summary>
+        public static string MessageNotFindCompanyCode = "Not Find CompanyCode, Please Contact Manager!";
 
         ///-------------------------------------------Event Code-------------------------------------------------
         /// <summary>

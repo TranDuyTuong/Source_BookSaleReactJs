@@ -30,6 +30,3 @@ export const messageTitleSignOutError = "Request SignOut Fail!";
 
 // message Error SignOut
 export const messageErrorSignOut = "However System Still SignOut!";
-
-// message error More Than 100 recol
-export const messageErrorMoreThan100Recol = "Find more than 100 Recol !";

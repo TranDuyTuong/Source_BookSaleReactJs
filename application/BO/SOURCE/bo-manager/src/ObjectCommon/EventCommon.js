@@ -1,28 +1,34 @@
-export var FistCode = "000_";
+export const FistCode = "000_";
 //EventLogin
-export var EventLogin = "102";
+export const EventLogin = "102";
 
 //EventRegiter
-export var EventRegiter = "101";
+export const EventRegiter = "101";
 
 //EventSignOut
-export var EventSignOut = "103";
+export const EventSignOut = "103";
 
 //EventValidationToken
-export var EventValidationToken = "104";
+export const EventValidationToken = "104";
 
 //EventInitialization
-export var EventInitialization = "105";
+export const EventInitialization = "105";
 
 // Event go to Home
-export var EventHome = "BO001";
+export const EventHome = "BO001";
+
+// Ebvent Seach Area
+export const EventSeachArea = "BO002";
 
 //---------------------------------------------------------------------------
 //UserLogin
-export var UserLogin = "LoginTDTImportKikanSystem";
+export const UserLogin = "LoginTDTImportKikanSystem";
 
 //PasswordMin
-export let PasswordMin = 6;
+export const PasswordMin = 6;
 
 //PasswordMax
-export let PasswordMax = 10;
+export const PasswordMax = 10;
+
+// CompanyCode
+export const CompanyCode = "10000005";

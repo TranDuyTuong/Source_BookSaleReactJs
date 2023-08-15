@@ -26,75 +26,109 @@ namespace ConfigurationApplycations.BoSystem
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<M_ListArea> SeachArea(string request, string userID, string roleID, string token, string eventCode)
+        public async Task<M_ListArea> SeachArea(string request, string userID, string roleID, string token, string eventCode, string companyCode)
         {
             var result = new M_ListArea();
-            // Check Role User Handle
-            bool isRole = this.contactCommon.ValidationRoleUserLimit(roleID, userID, eventCode);
-            
-            if(isRole == true)
-            {
-                // Don't have role handle
-                result.Status = false;
-            }
-            else
-            {
-                // Get all area
-                List<M_Area> ListArea = new List<M_Area>();
-                var queryArea = await this.context.areaMasters.ToArrayAsync();
+            // Check CompanyCode
+            bool isCompanyCode = this.contactCommon.ValidationCompanyCode(companyCode);
 
-                if (queryArea.Any() == true)
+            if (isCompanyCode == true) 
+            {
+                // Check Role User Handle
+                bool isRole = this.contactCommon.ValidationRoleUserLimit(roleID, userID, eventCode);
+
+                if (isRole == true)
                 {
-                    if(request == null || request == "" || request == string.Empty)
+                    // Don't have role handle
+                    result.Status = false;
+                    result.MessageError = CommonConfiguration.DataCommon.MessageRoleUserLimit;
+                }
+                else
+                {
+                    // Get all area
+                    List<M_Area> ListArea = new List<M_Area>();
+                    var queryArea = await this.context.areaMasters.ToArrayAsync();
+
+                    if (queryArea.Any() == true)
                     {
-                        // Get 100 recod Area in DB
-                        if(queryArea.Count() > CommonConfiguration.DataCommon.MaxRecol)
+                        if (request == null || request == "" || request == string.Empty)
                         {
-                            // More Than 100
-                            var take100Recol = queryArea.Take(CommonConfiguration.DataCommon.MaxRecol);
-                            foreach(var item in take100Recol)
+                            // Get 100 recod Area in DB
+                            if (queryArea.Count() > CommonConfiguration.DataCommon.MaxRecol)
                             {
-                                var area = new M_Area()
+                                // More Than 100
+                                var take100Recol = queryArea.Take(CommonConfiguration.DataCommon.MaxRecol);
+                                foreach (var item in take100Recol)
                                 {
-                                    CompanyCode = item.CompanyCode,
-                                    AreaCode = item.AreaCode,
-                                    Description = item.Description
-                                };
-                                ListArea.Add(area);
+                                    var area = new M_Area()
+                                    {
+                                        CompanyCode = item.CompanyCode,
+                                        AreaCode = item.AreaCode,
+                                        Description = item.Description
+                                    };
+                                    ListArea.Add(area);
+                                }
+                                result.Status = true;
+                                result.TotalArea = queryArea.Count();
                             }
-                            result.Status = true;
-                            result.TotalArea = queryArea.Count();
+                            else
+                            {
+                                // Less Than 100
+                                foreach (var item in queryArea)
+                                {
+                                    var area = new M_Area()
+                                    {
+                                        CompanyCode = item.CompanyCode,
+                                        AreaCode = item.AreaCode,
+                                        Description = item.Description
+                                    };
+                                    ListArea.Add(area);
+                                }
+                                result.Status = true;
+                            }
                         }
                         else
                         {
-                            // Less Than 100
-                            foreach (var item in queryArea)
+                            // Seach areaCode
+                            var seachArea = queryArea.FirstOrDefault(x => x.AreaCode == request);
+
+                            if (seachArea != null)
                             {
+                                // Find data by seach
                                 var area = new M_Area()
                                 {
-                                    CompanyCode = item.CompanyCode,
-                                    AreaCode = item.AreaCode,
-                                    Description = item.Description
+                                    CompanyCode = seachArea.CompanyCode,
+                                    AreaCode = seachArea.AreaCode,
+                                    Description = seachArea.Description
                                 };
                                 ListArea.Add(area);
+                                result.Status = true;
                             }
-                            result.Status = true;
+                            else
+                            {
+                                // Not Find data
+                                result.Status = false;
+                                result.MessageError = CommonConfiguration.DataCommon.MessageNotFindData;
+                            }
                         }
+
                     }
                     else
                     {
-                        // Seach areaCode
-                        var seachArea = queryArea.FirstOrDefault(x => x.AreaCode == request);
-
-                        if (seachArea != null)
-                        {
-                            // Find data by seach
-                        }
+                        // Not Find data
+                        result.Status = false;
+                        result.MessageError = CommonConfiguration.DataCommon.MessageNotFindData;
                     }
-
                 }
             }
-            throw new NotImplementedException();
+            else
+            {
+                // Don't Find CompanyCode
+                result.Status = false;
+                result.MessageError = CommonConfiguration.DataCommon.MessageNotFindCompanyCode;
+
+            }
+            return result;
         }
     }
 }

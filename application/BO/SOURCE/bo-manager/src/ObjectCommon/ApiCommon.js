@@ -12,3 +12,6 @@ export const CheckRoleUser_Post = "/User/ValidationRoleUser";
 
 // UserSignOut_Post
 export const UserSignOut_Post = "/User/SignOut";
+
+// SeachArea_Get
+export const SeachArea_Get = "/Bo/SeachArea";

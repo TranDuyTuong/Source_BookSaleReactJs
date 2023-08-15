@@ -72,6 +72,24 @@ namespace ModelConfiguration.M_Bo.AreaData
         }
 
         /// <summary>
+        /// KeySeach
+        /// </summary>
+        public string KeySeach
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// CompanyCode
+        /// </summary>
+        public string CompanyCode
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// ListArea
         /// </summary>
         public List<M_Area> ListArea 
