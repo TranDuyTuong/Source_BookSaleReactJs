@@ -1,6 +1,8 @@
-﻿using ConfigurationApplycations.DataCommon;
+﻿using ConfigurationApplycations.BoSystem;
+using ConfigurationApplycations.DataCommon;
 using ConfigurationApplycations.KikanSystem;
 using ConfigurationApplycations.User;
+using ConfigurationInterfaces.BoSystem;
 using ConfigurationInterfaces.DataCommon;
 using ConfigurationInterfaces.KikanSystem;
 using ConfigurationInterfaces.User;
@@ -18,6 +20,9 @@ namespace DI
             // KikanSystem
             services.AddTransient<IHomeInitialization, HomeInitialization>();
             services.AddTransient<IimportDataKikanSystem, ImportDataKikanSystem>();
+
+            // Bo System
+            services.AddTransient<IAreaBO, AreaBO>();
             return services;
         }
     }

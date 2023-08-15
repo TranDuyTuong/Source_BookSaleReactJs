@@ -20,6 +20,11 @@ namespace CommonConfiguration
         public static int MinLenghtPassword = 8;
 
         /// <summary>
+        /// MaxRecol
+        /// </summary>
+        public static int MaxRecol = 100;
+
+        /// <summary>
         /// StringRegex
         /// </summary>
         public static Regex StringRegex = new Regex("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
@@ -220,6 +225,11 @@ namespace CommonConfiguration
         /// EventBO_Home
         /// </summary>
         public static string EventBO_Home = "BO001";
+
+        /// <summary>
+        /// EventBO_SeachArea
+        /// </summary>
+        public static string EventBO_SeachArea = "BO002";
 
         ///--------------------------------------------Type Email-------------------------------------------------
         /// <summary>
