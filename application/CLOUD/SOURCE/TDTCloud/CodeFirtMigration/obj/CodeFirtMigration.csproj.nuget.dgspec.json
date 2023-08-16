@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\CodeFirtMigration\\CodeFirtMigration.csproj": {}
+    "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\CodeFirtMigration\\CodeFirtMigration.csproj": {}
   },
   "projects": {
-    "D:\\Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\CodeFirtMigration\\CodeFirtMigration.csproj": {
+    "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\CodeFirtMigration\\CodeFirtMigration.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\CodeFirtMigration\\CodeFirtMigration.csproj",
+        "projectUniqueName": "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\CodeFirtMigration\\CodeFirtMigration.csproj",
         "projectName": "CodeFirtMigration",
-        "projectPath": "D:\\Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\CodeFirtMigration\\CodeFirtMigration.csproj",
-        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\CodeFirtMigration\\obj\\",
+        "projectPath": "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\CodeFirtMigration\\CodeFirtMigration.csproj",
+        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+        "outputPath": "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\CodeFirtMigration\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -28,11 +28,11 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "D:\\Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTConfigurationTable\\TDTConfigurationTable.csproj": {
-                "projectPath": "D:\\Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTConfigurationTable\\TDTConfigurationTable.csproj"
+              "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTConfigurationTable\\TDTConfigurationTable.csproj": {
+                "projectPath": "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTConfigurationTable\\TDTConfigurationTable.csproj"
               },
-              "D:\\Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTSettingTable\\TDTSettingTable.csproj": {
-                "projectPath": "D:\\Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTSettingTable\\TDTSettingTable.csproj"
+              "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTSettingTable\\TDTSettingTable.csproj": {
+                "projectPath": "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTSettingTable\\TDTSettingTable.csproj"
               }
             }
           }
@@ -82,7 +82,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -91,21 +92,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTConfigurationTable\\TDTConfigurationTable.csproj": {
+    "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTConfigurationTable\\TDTConfigurationTable.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTConfigurationTable\\TDTConfigurationTable.csproj",
+        "projectUniqueName": "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTConfigurationTable\\TDTConfigurationTable.csproj",
         "projectName": "TDTConfigurationTable",
-        "projectPath": "D:\\Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTConfigurationTable\\TDTConfigurationTable.csproj",
-        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTConfigurationTable\\obj\\",
+        "projectPath": "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTConfigurationTable\\TDTConfigurationTable.csproj",
+        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+        "outputPath": "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTConfigurationTable\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -119,8 +120,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "D:\\Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTSettingTable\\TDTSettingTable.csproj": {
-                "projectPath": "D:\\Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTSettingTable\\TDTSettingTable.csproj"
+              "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTSettingTable\\TDTSettingTable.csproj": {
+                "projectPath": "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTSettingTable\\TDTSettingTable.csproj"
               }
             }
           }
@@ -146,7 +147,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -155,21 +157,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTSettingTable\\TDTSettingTable.csproj": {
+    "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTSettingTable\\TDTSettingTable.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTSettingTable\\TDTSettingTable.csproj",
+        "projectUniqueName": "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTSettingTable\\TDTSettingTable.csproj",
         "projectName": "TDTSettingTable",
-        "projectPath": "D:\\Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTSettingTable\\TDTSettingTable.csproj",
-        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTSettingTable\\obj\\",
+        "projectPath": "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTSettingTable\\TDTSettingTable.csproj",
+        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+        "outputPath": "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\TDTSettingTable\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -206,7 +208,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -215,7 +218,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -19,12 +19,16 @@ import "../Styles/Area.css";
 import { HandleSeachArea } from "../ApiLablary/AreaApi";
 import { GetCookies, ConcatStringEvent } from "../ObjectCommon/FunctionCommon";
 import { UserLogin } from "../ObjectCommon/EventCommon";
-import { FistCode, EventHome } from "../ObjectCommon/EventCommon";
-import { CompanyCode } from "../ObjectCommon/EventCommon";
+import { CompanyCode, FistCode, EventHome } from "../ObjectCommon/EventCommon";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { AreaReducer } from "../ReduxCommon/ReducerCommon/ReducerArea";
-import { Create } from "../Contants/DataContant";
+import { Create, Update } from "../Contants/DataContant";
+import {
+  titleCreate,
+  messageNulAreaCode,
+  messageNullDescriptionAreaCode,
+} from "../MessageCommon/Message";
 
 // Main Function
 function Area() {
@@ -37,11 +41,19 @@ function Area() {
   // TypeOf Dialog Setting
   const [typeOfDialog, setTypeOfDialog] = useState();
 
+  // Set Title DiaLog
+  const [titleDialog, setDialog] = useState();
+
   // seach
   const [seachArea, setSeachArea] = useState("");
 
   // message Error
   const [messageError, setMessageError] = useState("");
+
+  // Area Form
+  const [areaeCode, setAreaCode] = useState();
+  const [description, setDescription] = useState();
+  const [messageErrorForm, setMessageErrorForm] = useState("");
 
   // Call list area in Redux
   const listAreaResult = useSelector((item) => item.areaData.ListArea);
@@ -86,7 +98,36 @@ function Area() {
   // Handle Create Area
   const HandleAddAreaUI = (e) => {
     setTypeOfDialog(Create);
+    setDialog(titleCreate);
     setShow(true);
+  };
+  // Handle Close DiaLog
+  const handleCloseDiaLogUI = (e) => {
+    setAreaCode("");
+    setDescription("");
+    setMessageErrorForm("");
+    setShow(false);
+  };
+
+  // Handle Submit
+  const HandleSubmitDiaLogUI = (e) => {
+    setMessageErrorForm("");
+    // Check Null AreaCode
+    if (areaeCode == null || areaeCode === "" || areaeCode === undefined) {
+      setMessageErrorForm(messageNulAreaCode);
+      document.getElementById("txtFocusAreaCode").focus();
+      return;
+    }
+    // Check Null Description
+    if (
+      description == null ||
+      description === "" ||
+      description === undefined
+    ) {
+      setMessageErrorForm(messageNullDescriptionAreaCode);
+      document.getElementById("txtFocusDescription").focus();
+      return;
+    }
   };
 
   return (
@@ -96,7 +137,7 @@ function Area() {
         <Col>
           <Form>
             <Row className="mb-3">
-              <Form.Group as={Col} md="4" controlId="validationCustom01">
+              <Form.Group as={Col} md="3" controlId="validationCustom01">
                 <Form.Control
                   type="text"
                   placeholder="Area Code..."
@@ -104,7 +145,7 @@ function Area() {
                   value={seachArea}
                 />
               </Form.Group>
-              <Form.Group as={Col} md="1" controlId="validationCustom02">
+              <Form.Group as={Col} md="2" controlId="validationCustom02">
                 <Button type="button" onClick={() => HandleSeachAreaUI()}>
                   <FontAwesomeIcon icon={faSearch} /> Seach
                 </Button>
@@ -163,13 +204,61 @@ function Area() {
       </Row>
       {/* DiaLog show Add, update, delete, Confirm */}
       <Modal show={show}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+        <Modal.Header className="settingBackround">
+          <Modal.Title>{titleDialog}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary">Close</Button>
-          <Button variant="primary">Save Changes</Button>
+        <Modal.Body className="settingBackround">
+          {(typeOfDialog === Create && (
+            <div>
+              <p className="errorMessage">{messageErrorForm}</p>
+              <Form.Group as={Col} md="12">
+                <Form.Label className="labelForm">CompanyCode</Form.Label>
+                <Form.Control disabled type="text" value={CompanyCode} />
+              </Form.Group>
+
+              <Form.Group as={Col} md="12">
+                <Form.Label className="labelForm">AreaCode *</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={areaeCode}
+                  id="txtFocusAreaCode"
+                  onChange={(e) => setAreaCode(e.target.value)}
+                  placeholder="Enter AreaCode..."
+                />
+              </Form.Group>
+
+              <Form.Group as={Col} md="12">
+                <Form.Label className="labelForm">Description *</Form.Label>
+                <Form.Control
+                  type="text"
+                  id="txtFocusDescription"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  placeholder="Enter Description..."
+                />
+              </Form.Group>
+            </div>
+          )) ||
+            (typeOfDialog === Update && (
+              <Form.Group as={Col} md="4" controlId="validationCustom01">
+                <Form.Label>Update</Form.Label>
+                <Form.Control
+                  required
+                  type="text"
+                  placeholder="First name"
+                  defaultValue="Mark"
+                />
+                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+              </Form.Group>
+            ))}
+        </Modal.Body>
+        <Modal.Footer className="settingBackround">
+          <Button variant="secondary" onClick={(e) => handleCloseDiaLogUI()}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={(e) => HandleSubmitDiaLogUI()}>
+            <FontAwesomeIcon icon={faPlusSquare} /> Ok
+          </Button>
         </Modal.Footer>
       </Modal>
     </Container>

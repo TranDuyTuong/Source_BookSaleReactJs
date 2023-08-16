@@ -54,7 +54,7 @@ namespace ConfigurationApplycations.BoSystem
                 {
                     // Get all area
                     List<M_Area> ListArea = new List<M_Area>();
-                    var queryArea = await this.context.areaMasters.ToArrayAsync();
+                    var queryArea = await this.context.areaMasters.Where(x => x.CompanyCode == companyCode).ToArrayAsync();
 
                     if (queryArea.Any() == true)
                     {

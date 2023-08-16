@@ -35,3 +35,15 @@
 .btnMain {
   text-align: right;
 }
+.settingBackround {
+  background-color: white;
+}
+.labelForm {
+  font-family: initial;
+  font-weight: 600;
+  margin: 10px 0px;
+}
+.errorMessage {
+  color: red;
+  font-family: initial;
+}

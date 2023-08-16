@@ -30,3 +30,14 @@ export const messageTitleSignOutError = "Request SignOut Fail!";
 
 // message Error SignOut
 export const messageErrorSignOut = "However System Still SignOut!";
+
+// message Error value AreaCode
+export const messageNulAreaCode = "AreaCode Illegal, Please Check Again!";
+
+// message Error valu Description AreaCode
+export const messageNullDescriptionAreaCode =
+  "Description AreaCode Illegal, Please Check Again!";
+
+export const titleCreate = "Create";
+
+export const titleUpdate = "Update";
