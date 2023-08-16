@@ -102,7 +102,7 @@ export const HandleCheckTimeOut = () => {
   var timeOut = Date.parse(window.localStorage.getItem("ExpirationDate"));
   var currentDate = Date.now();
   if (timeOut <= currentDate) {
-    clearInterval();
+    clearInterval(1000);
     alert(messageTimeOutToken);
     window.location.href = window.location.origin;
   }

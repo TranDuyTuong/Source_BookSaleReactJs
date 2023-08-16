@@ -6,21 +6,45 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import {
+  faSearch,
+  faEdit,
+  faTrashAlt,
+  faPlusSquare,
+  faCheckSquare,
+} from "@fortawesome/free-solid-svg-icons";
 import "../Styles/Area.css";
 import { HandleSeachArea } from "../ApiLablary/AreaApi";
 import { GetCookies, ConcatStringEvent } from "../ObjectCommon/FunctionCommon";
-import { UserLogin } from "../ObjectCommon/Object";
+import { UserLogin } from "../ObjectCommon/EventCommon";
 import { FistCode, EventHome } from "../ObjectCommon/EventCommon";
 import { CompanyCode } from "../ObjectCommon/EventCommon";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { AreaReducer } from "../ReduxCommon/ReducerCommon/ReducerArea";
+import { Create } from "../Contants/DataContant";
 
 // Main Function
 function Area() {
+  // dispatch reducer
+  const dispatch = useDispatch();
+
+  // Show Dialog Add, Update, Confirm
+  const [show, setShow] = useState(false);
+
+  // TypeOf Dialog Setting
+  const [typeOfDialog, setTypeOfDialog] = useState();
+
   // seach
   const [seachArea, setSeachArea] = useState("");
+
   // message Error
   const [messageError, setMessageError] = useState("");
+
+  // Call list area in Redux
+  const listAreaResult = useSelector((item) => item.areaData.ListArea);
 
   useEffect(() => {
     // Setting Title Page
@@ -28,7 +52,7 @@ function Area() {
   }, []);
 
   // Handle Seach Area
-  const HandleSeachArea = async (e) => {
+  const HandleSeachAreaUI = async (e) => {
     // Get Token
     var token = GetCookies(UserLogin);
     // Get EventCode
@@ -52,8 +76,17 @@ function Area() {
       // Seach Fail
       setMessageError(result.MessageError);
     } else {
+      // Save Area List In To Redux
+      dispatch(AreaReducer.actions.SeachArea(result.ListArea));
       // Seach Success
+      setMessageError(result.MessageError);
     }
+  };
+
+  // Handle Create Area
+  const HandleAddAreaUI = (e) => {
+    setTypeOfDialog(Create);
+    setShow(true);
   };
 
   return (
@@ -71,10 +104,24 @@ function Area() {
                   value={seachArea}
                 />
               </Form.Group>
-              <Form.Group as={Col} md="2" controlId="validationCustom02">
-                <Button type="button" onClick={HandleSeachArea}>
+              <Form.Group as={Col} md="1" controlId="validationCustom02">
+                <Button type="button" onClick={() => HandleSeachAreaUI()}>
                   <FontAwesomeIcon icon={faSearch} /> Seach
                 </Button>
+              </Form.Group>
+              <Form.Group as={Col} md="7" controlId="validationCustom02">
+                <p className="btnMain">
+                  <Button
+                    variant="primary"
+                    className="btnOption"
+                    onClick={() => HandleAddAreaUI()}
+                  >
+                    <FontAwesomeIcon icon={faPlusSquare} /> Add
+                  </Button>
+                  <Button disabled variant="success" className="btnOption">
+                    <FontAwesomeIcon icon={faCheckSquare} /> Confirm
+                  </Button>
+                </p>
               </Form.Group>
             </Row>
           </Form>
@@ -83,32 +130,48 @@ function Area() {
       </Row>
       <Row>
         <Col>
-          <Table bordered hover>
-            <thead>
-              <tr className="headerarea">
-                <th>#</th>
-                <th>CompanyCode</th>
-                <th>AreaCore</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-              </tr>
-            </tbody>
-          </Table>
+          <div className="customtable">
+            <Table bordered hover>
+              <thead>
+                <tr className="headerarea">
+                  <th className="firsColum">CompanyCode</th>
+                  <th>AreaCore</th>
+                  <th>Description</th>
+                  <th className="lastColum">Option</th>
+                </tr>
+              </thead>
+              <tbody>
+                {listAreaResult.map((item) => (
+                  <tr key={item.AreaCode} className="trChildItem">
+                    <td className="firsColum">{item.CompanyCode}</td>
+                    <td>{item.AreaCode}</td>
+                    <td>{item.Description}</td>
+                    <td className="lastColum">
+                      <Button variant="warning" className="btnOption">
+                        <FontAwesomeIcon icon={faEdit} /> Update
+                      </Button>
+                      <Button variant="danger" className="btnOption">
+                        <FontAwesomeIcon icon={faTrashAlt} /> Delete
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </div>
         </Col>
       </Row>
+      {/* DiaLog show Add, update, delete, Confirm */}
+      <Modal show={show}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary">Close</Button>
+          <Button variant="primary">Save Changes</Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 }

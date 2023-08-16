@@ -15,3 +15,23 @@
 .headerarea {
   background: red;
 }
+.trChildItem {
+  text-align: left;
+  font-family: initial;
+  font-size: 20px;
+}
+.btnOption {
+  margin: 0px 5px;
+}
+.firsColum {
+  width: 200px;
+}
+.lastColum {
+  width: 215px;
+}
+.customtable {
+  height: 700px;
+}
+.btnMain {
+  text-align: right;
+}

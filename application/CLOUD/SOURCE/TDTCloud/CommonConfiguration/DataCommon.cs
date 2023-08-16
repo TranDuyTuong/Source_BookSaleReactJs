@@ -154,6 +154,11 @@ namespace CommonConfiguration
         /// </summary>
         public static string MessageNotFindCompanyCode = "Not Find CompanyCode, Please Contact Manager!";
 
+        /// <summary>
+        /// MessageErrorMoreThan100Recol
+        /// </summary>
+        public static string MessageErrorMoreThan100Recol = "Find More Than 100 Recol, Should Show 100 Recol Fist!";
+
         ///-------------------------------------------Event Code-------------------------------------------------
         /// <summary>
         /// EventRegiter

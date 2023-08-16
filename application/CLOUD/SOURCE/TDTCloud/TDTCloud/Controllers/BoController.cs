@@ -18,7 +18,7 @@ namespace TDTCloud.Controllers
             this.context = _context;
         }
 
-        [HttpGet("SeachArea")]
+        [HttpPost("SeachArea")]
         public async Task<IActionResult> SeachArea([FromForm] M_ListArea seachArea)
         {
             string result = null;
@@ -67,7 +67,6 @@ namespace TDTCloud.Controllers
                         {
                             // Seach Area To DB
                             var seachResult = await this.context.SeachArea(dataConver.KeySeach, dataConver.UserID, dataConver.RoleID, dataConver.Token, ev.IdPlugin, dataConver.CompanyCode);
-                            seachResult.Token = dataConver.Token;
                             // Conver Object to json
                             result = ConverToJson<M_ListArea>.ConverObjectToJson(seachResult);
                         }

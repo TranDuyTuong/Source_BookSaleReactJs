@@ -40,6 +40,13 @@ namespace ConfigurationApplycations.BoSystem
                 if (isRole == true)
                 {
                     // Don't have role handle
+                    result.Token = token;
+                    result.UserID = userID;
+                    result.RoleID = roleID;
+                    result.EventCode = eventCode;
+                    result.TotalArea = 0;
+                    result.KeySeach = request;
+                    result.CompanyCode = companyCode;
                     result.Status = false;
                     result.MessageError = CommonConfiguration.DataCommon.MessageRoleUserLimit;
                 }
@@ -68,8 +75,15 @@ namespace ConfigurationApplycations.BoSystem
                                     };
                                     ListArea.Add(area);
                                 }
+                                result.Token = token;
+                                result.UserID = userID;
+                                result.RoleID = roleID;
+                                result.EventCode = eventCode;
+                                result.KeySeach = request;
+                                result.CompanyCode = companyCode;
                                 result.Status = true;
                                 result.TotalArea = queryArea.Count();
+                                result.MessageError = CommonConfiguration.DataCommon.MessageErrorMoreThan100Recol;
                             }
                             else
                             {
@@ -84,6 +98,13 @@ namespace ConfigurationApplycations.BoSystem
                                     };
                                     ListArea.Add(area);
                                 }
+                                result.Token = token;
+                                result.UserID = userID;
+                                result.RoleID = roleID;
+                                result.EventCode = eventCode;
+                                result.KeySeach = request;
+                                result.CompanyCode = companyCode;
+                                result.TotalArea = 0;
                                 result.Status = true;
                             }
                         }
@@ -102,20 +123,42 @@ namespace ConfigurationApplycations.BoSystem
                                     Description = seachArea.Description
                                 };
                                 ListArea.Add(area);
+
+                                result.Token = token;
+                                result.UserID = userID;
+                                result.RoleID = roleID;
+                                result.EventCode = eventCode;
+                                result.KeySeach = request;
+                                result.CompanyCode = companyCode;
+                                result.TotalArea = 0;
                                 result.Status = true;
                             }
                             else
                             {
                                 // Not Find data
+                                result.Token = token;
+                                result.UserID = userID;
+                                result.RoleID = roleID;
+                                result.EventCode = eventCode;
+                                result.KeySeach = request;
+                                result.CompanyCode = companyCode;
+                                result.TotalArea = 0;
                                 result.Status = false;
                                 result.MessageError = CommonConfiguration.DataCommon.MessageNotFindData;
                             }
                         }
-
+                        result.ListArea = ListArea;
                     }
                     else
                     {
                         // Not Find data
+                        result.Token = token;
+                        result.UserID = userID;
+                        result.RoleID = roleID;
+                        result.EventCode = eventCode;
+                        result.KeySeach = request;
+                        result.CompanyCode = companyCode;
+                        result.TotalArea = 0;
                         result.Status = false;
                         result.MessageError = CommonConfiguration.DataCommon.MessageNotFindData;
                     }
@@ -124,6 +167,13 @@ namespace ConfigurationApplycations.BoSystem
             else
             {
                 // Don't Find CompanyCode
+                result.Token = token;
+                result.UserID = userID;
+                result.RoleID = roleID;
+                result.EventCode = eventCode;
+                result.KeySeach = request;
+                result.CompanyCode = companyCode;
+                result.TotalArea = 0;
                 result.Status = false;
                 result.MessageError = CommonConfiguration.DataCommon.MessageNotFindCompanyCode;
 
