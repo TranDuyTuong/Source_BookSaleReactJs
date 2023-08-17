@@ -7,12 +7,25 @@ export const AreaReducer = createSlice({
   },
   reducers: {
     AddArea: (state, action) => {
-      state.ListArea.push(action.payload);
+      const checkAreaCode = state.ListArea.find(
+        (item) => item.AreaCode === action.payload.AreaCode
+      );
+      if (checkAreaCode === undefined) {
+        state.ListArea.push(action.payload);
+      }
     },
     SeachArea: (state, action) => {
       state.ListArea = action.payload;
     },
     DeleteArea: (state, action) => {},
-    UpdateArea: (state, action) => {},
+    UpdateArea: (state, action) => {
+      const findArea = state.ListArea.find(
+        (item) => item.AreaCode === action.payload.AreaCode
+      );
+      if (findArea !== undefined) {
+        findArea.Description = action.payload.Description;
+        findArea.TypeOf = action.payload.TypeOf;
+      }
+    },
   },
 });

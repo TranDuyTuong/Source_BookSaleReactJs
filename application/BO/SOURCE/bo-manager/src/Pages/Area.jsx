@@ -23,12 +23,20 @@ import { CompanyCode, FistCode, EventHome } from "../ObjectCommon/EventCommon";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { AreaReducer } from "../ReduxCommon/ReducerCommon/ReducerArea";
-import { Create, Update } from "../Contants/DataContant";
+import { Create, Update, Delete } from "../Contants/DataContant";
 import {
   titleCreate,
   messageNulAreaCode,
   messageNullDescriptionAreaCode,
+  titleUpdate,
+  messageAreaCodealreadyexist,
 } from "../MessageCommon/Message";
+
+// Style Css for Table
+const tdStyle = {
+  color: "gray",
+  "text-decoration": "line-through #ff0000",
+};
 
 // Main Function
 function Area() {
@@ -51,8 +59,8 @@ function Area() {
   const [messageError, setMessageError] = useState("");
 
   // Area Form
-  const [areaeCode, setAreaCode] = useState();
-  const [description, setDescription] = useState();
+  const [areaeCode, setAreaCode] = useState("");
+  const [description, setDescription] = useState("");
   const [messageErrorForm, setMessageErrorForm] = useState("");
 
   // Call list area in Redux
@@ -109,6 +117,15 @@ function Area() {
     setShow(false);
   };
 
+  // Handle Update Area
+  const HandleUpdateAreaUI = (areaCode, description) => {
+    setAreaCode(areaCode);
+    setDescription(description);
+    setTypeOfDialog(Update);
+    setDialog(titleUpdate);
+    setShow(true);
+  };
+
   // Handle Submit
   const HandleSubmitDiaLogUI = (e) => {
     setMessageErrorForm("");
@@ -128,6 +145,52 @@ function Area() {
       document.getElementById("txtFocusDescription").focus();
       return;
     }
+
+    // Add area into reducer
+    switch (typeOfDialog) {
+      case Create:
+        // Create
+        var createArea = {
+          CompanyCode: CompanyCode,
+          AreaCode: areaeCode,
+          Description: description,
+          TypeOf: Create,
+        };
+        // Check AreaCode exist in list area current
+        const areaCodeExist = listAreaResult.find(
+          (item) => item.AreaCode === createArea.AreaCode
+        );
+        if (areaCodeExist !== undefined) {
+          setAreaCode("");
+          setDescription("");
+          setMessageErrorForm(messageAreaCodealreadyexist);
+          document.getElementById("txtFocusAreaCode").focus();
+          return;
+        } else {
+          // Add Area into List Area of Redux
+          dispatch(AreaReducer.actions.AddArea(createArea));
+        }
+        break;
+      case Update:
+        // Update
+        var updateArea = {
+          CompanyCode: CompanyCode,
+          AreaCode: areaeCode,
+          Description: description,
+          TypeOf: Update,
+        };
+        // Add Area into List Area of Redux
+        dispatch(AreaReducer.actions.UpdateArea(updateArea));
+        break;
+      case Delete:
+        break;
+      default:
+        break;
+    }
+    setAreaCode("");
+    setDescription("");
+    setMessageErrorForm("");
+    setShow(false);
   };
 
   return (
@@ -178,25 +241,120 @@ function Area() {
                   <th className="firsColum">CompanyCode</th>
                   <th>AreaCore</th>
                   <th>Description</th>
+                  <th>Status</th>
                   <th className="lastColum">Option</th>
                 </tr>
               </thead>
               <tbody>
-                {listAreaResult.map((item) => (
-                  <tr key={item.AreaCode} className="trChildItem">
-                    <td className="firsColum">{item.CompanyCode}</td>
-                    <td>{item.AreaCode}</td>
-                    <td>{item.Description}</td>
-                    <td className="lastColum">
-                      <Button variant="warning" className="btnOption">
-                        <FontAwesomeIcon icon={faEdit} /> Update
-                      </Button>
-                      <Button variant="danger" className="btnOption">
-                        <FontAwesomeIcon icon={faTrashAlt} /> Delete
-                      </Button>
-                    </td>
-                  </tr>
-                ))}
+                {listAreaResult.map(
+                  (item) =>
+                    (item.TypeOf === Create && (
+                      <tr key={item.AreaCode} className="trChildItem">
+                        <td className="firsColum" style={{ color: "blue" }}>
+                          {item.CompanyCode}
+                        </td>
+                        <td style={{ color: "blue" }}>{item.AreaCode}</td>
+                        <td style={{ color: "blue" }}>{item.Description}</td>
+                        <td style={{ color: "blue" }}>{Create}</td>
+                        <td className="lastColum">
+                          <Button
+                            variant="warning"
+                            className="btnOption"
+                            onClick={(e) =>
+                              HandleUpdateAreaUI(
+                                item.AreaCode,
+                                item.Description
+                              )
+                            }
+                          >
+                            <FontAwesomeIcon icon={faEdit} /> Update
+                          </Button>
+                          <Button variant="danger" className="btnOption">
+                            <FontAwesomeIcon icon={faTrashAlt} /> Delete
+                          </Button>
+                        </td>
+                      </tr>
+                    )) ||
+                    (item.TypeOf === Update && (
+                      <tr key={item.AreaCode} className="trChildItem">
+                        <td className="firsColum" style={{ color: "red" }}>
+                          {item.CompanyCode}
+                        </td>
+                        <td style={{ color: "red" }}>{item.AreaCode}</td>
+                        <td style={{ color: "red" }}>{item.Description}</td>
+                        <td style={{ color: "red" }}>{Update}</td>
+                        <td className="lastColum">
+                          <Button
+                            variant="warning"
+                            className="btnOption"
+                            onClick={(e) =>
+                              HandleUpdateAreaUI(
+                                item.AreaCode,
+                                item.Description
+                              )
+                            }
+                          >
+                            <FontAwesomeIcon icon={faEdit} /> Update
+                          </Button>
+                          <Button variant="danger" className="btnOption">
+                            <FontAwesomeIcon icon={faTrashAlt} /> Delete
+                          </Button>
+                        </td>
+                      </tr>
+                    )) ||
+                    (item.TypeOf === Delete && (
+                      <tr key={item.AreaCode} className="trChildItem">
+                        <td className="firsColum" style={tdStyle}>
+                          {item.CompanyCode}
+                        </td>
+                        <td style={tdStyle}>{item.AreaCode}</td>
+                        <td style={tdStyle}>{item.Description}</td>
+                        <td style={tdStyle}>{Update}</td>
+                        <td style={tdStyle}>
+                          <Button
+                            variant="warning"
+                            className="btnOption"
+                            onClick={(e) =>
+                              HandleUpdateAreaUI(
+                                item.AreaCode,
+                                item.Description
+                              )
+                            }
+                          >
+                            <FontAwesomeIcon icon={faEdit} /> Update
+                          </Button>
+                          <Button variant="danger" className="btnOption">
+                            <FontAwesomeIcon icon={faTrashAlt} /> Delete
+                          </Button>
+                        </td>
+                      </tr>
+                    )) ||
+                    (item.TypeOf === null && (
+                      <tr key={item.AreaCode} className="trChildItem">
+                        <td className="firsColum">{item.CompanyCode}</td>
+                        <td>{item.AreaCode}</td>
+                        <td>{item.Description}</td>
+                        <td></td>
+                        <td className="lastColum">
+                          <Button
+                            variant="warning"
+                            className="btnOption"
+                            onClick={(e) =>
+                              HandleUpdateAreaUI(
+                                item.AreaCode,
+                                item.Description
+                              )
+                            }
+                          >
+                            <FontAwesomeIcon icon={faEdit} /> Update
+                          </Button>
+                          <Button variant="danger" className="btnOption">
+                            <FontAwesomeIcon icon={faTrashAlt} /> Delete
+                          </Button>
+                        </td>
+                      </tr>
+                    ))
+                )}
               </tbody>
             </Table>
           </div>
@@ -240,16 +398,29 @@ function Area() {
             </div>
           )) ||
             (typeOfDialog === Update && (
-              <Form.Group as={Col} md="4" controlId="validationCustom01">
-                <Form.Label>Update</Form.Label>
-                <Form.Control
-                  required
-                  type="text"
-                  placeholder="First name"
-                  defaultValue="Mark"
-                />
-                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-              </Form.Group>
+              <div>
+                <p className="errorMessage">{messageErrorForm}</p>
+                <Form.Group as={Col} md="12">
+                  <Form.Label className="labelForm">CompanyCode</Form.Label>
+                  <Form.Control disabled type="text" value={CompanyCode} />
+                </Form.Group>
+
+                <Form.Group as={Col} md="12">
+                  <Form.Label className="labelForm">AreaCode *</Form.Label>
+                  <Form.Control disabled type="text" value={areaeCode} />
+                </Form.Group>
+
+                <Form.Group as={Col} md="12">
+                  <Form.Label className="labelForm">Description *</Form.Label>
+                  <Form.Control
+                    type="text"
+                    id="txtFocusDescription"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    placeholder="Enter Description..."
+                  />
+                </Form.Group>
+              </div>
             ))}
         </Modal.Body>
         <Modal.Footer className="settingBackround">

@@ -38,6 +38,10 @@ export const messageNulAreaCode = "AreaCode Illegal, Please Check Again!";
 export const messageNullDescriptionAreaCode =
   "Description AreaCode Illegal, Please Check Again!";
 
+// message Area Code already exist
+export const messageAreaCodealreadyexist =
+  "AreaCode Already Exist, Please Try Another AreaCode!";
+
 export const titleCreate = "Create";
 
 export const titleUpdate = "Update";
