@@ -45,3 +45,5 @@ export const messageAreaCodealreadyexist =
 export const titleCreate = "Create";
 
 export const titleUpdate = "Update";
+
+export const titleDelete = "Do You Want Delete ?";

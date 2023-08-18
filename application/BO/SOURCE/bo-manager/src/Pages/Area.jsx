@@ -14,6 +14,7 @@ import {
   faTrashAlt,
   faPlusSquare,
   faCheckSquare,
+  faClockRotateLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import "../Styles/Area.css";
 import { HandleSeachArea } from "../ApiLablary/AreaApi";
@@ -30,6 +31,7 @@ import {
   messageNullDescriptionAreaCode,
   titleUpdate,
   messageAreaCodealreadyexist,
+  titleDelete,
 } from "../MessageCommon/Message";
 
 // Style Css for Table
@@ -62,6 +64,7 @@ function Area() {
   const [areaeCode, setAreaCode] = useState("");
   const [description, setDescription] = useState("");
   const [messageErrorForm, setMessageErrorForm] = useState("");
+  const [oldTypeOf, setOldTypeOf] = useState("");
 
   // Call list area in Redux
   const listAreaResult = useSelector((item) => item.areaData.ListArea);
@@ -126,6 +129,21 @@ function Area() {
     setShow(true);
   };
 
+  // Handle Delete Area
+  const HandleDeleteAreaUI = (areaCode) => {
+    // Find area want delete in ListArea
+    const area = listAreaResult.find((item) => item.AreaCode === areaCode);
+    if (area !== undefined) {
+      // Find area
+      setOldTypeOf(area.TypeOf);
+      setAreaCode(area.AreaCode);
+      setDescription(area.Description);
+      setTypeOfDialog(Delete);
+      setDialog(titleDelete);
+      setShow(true);
+    }
+  };
+
   // Handle Submit
   const HandleSubmitDiaLogUI = (e) => {
     setMessageErrorForm("");
@@ -155,12 +173,14 @@ function Area() {
           AreaCode: areaeCode,
           Description: description,
           TypeOf: Create,
+          OldType: null,
         };
         // Check AreaCode exist in list area current
         const areaCodeExist = listAreaResult.find(
           (item) => item.AreaCode === createArea.AreaCode
         );
         if (areaCodeExist !== undefined) {
+          // Find areacode in list area
           setAreaCode("");
           setDescription("");
           setMessageErrorForm(messageAreaCodealreadyexist);
@@ -178,11 +198,20 @@ function Area() {
           AreaCode: areaeCode,
           Description: description,
           TypeOf: Update,
+          OldType: null,
         };
-        // Add Area into List Area of Redux
+        // Update Area into List Area of Redux
         dispatch(AreaReducer.actions.UpdateArea(updateArea));
         break;
       case Delete:
+        // Delete
+        var deleteArea = {
+          AreaCode: areaeCode,
+          TypeOf: Delete,
+          OldType: oldTypeOf,
+        };
+        // Delete Area into List Area of Redux
+
         break;
       default:
         break;
@@ -269,7 +298,11 @@ function Area() {
                           >
                             <FontAwesomeIcon icon={faEdit} /> Update
                           </Button>
-                          <Button variant="danger" className="btnOption">
+                          <Button
+                            variant="danger"
+                            className="btnOption"
+                            onClick={(e) => HandleDeleteAreaUI(item.AreaCode)}
+                          >
                             <FontAwesomeIcon icon={faTrashAlt} /> Delete
                           </Button>
                         </td>
@@ -296,7 +329,11 @@ function Area() {
                           >
                             <FontAwesomeIcon icon={faEdit} /> Update
                           </Button>
-                          <Button variant="danger" className="btnOption">
+                          <Button
+                            variant="danger"
+                            className="btnOption"
+                            onClick={(e) => HandleDeleteAreaUI(item.AreaCode)}
+                          >
                             <FontAwesomeIcon icon={faTrashAlt} /> Delete
                           </Button>
                         </td>
@@ -311,20 +348,8 @@ function Area() {
                         <td style={tdStyle}>{item.Description}</td>
                         <td style={tdStyle}>{Update}</td>
                         <td style={tdStyle}>
-                          <Button
-                            variant="warning"
-                            className="btnOption"
-                            onClick={(e) =>
-                              HandleUpdateAreaUI(
-                                item.AreaCode,
-                                item.Description
-                              )
-                            }
-                          >
-                            <FontAwesomeIcon icon={faEdit} /> Update
-                          </Button>
                           <Button variant="danger" className="btnOption">
-                            <FontAwesomeIcon icon={faTrashAlt} /> Delete
+                            <FontAwesomeIcon icon={faClockRotateLeft} /> Revert
                           </Button>
                         </td>
                       </tr>
@@ -348,7 +373,11 @@ function Area() {
                           >
                             <FontAwesomeIcon icon={faEdit} /> Update
                           </Button>
-                          <Button variant="danger" className="btnOption">
+                          <Button
+                            variant="danger"
+                            className="btnOption"
+                            onClick={(e) => HandleDeleteAreaUI(item.AreaCode)}
+                          >
                             <FontAwesomeIcon icon={faTrashAlt} /> Delete
                           </Button>
                         </td>
