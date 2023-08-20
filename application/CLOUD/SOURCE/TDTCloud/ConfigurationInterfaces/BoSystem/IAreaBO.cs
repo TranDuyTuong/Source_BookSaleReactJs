@@ -13,7 +13,19 @@ namespace ConfigurationInterfaces.BoSystem
         /// SeachArea
         /// </summary>
         /// <param name="request"></param>
+        /// <param name="userID"></param>
+        /// <param name="roleID"></param>
+        /// <param name="token"></param>
+        /// <param name="eventCode"></param>
+        /// <param name="companyCode"></param>
         /// <returns></returns>
         Task<M_ListArea> SeachArea(string request, string userID, string roleID, string token, string eventCode, string companyCode);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request">request</param>
+        /// <returns></returns>
+        Task<M_ListArea> ConfirmArea(M_ListArea request);
     }
 }

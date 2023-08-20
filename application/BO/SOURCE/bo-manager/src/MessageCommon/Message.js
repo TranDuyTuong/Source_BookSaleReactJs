@@ -42,8 +42,21 @@ export const messageNullDescriptionAreaCode =
 export const messageAreaCodealreadyexist =
   "AreaCode Already Exist, Please Try Another AreaCode!";
 
+// messageErrorNotFindAreaCode
+export const messageErrorNotFindAreaCode =
+  "Not Find AreaCode, Please Try Again!";
+
+// titleCreate
 export const titleCreate = "Create";
 
+// titleUpdate
 export const titleUpdate = "Update";
 
+// titleDelete
 export const titleDelete = "Do You Want Delete ?";
+
+// titleRevert
+export const titleRevert = "Don You Want Revert This Item ?";
+
+// Confirm Data Success
+export const messageConfirmSuccess = "Confirm Success !";

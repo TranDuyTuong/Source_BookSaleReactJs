@@ -43,5 +43,14 @@ namespace ModelConfiguration.M_Bo.AreaData
             get; 
             set; 
         }
+
+        /// <summary>
+        /// OldType
+        /// </summary>
+        public string OldType
+        {
+            get;
+            set;
+        }
     }
 }

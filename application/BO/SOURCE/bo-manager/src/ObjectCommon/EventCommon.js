@@ -17,8 +17,11 @@ export const EventInitialization = "105";
 // Event go to Home
 export const EventHome = "BO001";
 
-// Ebvent Seach Area
+// Event Seach Area
 export const EventSeachArea = "BO002";
+
+// Event Confirm Area
+export const EventConfirmArea = "BO003";
 
 //---------------------------------------------------------------------------
 //UserLogin

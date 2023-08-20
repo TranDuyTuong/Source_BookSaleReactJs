@@ -15,3 +15,6 @@ export const UserSignOut_Post = "/User/SignOut";
 
 // SeachArea_Get
 export const SeachArea_Get = "/Bo/SeachArea";
+
+// ConfirmArea_Post
+export const ConfirmArea_Post = "/Bo/ConfirmArea";

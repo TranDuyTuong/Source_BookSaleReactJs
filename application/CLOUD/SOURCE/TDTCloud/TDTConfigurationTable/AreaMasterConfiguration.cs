@@ -19,6 +19,7 @@ namespace TDTConfigurationTable
             builder.ToTable("AreaMasters");
             // Configuration PrimaryKey
             builder.HasKey(x => x.CompanyCode);
+            builder.HasKey(x => x.AreaCode);
 
             // Configuration Properties
             builder.Property(x => x.CompanyCode).IsRequired(true);

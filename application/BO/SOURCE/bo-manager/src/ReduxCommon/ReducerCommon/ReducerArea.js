@@ -11,7 +11,7 @@ export const AreaReducer = createSlice({
         (item) => item.AreaCode === action.payload.AreaCode
       );
       if (checkAreaCode === undefined) {
-        state.ListArea.push(action.payload);
+        state.ListArea.unshift(action.payload);
       }
     },
     SeachArea: (state, action) => {
@@ -33,6 +33,15 @@ export const AreaReducer = createSlice({
       if (findArea !== undefined) {
         findArea.Description = action.payload.Description;
         findArea.TypeOf = action.payload.TypeOf;
+      }
+    },
+    RevertArea: (state, action) => {
+      const findArea = state.ListArea.find(
+        (item) => item.AreaCode === action.payload.AreaCode
+      );
+      if (findArea !== undefined) {
+        findArea.TypeOf = findArea.OldType;
+        findArea.OldType = null;
       }
     },
   },

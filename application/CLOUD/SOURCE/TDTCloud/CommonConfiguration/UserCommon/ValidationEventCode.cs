@@ -156,6 +156,15 @@ namespace CommonConfiguration.UserCommon
                         Message = "Success Event Bo Seach Area"
                     };
                     break;
+                // event Handle Confirm Area
+                case var item when item == DataCommon.EventBo_ConfirmArea:
+                    result = new ReturnCommonApi()
+                    {
+                        Status = true,
+                        IdPlugin = DataCommon.EventBo_ConfirmArea,
+                        Message = "Success Event Bo Seach Area"
+                    };
+                    break;
                 default:
                     result = new ReturnCommonApi()
                     {

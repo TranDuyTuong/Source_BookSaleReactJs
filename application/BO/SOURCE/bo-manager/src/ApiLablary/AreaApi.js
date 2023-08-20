@@ -1,5 +1,5 @@
 import instance from "../ApiLablary/Axios";
-import { SeachArea_Get } from "../ObjectCommon/ApiCommon";
+import { SeachArea_Get, ConfirmArea_Post } from "../ObjectCommon/ApiCommon";
 import { M_ListArea } from "../ObjectCommon/Object";
 import { get, post } from "../Contants/DataContant";
 
@@ -17,7 +17,7 @@ const AreaAPI = (info, URL, TYPE) => {
   }
 };
 
-// Handle Validation Token Staff
+// Handle Seach Area
 export const HandleSeachArea = async (request) => {
   const data = await AreaAPI(request, SeachArea_Get, post);
   // Set Data result
@@ -31,6 +31,21 @@ export const HandleSeachArea = async (request) => {
     result.MessageError = data.MessageError;
   } else {
     // Show Message Error
+    result.Status = data.Status;
+    result.MessageError = data.MessageError;
+  }
+  return result;
+};
+
+// Handle Confirm Area
+export const HandleConfirmArea = async (request) => {
+  const data = await AreaAPI(request, ConfirmArea_Post, post);
+  // Set Data result
+  var result = M_ListArea;
+
+  if (data.Status === true) {
+    result.Status = data.Status;
+  } else {
     result.Status = data.Status;
     result.MessageError = data.MessageError;
   }

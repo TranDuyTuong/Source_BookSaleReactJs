@@ -17,14 +17,19 @@ import {
   faClockRotateLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import "../Styles/Area.css";
-import { HandleSeachArea } from "../ApiLablary/AreaApi";
+import { HandleSeachArea, HandleConfirmArea } from "../ApiLablary/AreaApi";
 import { GetCookies, ConcatStringEvent } from "../ObjectCommon/FunctionCommon";
 import { UserLogin } from "../ObjectCommon/EventCommon";
-import { CompanyCode, FistCode, EventHome } from "../ObjectCommon/EventCommon";
+import {
+  CompanyCode,
+  FistCode,
+  EventHome,
+  EventConfirmArea,
+} from "../ObjectCommon/EventCommon";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { AreaReducer } from "../ReduxCommon/ReducerCommon/ReducerArea";
-import { Create, Update, Delete } from "../Contants/DataContant";
+import { Create, Update, Delete, Revert } from "../Contants/DataContant";
 import {
   titleCreate,
   messageNulAreaCode,
@@ -32,7 +37,11 @@ import {
   titleUpdate,
   messageAreaCodealreadyexist,
   titleDelete,
+  messageErrorNotFindAreaCode,
+  titleRevert,
+  messageConfirmSuccess,
 } from "../MessageCommon/Message";
+import LoadingModal from "../CommonPage/LoadingCommon";
 
 // Style Css for Table
 const tdStyle = {
@@ -47,6 +56,9 @@ function Area() {
 
   // Show Dialog Add, Update, Confirm
   const [show, setShow] = useState(false);
+
+  // Show DiaLod Loading
+  const [showLoadingDiaLog, SetShowLoadingDiaLog] = useState(false);
 
   // TypeOf Dialog Setting
   const [typeOfDialog, setTypeOfDialog] = useState();
@@ -72,6 +84,8 @@ function Area() {
   useEffect(() => {
     // Setting Title Page
     document.title = "Area";
+    // disabled button Confirm
+    document.getElementById("btn_Confirm").disabled = true;
   }, []);
 
   // Handle Seach Area
@@ -141,6 +155,100 @@ function Area() {
       setTypeOfDialog(Delete);
       setDialog(titleDelete);
       setShow(true);
+    } else {
+      alert(messageErrorNotFindAreaCode);
+    }
+  };
+
+  // Handle Revert Area Delete
+  const HandleRevertAreaUI = (areaCode) => {
+    // Find area want revert affter delete in ListArea
+    const area = listAreaResult.find((item) => item.AreaCode === areaCode);
+    if (area !== undefined) {
+      // Find area
+      setOldTypeOf(null);
+      setAreaCode(area.AreaCode);
+      setDescription(area.Description);
+      setTypeOfDialog(Revert);
+      setDialog(titleRevert);
+      setShow(true);
+    } else {
+      alert(messageErrorNotFindAreaCode);
+    }
+  };
+
+  // Handle Confirm List Area
+  const HandleConfirmUI = async (e) => {
+    // Show dialog Loading
+    SetShowLoadingDiaLog(true);
+
+    // Get Token
+    var token = GetCookies(UserLogin);
+    // Get EventCode
+    var eventCode = ConcatStringEvent(FistCode, EventConfirmArea);
+    // Set List Area Have Update
+    var listConfirmArea = [];
+    for (var i = 0; listAreaResult.length > i; i++) {
+      switch (listAreaResult[i].TypeOf) {
+        case Create:
+          var c_areaData = {
+            CompanyCode: CompanyCode,
+            AreaCode: listAreaResult[i].AreaCode,
+            Description: listAreaResult[i].Description,
+            TypeOf: Create,
+            OldType: null,
+          };
+          listConfirmArea.push(c_areaData);
+          break;
+        case Update:
+          var u_areaData = {
+            CompanyCode: CompanyCode,
+            AreaCode: listAreaResult[i].AreaCode,
+            Description: listAreaResult[i].Description,
+            TypeOf: Update,
+            OldType: null,
+          };
+          listConfirmArea.push(u_areaData);
+          break;
+        case Delete:
+          var d_areaData = {
+            CompanyCode: CompanyCode,
+            AreaCode: listAreaResult[i].AreaCode,
+            Description: listAreaResult[i].Description,
+            TypeOf: Delete,
+            OldType: null,
+          };
+          listConfirmArea.push(d_areaData);
+          break;
+        default:
+          break;
+      }
+    }
+    var converArrayToJsonArea = JSON.stringify(listConfirmArea);
+    // Setting Data Confirm Area
+    var formData = new FormData();
+    formData.append("Token", token);
+    formData.append("UserID", window.localStorage.getItem("UserID"));
+    formData.append("RoleID", window.localStorage.getItem("RoleEmployer"));
+    formData.append("EventCode", eventCode);
+    formData.append("TotalArea", 0);
+    formData.append("MessageError", null);
+    formData.append("Status", true);
+    formData.append("KeySeach", converArrayToJsonArea);
+    formData.append("CompanyCode", CompanyCode);
+    formData.append("ListArea", []);
+    // Handle Call Api Confirm Area
+    var result = await HandleConfirmArea(formData);
+
+    // Hid Dialog modal Loading
+    SetShowLoadingDiaLog(false);
+
+    if (result.Status === true) {
+      alert(messageConfirmSuccess);
+      // Set list Area In Redux is []
+      dispatch(AreaReducer.actions.SeachArea([]));
+    } else {
+      setMessageError(result.MessageError);
     }
   };
 
@@ -211,7 +319,15 @@ function Area() {
           OldType: oldTypeOf,
         };
         // Delete Area into List Area of Redux
-
+        dispatch(AreaReducer.actions.DeleteArea(deleteArea));
+        break;
+      case Revert:
+        // Revert
+        var revertArea = {
+          AreaCode: areaeCode,
+        };
+        // Revert Area into List Area of redux
+        dispatch(AreaReducer.actions.RevertArea(revertArea));
         break;
       default:
         break;
@@ -220,6 +336,8 @@ function Area() {
     setDescription("");
     setMessageErrorForm("");
     setShow(false);
+    // Activer button Confirm
+    document.getElementById("btn_Confirm").disabled = false;
   };
 
   return (
@@ -251,7 +369,12 @@ function Area() {
                   >
                     <FontAwesomeIcon icon={faPlusSquare} /> Add
                   </Button>
-                  <Button disabled variant="success" className="btnOption">
+                  <Button
+                    variant="success"
+                    className="btnOption"
+                    id="btn_Confirm"
+                    onClick={() => HandleConfirmUI()}
+                  >
                     <FontAwesomeIcon icon={faCheckSquare} /> Confirm
                   </Button>
                 </p>
@@ -346,9 +469,13 @@ function Area() {
                         </td>
                         <td style={tdStyle}>{item.AreaCode}</td>
                         <td style={tdStyle}>{item.Description}</td>
-                        <td style={tdStyle}>{Update}</td>
+                        <td style={tdStyle}>{Delete}</td>
                         <td style={tdStyle}>
-                          <Button variant="danger" className="btnOption">
+                          <Button
+                            variant="secondary"
+                            className="btnOption"
+                            onClick={(e) => HandleRevertAreaUI(item.AreaCode)}
+                          >
                             <FontAwesomeIcon icon={faClockRotateLeft} /> Revert
                           </Button>
                         </td>
@@ -450,6 +577,42 @@ function Area() {
                   />
                 </Form.Group>
               </div>
+            )) ||
+            (typeOfDialog === Delete && (
+              <div>
+                <Form.Group as={Col} md="12">
+                  <Form.Label className="labelForm">CompanyCode</Form.Label>
+                  <Form.Control disabled type="text" value={CompanyCode} />
+                </Form.Group>
+
+                <Form.Group as={Col} md="12">
+                  <Form.Label className="labelForm">AreaCode *</Form.Label>
+                  <Form.Control disabled type="text" value={areaeCode} />
+                </Form.Group>
+
+                <Form.Group as={Col} md="12">
+                  <Form.Label className="labelForm">Description *</Form.Label>
+                  <Form.Control disabled type="text" value={description} />
+                </Form.Group>
+              </div>
+            )) ||
+            (typeOfDialog === Revert && (
+              <div>
+                <Form.Group as={Col} md="12">
+                  <Form.Label className="labelForm">CompanyCode</Form.Label>
+                  <Form.Control disabled type="text" value={CompanyCode} />
+                </Form.Group>
+
+                <Form.Group as={Col} md="12">
+                  <Form.Label className="labelForm">AreaCode *</Form.Label>
+                  <Form.Control disabled type="text" value={areaeCode} />
+                </Form.Group>
+
+                <Form.Group as={Col} md="12">
+                  <Form.Label className="labelForm">Description *</Form.Label>
+                  <Form.Control disabled type="text" value={description} />
+                </Form.Group>
+              </div>
             ))}
         </Modal.Body>
         <Modal.Footer className="settingBackround">
@@ -461,6 +624,7 @@ function Area() {
           </Button>
         </Modal.Footer>
       </Modal>
+      {showLoadingDiaLog && <LoadingModal />}
     </Container>
   );
 }

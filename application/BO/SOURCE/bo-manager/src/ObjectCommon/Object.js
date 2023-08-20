@@ -49,6 +49,7 @@ export var M_Area = {
   AreaCode: "",
   Description: "",
   TypeOf: "",
+  OldType: null,
 };
 
 // M_ListArea

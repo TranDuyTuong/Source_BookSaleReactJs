@@ -95,6 +95,9 @@ export const Update = "UPDATE";
 // Delete Data
 export const Delete = "DELETE";
 
+// Revert Data affter Delete
+export const Revert = "REVERT";
+
 // Type Api
 export const post = "post";
 

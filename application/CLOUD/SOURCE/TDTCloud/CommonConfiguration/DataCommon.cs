@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -245,6 +246,27 @@ namespace CommonConfiguration
         /// EventBO_SeachArea
         /// </summary>
         public static string EventBO_SeachArea = "BO002";
+
+        /// <summary>
+        /// EventBo_ConfirmArea
+        /// </summary>
+        public static string EventBo_ConfirmArea = "BO003";
+
+        ///--------------------------------------------Option Type Create, Update, Delete------------------------- <summary>
+        /// <summary>
+        /// CREATE
+        /// </summary>
+        public static string CREATE = "CREATE";
+
+        /// <summary>
+        /// DELETE
+        /// </summary>
+        public static string DELETE = "DELETE";
+
+        /// <summary>
+        /// UPDATE
+        /// </summary>
+        public static string UPDATE = "UPDATE";
 
         ///--------------------------------------------Type Email-------------------------------------------------
         /// <summary>
