@@ -31,7 +31,7 @@ function MenuCommon() {
       <br />
       <Navbar className="bg-body-tertiary">
         <Container>
-          <Link href="#home" className="itemChild">
+          <Link to="/store" className="itemChild">
             Stores
           </Link>
         </Container>

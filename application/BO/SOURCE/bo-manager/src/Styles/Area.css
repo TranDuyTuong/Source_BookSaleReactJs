@@ -31,7 +31,8 @@
   width: 215px;
 }
 .customtable {
-  height: 700px;
+  height: 510px;
+  overflow: auto;
 }
 .btnMain {
   text-align: right;

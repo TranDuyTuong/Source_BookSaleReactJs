@@ -39,7 +39,6 @@ import {
   titleDelete,
   messageErrorNotFindAreaCode,
   titleRevert,
-  messageConfirmSuccess,
 } from "../MessageCommon/Message";
 import LoadingModal from "../CommonPage/LoadingCommon";
 
@@ -244,7 +243,7 @@ function Area() {
     SetShowLoadingDiaLog(false);
 
     if (result.Status === true) {
-      alert(messageConfirmSuccess);
+      setMessageError("");
       // Set list Area In Redux is []
       dispatch(AreaReducer.actions.SeachArea([]));
     } else {

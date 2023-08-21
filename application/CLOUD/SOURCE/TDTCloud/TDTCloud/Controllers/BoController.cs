@@ -6,6 +6,7 @@ using ModelConfiguration.M_Bo.AreaData;
 using ModelConfiguration.M_KikanSystem;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using ModelConfiguration.M_Bo.StoreData;
 
 namespace TDTCloud.Controllers
 {
@@ -200,6 +201,95 @@ namespace TDTCloud.Controllers
 
                 // Conver Object to Json
                 result = ConverToJson<M_ListArea>.ConverObjectToJson(nullData);
+            }
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// SeachStore
+        /// </summary>
+        /// <param name="seachStore"></param>
+        /// <returns></returns>
+        [HttpPost("SeachStore")]
+        public async Task<IActionResult> SeachStore([FromForm] M_ListStore seachStore)
+        {
+            string result = null;
+            // Conver Object to Json
+            string request = ConverToJson<M_ListStore>.ConverObjectToJson(seachStore);
+
+            // Conver Json to Object
+            var dataConver = ConverToJson<M_ListStore>.ConverJsonToObject(request);
+            if (dataConver != null)
+            {
+                // Check event code
+                var ev = ValidationEventCode.CheckEventCode(dataConver.EventCode);
+
+                if (ev.Status == true)
+                {
+                    // Check Token Null
+                    if (dataConver.Token == null || dataConver.Token == "")
+                    {
+                        var tokenNull = new M_ListStore()
+                        {
+                            Status = false,
+                            MessageError = CommonConfiguration.DataCommon.MessageNullToken
+
+                        };
+
+                        // Conver Object to json
+                        result = ConverToJson<M_ListStore>.ConverObjectToJson(tokenNull);
+                    }
+                    else
+                    {
+                        // Check Content Token
+                        var f_CheckValidationToken = new ValidationToken();
+                        var tokenResult = f_CheckValidationToken.ReadContentToken(dataConver.Token, ev.IdPlugin);
+                        if (tokenResult.Status == false)
+                        {
+                            var resultContent = new M_ListStore()
+                            {
+                                Status = tokenResult.Status,
+                                Token = dataConver.Token,
+                                EventCode = DataCommon.EventError
+
+                            };
+                            result = ConverToJson<M_ListStore>.ConverObjectToJson(resultContent);
+                        }
+                        else
+                        {
+                            // Seach Area To DB
+                            var seachResult = await this.context.SeachStore(dataConver.KeySeach, dataConver.UserID, dataConver.RoleID, dataConver.Token, ev.IdPlugin, dataConver.CompanyCode);
+                            // Conver Object to json
+                            result = ConverToJson<M_ListStore>.ConverObjectToJson(seachResult);
+                        }
+                    }
+                }
+                else
+                {
+                    var errorEventCode = new M_ListStore()
+                    {
+                        Status = false,
+                        EventCode = DataCommon.EventError,
+                        Token = dataConver.Token,
+                        MessageError = CommonConfiguration.DataCommon.MessageErrorEvent
+                    };
+
+                    // Conver Object to Json
+                    result = ConverToJson<M_ListStore>.ConverObjectToJson(errorEventCode);
+                }
+            }
+            else
+            {
+                var nullData = new M_ListStore()
+                {
+                    Status = false,
+                    EventCode = DataCommon.EventError,
+                    Token = dataConver.Token,
+                    MessageError = CommonConfiguration.DataCommon.MessageNullData
+                };
+
+                // Conver Object to Json
+                result = ConverToJson<M_ListStore>.ConverObjectToJson(nullData);
             }
             return Ok(result);
         }

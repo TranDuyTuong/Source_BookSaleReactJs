@@ -162,7 +162,25 @@ namespace CommonConfiguration.UserCommon
                     {
                         Status = true,
                         IdPlugin = DataCommon.EventBo_ConfirmArea,
-                        Message = "Success Event Bo Seach Area"
+                        Message = "Success Event Bo Confirm Area"
+                    };
+                    break;
+                // event Handle Seach Store
+                case var item when item == DataCommon.EventBo_SeachStore:
+                    result = new ReturnCommonApi()
+                    {
+                        Status = true,
+                        IdPlugin = DataCommon.EventBo_ConfirmArea,
+                        Message = "Success Event Bo Seach Store"
+                    };
+                    break;
+                // event Handle Confirm Store
+                case var item when item == DataCommon.EventBo_ConfirmStore:
+                    result = new ReturnCommonApi()
+                    {
+                        Status = true,
+                        IdPlugin = DataCommon.EventBo_ConfirmArea,
+                        Message = "Success Event Bo Confirm Store"
                     };
                     break;
                 default:

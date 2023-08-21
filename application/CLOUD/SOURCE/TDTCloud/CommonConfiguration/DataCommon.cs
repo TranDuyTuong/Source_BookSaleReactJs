@@ -252,6 +252,16 @@ namespace CommonConfiguration
         /// </summary>
         public static string EventBo_ConfirmArea = "BO003";
 
+        /// <summary>
+        /// EventBo_SeachStore
+        /// </summary>
+        public static string EventBo_SeachStore = "BO004";
+
+        /// <summary>
+        /// EventBo_ConfirmStore
+        /// </summary>
+        public static string EventBo_ConfirmStore = "BO005";
+
         ///--------------------------------------------Option Type Create, Update, Delete------------------------- <summary>
         /// <summary>
         /// CREATE
