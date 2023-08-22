@@ -23,6 +23,15 @@ export const EventSeachArea = "BO002";
 // Event Confirm Area
 export const EventConfirmArea = "BO003";
 
+// Event Seach Store
+export const EventSeachStore = "BO004";
+
+// Event ConfirmStore
+export const EventConfirmStore = "BO005";
+
+// Event Detail Store
+export const EventDetailStore = "BO006";
+
 //---------------------------------------------------------------------------
 //UserLogin
 export const UserLogin = "LoginTDTImportKikanSystem";

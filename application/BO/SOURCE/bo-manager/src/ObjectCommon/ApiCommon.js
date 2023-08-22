@@ -18,3 +18,6 @@ export const SeachArea_Get = "/Bo/SeachArea";
 
 // ConfirmArea_Post
 export const ConfirmArea_Post = "/Bo/ConfirmArea";
+
+// SeachStore_Get
+export const SeachStore_Get = "/Bo/SeachStore";

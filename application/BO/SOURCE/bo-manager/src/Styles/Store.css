@@ -16,10 +16,8 @@
   background: red;
 }
 .trChildItem {
-  text-align: left;
-  font-family: initial;
-  font-size: 20px;
-  text-decoration: "line-through #ff0000";
+  color: "gray";
+  text-decoration: line-through #ff0000;
 }
 .btnOption {
   margin: 0px 5px;

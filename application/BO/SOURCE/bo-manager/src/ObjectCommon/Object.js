@@ -65,3 +65,28 @@ export var M_ListArea = {
   CompanyCode: "",
   ListArea: [],
 };
+
+// M_ListStore
+export var M_ListStore = {
+  Token: "",
+  UserID: "",
+  RoleID: "",
+  EventCode: "",
+  TotalStore: "",
+  MessageError: "",
+  Status: "",
+  KeySeach: "",
+  CompanyCode: "",
+  ListStore: [],
+};
+
+// M_Store
+export var M_Store = {
+  StoreCode: "",
+  Description: "",
+  DateCreate: "",
+  LastUpdateDate: "",
+  Address: "",
+  TypeOf: "",
+  OldType: null,
+};

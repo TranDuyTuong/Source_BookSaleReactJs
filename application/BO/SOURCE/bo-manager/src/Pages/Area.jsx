@@ -23,7 +23,7 @@ import { UserLogin } from "../ObjectCommon/EventCommon";
 import {
   CompanyCode,
   FistCode,
-  EventHome,
+  EventSeachArea,
   EventConfirmArea,
 } from "../ObjectCommon/EventCommon";
 import { useDispatch } from "react-redux";
@@ -92,7 +92,7 @@ function Area() {
     // Get Token
     var token = GetCookies(UserLogin);
     // Get EventCode
-    var eventCode = ConcatStringEvent(FistCode, EventHome);
+    var eventCode = ConcatStringEvent(FistCode, EventSeachArea);
     // Setting Data Seach Area
     var formData = new FormData();
     formData.append("Token", token);

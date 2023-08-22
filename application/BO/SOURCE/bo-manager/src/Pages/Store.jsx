@@ -16,39 +16,77 @@ import {
   faCheckSquare,
   faClockRotateLeft,
   faStore,
+  faEye,
 } from "@fortawesome/free-solid-svg-icons";
 import "../Styles/Area.css";
-import { HandleSeachArea, HandleConfirmArea } from "../ApiLablary/AreaApi";
+import { HandleSeachStore } from "../ApiLablary/StoreApi";
 import { GetCookies, ConcatStringEvent } from "../ObjectCommon/FunctionCommon";
 import { UserLogin } from "../ObjectCommon/EventCommon";
 import {
   CompanyCode,
   FistCode,
-  EventHome,
+  EventSeachStore,
   EventConfirmArea,
 } from "../ObjectCommon/EventCommon";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { AreaReducer } from "../ReduxCommon/ReducerCommon/ReducerArea";
+import { StoreReducer } from "../ReduxCommon/ReducerCommon/ReducerStore";
 import { Create, Update, Delete, Revert } from "../Contants/DataContant";
-import {
-  titleCreate,
-  messageNulAreaCode,
-  messageNullDescriptionAreaCode,
-  titleUpdate,
-  messageAreaCodealreadyexist,
-  titleDelete,
-  messageErrorNotFindAreaCode,
-  titleRevert,
-} from "../MessageCommon/Message";
 import LoadingModal from "../CommonPage/LoadingCommon";
+import moment from "moment";
 
 // Main Function
 function Store() {
+  // dispatch reducer
+  const dispatch = useDispatch();
+  // Call list area in Redux
+  const listStoreResult = useSelector((item) => item.storeData.ListStore);
+
+  // State Seach Store
+  const [seachStore, setSeachStore] = useState("");
+  const [messageError, setMessageError] = useState("");
+
   useEffect(() => {
     // Setting Title Page
     document.title = "Store";
+    var datess = new Date("2023-08-20T16:20:29.2938759");
+    alert(moment(datess).format("YYYY-MM-DD"));
   }, []);
+
+  // Handle Seach Store
+  const HandleSeachStoreUI = async (e) => {
+    // Get Token
+    var token = GetCookies(UserLogin);
+    // Get EventCode
+    var eventCode = ConcatStringEvent(FistCode, EventSeachStore);
+    // Setting Data Seach Store
+    var formData = new FormData();
+    formData.append("Token", token);
+    formData.append("UserID", window.localStorage.getItem("UserID"));
+    formData.append("RoleID", window.localStorage.getItem("RoleEmployer"));
+    formData.append("EventCode", eventCode);
+    formData.append("TotalStore", 0);
+    formData.append("MessageError", null);
+    formData.append("Status", true);
+    formData.append("KeySeach", seachStore);
+    formData.append("CompanyCode", CompanyCode);
+    formData.append("ListStore", []);
+
+    // Handle Call Api Seach Area
+    var result = await HandleSeachStore(formData);
+    if (result.Status === false) {
+      // Seach Fail
+      setMessageError(result.MessageError);
+    } else {
+      result.ListStore.forEach(function (fruit) {
+        alert(fruit.DateCreate); // Apple, Orange, Banna, Mango
+      });
+      // Save Store List In To Redux
+      //dispatch(StoreReducer.actions.SeachStore(result.ListStore));
+      // Seach Success
+      setMessageError(result.MessageError);
+    }
+  };
 
   return (
     <Container fluid className="fixedPotionArea">
@@ -60,10 +98,15 @@ function Store() {
           <Form>
             <Row className="mb-3">
               <Form.Group as={Col} md="3" controlId="validationCustom01">
-                <Form.Control type="text" placeholder="Store Code..." />
+                <Form.Control
+                  type="text"
+                  placeholder="Store Code..."
+                  value={seachStore}
+                  onChange={(e) => setSeachStore(e.target.value)}
+                />
               </Form.Group>
               <Form.Group as={Col} md="2" controlId="validationCustom02">
-                <Button type="button">
+                <Button type="button" onClick={() => HandleSeachStoreUI()}>
                   <FontAwesomeIcon icon={faSearch} /> Seach
                 </Button>
               </Form.Group>
@@ -83,7 +126,7 @@ function Store() {
               </Form.Group>
             </Row>
           </Form>
-          <p className="notification"></p>
+          <p className="notification">{messageError}</p>
         </Col>
       </Row>
       <Row>
@@ -100,6 +143,88 @@ function Store() {
                   <th>Option</th>
                 </tr>
               </thead>
+              <tbody>
+                {listStoreResult.map(
+                  (item) =>
+                    (item.TypeOf === Create && (
+                      <tr key={item.StoreCode}>
+                        <td style={{ color: "blue" }}>{item.StoreCode}</td>
+                        <td style={{ color: "blue" }}>{item.Description}</td>
+                        <td style={{ color: "blue" }}>{item.DateCreate}</td>
+                        <td style={{ color: "blue" }}>{item.LastUpdateDate}</td>
+                        <td style={{ color: "blue" }}>{Create}</td>
+                        <td>
+                          <Button variant="warning" className="btnOption">
+                            <FontAwesomeIcon icon={faEdit} /> Update
+                          </Button>
+                          <Button variant="danger" className="btnOption">
+                            <FontAwesomeIcon icon={faTrashAlt} /> Delete
+                          </Button>
+                          <Button variant="info" className="btnOption">
+                            <FontAwesomeIcon icon={faEye} /> Detail
+                          </Button>
+                        </td>
+                      </tr>
+                    )) ||
+                    (item.TypeOf === Update && (
+                      <tr key={item.StoreCode}>
+                        <td style={{ color: "red" }}>{item.StoreCode}</td>
+                        <td style={{ color: "red" }}>{item.Description}</td>
+                        <td style={{ color: "red" }}>{item.DateCreate}</td>
+                        <td style={{ color: "red" }}>{item.LastUpdateDate}</td>
+                        <td style={{ color: "red" }}>{Update}</td>
+                        <td>
+                          <Button variant="warning" className="btnOption">
+                            <FontAwesomeIcon icon={faEdit} /> Update
+                          </Button>
+                          <Button variant="danger" className="btnOption">
+                            <FontAwesomeIcon icon={faTrashAlt} /> Delete
+                          </Button>
+                          <Button variant="info" className="btnOption">
+                            <FontAwesomeIcon icon={faEye} /> Detail
+                          </Button>
+                        </td>
+                      </tr>
+                    )) ||
+                    (item.TypeOf === Delete && (
+                      <tr key={item.StoreCode} className="trChildItem">
+                        <td>{item.StoreCode}</td>
+                        <td>{item.Description}</td>
+                        <td>{item.DateCreate}</td>
+                        <td>{item.LastUpdateDate}</td>
+                        <td>{Delete}</td>
+                        <td>
+                          <Button variant="secondary" className="btnOption">
+                            <FontAwesomeIcon icon={faClockRotateLeft} /> Revert
+                          </Button>
+                          <Button variant="info" className="btnOption">
+                            <FontAwesomeIcon icon={faEye} /> Detail
+                          </Button>
+                        </td>
+                      </tr>
+                    )) ||
+                    (item.TypeOf === null && (
+                      <tr key={item.StoreCode}>
+                        <td>{item.StoreCode}</td>
+                        <td>{item.Description}</td>
+                        <td>{item.DateCreate}</td>
+                        <td>{item.LastUpdateDate}</td>
+                        <td></td>
+                        <td>
+                          <Button variant="warning" className="btnOption">
+                            <FontAwesomeIcon icon={faEdit} /> Update
+                          </Button>
+                          <Button variant="danger" className="btnOption">
+                            <FontAwesomeIcon icon={faTrashAlt} /> Delete
+                          </Button>
+                          <Button variant="info" className="btnOption">
+                            <FontAwesomeIcon icon={faEye} /> Detail
+                          </Button>
+                        </td>
+                      </tr>
+                    ))
+                )}
+              </tbody>
             </Table>
           </div>
         </Col>

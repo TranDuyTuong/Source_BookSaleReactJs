@@ -1,7 +1,7 @@
 import instance from "../ApiLablary/Axios";
 import { SeachArea_Get, ConfirmArea_Post } from "../ObjectCommon/ApiCommon";
 import { M_ListArea } from "../ObjectCommon/Object";
-import { get, post } from "../Contants/DataContant";
+import { post } from "../Contants/DataContant";
 
 // Api Login User
 const AreaAPI = (info, URL, TYPE) => {
