@@ -183,6 +183,15 @@ namespace CommonConfiguration.UserCommon
                         Message = "Success Event Bo Confirm Store"
                     };
                     break;
+                // event Handle Detail Store
+                case var item when item == DataCommon.EventBo_DetailStore:
+                    result = new ReturnCommonApi()
+                    {
+                        Status = true,
+                        IdPlugin = DataCommon.EventBo_DetailStore,
+                        Message = "Success Event Bo Detail Store"
+                    };
+                    break;
                 default:
                     result = new ReturnCommonApi()
                     {

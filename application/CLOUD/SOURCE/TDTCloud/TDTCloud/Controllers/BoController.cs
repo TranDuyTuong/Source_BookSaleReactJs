@@ -14,10 +14,12 @@ namespace TDTCloud.Controllers
     [Route("[controller]")]
     public class BoController : Controller
     {
-        private readonly IAreaBO context;
-        public BoController(IAreaBO _context)
+        private readonly IAreaBO areaBO;
+        private readonly IStoreBO storeBO;
+        public BoController(IAreaBO _areaBO, IStoreBO _storeBO)
         {
-            this.context = _context;
+            this.areaBO = _areaBO;
+            this.storeBO = _storeBO;
         }
 
         /// <summary>
@@ -73,7 +75,7 @@ namespace TDTCloud.Controllers
                         else
                         {
                             // Seach Area To DB
-                            var seachResult = await this.context.SeachArea(dataConver.KeySeach, dataConver.UserID, dataConver.RoleID, dataConver.Token, ev.IdPlugin, dataConver.CompanyCode);
+                            var seachResult = await this.areaBO.SeachArea(dataConver.KeySeach, dataConver.UserID, dataConver.RoleID, dataConver.Token, ev.IdPlugin, dataConver.CompanyCode);
                             // Conver Object to json
                             result = ConverToJson<M_ListArea>.ConverObjectToJson(seachResult);
                         }
@@ -169,7 +171,7 @@ namespace TDTCloud.Controllers
                             dataConver.KeySeach = null;
 
                             // Confirm Area To DB
-                            var seachResult = await this.context.ConfirmArea(dataConver);
+                            var seachResult = await this.areaBO.ConfirmArea(dataConver);
                             // Conver Object to json
                             result = ConverToJson<M_ListArea>.ConverObjectToJson(seachResult);
                         }
@@ -208,7 +210,7 @@ namespace TDTCloud.Controllers
         /// <summary>
         /// SeachStore
         /// </summary>
-        /// <param name="seachStore"></param>
+        /// <param name="seachStore">seachStore</param>
         /// <returns></returns>
         [HttpPost("SeachStore")]
         public async Task<IActionResult> SeachStore([FromForm] M_ListStore seachStore)
@@ -258,7 +260,7 @@ namespace TDTCloud.Controllers
                         else
                         {
                             // Seach Area To DB
-                            var seachResult = await this.context.SeachStore(dataConver.KeySeach, dataConver.UserID, dataConver.RoleID, dataConver.Token, ev.IdPlugin, dataConver.CompanyCode);
+                            var seachResult = await this.storeBO.SeachStore(dataConver.KeySeach, dataConver.UserID, dataConver.RoleID, dataConver.Token, ev.IdPlugin, dataConver.CompanyCode);
                             // Conver Object to json
                             result = ConverToJson<M_ListStore>.ConverObjectToJson(seachResult);
                         }
@@ -294,6 +296,189 @@ namespace TDTCloud.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// DetailStore
+        /// </summary>
+        /// <param name="storeCode"></param>
+        /// <returns></returns>
+        [HttpPost("DetailStore")]
+        public async Task<IActionResult> DetailStore([FromForm] M_ListStore storeCode)
+        {
+            string result = null;
+
+            // Conver Object to Json
+            string request = ConverToJson<M_ListStore>.ConverObjectToJson(storeCode);
+
+            // Conver Json to Object
+            var dataConver = ConverToJson<M_ListStore>.ConverJsonToObject(request);
+            if (dataConver != null)
+            {
+                // Check event code
+                var ev = ValidationEventCode.CheckEventCode(dataConver.EventCode);
+
+                if (ev.Status == true)
+                {
+                    // Check Token Null
+                    if (dataConver.Token == null || dataConver.Token == "")
+                    {
+                        var tokenNull = new M_ListStore()
+                        {
+                            Status = false,
+                            MessageError = CommonConfiguration.DataCommon.MessageNullToken
+
+                        };
+
+                        // Conver Object to json
+                        result = ConverToJson<M_ListStore>.ConverObjectToJson(tokenNull);
+                    }
+                    else
+                    {
+                        // Check Content Token
+                        var f_CheckValidationToken = new ValidationToken();
+                        var tokenResult = f_CheckValidationToken.ReadContentToken(dataConver.Token, ev.IdPlugin);
+                        if (tokenResult.Status == false)
+                        {
+                            var resultContent = new M_ListStore()
+                            {
+                                Status = tokenResult.Status,
+                                Token = dataConver.Token,
+                                EventCode = DataCommon.EventError
+
+                            };
+                            result = ConverToJson<M_ListStore>.ConverObjectToJson(resultContent);
+                        }
+                        else
+                        {
+                            // Detail store To DB
+                            var seachResult = await this.storeBO.DetailStore(dataConver.KeySeach, dataConver.UserID, dataConver.RoleID, dataConver.Token, ev.IdPlugin, dataConver.CompanyCode);
+                            // Conver Object to json
+                            result = ConverToJson<M_ListStore>.ConverObjectToJson(seachResult);
+                        }
+                    }
+                }
+                else
+                {
+                    var errorEventCode = new M_ListStore()
+                    {
+                        Status = false,
+                        EventCode = DataCommon.EventError,
+                        Token = dataConver.Token,
+                        MessageError = CommonConfiguration.DataCommon.MessageErrorEvent
+                    };
+
+                    // Conver Object to Json
+                    result = ConverToJson<M_ListStore>.ConverObjectToJson(errorEventCode);
+                }
+            }
+            else
+            {
+                var nullData = new M_ListStore()
+                {
+                    Status = false,
+                    EventCode = DataCommon.EventError,
+                    Token = dataConver.Token,
+                    MessageError = CommonConfiguration.DataCommon.MessageNullData
+                };
+
+                // Conver Object to Json
+                result = ConverToJson<M_ListStore>.ConverObjectToJson(nullData);
+            }
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// ConfirmStore
+        /// </summary>
+        /// <param name="confirmStore"></param>
+        /// <returns></returns>
+        [HttpPost("ConfirmStore")]
+        public async Task<IActionResult> ConfirmStore([FromForm] M_ListStore confirmStore)
+        {
+            string result = null;
+            // Conver Json List Area to ListArea
+            var listStore = ConverToJson<List<M_Store>>.ConverJsonToObject(confirmStore.KeySeach);
+
+            // Conver Object to Json
+            string request = ConverToJson<M_ListStore>.ConverObjectToJson(confirmStore);
+
+            // Conver Json to Object
+            var dataConver = ConverToJson<M_ListStore>.ConverJsonToObject(request);
+            if (dataConver != null)
+            {
+                // Check event code
+                var ev = ValidationEventCode.CheckEventCode(dataConver.EventCode);
+
+                if (ev.Status == true)
+                {
+                    // Check Token Null
+                    if (dataConver.Token == null || dataConver.Token == "")
+                    {
+                        var tokenNull = new M_ListStore()
+                        {
+                            Status = false,
+                            MessageError = CommonConfiguration.DataCommon.MessageNullToken
+
+                        };
+
+                        // Conver Object to json
+                        result = ConverToJson<M_ListStore>.ConverObjectToJson(tokenNull);
+                    }
+                    else
+                    {
+                        // Check Content Token
+                        var f_CheckValidationToken = new ValidationToken();
+                        var tokenResult = f_CheckValidationToken.ReadContentToken(dataConver.Token, ev.IdPlugin);
+                        if (tokenResult.Status == false)
+                        {
+                            var resultContent = new M_ListStore()
+                            {
+                                Status = tokenResult.Status,
+                                Token = dataConver.Token,
+                                EventCode = DataCommon.EventError
+
+                            };
+                            result = ConverToJson<M_ListStore>.ConverObjectToJson(resultContent);
+                        }
+                        else
+                        {
+                            dataConver.ListStore = listStore;
+                            dataConver.KeySeach = null;
+                            // Confirm store To DB
+                            var confirmResult = await this.storeBO.ConfirmStore(dataConver);
+                            // Conver Object to json
+                            result = ConverToJson<M_ListStore>.ConverObjectToJson(confirmResult);
+                        }
+                    }
+                }
+                else
+                {
+                    var errorEventCode = new M_ListStore()
+                    {
+                        Status = false,
+                        EventCode = DataCommon.EventError,
+                        Token = dataConver.Token,
+                        MessageError = CommonConfiguration.DataCommon.MessageErrorEvent
+                    };
+
+                    // Conver Object to Json
+                    result = ConverToJson<M_ListStore>.ConverObjectToJson(errorEventCode);
+                }
+            }
+            else
+            {
+                var nullData = new M_ListStore()
+                {
+                    Status = false,
+                    EventCode = DataCommon.EventError,
+                    Token = dataConver.Token,
+                    MessageError = CommonConfiguration.DataCommon.MessageNullData
+                };
+
+                // Conver Object to Json
+                result = ConverToJson<M_ListStore>.ConverObjectToJson(nullData);
+            }
+            return Ok(result);
+        }
 
     }
 }
