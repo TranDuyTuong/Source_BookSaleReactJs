@@ -23,10 +23,10 @@
   margin: 0px 5px;
 }
 .firsColum {
-  width: 200px;
+  width: 100px;
 }
 .lastColum {
-  width: 215px;
+  width: 350px;
 }
 .customtable {
   height: 510px;
@@ -46,4 +46,8 @@
 .errorMessage {
   color: red;
   font-family: initial;
+}
+.requestData {
+  color: red;
+  font-weight: 600;
 }
