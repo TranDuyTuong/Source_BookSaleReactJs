@@ -34,6 +34,51 @@ import { Create, Update, Delete, Revert } from "../Contants/DataContant";
 import moment from "moment";
 import { titleCreate } from "../MessageCommon/Message";
 
+// Validation Form Create, delete, update, revert Store
+const ValidationFormSubmit = (store) => {
+  const resultVali = {
+    statusResult: true,
+    notification: "",
+    numberError: "",
+  };
+
+  if (
+    store.storeCode == null ||
+    store.storeCode === "" ||
+    store.storeCode === undefined
+  ) {
+    resultVali.statusResult = false;
+    resultVali.notification = "StoreCode Is Not Null, Please Check Again!";
+    resultVali.numberError = 1;
+  } else if (
+    store.description == null ||
+    store.description === "" ||
+    store.description === undefined
+  ) {
+    resultVali.statusResult = false;
+    resultVali.notification = "Description Is Not Null, Please Check Again!";
+    resultVali.numberError = 2;
+  } else if (
+    store.address == null ||
+    store.address === "" ||
+    store.address === undefined
+  ) {
+    resultVali.statusResult = false;
+    resultVali.notification = "Address Is Not Null, Please Check Again!";
+    resultVali.numberError = 3;
+  }
+  return resultVali;
+};
+
+// Validation StoreCode exist in Redux list storecode
+const ValidationStoreCodeExist = (storecode, listStore) => {
+  const result = {
+    statusExist: "",
+    messageExist: "",
+  };
+  return result;
+};
+
 // Main Function
 function Store() {
   // dispatch reducer
@@ -41,7 +86,7 @@ function Store() {
   // Call list area in Redux
   const listStoreResult = useSelector((item) => item.storeData.ListStore);
   // TypeOf Dialog Setting
-  const [typeOfDialog, setTypeOfDialog] = useState();
+  const [typeOfDialog, setTypeOfDialog] = useState("");
   // Show And Hide Dialog Setting
   const [show, setShow] = useState(false);
   // Title Dialog
@@ -53,7 +98,7 @@ function Store() {
   // State store
   const [state_StoreCode, setStoreCode] = useState("");
   const [state_Description, setDescription] = useState("");
-  const [state_DateCreate, setDateCreate] = useState("");
+  const [state_DateCreate, setDateCreate] = useState();
   const [state_Address, setAddress] = useState("");
 
   // Message validation Form when Submit, Create - Update - Delete - Revert
@@ -65,6 +110,9 @@ function Store() {
   useEffect(() => {
     // Setting Title Page
     document.title = "Store";
+    // Get Current Date
+    const currentDate = new Date();
+    setDateCreate(moment(currentDate).format("YYYY-MM-DD"));
   }, []);
 
   // Focus item create, update, delete
@@ -129,6 +177,7 @@ function Store() {
   const HandleCloseDialogUI = (e) => {
     setTypeOfDialog(null);
     setShow(false);
+    setMessageErrorForm("");
   };
 
   // Handle Add Store
@@ -138,8 +187,60 @@ function Store() {
     setTitleDialog(titleCreate);
     setStoreCode("");
     setDescription("");
-    setDateCreate("");
     setAddress("");
+  };
+
+  // Handle Ok Form
+  const HandleOkUI = (e) => {
+    // Set Data Submit
+    const storeItem = {
+      storeCode: state_StoreCode,
+      description: state_Description,
+      datecreate: state_DateCreate,
+      address: state_Address,
+    };
+    // Validation Result
+    const resultVali = ValidationFormSubmit(storeItem);
+
+    if (resultVali.statusResult === false) {
+      switch (resultVali.numberError) {
+        case 1:
+          // Error Store Code focus
+          document.getElementById("txtFocusStoreCode").focus();
+          break;
+        case 2:
+          // Error Description focus
+          document.getElementById("txtFocusDescription").focus();
+          break;
+        default:
+          // Error Address focus
+          document.getElementById("txtFocusAddress").focus();
+          break;
+      }
+      setMessageErrorForm(resultVali.notification);
+    } else {
+      switch (typeOfDialog) {
+        case Create:
+          // Check ExistStoreCode
+          const checkExistStoreCode = ValidationStoreCodeExist(
+            state_StoreCode,
+            listStoreResult
+          );
+
+          if (checkExistStoreCode.statusExist === false) {
+          } else {
+          }
+          break;
+        case Update:
+          break;
+        case Delete:
+          break;
+        case Revert:
+          break;
+        default:
+          break;
+      }
+    }
   };
 
   return (
@@ -306,7 +407,7 @@ function Store() {
                 </Form.Label>
                 <Form.Control
                   ref={ref_StoreCode}
-                  type="text"
+                  type="number"
                   value={state_StoreCode}
                   id="txtFocusStoreCode"
                   placeholder="Enter StoreCode..."
@@ -314,7 +415,9 @@ function Store() {
                 />
               </Form.Group>
               <Form.Group as={Col} md="12">
-                <Form.Label className="labelForm">Description *</Form.Label>
+                <Form.Label className="labelForm">
+                  Description <span className="requestData">*</span>
+                </Form.Label>
                 <Form.Control
                   value={state_Description}
                   type="text"
@@ -325,17 +428,16 @@ function Store() {
               </Form.Group>
 
               <Form.Group as={Col} md="12">
-                <Form.Label className="labelForm">DateCreate *</Form.Label>
-                <Form.Control
-                  type="date"
-                  id="txtFocusDateCreate"
-                  value={state_DateCreate}
-                  onChange={(e) => setDateCreate(e.target.value)}
-                />
+                <Form.Label className="labelForm">
+                  DateCreate <span className="requestData">*</span>
+                </Form.Label>
+                <Form.Control disabled type="date" value={state_DateCreate} />
               </Form.Group>
 
               <Form.Group as={Col} md="12">
-                <Form.Label className="labelForm">Address *</Form.Label>
+                <Form.Label className="labelForm">
+                  Address <span className="requestData">*</span>
+                </Form.Label>
                 <Form.Control
                   value={state_Address}
                   type="text"
@@ -351,7 +453,7 @@ function Store() {
           <Button variant="secondary" onClick={() => HandleCloseDialogUI()}>
             Close
           </Button>
-          <Button variant="primary">
+          <Button variant="primary" onClick={() => HandleOkUI()}>
             <FontAwesomeIcon icon={faPlusSquare} /> Ok
           </Button>
         </Modal.Footer>
