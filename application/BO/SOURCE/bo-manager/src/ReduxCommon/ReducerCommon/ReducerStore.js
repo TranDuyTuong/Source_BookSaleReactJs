@@ -7,11 +7,11 @@ export const StoreReducer = createSlice({
   },
   reducers: {
     AddStore: (state, action) => {
-      const checkAreaCode = state.ListArea.find(
-        (item) => item.AreaCode === action.payload.AreaCode
+      const checkStoreCode = state.ListStore.find(
+        (item) => item.StoreCode === action.payload.StoreCode
       );
-      if (checkAreaCode === undefined) {
-        state.ListArea.unshift(action.payload);
+      if (checkStoreCode === undefined) {
+        state.ListStore.unshift(action.payload);
       }
     },
     SeachStore: (state, action) => {

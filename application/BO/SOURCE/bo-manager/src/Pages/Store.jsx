@@ -32,7 +32,7 @@ import { useSelector } from "react-redux";
 import { StoreReducer } from "../ReduxCommon/ReducerCommon/ReducerStore";
 import { Create, Update, Delete, Revert } from "../Contants/DataContant";
 import moment from "moment";
-import { titleCreate } from "../MessageCommon/Message";
+import { titleCreate, titleUpdate } from "../MessageCommon/Message";
 
 // Validation Form Create, delete, update, revert Store
 const ValidationFormSubmit = (store) => {
@@ -76,6 +76,19 @@ const ValidationStoreCodeExist = (storecode, listStore) => {
     statusExist: "",
     messageExist: "",
   };
+  // Find StoreCode in List StoreCode
+  const findStoreCode = listStore.find(
+    (store) => store.StoreCode === storecode
+  );
+
+  if (findStoreCode !== undefined) {
+    result.statusExist = false;
+    result.messageExist =
+      "Exist StoreCode In System, Please Choose Anoder StoreCode!";
+  } else {
+    result.statusExist = true;
+  }
+
   return result;
 };
 
@@ -86,7 +99,7 @@ function Store() {
   // Call list area in Redux
   const listStoreResult = useSelector((item) => item.storeData.ListStore);
   // TypeOf Dialog Setting
-  const [typeOfDialog, setTypeOfDialog] = useState("");
+  const [typeOfDialog, setTypeOfDialog] = useState(null);
   // Show And Hide Dialog Setting
   const [show, setShow] = useState(false);
   // Title Dialog
@@ -113,16 +126,20 @@ function Store() {
     // Get Current Date
     const currentDate = new Date();
     setDateCreate(moment(currentDate).format("YYYY-MM-DD"));
+    // Display Button Confirm
+    document.getElementById("bnt_Confirm").disabled = true;
   }, []);
 
   // Focus item create, update, delete
   useEffect(() => {
     if (show === true) {
       if (typeOfDialog === Create) {
-        ref_StoreCode.current.focus();
+        if (state_Description === "" && state_Address === "") {
+          ref_StoreCode.current.focus();
+        }
       }
     }
-  }, typeOfDialog);
+  });
 
   // Handle Seach Store
   const HandleSeachStoreUI = async (e) => {
@@ -190,6 +207,24 @@ function Store() {
     setAddress("");
   };
 
+  // Handle Update Store
+  const HandleUpdateUI = (storeCode) => {
+    // Get store by storecode in liststore
+    const store = listStoreResult.find((item) => item.StoreCode === storeCode);
+
+    if (store !== undefined) {
+      setTypeOfDialog(Update);
+      setShow(true);
+      setTitleDialog(titleUpdate);
+      setStoreCode(store.StoreCode);
+      setDescription(store.Description);
+      setAddress(store.Address);
+      setDateCreate(store.DateCreate);
+    } else {
+      alert("Not Find Store You Want Update, Please Check Again!");
+    }
+  };
+
   // Handle Ok Form
   const HandleOkUI = (e) => {
     // Set Data Submit
@@ -228,7 +263,23 @@ function Store() {
           );
 
           if (checkExistStoreCode.statusExist === false) {
+            // Error StoreCode Exsit in System
+            document.getElementById("txtFocusStoreCode").focus();
+            setStoreCode("");
+            setMessageErrorForm(checkExistStoreCode.messageExist);
+            return;
           } else {
+            const storeCreate = {
+              StoreCode: state_StoreCode,
+              Description: state_Description,
+              DateCreate: state_DateCreate,
+              LastUpdateDate: null,
+              Address: state_Address,
+              TypeOf: Create,
+              OldType: null,
+            };
+            // Save Store Create Into Redux
+            dispatch(StoreReducer.actions.AddStore(storeCreate));
           }
           break;
         case Update:
@@ -240,6 +291,12 @@ function Store() {
         default:
           break;
       }
+      // Close DiaLog Setting
+      setTypeOfDialog(null);
+      setShow(false);
+      setMessageErrorForm("");
+      // anable Button Confirm
+      document.getElementById("bnt_Confirm").disabled = false;
     }
   };
 
@@ -277,7 +334,7 @@ function Store() {
                   <Button
                     variant="success"
                     className="btnOption"
-                    id="btn_Confirm"
+                    id="bnt_Confirm"
                   >
                     <FontAwesomeIcon icon={faCheckSquare} /> Confirm
                   </Button>
@@ -315,7 +372,11 @@ function Store() {
                         <td style={{ color: "blue" }}>{item.LastUpdateDate}</td>
                         <td style={{ color: "blue" }}>{Create}</td>
                         <td className="lastColum">
-                          <Button variant="warning" className="btnOption">
+                          <Button
+                            variant="warning"
+                            className="btnOption"
+                            onClick={() => HandleUpdateUI(item.StoreCode)}
+                          >
                             <FontAwesomeIcon icon={faEdit} /> Update
                           </Button>
                           <Button variant="danger" className="btnOption">
@@ -374,7 +435,11 @@ function Store() {
                         <td>{item.LastUpdateDate}</td>
                         <td></td>
                         <td className="lastColum">
-                          <Button variant="warning" className="btnOption">
+                          <Button
+                            variant="warning"
+                            className="btnOption"
+                            onClick={() => HandleUpdateUI(item.StoreCode)}
+                          >
                             <FontAwesomeIcon icon={faEdit} /> Update
                           </Button>
                           <Button variant="danger" className="btnOption">
@@ -398,7 +463,7 @@ function Store() {
           <Modal.Title>{titleDialog}</Modal.Title>
         </Modal.Header>
         <Modal.Body className="settingBackround">
-          {typeOfDialog === Create && (
+          {(typeOfDialog === Create && (
             <div>
               <p className="errorMessage">{messageErrorForm}</p>
               <Form.Group as={Col} md="12">
@@ -447,7 +512,52 @@ function Store() {
                 />
               </Form.Group>
             </div>
-          )}
+          )) ||
+            (typeOfDialog === Update && (
+              <div>
+                <p className="errorMessage">{messageErrorForm}</p>
+                <Form.Group as={Col} md="12">
+                  <Form.Label className="labelForm">StoreCode</Form.Label>
+                  <Form.Control
+                    type="number"
+                    value={state_StoreCode}
+                    disabled
+                  />
+                </Form.Group>
+                <Form.Group as={Col} md="12">
+                  <Form.Label className="labelForm">
+                    Description <span className="requestData">*</span>
+                  </Form.Label>
+                  <Form.Control
+                    value={state_Description}
+                    type="text"
+                    id="txtFocusDescription"
+                    placeholder="Enter Description..."
+                    onChange={(e) => setDescription(e.target.value)}
+                  />
+                </Form.Group>
+
+                <Form.Group as={Col} md="12">
+                  <Form.Label className="labelForm">
+                    DateCreate <span className="requestData">*</span>
+                  </Form.Label>
+                  <Form.Control disabled type="date" value={state_DateCreate} />
+                </Form.Group>
+
+                <Form.Group as={Col} md="12">
+                  <Form.Label className="labelForm">
+                    Address <span className="requestData">*</span>
+                  </Form.Label>
+                  <Form.Control
+                    value={state_Address}
+                    type="text"
+                    id="txtFocusAddress"
+                    placeholder="Enter Address..."
+                    onChange={(e) => setAddress(e.target.value)}
+                  />
+                </Form.Group>
+              </div>
+            ))}
         </Modal.Body>
         <Modal.Footer className="settingBackround">
           <Button variant="secondary" onClick={() => HandleCloseDialogUI()}>
