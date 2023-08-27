@@ -17,22 +17,23 @@ export const StoreReducer = createSlice({
     SeachStore: (state, action) => {
       state.ListStore = action.payload;
     },
-    DeleteArea: (state, action) => {
-      const findArea = state.ListArea.find(
-        (item) => item.AreaCode === action.payload.AreaCode
+    DeleteStore: (state, action) => {
+      const findStore = state.ListStore.find(
+        (item) => item.StoreCode === action.payload.StoreCode
       );
-      if (findArea !== undefined) {
-        findArea.TypeOf = action.payload.TypeOf;
-        findArea.OldType = action.payload.OldType;
+      if (findStore !== undefined) {
+        findStore.TypeOf = action.payload.TypeOf;
+        findStore.OldType = action.payload.OldType;
       }
     },
-    UpdateArea: (state, action) => {
-      const findArea = state.ListArea.find(
-        (item) => item.AreaCode === action.payload.AreaCode
+    UpdateStore: (state, action) => {
+      const findStore = state.ListStore.find(
+        (item) => item.StoreCode === action.payload.StoreCode
       );
-      if (findArea !== undefined) {
-        findArea.Description = action.payload.Description;
-        findArea.TypeOf = action.payload.TypeOf;
+      if (findStore !== undefined) {
+        findStore.Description = action.payload.Description;
+        findStore.TypeOf = action.payload.TypeOf;
+        findStore.Address = action.payload.Address;
       }
     },
     RevertArea: (state, action) => {

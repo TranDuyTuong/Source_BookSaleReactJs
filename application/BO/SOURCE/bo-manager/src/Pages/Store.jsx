@@ -30,9 +30,19 @@ import {
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { StoreReducer } from "../ReduxCommon/ReducerCommon/ReducerStore";
-import { Create, Update, Delete, Revert } from "../Contants/DataContant";
+import {
+  Create,
+  Update,
+  Delete,
+  Revert,
+  Detail,
+} from "../Contants/DataContant";
 import moment from "moment";
-import { titleCreate, titleUpdate } from "../MessageCommon/Message";
+import {
+  titleCreate,
+  titleDelete,
+  titleUpdate,
+} from "../MessageCommon/Message";
 
 // Validation Form Create, delete, update, revert Store
 const ValidationFormSubmit = (store) => {
@@ -75,6 +85,7 @@ const ValidationStoreCodeExist = (storecode, listStore) => {
   const result = {
     statusExist: "",
     messageExist: "",
+    oldDataType: null,
   };
   // Find StoreCode in List StoreCode
   const findStoreCode = listStore.find(
@@ -85,8 +96,10 @@ const ValidationStoreCodeExist = (storecode, listStore) => {
     result.statusExist = false;
     result.messageExist =
       "Exist StoreCode In System, Please Choose Anoder StoreCode!";
+    result.oldDataType = findStoreCode.TypeOf;
   } else {
     result.statusExist = true;
+    result.messageExist = "Not Exist StoreCode In System, Please Check Again!";
   }
 
   return result;
@@ -225,6 +238,24 @@ function Store() {
     }
   };
 
+  // Handle Delete Store
+  const HandleDeleteUI = (storeCode) => {
+    // Get store by storecode in liststore
+    const store = listStoreResult.find((item) => item.StoreCode === storeCode);
+
+    if (store !== undefined) {
+      setTypeOfDialog(Delete);
+      setShow(true);
+      setTitleDialog(titleDelete);
+      setStoreCode(store.StoreCode);
+      setDescription(store.Description);
+      setAddress(store.Address);
+      setDateCreate(store.DateCreate);
+    } else {
+      alert("Not Find Store You Want Delete, Please Check Again!");
+    }
+  };
+
   // Handle Ok Form
   const HandleOkUI = (e) => {
     // Set Data Submit
@@ -283,10 +314,56 @@ function Store() {
           }
           break;
         case Update:
+          // Check ExistStoreCode
+          const checkUpdateStoreCode = ValidationStoreCodeExist(
+            state_StoreCode,
+            listStoreResult
+          );
+
+          if (checkUpdateStoreCode.statusExist === true) {
+            // Not Exist StoreCode In System
+            setMessageErrorForm(checkUpdateStoreCode.messageExist);
+            return;
+          } else {
+            const storeUpdate = {
+              StoreCode: state_StoreCode,
+              Description: state_Description,
+              DateCreate: state_DateCreate,
+              Address: state_Address,
+              TypeOf: Update,
+              OldType: null,
+            };
+            // Save Store Create Into Redux
+            dispatch(StoreReducer.actions.UpdateStore(storeUpdate));
+          }
           break;
         case Delete:
+          // Check Delete StoreCode
+          const checkDeleteStoreCode = ValidationStoreCodeExist(
+            state_StoreCode,
+            listStoreResult
+          );
+
+          if (checkDeleteStoreCode.statusExist === true) {
+            // Not Exist StoreCode In System
+            setMessageErrorForm(checkUpdateStoreCode.messageExist);
+            return;
+          } else {
+            const storeDelete = {
+              StoreCode: state_StoreCode,
+              Description: state_Description,
+              DateCreate: state_DateCreate,
+              Address: state_Address,
+              TypeOf: Delete,
+              OldType: checkDeleteStoreCode.oldDataType,
+            };
+            // Save Store Delete Into Redux
+            dispatch(StoreReducer.actions.DeleteStore(storeDelete));
+          }
           break;
         case Revert:
+          break;
+        case Detail:
           break;
         default:
           break;
@@ -379,7 +456,11 @@ function Store() {
                           >
                             <FontAwesomeIcon icon={faEdit} /> Update
                           </Button>
-                          <Button variant="danger" className="btnOption">
+                          <Button
+                            variant="danger"
+                            className="btnOption"
+                            onClick={() => HandleDeleteUI(item.StoreCode)}
+                          >
                             <FontAwesomeIcon icon={faTrashAlt} /> Delete
                           </Button>
                           <Button variant="info" className="btnOption">
@@ -398,10 +479,18 @@ function Store() {
                         <td style={{ color: "red" }}>{item.LastUpdateDate}</td>
                         <td style={{ color: "red" }}>{Update}</td>
                         <td className="lastColum">
-                          <Button variant="warning" className="btnOption">
+                          <Button
+                            variant="warning"
+                            className="btnOption"
+                            onClick={() => HandleUpdateUI(item.StoreCode)}
+                          >
                             <FontAwesomeIcon icon={faEdit} /> Update
                           </Button>
-                          <Button variant="danger" className="btnOption">
+                          <Button
+                            variant="danger"
+                            className="btnOption"
+                            onClick={() => HandleDeleteUI(item.StoreCode)}
+                          >
                             <FontAwesomeIcon icon={faTrashAlt} /> Delete
                           </Button>
                           <Button variant="info" className="btnOption">
@@ -412,11 +501,13 @@ function Store() {
                     )) ||
                     (item.TypeOf === Delete && (
                       <tr key={item.StoreCode} className="trChildItem">
-                        <td className="firsColum">{item.StoreCode}</td>
-                        <td>{item.Description}</td>
-                        <td>{item.DateCreate}</td>
-                        <td>{item.LastUpdateDate}</td>
-                        <td>{Delete}</td>
+                        <td className="firsColum" style={{ color: "gray" }}>
+                          {item.StoreCode}
+                        </td>
+                        <td style={{ color: "gray" }}>{item.Description}</td>
+                        <td style={{ color: "gray" }}>{item.DateCreate}</td>
+                        <td style={{ color: "gray" }}>{item.LastUpdateDate}</td>
+                        <td style={{ color: "gray" }}>{Delete}</td>
                         <td className="lastColum">
                           <Button variant="secondary" className="btnOption">
                             <FontAwesomeIcon icon={faClockRotateLeft} /> Revert
@@ -442,7 +533,11 @@ function Store() {
                           >
                             <FontAwesomeIcon icon={faEdit} /> Update
                           </Button>
-                          <Button variant="danger" className="btnOption">
+                          <Button
+                            variant="danger"
+                            className="btnOption"
+                            onClick={() => HandleDeleteUI(item.StoreCode)}
+                          >
                             <FontAwesomeIcon icon={faTrashAlt} /> Delete
                           </Button>
                           <Button variant="info" className="btnOption">
@@ -555,6 +650,43 @@ function Store() {
                     placeholder="Enter Address..."
                     onChange={(e) => setAddress(e.target.value)}
                   />
+                </Form.Group>
+              </div>
+            )) ||
+            (typeOfDialog === Delete && (
+              <div>
+                <p className="errorMessage">{messageErrorForm}</p>
+                <Form.Group as={Col} md="12">
+                  <Form.Label className="labelForm">StoreCode</Form.Label>
+                  <Form.Control
+                    type="number"
+                    value={state_StoreCode}
+                    disabled
+                  />
+                </Form.Group>
+                <Form.Group as={Col} md="12">
+                  <Form.Label className="labelForm">
+                    Description <span className="requestData">*</span>
+                  </Form.Label>
+                  <Form.Control
+                    value={state_Description}
+                    type="text"
+                    disabled
+                  />
+                </Form.Group>
+
+                <Form.Group as={Col} md="12">
+                  <Form.Label className="labelForm">
+                    DateCreate <span className="requestData">*</span>
+                  </Form.Label>
+                  <Form.Control disabled type="date" value={state_DateCreate} />
+                </Form.Group>
+
+                <Form.Group as={Col} md="12">
+                  <Form.Label className="labelForm">
+                    Address <span className="requestData">*</span>
+                  </Form.Label>
+                  <Form.Control value={state_Address} type="text" disabled />
                 </Form.Group>
               </div>
             ))}

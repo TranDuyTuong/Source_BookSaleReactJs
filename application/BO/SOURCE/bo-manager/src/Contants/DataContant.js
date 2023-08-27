@@ -98,6 +98,9 @@ export const Delete = "DELETE";
 // Revert Data affter Delete
 export const Revert = "REVERT";
 
+// Detail Data
+export const Detail = "DETAIL";
+
 // Type Api
 export const post = "post";
 

@@ -16,8 +16,11 @@
   background: red;
 }
 .trChildItem {
-  color: "gray";
   text-decoration: line-through #ff0000;
+  text-align: center;
+}
+.deletestore {
+  color: red;
 }
 .btnOption {
   margin: 0px 5px;
