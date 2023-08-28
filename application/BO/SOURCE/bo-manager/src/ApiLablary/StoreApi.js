@@ -1,5 +1,5 @@
 import instance from "../ApiLablary/Axios";
-import { SeachStore_Get } from "../ObjectCommon/ApiCommon";
+import { SeachStore_Get, ConfirmStore_Post } from "../ObjectCommon/ApiCommon";
 import { M_ListStore } from "../ObjectCommon/Object";
 import { post } from "../Contants/DataContant";
 
@@ -38,11 +38,10 @@ export const HandleSeachStore = async (request) => {
 };
 
 // Handle Confirm Area
-/*
-export const HandleConfirmArea = async (request) => {
-  const data = await AreaAPI(request, ConfirmArea_Post, post);
+export const HandleConfirmStore = async (request) => {
+  const data = await StoreAPI(request, ConfirmStore_Post, post);
   // Set Data result
-  var result = M_ListArea;
+  var result = M_ListStore;
 
   if (data.Status === true) {
     result.Status = data.Status;
@@ -51,4 +50,4 @@ export const HandleConfirmArea = async (request) => {
     result.MessageError = data.MessageError;
   }
   return result;
-};*/
+};

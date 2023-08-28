@@ -19,13 +19,14 @@ import {
   faEye,
 } from "@fortawesome/free-solid-svg-icons";
 import "../Styles/Store.css";
-import { HandleSeachStore } from "../ApiLablary/StoreApi";
+import { HandleSeachStore, HandleConfirmStore } from "../ApiLablary/StoreApi";
 import { GetCookies, ConcatStringEvent } from "../ObjectCommon/FunctionCommon";
 import { UserLogin } from "../ObjectCommon/EventCommon";
 import {
   CompanyCode,
   FistCode,
   EventSeachStore,
+  EventConfirmStore,
 } from "../ObjectCommon/EventCommon";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -41,7 +42,9 @@ import moment from "moment";
 import {
   titleCreate,
   titleDelete,
+  titleRevert,
   titleUpdate,
+  titleDetail,
 } from "../MessageCommon/Message";
 
 // Validation Form Create, delete, update, revert Store
@@ -126,6 +129,7 @@ function Store() {
   const [state_Description, setDescription] = useState("");
   const [state_DateCreate, setDateCreate] = useState();
   const [state_Address, setAddress] = useState("");
+  const [state_LastUpdateDate, setLastUpdateDate] = useState("");
 
   // Message validation Form when Submit, Create - Update - Delete - Revert
   const [messageErrorForm, setMessageErrorForm] = useState("");
@@ -173,7 +177,7 @@ function Store() {
     formData.append("CompanyCode", CompanyCode);
     formData.append("ListStore", []);
 
-    // Handle Call Api Seach Area
+    // Handle Call Api Seach Store
     var result = await HandleSeachStore(formData);
     if (result.Status === false) {
       // Seach Fail
@@ -253,6 +257,124 @@ function Store() {
       setDateCreate(store.DateCreate);
     } else {
       alert("Not Find Store You Want Delete, Please Check Again!");
+    }
+  };
+
+  // Handle Revert Store
+  const HandleRevertUI = (storeCode) => {
+    // Get store by storecode in liststore
+    const store = listStoreResult.find((item) => item.StoreCode === storeCode);
+
+    if (store !== undefined) {
+      setTypeOfDialog(Revert);
+      setShow(true);
+      setTitleDialog(titleRevert);
+      setStoreCode(store.StoreCode);
+      setDescription(store.Description);
+      setAddress(store.Address);
+      setDateCreate(store.DateCreate);
+    } else {
+      alert("Not Find Store You Want Revert, Please Check Again!");
+    }
+  };
+
+  // Handle Detail Store
+  const HandleDetailUI = (storeCode) => {
+    // Get store by storecode in liststore
+    const store = listStoreResult.find((item) => item.StoreCode === storeCode);
+
+    if (store !== undefined) {
+      setTypeOfDialog(Detail);
+      setShow(true);
+      setTitleDialog(titleDetail);
+      setStoreCode(store.StoreCode);
+      setDescription(store.Description);
+      setAddress(store.Address);
+      setDateCreate(store.DateCreate);
+      if (store.LastUpdateDate !== "--") {
+        setLastUpdateDate(moment(store.LastUpdateDate).format("YYYY-MM-DD"));
+      } else {
+        setLastUpdateDate("Don't Have Data Last Update Date");
+      }
+    } else {
+      alert("Not Find Store You Want View Detail, Please Check Again!");
+    }
+  };
+
+  // Handle Confirm Store
+  const HandleConfirmStoreUI = async (e) => {
+    // Get Token
+    var token = GetCookies(UserLogin);
+    // Get EventCode
+    var eventCode = ConcatStringEvent(FistCode, EventConfirmStore);
+    // Conver ListStore to string
+    const listStoreConfirm = [];
+    for (var i = 0; listStoreResult.length > i; i++) {
+      switch (listStoreResult[i].TypeOf) {
+        case Create:
+          const createStore = {
+            StoreCode: listStoreResult[i].StoreCode,
+            Description: listStoreResult[i].Description,
+            DateCreate: listStoreResult[i].DateCreate,
+            LastUpdateDate: listStoreResult[i].LastUpdateDate,
+            Address: listStoreResult[i].Address,
+            TypeOf: Create,
+            OldType: null,
+          };
+          listStoreConfirm.push(createStore);
+          break;
+        case Update:
+          const updateStore = {
+            StoreCode: listStoreResult[i].StoreCode,
+            Description: listStoreResult[i].Description,
+            DateCreate: listStoreResult[i].DateCreate,
+            LastUpdateDate: listStoreResult[i].LastUpdateDate,
+            Address: listStoreResult[i].Address,
+            TypeOf: Update,
+            OldType: null,
+          };
+          listStoreConfirm.push(updateStore);
+          break;
+        case Delete:
+          const deleteStore = {
+            StoreCode: listStoreResult[i].StoreCode,
+            Description: listStoreResult[i].Description,
+            DateCreate: listStoreResult[i].DateCreate,
+            LastUpdateDate: listStoreResult[i].LastUpdateDate,
+            Address: listStoreResult[i].Address,
+            TypeOf: Delete,
+            OldType: null,
+          };
+          listStoreConfirm.push(deleteStore);
+          break;
+        default:
+          break;
+      }
+    }
+
+    // Conver Array to Json
+    var converArrayToJsonStore = JSON.stringify(listStoreConfirm);
+
+    // Setting Data Confirm Store
+    var formData = new FormData();
+    formData.append("Token", token);
+    formData.append("UserID", window.localStorage.getItem("UserID"));
+    formData.append("RoleID", window.localStorage.getItem("RoleEmployer"));
+    formData.append("EventCode", eventCode);
+    formData.append("TotalStore", 0);
+    formData.append("MessageError", null);
+    formData.append("Status", true);
+    formData.append("KeySeach", converArrayToJsonStore);
+    formData.append("CompanyCode", CompanyCode);
+    formData.append("ListStore", []);
+
+    // Handle Call Api Confrim Store
+    var result = await HandleConfirmStore(formData);
+
+    if (result.Status === false) {
+      // Confirm Store Error
+    } else {
+      // Confirm Store Success
     }
   };
 
@@ -362,11 +484,30 @@ function Store() {
           }
           break;
         case Revert:
-          break;
-        case Detail:
+          // Check Revert StoreCode
+          const checkRevertStoreCode = ValidationStoreCodeExist(
+            state_StoreCode,
+            listStoreResult
+          );
+
+          if (checkRevertStoreCode.statusExist === true) {
+            // Not Exist StoreCode In System
+            setMessageErrorForm(checkUpdateStoreCode.messageExist);
+            return;
+          } else {
+            const storeRevert = {
+              StoreCode: state_StoreCode,
+            };
+            // Save Store Delete Into Redux
+            dispatch(StoreReducer.actions.RevertStore(storeRevert));
+          }
           break;
         default:
-          break;
+          // View Detail Close DiaLog Setting
+          setTypeOfDialog(null);
+          setShow(false);
+          setMessageErrorForm("");
+          return;
       }
       // Close DiaLog Setting
       setTypeOfDialog(null);
@@ -412,6 +553,7 @@ function Store() {
                     variant="success"
                     className="btnOption"
                     id="bnt_Confirm"
+                    onClick={() => HandleConfirmStoreUI()}
                   >
                     <FontAwesomeIcon icon={faCheckSquare} /> Confirm
                   </Button>
@@ -463,7 +605,11 @@ function Store() {
                           >
                             <FontAwesomeIcon icon={faTrashAlt} /> Delete
                           </Button>
-                          <Button variant="info" className="btnOption">
+                          <Button
+                            variant="info"
+                            className="btnOption"
+                            onClick={() => HandleDetailUI(item.StoreCode)}
+                          >
                             <FontAwesomeIcon icon={faEye} /> Detail
                           </Button>
                         </td>
@@ -493,7 +639,11 @@ function Store() {
                           >
                             <FontAwesomeIcon icon={faTrashAlt} /> Delete
                           </Button>
-                          <Button variant="info" className="btnOption">
+                          <Button
+                            variant="info"
+                            className="btnOption"
+                            onClick={() => HandleDetailUI(item.StoreCode)}
+                          >
                             <FontAwesomeIcon icon={faEye} /> Detail
                           </Button>
                         </td>
@@ -509,10 +659,18 @@ function Store() {
                         <td style={{ color: "gray" }}>{item.LastUpdateDate}</td>
                         <td style={{ color: "gray" }}>{Delete}</td>
                         <td className="lastColum">
-                          <Button variant="secondary" className="btnOption">
+                          <Button
+                            variant="secondary"
+                            className="btnOption"
+                            onClick={() => HandleRevertUI(item.StoreCode)}
+                          >
                             <FontAwesomeIcon icon={faClockRotateLeft} /> Revert
                           </Button>
-                          <Button variant="info" className="btnOption">
+                          <Button
+                            variant="info"
+                            className="btnOption"
+                            onClick={() => HandleDetailUI(item.StoreCode)}
+                          >
                             <FontAwesomeIcon icon={faEye} /> Detail
                           </Button>
                         </td>
@@ -540,7 +698,11 @@ function Store() {
                           >
                             <FontAwesomeIcon icon={faTrashAlt} /> Delete
                           </Button>
-                          <Button variant="info" className="btnOption">
+                          <Button
+                            variant="info"
+                            className="btnOption"
+                            onClick={() => HandleDetailUI(item.StoreCode)}
+                          >
                             <FontAwesomeIcon icon={faEye} /> Detail
                           </Button>
                         </td>
@@ -563,7 +725,7 @@ function Store() {
               <p className="errorMessage">{messageErrorForm}</p>
               <Form.Group as={Col} md="12">
                 <Form.Label className="labelForm">
-                  StoreCode <span className="requestData">*</span>
+                  Store Code <span className="requestData">*</span>
                 </Form.Label>
                 <Form.Control
                   ref={ref_StoreCode}
@@ -589,7 +751,7 @@ function Store() {
 
               <Form.Group as={Col} md="12">
                 <Form.Label className="labelForm">
-                  DateCreate <span className="requestData">*</span>
+                  Date Create <span className="requestData">*</span>
                 </Form.Label>
                 <Form.Control disabled type="date" value={state_DateCreate} />
               </Form.Group>
@@ -612,7 +774,7 @@ function Store() {
               <div>
                 <p className="errorMessage">{messageErrorForm}</p>
                 <Form.Group as={Col} md="12">
-                  <Form.Label className="labelForm">StoreCode</Form.Label>
+                  <Form.Label className="labelForm">Store Code</Form.Label>
                   <Form.Control
                     type="number"
                     value={state_StoreCode}
@@ -634,7 +796,7 @@ function Store() {
 
                 <Form.Group as={Col} md="12">
                   <Form.Label className="labelForm">
-                    DateCreate <span className="requestData">*</span>
+                    Date Create <span className="requestData">*</span>
                   </Form.Label>
                   <Form.Control disabled type="date" value={state_DateCreate} />
                 </Form.Group>
@@ -657,7 +819,7 @@ function Store() {
               <div>
                 <p className="errorMessage">{messageErrorForm}</p>
                 <Form.Group as={Col} md="12">
-                  <Form.Label className="labelForm">StoreCode</Form.Label>
+                  <Form.Label className="labelForm">Store Code</Form.Label>
                   <Form.Control
                     type="number"
                     value={state_StoreCode}
@@ -677,7 +839,7 @@ function Store() {
 
                 <Form.Group as={Col} md="12">
                   <Form.Label className="labelForm">
-                    DateCreate <span className="requestData">*</span>
+                    Date Create <span className="requestData">*</span>
                   </Form.Label>
                   <Form.Control disabled type="date" value={state_DateCreate} />
                 </Form.Group>
@@ -687,6 +849,91 @@ function Store() {
                     Address <span className="requestData">*</span>
                   </Form.Label>
                   <Form.Control value={state_Address} type="text" disabled />
+                </Form.Group>
+              </div>
+            )) ||
+            (typeOfDialog === Revert && (
+              <div>
+                <p className="errorMessage">{messageErrorForm}</p>
+                <Form.Group as={Col} md="12">
+                  <Form.Label className="labelForm">Store Code</Form.Label>
+                  <Form.Control
+                    type="number"
+                    value={state_StoreCode}
+                    disabled
+                  />
+                </Form.Group>
+                <Form.Group as={Col} md="12">
+                  <Form.Label className="labelForm">
+                    Description <span className="requestData">*</span>
+                  </Form.Label>
+                  <Form.Control
+                    value={state_Description}
+                    type="text"
+                    disabled
+                  />
+                </Form.Group>
+
+                <Form.Group as={Col} md="12">
+                  <Form.Label className="labelForm">
+                    Date Create <span className="requestData">*</span>
+                  </Form.Label>
+                  <Form.Control disabled type="date" value={state_DateCreate} />
+                </Form.Group>
+
+                <Form.Group as={Col} md="12">
+                  <Form.Label className="labelForm">
+                    Address <span className="requestData">*</span>
+                  </Form.Label>
+                  <Form.Control value={state_Address} type="text" disabled />
+                </Form.Group>
+              </div>
+            )) ||
+            (typeOfDialog === Detail && (
+              <div>
+                <p className="errorMessage">{messageErrorForm}</p>
+                <Form.Group as={Col} md="12">
+                  <Form.Label className="labelForm">StoreCode</Form.Label>
+                  <Form.Control
+                    type="number"
+                    value={state_StoreCode}
+                    disabled
+                  />
+                </Form.Group>
+                <Form.Group as={Col} md="12">
+                  <Form.Label className="labelForm">Description</Form.Label>
+                  <Form.Control
+                    value={state_Description}
+                    type="text"
+                    disabled
+                  />
+                </Form.Group>
+
+                <Form.Group as={Col} md="12">
+                  <Form.Label className="labelForm">Date Create</Form.Label>
+                  <Form.Control disabled type="date" value={state_DateCreate} />
+                </Form.Group>
+
+                <Form.Group as={Col} md="12">
+                  <Form.Label className="labelForm">
+                    Last Update Date
+                  </Form.Label>
+                  <Form.Control
+                    disabled
+                    type="text"
+                    value={state_LastUpdateDate}
+                  />
+                </Form.Group>
+
+                <Form.Group as={Col} md="12">
+                  <Form.Label className="labelForm">Address</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    style={{ height: "100px" }}
+                    value={state_Address}
+                    type="text"
+                    disabled
+                  />
                 </Form.Group>
               </div>
             ))}

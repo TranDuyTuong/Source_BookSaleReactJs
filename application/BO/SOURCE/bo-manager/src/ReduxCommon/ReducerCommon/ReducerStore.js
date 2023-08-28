@@ -36,13 +36,13 @@ export const StoreReducer = createSlice({
         findStore.Address = action.payload.Address;
       }
     },
-    RevertArea: (state, action) => {
-      const findArea = state.ListArea.find(
-        (item) => item.AreaCode === action.payload.AreaCode
+    RevertStore: (state, action) => {
+      const findStore = state.ListStore.find(
+        (item) => item.StoreCode === action.payload.StoreCode
       );
-      if (findArea !== undefined) {
-        findArea.TypeOf = findArea.OldType;
-        findArea.OldType = null;
+      if (findStore !== undefined) {
+        findStore.TypeOf = findStore.OldType;
+        findStore.OldType = null;
       }
     },
   },

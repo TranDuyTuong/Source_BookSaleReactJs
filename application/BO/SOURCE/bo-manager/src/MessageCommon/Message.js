@@ -58,5 +58,8 @@ export const titleDelete = "Do You Want Delete ?";
 // titleRevert
 export const titleRevert = "Don You Want Revert This Item ?";
 
+// titleDetail
+export const titleDetail = "View Detail";
+
 // Confirm Data Success
 export const messageConfirmSuccess = "Confirm Success !";

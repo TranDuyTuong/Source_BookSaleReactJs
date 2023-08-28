@@ -395,7 +395,7 @@ namespace TDTCloud.Controllers
         public async Task<IActionResult> ConfirmStore([FromForm] M_ListStore confirmStore)
         {
             string result = null;
-            // Conver Json List Area to ListArea
+            // Conver Json Seach to ListStore
             var listStore = ConverToJson<List<M_Store>>.ConverJsonToObject(confirmStore.KeySeach);
 
             // Conver Object to Json
