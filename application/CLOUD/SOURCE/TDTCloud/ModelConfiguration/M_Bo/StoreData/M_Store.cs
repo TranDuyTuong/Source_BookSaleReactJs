@@ -38,7 +38,7 @@ namespace ModelConfiguration.M_Bo.StoreData
         /// <summary>
         /// LastUpdateDate
         /// </summary>
-        public DateTime? LastUpdateDate
+        public string LastUpdateDate
         {
             get;
             set;

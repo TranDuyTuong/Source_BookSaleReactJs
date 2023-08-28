@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TDTSettingTable;
 
 namespace ConfigurationApplycations.BoSystem
 {
@@ -54,7 +55,139 @@ namespace ConfigurationApplycations.BoSystem
                     }
                     else
                     {
-                        // Choose Option For Comfirm Store DB
+                        if (request.ListStore.Any() == true)
+                        {
+                            // Choose Option For Comfirm Store DB
+                            var queryStores = await this.context.stores.ToArrayAsync();
+                            foreach (var store in request.ListStore)
+                            {
+                                switch (store.TypeOf)
+                                {
+                                    case var create when create == CommonConfiguration.DataCommon.CREATE:
+                                        // Create Store
+                                        var storeCreate = new Store()
+                                        {
+                                            StoreCode = store.StoreCode,
+                                            Description = store.Description,
+                                            DateCreate = store.DateCreate,
+                                            IsDeleteFlag = false,
+                                            Address = store.Address,
+                                        };
+                                        // Create log
+                                        var log = new Log()
+                                        {
+                                            Id = new Guid(),
+                                            UserID = request.UserID,
+                                            Message = "Create Store: " + store.StoreCode + " UserId: " + request.UserID,
+                                            DateCreate = DateTime.Now,
+                                            Status = true
+                                        };
+                                 
+                                        await this.context.stores.AddAsync(storeCreate);
+                                        await this.context.logs.AddAsync(log);
+                                        break;
+                                    case var update when update == CommonConfiguration.DataCommon.UPDATE:
+                                        // Check StoreCode Update Exist in DB
+                                        var findStoreUpdate = queryStores.FirstOrDefault(x => x.StoreCode == store.StoreCode);
+
+                                        if (findStoreUpdate != null)
+                                        {
+                                            // Exist store, Update Store
+                                            findStoreUpdate.Description = store.Description;
+                                            findStoreUpdate.Address = store.Address;
+                                            findStoreUpdate.LastUpdateDate = DateTime.Now;
+                                            // Update Store
+                                            this.context.stores.Update(findStoreUpdate);
+
+                                            // Create log
+                                            var logUpdate = new Log()
+                                            {
+                                                Id = new Guid(),
+                                                UserID = request.UserID,
+                                                Message = "Update Store: " + store.StoreCode + " UserId: " + request.UserID,
+                                                DateCreate = DateTime.Now,
+                                                Status = true
+                                            };
+                                            await this.context.logs.AddAsync(logUpdate);
+                                        }
+                                        else
+                                        {
+                                            // Create Store
+                                            var createStore = new Store()
+                                            {
+                                                StoreCode = store.StoreCode,
+                                                Description = store.Description,
+                                                DateCreate = store.DateCreate,
+                                                IsDeleteFlag = false,
+                                                Address = store.Address,
+                                            };
+                                            await this.context.stores.AddAsync(createStore);
+
+                                            // Create log
+                                            var logCreate = new Log()
+                                            {
+                                                Id = new Guid(),
+                                                UserID = request.UserID,
+                                                Message = "Create Store: " + store.StoreCode + " UserId: " + request.UserID,
+                                                DateCreate = DateTime.Now,
+                                                Status = true
+                                            };
+                                            await this.context.logs.AddAsync(logCreate);
+                                        }
+                                        break;
+                                    case var delete when delete == CommonConfiguration.DataCommon.DELETE:
+                                        // Check StoreCode Delete Exist in DB
+                                        var findStoreDelete = queryStores.FirstOrDefault(x => x.StoreCode == store.StoreCode);
+
+                                        if (findStoreDelete != null)
+                                        {
+                                            // Delete Store
+                                            findStoreDelete.IsDeleteFlag = true;
+                                            findStoreDelete.LastUpdateDate = DateTime.Now;
+                                            this.context.Remove(findStoreDelete);
+
+                                            // Create log
+                                            var logDelete = new Log()
+                                            {
+                                                Id = new Guid(),
+                                                UserID = request.UserID,
+                                                Message = "Delete Store: " + store.StoreCode + " UserId: " + request.UserID,
+                                                DateCreate = DateTime.Now,
+                                                Status = true
+                                            };
+                                            await this.context.logs.AddAsync(logDelete);
+                                        }
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                            // Save Store Affter Handle into DB
+                            await this.context.SaveChangesAsync();
+
+                            result.Token = request.Token;
+                            result.UserID = request.UserID;
+                            result.RoleID = request.RoleID;
+                            result.EventCode = request.EventCode;
+                            result.TotalStore = 0;
+                            result.KeySeach = null;
+                            result.CompanyCode = request.CompanyCode;
+                            result.Status = true;
+                            result.MessageError = null;
+                        }
+                        else
+                        {
+                            // Not find data in liststore request
+                            result.Token = request.Token;
+                            result.UserID = request.UserID;
+                            result.RoleID = request.RoleID;
+                            result.EventCode = request.EventCode;
+                            result.TotalStore = 0;
+                            result.KeySeach = null;
+                            result.CompanyCode = request.CompanyCode;
+                            result.Status = false;
+                            result.MessageError = CommonConfiguration.DataCommon.MessageNotFindData;
+                        }
                     }
                 }
                 else
@@ -136,7 +269,7 @@ namespace ConfigurationApplycations.BoSystem
                                 StoreCode = queryStore.StoreCode,
                                 Description = queryStore.Description,
                                 DateCreate = queryStore.DateCreate,
-                                LastUpdateDate = queryStore.LastUpdateDate,
+                                LastUpdateDate = queryStore.LastUpdateDate.ToString(),
                                 Address = queryStore.Address,
                                 TypeOf = null,
                                 OldType = null
@@ -259,7 +392,7 @@ namespace ConfigurationApplycations.BoSystem
                                             StoreCode = item.StoreCode,
                                             Description = item.Description,
                                             DateCreate = item.DateCreate,
-                                            LastUpdateDate = item.LastUpdateDate,
+                                            LastUpdateDate = item.LastUpdateDate.ToString(),
                                             Address = item.Address,
                                             TypeOf = null,
                                             OldType = null,
@@ -280,7 +413,7 @@ namespace ConfigurationApplycations.BoSystem
                                             StoreCode = item.StoreCode,
                                             Description = item.Description,
                                             DateCreate = item.DateCreate,
-                                            LastUpdateDate = item.LastUpdateDate,
+                                            LastUpdateDate = item.LastUpdateDate.ToString(),
                                             Address = item.Address,
                                             TypeOf = null,
                                             OldType = null,
@@ -311,7 +444,7 @@ namespace ConfigurationApplycations.BoSystem
                                         StoreCode = findStore.StoreCode,
                                         Description = findStore.Description,
                                         DateCreate = findStore.DateCreate,
-                                        LastUpdateDate = findStore.LastUpdateDate,
+                                        LastUpdateDate = findStore.LastUpdateDate.ToString(),
                                         Address = findStore.Address,
                                         TypeOf = null,
                                         OldType = null,

@@ -8,6 +8,7 @@ import HeaderCommon from "./HeaderCommon";
 import Home from "../Pages/Home";
 import Area from "../Pages/Area";
 import Store from "../Pages/Store";
+import ItemMaster from "../Pages/ItemMaster";
 
 // Main Page
 function CommonPage() {
@@ -23,6 +24,7 @@ function CommonPage() {
             <Route path="/home" element={<Home />}></Route>
             <Route path="/area" element={<Area />}></Route>
             <Route path="/store" element={<Store />}></Route>
+            <Route path="/itemmaster" element={<ItemMaster />}></Route>
           </Routes>
         </Col>
       </Row>

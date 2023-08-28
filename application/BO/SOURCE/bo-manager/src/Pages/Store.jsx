@@ -46,6 +46,7 @@ import {
   titleUpdate,
   titleDetail,
 } from "../MessageCommon/Message";
+import LoadingModal from "../CommonPage/LoadingCommon";
 
 // Validation Form Create, delete, update, revert Store
 const ValidationFormSubmit = (store) => {
@@ -134,6 +135,9 @@ function Store() {
   // Message validation Form when Submit, Create - Update - Delete - Revert
   const [messageErrorForm, setMessageErrorForm] = useState("");
 
+  // Show and hide DiaLog Loading
+  const [loading, setLoading] = useState(false);
+
   // Forcus Element
   const ref_StoreCode = useRef(null);
 
@@ -143,9 +147,17 @@ function Store() {
     // Get Current Date
     const currentDate = new Date();
     setDateCreate(moment(currentDate).format("YYYY-MM-DD"));
+    // Set listStore in redux when initialization
+    HandleInitializaStore();
     // Display Button Confirm
     document.getElementById("bnt_Confirm").disabled = true;
   }, []);
+
+  // Handle set data area when initialization
+  const HandleInitializaStore = () => {
+    // Save Store List In To Redux
+    dispatch(StoreReducer.actions.SeachStore([]));
+  };
 
   // Focus item create, update, delete
   useEffect(() => {
@@ -191,9 +203,7 @@ function Store() {
           Description: item.Description,
           DateCreate: moment(item.DateCreate).format("YYYY-MM-DD"),
           LastUpdateDate:
-            item.LastUpdateDate === null
-              ? "--"
-              : moment(item.LastUpdateDate).format("YYYY-MM-DD"),
+            item.LastUpdateDate === null ? "--" : item.LastUpdateDate,
           Address: item.Address,
           TypeOf: null,
           OldType: null,
@@ -303,6 +313,8 @@ function Store() {
 
   // Handle Confirm Store
   const HandleConfirmStoreUI = async (e) => {
+    //Show Loading
+    setLoading(true);
     // Get Token
     var token = GetCookies(UserLogin);
     // Get EventCode
@@ -371,11 +383,52 @@ function Store() {
     // Handle Call Api Confrim Store
     var result = await HandleConfirmStore(formData);
 
+    // Hide Dialog Loading
+    setLoading(false);
+
     if (result.Status === false) {
       // Confirm Store Error
+      setMessageError(result.MessageError);
     } else {
       // Confirm Store Success
+      // Setting Data Seach Store
+      var formDataSeach = new FormData();
+      formDataSeach.append("Token", token);
+      formDataSeach.append("UserID", window.localStorage.getItem("UserID"));
+      formDataSeach.append(
+        "RoleID",
+        window.localStorage.getItem("RoleEmployer")
+      );
+      formDataSeach.append("EventCode", eventCode);
+      formDataSeach.append("TotalStore", 0);
+      formDataSeach.append("MessageError", null);
+      formDataSeach.append("Status", true);
+      formDataSeach.append("KeySeach", "");
+      formDataSeach.append("CompanyCode", CompanyCode);
+      formDataSeach.append("ListStore", []);
+
+      // Handle Call Api Seach Store
+      var resultSeach = await HandleSeachStore(formDataSeach);
+      // Auto Seach Store
+      const listStore = [];
+
+      resultSeach.ListStore.forEach(function (item) {
+        const store = {
+          StoreCode: item.StoreCode,
+          Description: item.Description,
+          DateCreate: moment(item.DateCreate).format("YYYY-MM-DD"),
+          LastUpdateDate:
+            item.LastUpdateDate === null ? "--" : item.LastUpdateDate,
+          Address: item.Address,
+          TypeOf: null,
+          OldType: null,
+        };
+        listStore.push(store);
+      });
+      // Save Store List In To Redux
+      dispatch(StoreReducer.actions.SeachStore(listStore));
     }
+    return;
   };
 
   // Handle Ok Form
@@ -947,6 +1000,8 @@ function Store() {
           </Button>
         </Modal.Footer>
       </Modal>
+      {/* DiaLog Loading Data */}
+      {loading === true && <LoadingModal />}
     </Container>
   );
 }
