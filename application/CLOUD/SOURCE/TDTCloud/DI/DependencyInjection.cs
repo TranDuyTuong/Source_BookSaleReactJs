@@ -24,6 +24,7 @@ namespace DI
             // Bo System
             services.AddTransient<IAreaBO, AreaBO>();
             services.AddTransient<IStoreBO, StoreBO>();
+            services.AddTransient<IitemMasterBO, ItemMasterBO>();
             return services;
         }
     }

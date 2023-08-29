@@ -7,6 +7,7 @@ using ModelConfiguration.M_KikanSystem;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using ModelConfiguration.M_Bo.StoreData;
+using ModelConfiguration.M_Bo.ItemMasterData;
 
 namespace TDTCloud.Controllers
 {
@@ -447,6 +448,95 @@ namespace TDTCloud.Controllers
                             var confirmResult = await this.storeBO.ConfirmStore(dataConver);
                             // Conver Object to json
                             result = ConverToJson<M_ListStore>.ConverObjectToJson(confirmResult);
+                        }
+                    }
+                }
+                else
+                {
+                    var errorEventCode = new M_ListStore()
+                    {
+                        Status = false,
+                        EventCode = DataCommon.EventError,
+                        Token = dataConver.Token,
+                        MessageError = CommonConfiguration.DataCommon.MessageErrorEvent
+                    };
+
+                    // Conver Object to Json
+                    result = ConverToJson<M_ListStore>.ConverObjectToJson(errorEventCode);
+                }
+            }
+            else
+            {
+                var nullData = new M_ListStore()
+                {
+                    Status = false,
+                    EventCode = DataCommon.EventError,
+                    Token = dataConver.Token,
+                    MessageError = CommonConfiguration.DataCommon.MessageNullData
+                };
+
+                // Conver Object to Json
+                result = ConverToJson<M_ListStore>.ConverObjectToJson(nullData);
+            }
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// InitializaItemMaster
+        /// </summary>
+        /// <param name="initializa"></param>
+        /// <returns></returns>
+        [HttpPost("InitializaItemMaster")]
+        public async Task<IActionResult> InitializaItemMaster([FromForm] InitializaDataMaters initializa)
+        {
+            string result = null;
+            // Conver Object to Json
+            string request = ConverToJson<InitializaDataMaters>.ConverObjectToJson(initializa);
+
+            // Conver Json to Object
+            var dataConver = ConverToJson<InitializaDataMaters>.ConverJsonToObject(request);
+            if (dataConver != null)
+            {
+                // Check event code
+                var ev = ValidationEventCode.CheckEventCode(dataConver.EventCode);
+
+                if (ev.Status == true)
+                {
+                    // Check Token Null
+                    if (dataConver.Token == null || dataConver.Token == "")
+                    {
+                        var tokenNull = new M_ListStore()
+                        {
+                            Status = false,
+                            MessageError = CommonConfiguration.DataCommon.MessageNullToken
+
+                        };
+
+                        // Conver Object to json
+                        result = ConverToJson<M_ListStore>.ConverObjectToJson(tokenNull);
+                    }
+                    else
+                    {
+                        // Check Content Token
+                        var f_CheckValidationToken = new ValidationToken();
+                        var tokenResult = f_CheckValidationToken.ReadContentToken(dataConver.Token, ev.IdPlugin);
+                        if (tokenResult.Status == false)
+                        {
+                            var resultContent = new M_ListStore()
+                            {
+                                Status = tokenResult.Status,
+                                Token = dataConver.Token,
+                                EventCode = DataCommon.EventError
+
+                            };
+                            result = ConverToJson<M_ListStore>.ConverObjectToJson(resultContent);
+                        }
+                        else
+                        {
+                            // Confirm store To DB
+                            //var confirmResult = await this.storeBO.ConfirmStore(dataConver);
+                            // Conver Object to json
+                            //result = ConverToJson<M_ListStore>.ConverObjectToJson(confirmResult);
                         }
                     }
                 }

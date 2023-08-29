@@ -1,0 +1,22 @@
+.alinebuttonsetting {
+  text-align: right;
+}
+.btn_setting {
+  margin: 5px 10px;
+}
+.inputSeach {
+  margin: 5px 10px;
+}
+.selectstore {
+  margin: 5px 10px;
+}
+.alineStoreTitle {
+  text-align: left;
+  font-family: initial;
+}
+.messageError {
+  color: red;
+  font-family: initial;
+  text-align: right;
+  margin: 0px 10px;
+}
