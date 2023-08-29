@@ -12,9 +12,6 @@
   font-family: initial;
   font-weight: 600;
 }
-.headerarea {
-  background: red;
-}
 .trChildItem {
   text-decoration: line-through #ff0000;
   text-align: center;
@@ -32,7 +29,7 @@
   width: 350px;
 }
 .customtable {
-  height: 510px;
+  height: 520px;
   overflow: auto;
 }
 .btnMain {

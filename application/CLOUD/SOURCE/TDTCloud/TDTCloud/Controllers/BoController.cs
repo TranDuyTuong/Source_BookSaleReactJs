@@ -17,10 +17,12 @@ namespace TDTCloud.Controllers
     {
         private readonly IAreaBO areaBO;
         private readonly IStoreBO storeBO;
-        public BoController(IAreaBO _areaBO, IStoreBO _storeBO)
+        private readonly IitemMasterBO itemMasterBO;
+        public BoController(IAreaBO _areaBO, IStoreBO _storeBO, IitemMasterBO _itemMasterBO)
         {
             this.areaBO = _areaBO;
             this.storeBO = _storeBO;
+            this.itemMasterBO = _itemMasterBO;
         }
 
         /// <summary>
@@ -534,9 +536,9 @@ namespace TDTCloud.Controllers
                         else
                         {
                             // Confirm store To DB
-                            //var confirmResult = await this.storeBO.ConfirmStore(dataConver);
+                            var getStore = await this.itemMasterBO.InitializaItemMaster(dataConver);
                             // Conver Object to json
-                            //result = ConverToJson<M_ListStore>.ConverObjectToJson(confirmResult);
+                            result = ConverToJson<M_ListStore>.ConverObjectToJson(getStore);
                         }
                     }
                 }

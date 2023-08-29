@@ -267,6 +267,11 @@ namespace CommonConfiguration
         /// </summary>
         public static string EventBo_DetailStore = "BO006";
 
+        /// <summary>
+        /// EventBo_InitializaItemMaster
+        /// </summary>
+        public static string EventBo_InitializaItemMaster = "BO007";
+
         ///--------------------------------------------Option Type Create, Update, Delete------------------------- <summary>
         /// <summary>
         /// CREATE

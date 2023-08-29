@@ -24,3 +24,6 @@ export const SeachStore_Get = "/Bo/SeachStore";
 
 // ConfirmStore_Post
 export const ConfirmStore_Post = "/Bo/ConfirmStore";
+
+// InitializaItemMaster_Post
+export const InitializaItemMaster_Post = "/Bo/InitializaItemMaster";

@@ -12,9 +12,6 @@
   font-family: initial;
   font-weight: 600;
 }
-.headerarea {
-  background: red;
-}
 .trChildItem {
   text-align: left;
   font-family: initial;
@@ -31,11 +28,14 @@
   width: 215px;
 }
 .customtable {
-  height: 510px;
+  height: 520px;
   overflow: auto;
 }
 .btnMain {
   text-align: right;
+  position: fixed;
+  bottom: 0;
+  right: 0;
 }
 .settingBackround {
   background-color: white;

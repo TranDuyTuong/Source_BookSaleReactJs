@@ -593,25 +593,6 @@ function Store() {
                   <FontAwesomeIcon icon={faSearch} /> Seach
                 </Button>
               </Form.Group>
-              <Form.Group as={Col} md="7" controlId="validationCustom02">
-                <p className="btnMain">
-                  <Button
-                    variant="primary"
-                    className="btnOption"
-                    onClick={() => HandleCreateStoreUI()}
-                  >
-                    <FontAwesomeIcon icon={faPlusSquare} /> Add
-                  </Button>
-                  <Button
-                    variant="success"
-                    className="btnOption"
-                    id="bnt_Confirm"
-                    onClick={() => HandleConfirmStoreUI()}
-                  >
-                    <FontAwesomeIcon icon={faCheckSquare} /> Confirm
-                  </Button>
-                </p>
-              </Form.Group>
             </Row>
           </Form>
           <p className="notification">{messageError}</p>
@@ -767,6 +748,23 @@ function Store() {
           </div>
         </Col>
       </Row>
+      <p className="btnMain">
+        <Button
+          variant="primary"
+          className="btnOption"
+          onClick={() => HandleCreateStoreUI()}
+        >
+          <FontAwesomeIcon icon={faPlusSquare} /> Add
+        </Button>
+        <Button
+          variant="success"
+          className="btnOption"
+          id="bnt_Confirm"
+          onClick={() => HandleConfirmStoreUI()}
+        >
+          <FontAwesomeIcon icon={faCheckSquare} /> Confirm
+        </Button>
+      </p>
       {/* DiaLog show Add, update, delete, Confirm */}
       <Modal show={show}>
         <Modal.Header className="settingBackround">

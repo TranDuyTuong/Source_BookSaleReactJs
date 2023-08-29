@@ -32,6 +32,9 @@ export const EventConfirmStore = "BO005";
 // Event Detail Store
 export const EventDetailStore = "BO006";
 
+// Event Initializa Item Master
+export const EventInitializaItemMaster = "BO007";
+
 //---------------------------------------------------------------------------
 //UserLogin
 export const UserLogin = "LoginTDTImportKikanSystem";

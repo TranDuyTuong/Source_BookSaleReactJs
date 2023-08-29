@@ -11,6 +11,7 @@ import {
   HandleValidationRole,
 } from "../ApiLablary/ValidationApi";
 import { messageTimeOutToken } from "../MessageCommon/Message";
+import { HandleInitializaItemMaster } from "../ApiLablary/ItemMasterApi";
 
 // Validation Input
 export function ValidationInput(email, password) {
@@ -106,4 +107,10 @@ export const HandleCheckTimeOut = () => {
     alert(messageTimeOutToken);
     window.location.href = window.location.origin;
   }
+};
+
+// Get All Store
+export const HandleGetAllStore = async (info) => {
+  const result = await HandleInitializaItemMaster(info);
+  return result;
 };

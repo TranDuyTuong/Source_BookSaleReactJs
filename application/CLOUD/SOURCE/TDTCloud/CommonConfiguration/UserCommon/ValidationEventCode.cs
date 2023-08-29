@@ -192,6 +192,15 @@ namespace CommonConfiguration.UserCommon
                         Message = "Success Event Bo Detail Store"
                     };
                     break;
+                // event Handle Initializa Item Master
+                case var item when item == DataCommon.EventBo_InitializaItemMaster:
+                    result = new ReturnCommonApi()
+                    {
+                        Status = true,
+                        IdPlugin = DataCommon.EventBo_InitializaItemMaster,
+                        Message = "Success Event Bo Initializa Item Master"
+                    };
+                    break;
                 default:
                     result = new ReturnCommonApi()
                     {

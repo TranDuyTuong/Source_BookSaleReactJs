@@ -370,25 +370,6 @@ function Area() {
                   <FontAwesomeIcon icon={faSearch} /> Seach
                 </Button>
               </Form.Group>
-              <Form.Group as={Col} md="7" controlId="validationCustom02">
-                <p className="btnMain">
-                  <Button
-                    variant="primary"
-                    className="btnOption"
-                    onClick={() => HandleAddAreaUI()}
-                  >
-                    <FontAwesomeIcon icon={faPlusSquare} /> Add
-                  </Button>
-                  <Button
-                    variant="success"
-                    className="btnOption"
-                    id="btn_Confirm"
-                    onClick={() => HandleConfirmUI()}
-                  >
-                    <FontAwesomeIcon icon={faCheckSquare} /> Confirm
-                  </Button>
-                </p>
-              </Form.Group>
             </Row>
           </Form>
           <p className="notification">{messageError}</p>
@@ -526,6 +507,23 @@ function Area() {
           </div>
         </Col>
       </Row>
+      <p className="btnMain">
+        <Button
+          variant="primary"
+          className="btnOption"
+          onClick={() => HandleAddAreaUI()}
+        >
+          <FontAwesomeIcon icon={faPlusSquare} /> Add
+        </Button>
+        <Button
+          variant="success"
+          className="btnOption"
+          id="btn_Confirm"
+          onClick={() => HandleConfirmUI()}
+        >
+          <FontAwesomeIcon icon={faCheckSquare} /> Confirm
+        </Button>
+      </p>
       {/* DiaLog show Add, update, delete, Confirm */}
       <Modal show={show}>
         <Modal.Header className="settingBackround">

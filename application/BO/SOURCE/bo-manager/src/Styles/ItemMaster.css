@@ -1,5 +1,8 @@
 .alinebuttonsetting {
   text-align: right;
+  position: fixed;
+  bottom: 0;
+  right: 0;
 }
 .btn_setting {
   margin: 5px 10px;
@@ -19,4 +22,25 @@
   font-family: initial;
   text-align: right;
   margin: 0px 10px;
+}
+.customtableItemMaster {
+  overflow: auto;
+  height: 520px;
+}
+table {
+  /* Not required only for visualizing */
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table thead tr th {
+  /* Important */
+  position: sticky;
+  z-index: 100;
+  top: 0;
+}
+
+td {
+  /* Not required only for visualizing */
+  padding: 1em;
 }
