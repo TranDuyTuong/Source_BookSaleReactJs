@@ -1,3 +1,10 @@
+import {
+  EventHome,
+  EventArea,
+  EventStore,
+  EventItemMaster,
+} from "../ObjectCommon/EventCommon";
+
 // List Year
 export const ListYear = [
   {
@@ -83,6 +90,123 @@ export const ListMonths = [
   {
     id: 12,
     monthName: "Month 12",
+  },
+];
+
+// List Button Main
+export const ListButtonMain = [
+  {
+    id: "Main_01",
+    buttonName: "Home",
+    stylebutton: "outline-primary",
+    buttonUrl: "/home",
+    eventCode: EventHome,
+  },
+  {
+    id: "Main_02",
+    buttonName: "Area",
+    stylebutton: "outline-primary",
+    buttonUrl: "/area",
+    eventCode: EventArea,
+  },
+  {
+    id: "Main_03",
+    buttonName: "Store",
+    stylebutton: "outline-primary",
+    buttonUrl: "/store",
+    eventCode: EventStore,
+  },
+  {
+    id: "Main_04",
+    buttonName: "ItemMaster",
+    stylebutton: "outline-primary",
+    buttonUrl: "/itemmaster",
+    eventCode: EventItemMaster,
+  },
+];
+
+// List Button Function
+export const ListButtonFunction = [
+  {
+    id: "Function_01",
+    buttonName: "Text",
+    stylebutton: "outline-success",
+    buttonUrl: "/home",
+    eventCode: EventHome,
+  },
+  {
+    id: "Function_02",
+    buttonName: "Text",
+    stylebutton: "outline-success",
+    buttonUrl: "/home",
+    eventCode: EventHome,
+  },
+  {
+    id: "Function_03",
+    buttonName: "Text",
+    stylebutton: "outline-success",
+    buttonUrl: "/home",
+    eventCode: EventHome,
+  },
+  {
+    id: "Function_04",
+    buttonName: "Text",
+    stylebutton: "outline-success",
+    buttonUrl: "/home",
+    eventCode: EventHome,
+  },
+  {
+    id: "Function_05",
+    buttonName: "Text",
+    stylebutton: "outline-success",
+    buttonUrl: "/home",
+    eventCode: EventHome,
+  },
+];
+
+// List Button System
+export const ListButtonSystem = [
+  {
+    id: "System_01",
+    buttonName: "Text",
+    stylebutton: "outline-info",
+    buttonUrl: "/home",
+    eventCode: EventHome,
+  },
+  {
+    id: "System_01",
+    buttonName: "Text",
+    stylebutton: "outline-info",
+    buttonUrl: "/home",
+    eventCode: EventHome,
+  },
+  {
+    id: "System_02",
+    buttonName: "Text",
+    stylebutton: "outline-info",
+    buttonUrl: "/home",
+    eventCode: EventHome,
+  },
+  {
+    id: "System_03",
+    buttonName: "Text",
+    stylebutton: "outline-info",
+    buttonUrl: "/home",
+    eventCode: EventHome,
+  },
+  {
+    id: "System_04",
+    buttonName: "Text",
+    stylebutton: "outline-info",
+    buttonUrl: "/home",
+    eventCode: EventHome,
+  },
+  {
+    id: "System_05",
+    buttonName: "Text",
+    stylebutton: "outline-info",
+    buttonUrl: "/home",
+    eventCode: EventHome,
   },
 ];
 

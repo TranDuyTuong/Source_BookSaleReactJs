@@ -101,9 +101,7 @@ function ItemMaster() {
 
   return (
     <Container fluid className="fixedPotionArea">
-      <h3 className="areaTitle">
-        <FontAwesomeIcon icon={faBook} /> Item Master
-      </h3>
+      <h3 className="areaTitle">Item Master</h3>
       <Row>
         <Col xs={3}>
           <InputGroup className="mb-3 inputSeach">

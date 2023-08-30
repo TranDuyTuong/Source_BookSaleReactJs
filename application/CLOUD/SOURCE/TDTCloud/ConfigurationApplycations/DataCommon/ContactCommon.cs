@@ -137,44 +137,44 @@ namespace ConfigurationApplycations.DataCommon
             return result;
         }
 
-        /// <summary>
-        /// ValidationRoleUser
-        /// </summary>
-        /// <param name="role"></param>
-        /// <param name="UserId"></param>
-        /// <param name="eventCode"></param>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        public bool ValidationRoleUser(string role, string UserId, string eventCode)
-        {
-            // check role
-            var getRole = this.context.Roles.Where(x => x.RoleID == role).ToArray();
+        ///// <summary>
+        ///// ValidationRoleUser
+        ///// </summary>
+        ///// <param name="role"></param>
+        ///// <param name="UserId"></param>
+        ///// <param name="eventCode"></param>
+        ///// <returns></returns>
+        ///// <exception cref="NotImplementedException"></exception>
+        //public bool ValidationRoleUser(string role, string UserId, string eventCode)
+        //{
+        //    // check role
+        //    var getRole = this.context.Roles.Where(x => x.RoleID == role).ToArray();
 
-            if (getRole.Length <= 0)
-            {
-                return false;
-            }
+        //    if (getRole.Length <= 0)
+        //    {
+        //        return false;
+        //    }
 
-            var getUser = this.context.userAccounts.FirstOrDefault(x => x.Email == UserId);
+        //    var getUser = this.context.userAccounts.FirstOrDefault(x => x.Email == UserId);
 
-            if (getUser == null)
-            {
-                return false;
-            }
+        //    if (getUser == null)
+        //    {
+        //        return false;
+        //    }
 
-            // check user role
-            var checkUserRole = this.context.userRoles.Where(x => x.RoleID == role &&
-                                                                x.UserID == UserId &&
-                                                                    x.EventCodeLimit == eventCode).ToArray();
+        //    // check user role
+        //    var checkUserRole = this.context.userRoles.Where(x => x.RoleID == role &&
+        //                                                        x.UserID == UserId &&
+        //                                                            x.EventCodeLimit == eventCode).ToArray();
 
-            if (checkUserRole.Any())
-            {
-                return true;
-            }
+        //    if (checkUserRole.Any())
+        //    {
+        //        return true;
+        //    }
 
-            return false;
+        //    return false;
 
-        }
+        //}
 
         /// <summary>
         /// ValidationRoleUserLimit

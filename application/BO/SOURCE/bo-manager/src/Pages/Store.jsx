@@ -573,9 +573,7 @@ function Store() {
 
   return (
     <Container fluid className="fixedPotionArea">
-      <h3 className="areaTitle">
-        <FontAwesomeIcon icon={faStore} /> Store
-      </h3>
+      <h3 className="areaTitle">Store</h3>
       <Row>
         <Col>
           <Form>

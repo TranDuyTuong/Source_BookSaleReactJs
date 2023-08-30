@@ -14,14 +14,23 @@ export const EventValidationToken = "104";
 //EventInitialization
 export const EventInitialization = "105";
 
+//-----------------------------------------------------------------------
 // Event go to Home
 export const EventHome = "BO001";
+
+//------------------------------------------------------------------------
+// Event go to Area
+export const EventArea = "BO008";
 
 // Event Seach Area
 export const EventSeachArea = "BO002";
 
 // Event Confirm Area
 export const EventConfirmArea = "BO003";
+
+//----------------------------------------------------------------------------
+// Event go to Store
+export const EventStore = "BO009";
 
 // Event Seach Store
 export const EventSeachStore = "BO004";
@@ -32,10 +41,15 @@ export const EventConfirmStore = "BO005";
 // Event Detail Store
 export const EventDetailStore = "BO006";
 
+//--------------------------------------------------------------------------
+// Event go to ItemMaster
+export const EventItemMaster = "BO010";
+
 // Event Initializa Item Master
 export const EventInitializaItemMaster = "BO007";
 
 //---------------------------------------------------------------------------
+
 //UserLogin
 export const UserLogin = "LoginTDTImportKikanSystem";
 

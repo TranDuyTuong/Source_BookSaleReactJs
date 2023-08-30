@@ -15,7 +15,7 @@ namespace ConfigurationInterfaces.DataCommon
         /// <param name="UserId"></param>
         /// <param name="eventCode"></param>
         /// <returns></returns>
-        bool ValidationRoleUser(string role, string UserId, string eventCode);
+        //bool ValidationRoleUser(string role, string UserId, string eventCode);
 
         /// <summary>
         /// ValidationCityDistrict

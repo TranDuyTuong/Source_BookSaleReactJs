@@ -15,7 +15,6 @@ import {
   faPlusSquare,
   faCheckSquare,
   faClockRotateLeft,
-  faLayerGroup,
 } from "@fortawesome/free-solid-svg-icons";
 import "../Styles/Area.css";
 import { HandleSeachArea, HandleConfirmArea } from "../ApiLablary/AreaApi";
@@ -350,9 +349,7 @@ function Area() {
 
   return (
     <Container fluid className="fixedPotionArea">
-      <h3 className="areaTitle">
-        <FontAwesomeIcon icon={faLayerGroup} /> Area
-      </h3>
+      <h3 className="areaTitle">Area</h3>
       <Row>
         <Col>
           <Form>

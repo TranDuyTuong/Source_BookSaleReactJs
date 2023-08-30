@@ -1,0 +1,16 @@
+.buttonredirect {
+  width: -webkit-fill-available;
+  margin: 5px 0px;
+}
+.titleMenuButton {
+  font-size: 20px;
+  font-family: initial;
+  font-weight: 600;
+}
+.errorLimitRole {
+  text-align: center;
+  font-size: 20px;
+  font-family: initial;
+  font-weight: 600;
+  color: red;
+}

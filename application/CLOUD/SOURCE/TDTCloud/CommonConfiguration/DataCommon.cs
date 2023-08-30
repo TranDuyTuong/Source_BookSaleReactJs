@@ -243,6 +243,22 @@ namespace CommonConfiguration
         public static string EventBO_Home = "BO001";
 
         /// <summary>
+        /// EventBo_Area
+        /// </summary>
+        public static string EventBo_Area = "BO008";
+
+        /// <summary>
+        /// EventBo_Store
+        /// </summary>
+        public static string EventBo_Store = "BO009";
+
+        /// <summary>
+        /// EventBo_ItemMaster
+        /// </summary>
+        public static string EventBo_ItemMaster = "BO010";
+
+        //--------------------------------------------------------------------------------------------------
+        /// <summary>
         /// EventBO_SeachArea
         /// </summary>
         public static string EventBO_SeachArea = "BO002";

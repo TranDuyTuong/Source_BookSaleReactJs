@@ -121,7 +121,7 @@ function Login() {
           dispatch(OldURLReducer.actions.AddUrl(queryString));
           window.localStorage.setItem("oldURL", queryString);
           // Redirect to new url
-          navigate("/home");
+          navigate("/menu");
         }
       }
     }

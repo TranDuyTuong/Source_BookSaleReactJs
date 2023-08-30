@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "../Styles/HeaderCommon.css";
-import Button from "react-bootstrap/Button";
+import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faClock,
-  faRectangleList,
-  faUser,
+  faTableList,
+  faUserTag,
   faRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -78,23 +79,24 @@ function HeaderCommon() {
         <p className="title">MANAGEMENT</p>
       </Col>
       <Col>
-        <p className="infoUser">
-          <span className="positionInfo">
-            <FontAwesomeIcon icon={faClock} /> Phiên Hết Hạn:{" "}
-            {sessionExpiration}
-          </span>
-          <span className="positionInfo">
-            <FontAwesomeIcon icon={faRectangleList} /> Cấp Độ: {roleName}
-          </span>
-          <span className="positionInfo">
-            <FontAwesomeIcon icon={faUser} /> {userName}
-          </span>
-          <span className="positionInfo">
-            <Button variant="outline-light" onClick={HandleSignOut}>
-              <FontAwesomeIcon icon={faRightFromBracket} /> SignOut
-            </Button>
-          </span>
-        </p>
+        <DropdownButton
+          id="dropdown-basic-button"
+          title={"Wellcome: " + userName}
+        >
+          <Dropdown.Item>
+            <FontAwesomeIcon icon={faTableList} /> Detail
+          </Dropdown.Item>
+          <Dropdown.Item>
+            <FontAwesomeIcon icon={faClock} /> {sessionExpiration}
+          </Dropdown.Item>
+          <Dropdown.Item>
+            <FontAwesomeIcon icon={faUserTag} /> {roleName}
+          </Dropdown.Item>
+          <Dropdown.Divider />
+          <Dropdown.Item onClick={HandleSignOut}>
+            <FontAwesomeIcon icon={faRightFromBracket} /> SignOut
+          </Dropdown.Item>
+        </DropdownButton>
       </Col>
       {show && (
         <DiaLogTokenError

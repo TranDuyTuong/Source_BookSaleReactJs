@@ -306,8 +306,13 @@ namespace TDTCloud.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// ValidationRoleUser
+        /// </summary>
+        /// <param name="userRole"></param>
+        /// <returns></returns>
         [HttpPost("ValidationRoleUser")]
-        public async Task<IActionResult> ValidationRoleUser([FromBody] ResultCommonCheckToken userRole)
+        public IActionResult ValidationRoleUser([FromBody] ResultCommonCheckToken userRole)
         {
             string request = ConverToJson<ResultCommonCheckToken>.ConverObjectToJson(userRole);
             string result = null;

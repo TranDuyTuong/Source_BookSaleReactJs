@@ -7,7 +7,8 @@
 }
 .title {
   font-family: initial;
-  font-size: 30px;
+  font-size: 20px;
+  margin: 7px 0px;
   color: white;
   text-align: left;
 }
@@ -20,4 +21,8 @@
 .positionInfo {
   color: white;
   margin-right: 50px;
+}
+.dropdown {
+  text-align: end;
+  margin: 3px 0px;
 }

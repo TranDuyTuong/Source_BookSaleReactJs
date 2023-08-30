@@ -201,6 +201,33 @@ namespace CommonConfiguration.UserCommon
                         Message = "Success Event Bo Initializa Item Master"
                     };
                     break;
+                // event Go To Area Bo
+                case var item when item == DataCommon.EventBo_Area:
+                    result = new ReturnCommonApi()
+                    {
+                        Status = true,
+                        IdPlugin = DataCommon.EventBo_Area,
+                        Message = "Success Event Bo Go To Area"
+                    };
+                    break;
+                // event Go To Store Bo
+                case var item when item == DataCommon.EventBo_Store:
+                    result = new ReturnCommonApi()
+                    {
+                        Status = true,
+                        IdPlugin = DataCommon.EventBo_Store,
+                        Message = "Success Event Bo Go To Store"
+                    };
+                    break;
+                // event Go To ItemMaster Bo
+                case var item when item == DataCommon.EventBo_ItemMaster:
+                    result = new ReturnCommonApi()
+                    {
+                        Status = true,
+                        IdPlugin = DataCommon.EventBo_ItemMaster,
+                        Message = "Success Event Bo Go To ItemMaster"
+                    };
+                    break;
                 default:
                     result = new ReturnCommonApi()
                     {
