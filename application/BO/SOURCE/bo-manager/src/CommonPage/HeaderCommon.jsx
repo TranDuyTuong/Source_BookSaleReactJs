@@ -73,38 +73,36 @@ function HeaderCommon() {
   };
 
   return (
-    <div className="header">
-      <Row>
-        <Col xs={3}>
-          <p className="title">BOOK MANAGEMENT</p>
-        </Col>
-        <Col>
-          <p className="infoUser">
-            <span className="positionInfo">
-              <FontAwesomeIcon icon={faClock} /> Phiên Hết Hạn:{" "}
-              {sessionExpiration}
-            </span>
-            <span className="positionInfo">
-              <FontAwesomeIcon icon={faRectangleList} /> Cấp Độ: {roleName}
-            </span>
-            <span className="positionInfo">
-              <FontAwesomeIcon icon={faUser} /> {userName}
-            </span>
-            <span className="positionInfo">
-              <Button variant="outline-light" onClick={HandleSignOut}>
-                <FontAwesomeIcon icon={faRightFromBracket} /> SignOut
-              </Button>
-            </span>
-          </p>
-        </Col>
-      </Row>
+    <Row className="header">
+      <Col xs={3}>
+        <p className="title">MANAGEMENT</p>
+      </Col>
+      <Col>
+        <p className="infoUser">
+          <span className="positionInfo">
+            <FontAwesomeIcon icon={faClock} /> Phiên Hết Hạn:{" "}
+            {sessionExpiration}
+          </span>
+          <span className="positionInfo">
+            <FontAwesomeIcon icon={faRectangleList} /> Cấp Độ: {roleName}
+          </span>
+          <span className="positionInfo">
+            <FontAwesomeIcon icon={faUser} /> {userName}
+          </span>
+          <span className="positionInfo">
+            <Button variant="outline-light" onClick={HandleSignOut}>
+              <FontAwesomeIcon icon={faRightFromBracket} /> SignOut
+            </Button>
+          </span>
+        </p>
+      </Col>
       {show && (
         <DiaLogTokenError
           messageTitleErrorToken={messageTitleSignOutError}
           Message={contentMessage}
         />
       )}
-    </div>
+    </Row>
   );
 }
 

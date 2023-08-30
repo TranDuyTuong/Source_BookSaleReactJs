@@ -16,9 +16,6 @@ function CommonPage() {
     <Container fluid>
       <HeaderCommon></HeaderCommon>
       <Row>
-        <Col xs={2}>
-          <MenuCommon></MenuCommon>
-        </Col>
         <Col>
           <Routes>
             <Route path="/home" element={<Home />}></Route>

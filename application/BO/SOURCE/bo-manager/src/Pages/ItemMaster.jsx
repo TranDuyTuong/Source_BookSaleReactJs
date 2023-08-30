@@ -105,7 +105,7 @@ function ItemMaster() {
         <FontAwesomeIcon icon={faBook} /> Item Master
       </h3>
       <Row>
-        <Col xs={6}>
+        <Col xs={3}>
           <InputGroup className="mb-3 inputSeach">
             <Form.Control
               placeholder="Item code..."
@@ -116,7 +116,7 @@ function ItemMaster() {
             </Button>
           </InputGroup>
         </Col>
-        <Col xs={6}>
+        <Col xs={2}>
           <Form.Select
             className="selectstore"
             onChange={(e) => HandleSelectStore(e.target.value)}
@@ -130,6 +130,24 @@ function ItemMaster() {
               </option>
             ))}
           </Form.Select>
+        </Col>
+        <Col xs={7}>
+          <p className="aline_settingHeader">
+            <Button
+              variant="primary"
+              className="btn_setting"
+              ref={ref_btnUpdatePrice}
+            >
+              <FontAwesomeIcon icon={faTags} /> Update Price
+            </Button>
+            <Button
+              variant="primary"
+              className="btn_setting"
+              ref={ref_btnDowload}
+            >
+              <FontAwesomeIcon icon={faFileArrowDown} /> Dowload
+            </Button>
+          </p>
         </Col>
       </Row>
       <p className="messageError">{state_MessageError}</p>
@@ -165,16 +183,6 @@ function ItemMaster() {
         </Button>
         <Button variant="info" className="btn_setting" ref={ref_btnCopy}>
           <FontAwesomeIcon icon={faCopy} /> Copy
-        </Button>
-        <Button
-          variant="secondary"
-          className="btn_setting"
-          ref={ref_btnUpdatePrice}
-        >
-          <FontAwesomeIcon icon={faTags} /> Update Price
-        </Button>
-        <Button variant="dark" className="btn_setting" ref={ref_btnDowload}>
-          <FontAwesomeIcon icon={faFileArrowDown} /> Dowload
         </Button>
         <Button variant="success" className="btn_setting" ref={ref_btnConfirm}>
           <FontAwesomeIcon icon={faSquareCheck} /> Confirm

@@ -7,11 +7,8 @@
 .btn_setting {
   margin: 5px 10px;
 }
-.inputSeach {
-  margin: 5px 10px;
-}
-.selectstore {
-  margin: 5px 10px;
+.aline_settingHeader {
+  text-align: right;
 }
 .alineStoreTitle {
   text-align: left;
@@ -36,7 +33,7 @@ table {
 table thead tr th {
   /* Important */
   position: sticky;
-  z-index: 100;
+  z-index: 9;
   top: 0;
 }
 
