@@ -12,6 +12,7 @@ import {
   faChartSimple,
   faCartShopping,
   faFilter,
+  faSquareCaretLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
 import { DataBooks } from "../TemplateCommon/ChartCommon";
@@ -38,6 +39,7 @@ function Home() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  // Read Loading Page
   useEffect(() => {
     // Setting Titel Page
     document.title = "Home";
@@ -87,10 +89,23 @@ function Home() {
     };
     CheckTokenAndRole();
   }, []);
+
+  // Handle Back Menu
+  const HandleBackMenuUI = (e) => {
+    navigate("/menu");
+  };
+
   return (
     <Container fluid className="fixedPotionHome">
       <p className="titleChart">
-        <FontAwesomeIcon icon={faChartSimple} /> Chart
+        <Button
+          type="button"
+          variant="light"
+          onClick={() => HandleBackMenuUI()}
+        >
+          <FontAwesomeIcon icon={faSquareCaretLeft} /> Back
+        </Button>
+        | <FontAwesomeIcon icon={faChartSimple} /> Chart
       </p>
       <hr />
       <Row>

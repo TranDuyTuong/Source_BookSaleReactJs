@@ -237,6 +237,42 @@ namespace CommonConfiguration.UserCommon
                         Message = "Success Event Bo Go To Menu"
                     };
                     break;
+                // event Seach Item Master
+                case var item when item == DataCommon.EventBo_SeachItemMaster:
+                    result = new ReturnCommonApi()
+                    {
+                        Status = true,
+                        IdPlugin = DataCommon.EventBo_SeachItemMaster,
+                        Message = "Success Event Seach ItemMaster"
+                    };
+                    break;
+                // event Change Price ItemMaster
+                case var item when item == DataCommon.EventBo_ChangePriceItemMaster:
+                    result = new ReturnCommonApi()
+                    {
+                        Status = true,
+                        IdPlugin = DataCommon.EventBo_ChangePriceItemMaster,
+                        Message = "Success Event Change Price ItemMaster"
+                    };
+                    break;
+                // event Update ItemMaster
+                case var item when item == DataCommon.EventBo_UpdateItemMaster:
+                    result = new ReturnCommonApi()
+                    {
+                        Status = true,
+                        IdPlugin = DataCommon.EventBo_UpdateItemMaster,
+                        Message = "Success Event Update ItemMaster"
+                    };
+                    break;
+                // event Create ItemMaster
+                case var item when item == DataCommon.EventBo_CreateItemMaster:
+                    result = new ReturnCommonApi()
+                    {
+                        Status = true,
+                        IdPlugin = DataCommon.EventBo_CreateItemMaster,
+                        Message = "Success Event Create ItemMaster"
+                    };
+                    break;
                 default:
                     result = new ReturnCommonApi()
                     {

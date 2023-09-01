@@ -27,3 +27,6 @@ export const ConfirmStore_Post = "/Bo/ConfirmStore";
 
 // InitializaItemMaster_Post
 export const InitializaItemMaster_Post = "/Bo/InitializaItemMaster";
+
+// SeachItemMaster_Post
+export const SeachItemMaster_Post = "/Bo/SeachItemMaster";

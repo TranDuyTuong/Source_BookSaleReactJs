@@ -15,6 +15,7 @@ import {
   faPlusSquare,
   faCheckSquare,
   faClockRotateLeft,
+  faSquareCaretLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import "../Styles/Area.css";
 import { HandleSeachArea, HandleConfirmArea } from "../ApiLablary/AreaApi";
@@ -176,6 +177,11 @@ function Area() {
       // Seach Success
       setMessageError(result.MessageError);
     }
+  };
+
+  // Handle Back Menu
+  const HandleBackMenuUI = (e) => {
+    navigate("/menu");
   };
 
   // Handle Create Area
@@ -400,7 +406,16 @@ function Area() {
 
   return (
     <Container fluid className="fixedPotionArea">
-      <h3 className="areaTitle">Area</h3>
+      <h3 className="areaTitle">
+        <Button
+          type="button"
+          variant="light"
+          onClick={() => HandleBackMenuUI()}
+        >
+          <FontAwesomeIcon icon={faSquareCaretLeft} /> Back
+        </Button>
+        | Area
+      </h3>
       <Row>
         <Col>
           <Form>

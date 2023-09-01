@@ -15,7 +15,7 @@ import {
   faPlusSquare,
   faCheckSquare,
   faClockRotateLeft,
-  faStore,
+  faSquareCaretLeft,
   faEye,
 } from "@fortawesome/free-solid-svg-icons";
 import "../Styles/Store.css";
@@ -221,6 +221,11 @@ function Store() {
       }
     }
   });
+
+  // Handle Back Menu
+  const HandleBackMenuUI = (e) => {
+    navigate("/menu");
+  };
 
   // Handle Seach Store
   const HandleSeachStoreUI = async (e) => {
@@ -625,7 +630,16 @@ function Store() {
 
   return (
     <Container fluid className="fixedPotionArea">
-      <h3 className="areaTitle">Store</h3>
+      <h3 className="areaTitle">
+        <Button
+          type="button"
+          variant="light"
+          onClick={() => HandleBackMenuUI()}
+        >
+          <FontAwesomeIcon icon={faSquareCaretLeft} /> Back
+        </Button>
+        | Store
+      </h3>
       <Row>
         <Col>
           <Form>

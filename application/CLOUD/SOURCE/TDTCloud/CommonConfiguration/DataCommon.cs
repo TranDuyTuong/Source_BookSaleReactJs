@@ -263,6 +263,7 @@ namespace CommonConfiguration
         public static string EventBo_Menu = "BO011";
 
         //--------------------------------------------------------------------------------------------------
+        //-------------------------------------------------Area----
         /// <summary>
         /// EventBO_SeachArea
         /// </summary>
@@ -273,6 +274,7 @@ namespace CommonConfiguration
         /// </summary>
         public static string EventBo_ConfirmArea = "BO003";
 
+        //------------------------------------------------Store----
         /// <summary>
         /// EventBo_SeachStore
         /// </summary>
@@ -288,10 +290,31 @@ namespace CommonConfiguration
         /// </summary>
         public static string EventBo_DetailStore = "BO006";
 
+        //----------------------------------------------ItemMaster----
         /// <summary>
         /// EventBo_InitializaItemMaster
         /// </summary>
         public static string EventBo_InitializaItemMaster = "BO007";
+
+        /// <summary>
+        /// EventBo_SeachItemMaster
+        /// </summary>
+        public static string EventBo_SeachItemMaster = "BO015";
+
+        /// <summary>
+        /// EventBo_ChangePriceItemMaster
+        /// </summary>
+        public static string EventBo_ChangePriceItemMaster = "BO014";
+
+        /// <summary>
+        /// EventBo_UpdateItemMaster
+        /// </summary>
+        public static string EventBo_UpdateItemMaster = "BO013";
+
+        /// <summary>
+        /// EventBo_CreateItemMaster
+        /// </summary>
+        public static string EventBo_CreateItemMaster = "BO012";
 
         ///--------------------------------------------Option Type Create, Update, Delete------------------------- <summary>
         /// <summary>

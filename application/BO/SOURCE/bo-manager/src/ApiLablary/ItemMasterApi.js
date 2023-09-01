@@ -1,5 +1,8 @@
 import instance from "../ApiLablary/Axios";
-import { InitializaItemMaster_Post } from "../ObjectCommon/ApiCommon";
+import {
+  InitializaItemMaster_Post,
+  SeachItemMaster_Post,
+} from "../ObjectCommon/ApiCommon";
 import { post } from "../Contants/DataContant";
 
 // Api Item Master
@@ -37,18 +40,7 @@ export const HandleInitializaItemMaster = async (request) => {
   }
 };
 
-// Handle Confirm Area
-/*
-export const HandleConfirmArea = async (request) => {
-  const data = await AreaAPI(request, ConfirmArea_Post, post);
-  // Set Data result
-  var result = M_ListArea;
-
-  if (data.Status === true) {
-    result.Status = data.Status;
-  } else {
-    result.Status = data.Status;
-    result.MessageError = data.MessageError;
-  }
-  return result;
-};*/
+// Handle Seach ItemMaster
+export const HandleSeachItemMaster = async (request) => {
+  const data = await ItemMasterAPI(request, SeachItemMaster_Post, post);
+};

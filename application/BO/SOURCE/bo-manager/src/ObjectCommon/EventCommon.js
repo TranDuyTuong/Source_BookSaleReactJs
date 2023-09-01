@@ -51,6 +51,18 @@ export const EventItemMaster = "BO010";
 // Event Initializa Item Master
 export const EventInitializaItemMaster = "BO007";
 
+// Event Create ItemMaster
+export const EventCreateItemMaster = "BO012";
+
+// Event Update ItemMaster
+export const EventUpdateItemMaster = "BO013";
+
+// Event Change Price ItemMaster
+export const EventChangePriceItemMaster = "BO014";
+
+// Event Seach ItemMaster
+export const EventSeachItemMaster = "BO015";
+
 //---------------------------------------------------------------------------
 
 //UserLogin

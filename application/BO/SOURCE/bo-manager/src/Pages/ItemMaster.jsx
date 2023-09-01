@@ -10,7 +10,6 @@ import Modal from "react-bootstrap/Modal";
 import InputGroup from "react-bootstrap/InputGroup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faBook,
   faPlus,
   faPenToSquare,
   faCopy,
@@ -19,6 +18,7 @@ import {
   faSearch,
   faSquareCheck,
   faFileArrowDown,
+  faSquareCaretLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import "../Styles/ItemMaster.css";
 import {
@@ -33,6 +33,7 @@ import {
   FistCode,
   EventInitializaItemMaster,
   EventItemMaster,
+  EventSeachItemMaster,
 } from "../ObjectCommon/EventCommon";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -61,14 +62,15 @@ function ItemMaster() {
 
   const ref_btnDetail = useRef(null);
   const ref_btnUpdate = useRef(null);
-  const ref_btnCopy = useRef(null);
-  const ref_btnUpdatePrice = useRef(null);
   const ref_btnDowload = useRef(null);
   const ref_btnConfirm = useRef(null);
   // Show Store Select
   const [state_ListStore, SetListSotre] = useState([]);
   // Message Error
   const [state_MessageError, SetMessageError] = useState("");
+
+  // State Seach ItemMaster
+  const [state_SeachItemMaster, SetSeachItemMaster] = useState("");
 
   useEffect(() => {
     // Call Api Check Validation Token And Role User
@@ -113,8 +115,6 @@ function ItemMaster() {
         // Display button when initialization data
         ref_btnDetail.current.disabled = true;
         ref_btnUpdate.current.disabled = true;
-        ref_btnCopy.current.disabled = true;
-        ref_btnUpdatePrice.current.disabled = true;
         ref_btnDowload.current.disabled = true;
         ref_btnConfirm.current.disabled = true;
 
@@ -153,20 +153,56 @@ function ItemMaster() {
     CheckTokenAndRole();
   }, []);
 
+  // Handle Back Menu
+  const HandleBackMenuUI = (e) => {
+    navigate("/menu");
+  };
+
   // Handle Select Store
   const HandleSelectStore = (e) => {};
 
+  // Handle Seach ItemMaser
+  const HandleSeachItemMasterUI = (e) => {
+    // Get Token
+    var token = GetCookies(UserLogin);
+    // Get EventCode
+    var eventCode = ConcatStringEvent(FistCode, EventSeachItemMaster);
+
+    // Setting Data Seach ItemMaster
+    var formData = new FormData();
+    formData.append("Token", token);
+    formData.append("UserID", window.localStorage.getItem("UserID"));
+    formData.append("RoleID", window.localStorage.getItem("RoleEmployer"));
+    formData.append("EventCode", eventCode);
+    formData.append("TotalItemMaster", 0);
+    formData.append("MessageError", null);
+    formData.append("Status", true);
+    formData.append("KeySeach", state_SeachItemMaster);
+    formData.append("CompanyCode", CompanyCode);
+    formData.append("ListItemMaster", []);
+  };
+
   return (
     <Container fluid className="fixedPotionArea">
-      <h3 className="areaTitle">Item Master</h3>
+      <h3 className="areaTitle">
+        <Button
+          type="button"
+          variant="light"
+          onClick={() => HandleBackMenuUI()}
+        >
+          <FontAwesomeIcon icon={faSquareCaretLeft} /> Back
+        </Button>
+        | Item Master
+      </h3>
       <Row>
         <Col xs={3}>
           <InputGroup className="mb-3 inputSeach">
             <Form.Control
               placeholder="Item code..."
               aria-describedby="basic-addon2"
+              onChange={(e) => SetSeachItemMaster(e.target.value)}
             />
-            <Button variant="primary" id="button-addon2">
+            <Button variant="primary" onClick={() => HandleSeachItemMasterUI()}>
               <FontAwesomeIcon icon={faSearch} /> Seach
             </Button>
           </InputGroup>
@@ -188,13 +224,6 @@ function ItemMaster() {
         </Col>
         <Col xs={7}>
           <p className="aline_settingHeader">
-            <Button
-              variant="primary"
-              className="btn_setting"
-              ref={ref_btnUpdatePrice}
-            >
-              <FontAwesomeIcon icon={faTags} /> Update Price
-            </Button>
             <Button
               variant="primary"
               className="btn_setting"
@@ -235,9 +264,6 @@ function ItemMaster() {
         </Button>
         <Button variant="warning" className="btn_setting" ref={ref_btnUpdate}>
           <FontAwesomeIcon icon={faPenToSquare} /> Update
-        </Button>
-        <Button variant="info" className="btn_setting" ref={ref_btnCopy}>
-          <FontAwesomeIcon icon={faCopy} /> Copy
         </Button>
         <Button variant="success" className="btn_setting" ref={ref_btnConfirm}>
           <FontAwesomeIcon icon={faSquareCheck} /> Confirm
