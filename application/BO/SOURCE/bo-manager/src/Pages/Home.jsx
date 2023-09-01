@@ -15,12 +15,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
 import { DataBooks } from "../TemplateCommon/ChartCommon";
-import { ResultCommonCheckToken } from "../ObjectCommon/Object";
 import { ListMonths, ListYear } from "../Contants/DataContant";
 import {
   ConcatStringEvent,
   GetCookies,
-  HandleCheckTokenStaff,
   HandleCheckRoleStaff,
 } from "../ObjectCommon/FunctionCommon";
 import { UserLogin, FistCode, EventHome } from "../ObjectCommon/EventCommon";
@@ -44,57 +42,50 @@ function Home() {
     // Setting Titel Page
     document.title = "Home";
 
-    // Validation Token And Role Staff
-    var token = GetCookies(UserLogin);
-
-    // Get Event Code
-    var eventCode = ConcatStringEvent(FistCode, EventHome);
-
-    // Set Object check Token Data
-    var objectCheckToken = ResultCommonCheckToken;
-    objectCheckToken.Token = token;
-    objectCheckToken.UserID = window.localStorage.getItem("UserID");
-    objectCheckToken.RoleID = window.localStorage.getItem("RoleEmployer");
-    objectCheckToken.EventCode = eventCode;
-
     // Call Api Check Validation Token And Role User
-    const CheckToken = async () => {
-      var resultCheckToken = await HandleCheckTokenStaff(objectCheckToken);
-      if (resultCheckToken.Status === false) {
-        // Token Fail
-        getMessageErrorToken(resultCheckToken.Message);
-        setShow(true);
-      } else {
-        // Check User Role
-        var resultCheckRole = await HandleCheckRoleStaff(objectCheckToken);
-        if (resultCheckRole.Status === true) {
-          // var OldURL = window.localStorage.getItem("oldURL");
-          alert(resultCheckRole.Message);
-          // User Don't have Role
-          if (OldUrldata[0] === window.location.origin) {
-            // redirect to Login Pgae
-            window.location.href = window.location.origin;
-          } else {
-            // redirect to page before
-            navigate(OldUrldata);
-          }
+    const CheckTokenAndRole = async () => {
+      // Validation Token And Role Staff
+      var token = GetCookies(UserLogin);
+
+      // Get Event Code
+      var eventCode = ConcatStringEvent(FistCode, EventHome);
+
+      // Set Object check Token Data
+      var formData = new FormData();
+      formData.append("Token", token);
+      formData.append("UserID", window.localStorage.getItem("UserID"));
+      formData.append("RoleID", window.localStorage.getItem("RoleEmployer"));
+      formData.append("EventCode", eventCode);
+
+      // Check User Role
+      var resultCheckRole = await HandleCheckRoleStaff(formData);
+      if (resultCheckRole.Status === true) {
+        // var OldURL = window.localStorage.getItem("oldURL");
+        alert(resultCheckRole.Message);
+        // User Don't have Role
+        if (OldUrldata[0] === window.location.origin) {
+          // redirect to Login Pgae
+          window.location.href = window.location.origin;
         } else {
-          // Reomve Old  Url
-          window.localStorage.removeItem("oldURL");
-
-          // Create New Url
-          dispatch(OldURLReducer.actions.DeleteURL());
-          dispatch(OldURLReducer.actions.AddUrl("/home"));
-          window.localStorage.setItem("oldURL", "/home");
-
-          // Chart Book
-          ChartBooks("myChartBook");
-          // Chart User
-          ChartBooks("myChartUser");
+          // redirect to page before
+          navigate(window.localStorage.getItem("oldURL"));
         }
+      } else {
+        // Reomve Old  Url
+        window.localStorage.removeItem("oldURL");
+
+        // Create New Url
+        dispatch(OldURLReducer.actions.DeleteURL());
+        dispatch(OldURLReducer.actions.AddUrl("/home"));
+        window.localStorage.setItem("oldURL", "/home");
+
+        // Chart Book
+        ChartBooks("myChartBook");
+        // Chart User
+        ChartBooks("myChartUser");
       }
     };
-    CheckToken();
+    CheckTokenAndRole();
   }, []);
   return (
     <Container fluid className="fixedPotionHome">

@@ -228,6 +228,15 @@ namespace CommonConfiguration.UserCommon
                         Message = "Success Event Bo Go To ItemMaster"
                     };
                     break;
+                // event Go To Menu Bo
+                case var item when item == DataCommon.EventBo_Menu:
+                    result = new ReturnCommonApi()
+                    {
+                        Status = true,
+                        IdPlugin = DataCommon.EventBo_Menu,
+                        Message = "Success Event Bo Go To Menu"
+                    };
+                    break;
                 default:
                     result = new ReturnCommonApi()
                     {

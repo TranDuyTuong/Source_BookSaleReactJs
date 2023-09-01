@@ -47,7 +47,7 @@ namespace ConfigurationApplycations.KikanSystem
                 else
                 {
                     // Check Role User
-                    bool checkUserRole = this.contactCommon.ValidationRoleUserLimit(request.Role, request.UserID, request.EventCode);
+                    bool checkUserRole = await this.contactCommon.ValidationRoleUserLimit(request.Role, request.UserID, request.EventCode);
 
                     if (checkUserRole)
                     {
@@ -129,7 +129,7 @@ namespace ConfigurationApplycations.KikanSystem
                 else
                 {
                     // Check Role User
-                    bool checkUserRole = this.contactCommon.ValidationRoleUserLimit(request.RoleID, request.UserID, request.EventCode);
+                    bool checkUserRole = await this.contactCommon.ValidationRoleUserLimit(request.RoleID, request.UserID, request.EventCode);
 
                     if (checkUserRole)
                     {

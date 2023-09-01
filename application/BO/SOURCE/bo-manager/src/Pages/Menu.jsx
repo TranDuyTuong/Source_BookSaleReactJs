@@ -2,10 +2,7 @@ import React, { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Form from "react-bootstrap/Form";
-import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
 import {
   ListButtonMain,
   ListButtonFunction,
@@ -14,20 +11,72 @@ import {
 import { useNavigate } from "react-router-dom";
 import "../Styles/Menu.css";
 import { HandleValidationRole } from "../ApiLablary/ValidationApi";
-import { FistCode } from "../ObjectCommon/EventCommon";
-import { GetCookies, ConcatStringEvent } from "../ObjectCommon/FunctionCommon";
+import { FistCode, EventMenu } from "../ObjectCommon/EventCommon";
+import {
+  GetCookies,
+  ConcatStringEvent,
+  HandleCheckRoleStaff,
+} from "../ObjectCommon/FunctionCommon";
 import { UserLogin } from "../ObjectCommon/EventCommon";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { OldURLReducer } from "../ReduxCommon/ReducerCommon/ReducerURL";
 
 // Main Function
 function Menu() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  // Call url old in redux
+  const OldUrldata = useSelector((item) => item.oldUrl.ListoldUrlItem);
 
   // Message Error Limit Role User
   const [messageLimitRole, setMessageLimitRole] = useState("");
 
   // Readloading page
   useEffect(() => {
-    document.title = "Menu";
+    // Call Api Check Validation Token And Role User
+    const CheckTokenAndRole = async () => {
+      // Validation Token And Role Staff
+      var token = GetCookies(UserLogin);
+
+      // Get Event Code
+      var eventCode = ConcatStringEvent(FistCode, EventMenu);
+
+      // Set Object check Token Data
+      var formData = new FormData();
+      formData.append("Token", token);
+      formData.append("UserID", window.localStorage.getItem("UserID"));
+      formData.append("RoleID", window.localStorage.getItem("RoleEmployer"));
+      formData.append("EventCode", eventCode);
+
+      // Check User Role
+      var resultCheckRole = await HandleCheckRoleStaff(formData);
+      if (resultCheckRole.Status === true) {
+        // var OldURL = window.localStorage.getItem("oldURL");
+        alert(resultCheckRole.Message);
+        // User Don't have Role
+        if (OldUrldata[0] === window.location.origin) {
+          // redirect to Login Pgae
+          window.location.href = window.location.origin;
+        } else {
+          // redirect to page before
+          navigate(OldUrldata);
+        }
+      } else {
+        // Reomve Old  Url
+        window.localStorage.removeItem("oldURL");
+
+        // Create New Url
+        dispatch(OldURLReducer.actions.DeleteURL());
+        dispatch(OldURLReducer.actions.AddUrl("/menu"));
+        window.localStorage.setItem("oldURL", "/menu");
+
+        // Setting Title Page
+        document.title = "Menu";
+      }
+    };
+    CheckTokenAndRole();
   }, []);
 
   // Handle Redirect screen

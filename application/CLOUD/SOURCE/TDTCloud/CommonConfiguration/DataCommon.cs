@@ -257,6 +257,11 @@ namespace CommonConfiguration
         /// </summary>
         public static string EventBo_ItemMaster = "BO010";
 
+        /// <summary>
+        /// EventBo_Menu
+        /// </summary>
+        public static string EventBo_Menu = "BO011";
+
         //--------------------------------------------------------------------------------------------------
         /// <summary>
         /// EventBO_SeachArea

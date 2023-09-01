@@ -18,13 +18,18 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "../Styles/Area.css";
 import { HandleSeachArea, HandleConfirmArea } from "../ApiLablary/AreaApi";
-import { GetCookies, ConcatStringEvent } from "../ObjectCommon/FunctionCommon";
+import {
+  GetCookies,
+  ConcatStringEvent,
+  HandleCheckRoleStaff,
+} from "../ObjectCommon/FunctionCommon";
 import { UserLogin } from "../ObjectCommon/EventCommon";
 import {
   CompanyCode,
   FistCode,
   EventSeachArea,
   EventConfirmArea,
+  EventArea,
 } from "../ObjectCommon/EventCommon";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -41,6 +46,8 @@ import {
   titleRevert,
 } from "../MessageCommon/Message";
 import LoadingModal from "../CommonPage/LoadingCommon";
+import { useNavigate } from "react-router-dom";
+import { OldURLReducer } from "../ReduxCommon/ReducerCommon/ReducerURL";
 
 // Style Css for Table
 const tdStyle = {
@@ -52,6 +59,7 @@ const tdStyle = {
 function Area() {
   // dispatch reducer
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // Show Dialog Add, Update, Confirm
   const [show, setShow] = useState(false);
@@ -77,16 +85,59 @@ function Area() {
   const [messageErrorForm, setMessageErrorForm] = useState("");
   const [oldTypeOf, setOldTypeOf] = useState("");
 
+  // Call url old in redux
+  const OldUrldata = useSelector((item) => item.oldUrl.ListoldUrlItem);
+
   // Call list area in Redux
   const listAreaResult = useSelector((item) => item.areaData.ListArea);
 
   useEffect(() => {
-    // Setting Title Page
-    document.title = "Area";
-    // disabled button Confirm
-    document.getElementById("btn_Confirm").disabled = true;
-    // Set listArea in redux when initialization
-    HandleInitializaArea();
+    // Call Api Check Validation Token And Role User
+    const CheckTokenAndRole = async () => {
+      // Validation Token And Role Staff
+      var token = GetCookies(UserLogin);
+
+      // Get Event Code
+      var eventCode = ConcatStringEvent(FistCode, EventArea);
+
+      // Set Object check Token Data
+      var formData = new FormData();
+      formData.append("Token", token);
+      formData.append("UserID", window.localStorage.getItem("UserID"));
+      formData.append("RoleID", window.localStorage.getItem("RoleEmployer"));
+      formData.append("EventCode", eventCode);
+
+      // Check User Role
+      var resultCheckRole = await HandleCheckRoleStaff(formData);
+      if (resultCheckRole.Status === true) {
+        // var OldURL = window.localStorage.getItem("oldURL");
+        alert(resultCheckRole.Message);
+        // User Don't have Role
+        if (OldUrldata[0] === window.location.origin) {
+          // redirect to Login Pgae
+          window.location.href = window.location.origin;
+        } else {
+          // redirect to page before
+          navigate(window.localStorage.getItem("oldURL"));
+        }
+      } else {
+        // Reomve Old  Url
+        window.localStorage.removeItem("oldURL");
+
+        // Create New Url
+        dispatch(OldURLReducer.actions.DeleteURL());
+        dispatch(OldURLReducer.actions.AddUrl("/area"));
+        window.localStorage.setItem("oldURL", "/area");
+
+        // Setting Title Page
+        document.title = "Area";
+        // disabled button Confirm
+        document.getElementById("btn_Confirm").disabled = true;
+        // Set listArea in redux when initialization
+        HandleInitializaArea();
+      }
+    };
+    CheckTokenAndRole();
   }, []);
 
   // Handle set data area when initialization

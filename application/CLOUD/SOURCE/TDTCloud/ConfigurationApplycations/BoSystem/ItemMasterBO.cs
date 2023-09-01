@@ -40,7 +40,7 @@ namespace ConfigurationApplycations.BoSystem
                 if (isCompanyCode == true)
                 {
                     // Check Role User Handle
-                    bool isRole = this.contactCommon.ValidationRoleUserLimit(request.RoleID, request.UserID, request.EventCode);
+                    bool isRole = await this.contactCommon.ValidationRoleUserLimit(request.RoleID, request.UserID, request.EventCode);
 
                     if (isRole == true)
                     {

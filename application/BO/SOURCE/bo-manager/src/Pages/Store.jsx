@@ -20,13 +20,18 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "../Styles/Store.css";
 import { HandleSeachStore, HandleConfirmStore } from "../ApiLablary/StoreApi";
-import { GetCookies, ConcatStringEvent } from "../ObjectCommon/FunctionCommon";
+import {
+  GetCookies,
+  ConcatStringEvent,
+  HandleCheckRoleStaff,
+} from "../ObjectCommon/FunctionCommon";
 import { UserLogin } from "../ObjectCommon/EventCommon";
 import {
   CompanyCode,
   FistCode,
   EventSeachStore,
   EventConfirmStore,
+  EventStore,
 } from "../ObjectCommon/EventCommon";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -47,6 +52,8 @@ import {
   titleDetail,
 } from "../MessageCommon/Message";
 import LoadingModal from "../CommonPage/LoadingCommon";
+import { OldURLReducer } from "../ReduxCommon/ReducerCommon/ReducerURL";
+import { useNavigate } from "react-router-dom";
 
 // Validation Form Create, delete, update, revert Store
 const ValidationFormSubmit = (store) => {
@@ -113,8 +120,13 @@ const ValidationStoreCodeExist = (storecode, listStore) => {
 function Store() {
   // dispatch reducer
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   // Call list area in Redux
   const listStoreResult = useSelector((item) => item.storeData.ListStore);
+  // Call url old in redux
+  const OldUrldata = useSelector((item) => item.oldUrl.ListoldUrlItem);
+
   // TypeOf Dialog Setting
   const [typeOfDialog, setTypeOfDialog] = useState(null);
   // Show And Hide Dialog Setting
@@ -142,15 +154,55 @@ function Store() {
   const ref_StoreCode = useRef(null);
 
   useEffect(() => {
-    // Setting Title Page
-    document.title = "Store";
-    // Get Current Date
-    const currentDate = new Date();
-    setDateCreate(moment(currentDate).format("YYYY-MM-DD"));
-    // Set listStore in redux when initialization
-    HandleInitializaStore();
-    // Display Button Confirm
-    document.getElementById("bnt_Confirm").disabled = true;
+    // Call Api Check Validation Token And Role User
+    const CheckTokenAndRole = async () => {
+      // Validation Token And Role Staff
+      var token = GetCookies(UserLogin);
+
+      // Get Event Code
+      var eventCode = ConcatStringEvent(FistCode, EventStore);
+
+      // Set Object check Token Data
+      var formData = new FormData();
+      formData.append("Token", token);
+      formData.append("UserID", window.localStorage.getItem("UserID"));
+      formData.append("RoleID", window.localStorage.getItem("RoleEmployer"));
+      formData.append("EventCode", eventCode);
+
+      // Check User Role
+      var resultCheckRole = await HandleCheckRoleStaff(formData);
+      if (resultCheckRole.Status === true) {
+        // var OldURL = window.localStorage.getItem("oldURL");
+        alert(resultCheckRole.Message);
+        // User Don't have Role
+        if (OldUrldata[0] === window.location.origin) {
+          // redirect to Login Pgae
+          window.location.href = window.location.origin;
+        } else {
+          // redirect to page before
+          navigate(window.localStorage.getItem("oldURL"));
+        }
+      } else {
+        // Reomve Old  Url
+        window.localStorage.removeItem("oldURL");
+
+        // Create New Url
+        dispatch(OldURLReducer.actions.DeleteURL());
+        dispatch(OldURLReducer.actions.AddUrl("/store"));
+        window.localStorage.setItem("oldURL", "/store");
+
+        // Setting Title Page
+        document.title = "Store";
+        // Get Current Date
+        const currentDate = new Date();
+        setDateCreate(moment(currentDate).format("YYYY-MM-DD"));
+        // Display Button Confirm
+        document.getElementById("bnt_Confirm").disabled = true;
+        // Set listStore in redux when initialization
+        HandleInitializaStore();
+      }
+    };
+    CheckTokenAndRole();
   }, []);
 
   // Handle set data area when initialization

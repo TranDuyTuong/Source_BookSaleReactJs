@@ -6,7 +6,7 @@ import {
 import { ReturnCommonApi } from "../ObjectCommon/Object";
 import { messageUserNotHaveRole } from "../MessageCommon/Message";
 
-// Api Login User
+// Api validation role limit
 const postDataValidationAPI = (info, URL) => {
   const result = instance.post(`${URL}`, info);
   return result;
@@ -28,13 +28,20 @@ export const HandleValidationRole = async (request) => {
   const data = await postDataValidationAPI(request, CheckRoleUser_Post);
   // Set Data Result
   var result = ReturnCommonApi;
-  if (data.Status === true) {
-    // Staff Don't have role Handle
-    result.Status = true;
-    result.Message = messageUserNotHaveRole;
+
+  if (data === undefined) {
+    alert("Error, Accessing Invalid Url, Please Contact Manager!");
+    // Call Api error 500 Return login page
+    window.location.href = window.location.origin;
   } else {
-    // Staff Have Role Handle
-    result.Status = false;
+    if (data.Status === true) {
+      // Staff Don't have role Handle
+      result.Status = true;
+      result.Message = messageUserNotHaveRole;
+    } else {
+      // Staff Have Role Handle
+      result.Status = false;
+    }
   }
   return result;
 };

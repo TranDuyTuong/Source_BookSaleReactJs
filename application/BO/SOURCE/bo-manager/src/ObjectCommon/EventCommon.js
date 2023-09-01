@@ -14,6 +14,9 @@ export const EventValidationToken = "104";
 //EventInitialization
 export const EventInitialization = "105";
 
+// Event got to Menu
+export const EventMenu = "BO011";
+
 //-----------------------------------------------------------------------
 // Event go to Home
 export const EventHome = "BO001";

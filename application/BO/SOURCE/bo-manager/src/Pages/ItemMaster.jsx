@@ -25,12 +25,14 @@ import {
   GetCookies,
   ConcatStringEvent,
   HandleGetAllStore,
+  HandleCheckRoleStaff,
 } from "../ObjectCommon/FunctionCommon";
 import { UserLogin } from "../ObjectCommon/EventCommon";
 import {
   CompanyCode,
   FistCode,
   EventInitializaItemMaster,
+  EventItemMaster,
 } from "../ObjectCommon/EventCommon";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -46,9 +48,17 @@ import {
   titleRevert,
 } from "../MessageCommon/Message";
 import LoadingModal from "../CommonPage/LoadingCommon";
+import { useNavigate } from "react-router-dom";
+import { OldURLReducer } from "../ReduxCommon/ReducerCommon/ReducerURL";
 
 // Main Function
 function ItemMaster() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  // Call url old in redux
+  const OldUrldata = useSelector((item) => item.oldUrl.ListoldUrlItem);
+
   const ref_btnDetail = useRef(null);
   const ref_btnUpdate = useRef(null);
   const ref_btnCopy = useRef(null);
@@ -61,39 +71,86 @@ function ItemMaster() {
   const [state_MessageError, SetMessageError] = useState("");
 
   useEffect(() => {
-    // Setting Title Page
-    document.title = "Item Maters";
-    // Display button when initialization data
-    ref_btnDetail.current.disabled = true;
-    ref_btnUpdate.current.disabled = true;
-    ref_btnCopy.current.disabled = true;
-    ref_btnUpdatePrice.current.disabled = true;
-    ref_btnDowload.current.disabled = true;
-    ref_btnConfirm.current.disabled = true;
-    // Initializa Item Master, get all store
-    async function InitializaData() {
-      // Get Token
+    // Call Api Check Validation Token And Role User
+    const CheckTokenAndRole = async () => {
+      // Validation Token And Role Staff
       var token = GetCookies(UserLogin);
-      // Get EventCode
-      var eventCode = ConcatStringEvent(FistCode, EventInitializaItemMaster);
 
+      // Get Event Code
+      var eventCode = ConcatStringEvent(FistCode, EventItemMaster);
+
+      // Set Object check Token Data
       var formData = new FormData();
       formData.append("Token", token);
       formData.append("UserID", window.localStorage.getItem("UserID"));
       formData.append("RoleID", window.localStorage.getItem("RoleEmployer"));
       formData.append("EventCode", eventCode);
-      formData.append("MessageError", null);
-      formData.append("Status", true);
-      formData.append("CompanyCode", CompanyCode);
-      // Call Api Initializa Data
-      const response = await HandleGetAllStore(formData);
-      if (response.Status === true) {
-        SetListSotre(response.ListStore);
+
+      // Check User Role
+      var resultCheckRole = await HandleCheckRoleStaff(formData);
+      if (resultCheckRole.Status === true) {
+        // var OldURL = window.localStorage.getItem("oldURL");
+        alert(resultCheckRole.Message);
+        // User Don't have Role
+        if (OldUrldata[0] === window.location.origin) {
+          // redirect to Login Pgae
+          window.location.href = window.location.origin;
+        } else {
+          // redirect to page before
+          navigate(window.localStorage.getItem("oldURL"));
+        }
       } else {
-        SetMessageError(response.MessageError);
+        // Reomve Old  Url
+        window.localStorage.removeItem("oldURL");
+
+        // Create New Url
+        dispatch(OldURLReducer.actions.DeleteURL());
+        dispatch(OldURLReducer.actions.AddUrl("/itemmaster"));
+        window.localStorage.setItem("oldURL", "/itemmaster");
+
+        // Setting Title Page
+        document.title = "Item Maters";
+        // Display button when initialization data
+        ref_btnDetail.current.disabled = true;
+        ref_btnUpdate.current.disabled = true;
+        ref_btnCopy.current.disabled = true;
+        ref_btnUpdatePrice.current.disabled = true;
+        ref_btnDowload.current.disabled = true;
+        ref_btnConfirm.current.disabled = true;
+
+        // Initializa Item Master, get all store
+        async function InitializaData() {
+          // Get Token
+          var token = GetCookies(UserLogin);
+          // Get EventCode
+          var eventCode = ConcatStringEvent(
+            FistCode,
+            EventInitializaItemMaster
+          );
+
+          var formData = new FormData();
+          formData.append("Token", token);
+          formData.append("UserID", window.localStorage.getItem("UserID"));
+          formData.append(
+            "RoleID",
+            window.localStorage.getItem("RoleEmployer")
+          );
+          formData.append("EventCode", eventCode);
+          formData.append("MessageError", null);
+          formData.append("Status", true);
+          formData.append("CompanyCode", CompanyCode);
+          // Call Api Initializa Data
+          const response = await HandleGetAllStore(formData);
+          if (response.Status === true) {
+            SetListSotre(response.ListStore);
+          } else {
+            SetMessageError(response.MessageError);
+          }
+        }
+        InitializaData();
       }
-    }
-    InitializaData();
+    };
+    CheckTokenAndRole();
   }, []);
 
   // Handle Select Store

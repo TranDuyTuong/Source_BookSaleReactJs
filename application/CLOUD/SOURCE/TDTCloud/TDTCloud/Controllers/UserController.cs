@@ -229,7 +229,7 @@ namespace TDTCloud.Controllers
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost("ValidationTokenUser")]
-        public async Task<IActionResult> ValidationTokenUser([FromBody] ResultCommonCheckToken token)
+        public IActionResult ValidationTokenUser([FromForm] ResultCommonCheckToken token)
         {
             string request = ConverToJson<ResultCommonCheckToken>.ConverObjectToJson(token);
             string result = null;
@@ -312,7 +312,7 @@ namespace TDTCloud.Controllers
         /// <param name="userRole"></param>
         /// <returns></returns>
         [HttpPost("ValidationRoleUser")]
-        public IActionResult ValidationRoleUser([FromBody] ResultCommonCheckToken userRole)
+        public async Task<IActionResult> ValidationRoleUser([FromForm] ResultCommonCheckToken userRole)
         {
             string request = ConverToJson<ResultCommonCheckToken>.ConverObjectToJson(userRole);
             string result = null;
@@ -350,7 +350,7 @@ namespace TDTCloud.Controllers
                         else
                         {
                             // Check User Have Role ?
-                            bool checkUserRole = this.contactCommon.ValidationRoleUserLimit(dataConver.RoleID, dataConver.UserID, ev.IdPlugin);
+                            bool checkUserRole = await this.contactCommon.ValidationRoleUserLimit(dataConver.RoleID, dataConver.UserID, ev.IdPlugin);
                             ReturnCommonApi returnCheckToken = new ReturnCommonApi()
                             {
                                 Status = checkUserRole,
