@@ -19,10 +19,7 @@ namespace TDTConfigurationTable
         {
             builder.ToTable("ItemMasters");
             // Configuration PrimaryKey
-            builder.HasKey(x => x.CompanyCode);
-            builder.HasKey(x => x.StoreCode);
-            builder.HasKey(x => x.ItemCode);
-            builder.HasKey(x => x.ApplyDate);
+            builder.HasKey(x => new {x.CompanyCode, x.StoreCode, x.ItemCode, x.ApplyDate});
 
             // Configuration Properties
             builder.Property(x => x.CompanyCode).IsRequired(true);
