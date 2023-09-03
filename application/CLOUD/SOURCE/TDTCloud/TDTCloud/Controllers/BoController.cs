@@ -624,10 +624,10 @@ namespace TDTCloud.Controllers
                         }
                         else
                         {
-                            // Confirm store To DB
-                            //var getStore = await this.itemMasterBO.InitializaItemMaster(dataConver);
-                            //// Conver Object to json
-                            //result = ConverToJson<M_ListStore>.ConverObjectToJson(getStore);
+                            // Seach ItemMaster To DB
+                            var seachResult = await this.itemMasterBO.SeachItemMaster(dataConver);
+                            // Conver Object to json
+                            result = ConverToJson<M_ListItemMaster>.ConverObjectToJson(seachResult);
                         }
                     }
                 }

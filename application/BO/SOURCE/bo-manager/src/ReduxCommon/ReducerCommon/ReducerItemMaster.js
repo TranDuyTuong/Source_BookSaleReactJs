@@ -5,5 +5,9 @@ export const ItemMasterReducer = createSlice({
   initialState: {
     ListItemMaster: [],
   },
-  reducers: {},
+  reducers: {
+    SeachItemMaster: (state, action) => {
+      state.ListItemMaster = action.payload;
+    },
+  },
 });

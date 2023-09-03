@@ -170,61 +170,73 @@ namespace ConfigurationApplycations.BoSystem
                                               itemMaster.IsDeleteFlag == false &&
                                               itemMaster.IsSale == true
                                               )
-                                              select new M_ItemMaster()
-                                              {
-                                                  CompanyCode = itemMaster.CompanyCode,
-                                                  StoreCode = itemMaster.StoreCode,
-                                                  ItemCode = itemMaster.ItemCode,
-                                                  ApplyDate = itemMaster.ApplyDate,
-                                                  Description = itemMaster.Description,
-                                                  DescriptionShort = itemMaster.DescriptionShort,
-                                                  DescriptionLong = itemMaster.DescriptionLong,
-                                                  PriceOrigin = itemMaster.PriceOrigin,
-                                                  PercentDiscount = itemMaster.PercentDiscount,
-                                                  priceSale = itemMaster.priceSale,
-                                                  QuantityDiscountID = itemMaster.QuantityDiscountID,
-                                                  PairDiscountID = itemMaster.PairDiscountID,
-                                                  SpecialDiscountID = itemMaster.SpecialDiscountID,
-                                                  Quantity = itemMaster.Quantity,
-                                                  Viewer = itemMaster.Viewer,
-                                                  Buy = itemMaster.Buy,
-                                                  CategoryItemMasterID = itemMaster.CategoryItemMasterID,
-                                                  AuthorID = itemMaster.AuthorID,
-                                                  DateCreate = itemMaster.DateCreate,
-                                                  IssuingCompanyID = itemMaster.IssuingCompanyID,
-                                                  PublicationDate = itemMaster.PublicationDate,
-                                                  size = itemMaster.size,
-                                                  PageNumber = itemMaster.PageNumber,
-                                                  PublishingCompanyID = itemMaster.PublishingCompanyID,
-                                                  IsSale = itemMaster.IsSale,
-                                                  LastUpdateDate = itemMaster.LastUpdateDate,
-                                                  Note = itemMaster.Note,
-                                                  HeadquartersLastUpdateDateTime = itemMaster.HeadquartersLastUpdateDateTime,
-                                                  IsDeleteFlag = itemMaster.IsDeleteFlag,
-                                                  UserID = itemMaster.UserID,
-                                                  TaxGroupCodeID = itemMaster.TaxGroupCodeID,
-                                                  TypeOf = null,
-                                                  OldType = null,
-                                              };
+                                              select new { itemMaster };
+
+                        // List Result ItemMaster Affter Query
+                        var listResultQuery = await queryItemMaster.Select(x => new M_ItemMaster()
+                        {
+                            CompanyCode = x.itemMaster.CompanyCode,
+                            StoreCode = x.itemMaster.StoreCode,
+                            ItemCode = x.itemMaster.ItemCode,
+                            ApplyDate = x.itemMaster.ApplyDate,
+                            Description = x.itemMaster.Description,
+                            DescriptionShort = x.itemMaster.DescriptionShort,
+                            DescriptionLong = x.itemMaster.DescriptionLong,
+                            PriceOrigin = x.itemMaster.PriceOrigin,
+                            PercentDiscount = x.itemMaster.PercentDiscount,
+                            priceSale = x.itemMaster.priceSale,
+                            QuantityDiscountID = x.itemMaster.QuantityDiscountID,
+                            PairDiscountID = x.itemMaster.PairDiscountID,
+                            SpecialDiscountID = x.itemMaster.SpecialDiscountID,
+                            Quantity = x.itemMaster.Quantity,
+                            Viewer = x.itemMaster.Viewer,
+                            Buy = x.itemMaster.Buy,
+                            CategoryItemMasterID = x.itemMaster.CategoryItemMasterID,
+                            AuthorID = x.itemMaster.AuthorID,
+                            DateCreate = x.itemMaster.DateCreate,
+                            IssuingCompanyID = x.itemMaster.IssuingCompanyID,
+                            PublicationDate = x.itemMaster.PublicationDate,
+                            size = x.itemMaster.size,
+                            PageNumber = x.itemMaster.PageNumber,
+                            PublishingCompanyID = x.itemMaster.PublishingCompanyID,
+                            IsSale = x.itemMaster.IsSale,
+                            LastUpdateDate = x.itemMaster.LastUpdateDate,
+                            Note = x.itemMaster.Note,
+                            HeadquartersLastUpdateDateTime = x.itemMaster.HeadquartersLastUpdateDateTime,
+                            IsDeleteFlag = x.itemMaster.IsDeleteFlag,
+                            UserID = x.itemMaster.UserID,
+                            TaxGroupCodeID = x.itemMaster.TaxGroupCodeID,
+                            TypeOf = null,
+                            OldType = null,
+                        }).ToListAsync();
 
                         // Get itemMaster Have Applydate Max
                         List<M_ItemMaster> listItemMaster = new List<M_ItemMaster>();
+                        string state_ItemMasterCode = null;
 
-                        foreach(var item in queryItemMaster)
+                        foreach(var item in listResultQuery)
                         {
-                            // Count Recod ItemCode
-                            var itemData = queryItemMaster.Where(x => x.ItemCode == item.ItemCode).ToList();
-                            
-                            // If itemCode more than 1 recod
-                            if(itemData.Count > 1)
+                            if(state_ItemMasterCode == item.ItemCode)
                             {
-                                // Get Recod Have Max ApplyDate
-                                var maxApplydate = itemData.OrderByDescending(x => x.ApplyDate).Take(1).First();
-                                listItemMaster.Add(maxApplydate);
+                                continue;
                             }
                             else
                             {
-                                listItemMaster.Add(itemData.First());
+                                // Count Recod ItemCode
+                                var itemData = listResultQuery.Where(x => x.ItemCode == item.ItemCode).ToList();
+
+                                // If itemCode more than 1 recod
+                                if (itemData.Count > 1)
+                                {
+                                    // Get Recod Have Max ApplyDate
+                                    var maxApplydate = itemData.OrderByDescending(x => x.ApplyDate).Take(1).First();
+                                    listItemMaster.Add(maxApplydate);
+                                    state_ItemMasterCode = maxApplydate.ItemCode;
+                                }
+                                else
+                                {
+                                    listItemMaster.Add(itemData.First());
+                                }
                             }
                         }
 
@@ -259,16 +271,16 @@ namespace ConfigurationApplycations.BoSystem
                                 var ItemMasterByStoreCode = listItemMaster.Where(x => x.StoreCode == request.StoreCode).ToList();
 
                                 // More Than 100 Recol
-                                if (TotalItemMaster > CommonConfiguration.DataCommon.MaxRecol)
+                                if (ItemMasterByStoreCode.Count() > CommonConfiguration.DataCommon.MaxRecol)
                                 {
                                     result.TotalItemMaster = CommonConfiguration.DataCommon.MaxRecol;
                                     result.MessageError = CommonConfiguration.DataCommon.MessageErrorMoreThan100Recol;
                                     result.Status = true;
                                     result.ListItemMaster = ItemMasterByStoreCode.OrderByDescending(x => x.ApplyDate).Take(CommonConfiguration.DataCommon.MaxRecol).ToList();
                                 }
-                                else if (TotalItemMaster < CommonConfiguration.DataCommon.MaxRecol)
+                                else if (ItemMasterByStoreCode.Count() < CommonConfiguration.DataCommon.MaxRecol)
                                 {
-                                    result.TotalItemMaster = TotalItemMaster;
+                                    result.TotalItemMaster = ItemMasterByStoreCode.Count();
                                     result.MessageError = null;
                                     result.Status = true;
                                     result.ListItemMaster = ItemMasterByStoreCode.OrderByDescending(x => x.ApplyDate).Take(CommonConfiguration.DataCommon.MaxRecol).ToList();
@@ -333,6 +345,18 @@ namespace ConfigurationApplycations.BoSystem
                                     result.MessageError = CommonConfiguration.DataCommon.MessageNotFindData;
                                     result.ListItemMaster = null;
                                 }
+                            }
+
+                            // Set Data Infomation Result
+                            if(result.Status == true)
+                            {
+                                result.CompanyCode = request.CompanyCode;
+                                result.StoreCode = request.StoreCode;
+                                result.EventCode = request.EventCode;
+                                result.UserID = request.UserID;
+                                result.RoleID = request.RoleID;
+                                result.KeySeach = request.KeySeach;
+                                result.Token = request.Token;
                             }
                         }
                         else

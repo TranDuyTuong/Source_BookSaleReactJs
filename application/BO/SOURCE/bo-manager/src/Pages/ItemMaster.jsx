@@ -51,6 +51,9 @@ import {
 import LoadingModal from "../CommonPage/LoadingCommon";
 import { useNavigate } from "react-router-dom";
 import { OldURLReducer } from "../ReduxCommon/ReducerCommon/ReducerURL";
+import { HandleSeachItemMaster } from "../ApiLablary/ItemMasterApi";
+import { ItemMasterReducer } from "../ReduxCommon/ReducerCommon/ReducerItemMaster";
+import moment from "moment";
 
 // Main Function
 function ItemMaster() {
@@ -59,6 +62,10 @@ function ItemMaster() {
 
   // Call url old in redux
   const OldUrldata = useSelector((item) => item.oldUrl.ListoldUrlItem);
+  // Call List ItemMaster in redux
+  const ListItemMasterRedux = useSelector(
+    (item) => item.itemMasterData.ListItemMaster
+  );
 
   const ref_btnDetail = useRef(null);
   const ref_btnUpdate = useRef(null);
@@ -68,9 +75,13 @@ function ItemMaster() {
   const [state_ListStore, SetListSotre] = useState([]);
   // Message Error
   const [state_MessageError, SetMessageError] = useState("");
+  // Show And Hide Loading Data
+  const [state_Show, SetShow] = useState(false);
 
   // State Seach ItemMaster
   const [state_SeachItemMaster, SetSeachItemMaster] = useState("");
+  // State Select Store
+  const [state_SelectStore, SetSelectStore] = useState("");
 
   useEffect(() => {
     // Call Api Check Validation Token And Role User
@@ -143,6 +154,8 @@ function ItemMaster() {
           const response = await HandleGetAllStore(formData);
           if (response.Status === true) {
             SetListSotre(response.ListStore);
+            // Set Array Null In List ItemMaster When Initializa Data
+            dispatch(ItemMasterReducer.actions.SeachItemMaster([]));
           } else {
             SetMessageError(response.MessageError);
           }
@@ -159,10 +172,16 @@ function ItemMaster() {
   };
 
   // Handle Select Store
-  const HandleSelectStore = (e) => {};
+  const HandleSelectStore = (e) => {
+    if (e === 0 || e === "0") {
+      SetSelectStore(null);
+    } else {
+      SetSelectStore(e);
+    }
+  };
 
   // Handle Seach ItemMaser
-  const HandleSeachItemMasterUI = (e) => {
+  const HandleSeachItemMasterUI = async (e) => {
     // Get Token
     var token = GetCookies(UserLogin);
     // Get EventCode
@@ -179,7 +198,75 @@ function ItemMaster() {
     formData.append("Status", true);
     formData.append("KeySeach", state_SeachItemMaster);
     formData.append("CompanyCode", CompanyCode);
+    formData.append("StoreCode", state_SelectStore);
     formData.append("ListItemMaster", []);
+
+    // Show Loading Modal
+    SetShow(true);
+
+    // Call Api Seach ItemMaster
+    const seachResult = await HandleSeachItemMaster(formData);
+
+    // Hide Loading Modal
+    SetShow(false);
+
+    // Result Data Seach
+    if (seachResult.Status === true) {
+      // Conver Applydate in list
+      const listItemMasterNew = [];
+      seachResult.ListItemMaster.forEach(function (item) {
+        const data = {
+          CompanyCode: item.CompanyCode,
+          StoreCode: item.StoreCode,
+          ItemCode: item.ItemCode,
+          ApplyDate: moment(item.ApplyDate).format("YYYY-MM-DD"),
+          Description: item.Description,
+          DescriptionShort: item.DescriptionShort,
+          DescriptionLong: item.DescriptionLong,
+          PriceOrigin: item.PriceOrigin,
+          PercentDiscount: item.PercentDiscount,
+          priceSale: item.priceSale,
+          QuantityDiscountID: item.QuantityDiscountID,
+          PairDiscountID: item.PairDiscountID,
+          SpecialDiscountID: item.SpecialDiscountID,
+          Quantity: item.Quantity,
+          Viewer: item.Viewer,
+          Buy: item.Buy,
+          CategoryItemMasterID: item.CategoryItemMasterID,
+          AuthorID: item.AuthorID,
+          DateCreate: item.DateCreate,
+          IssuingCompanyID: item.IssuingCompanyID,
+          PublicationDate: item.PublicationDate,
+          size: item.size,
+          PageNumber: item.PageNumber,
+          PublishingCompanyID: item.PublishingCompanyID,
+          IsSale: item.IsSale,
+          LastUpdateDate:
+            item.LastUpdateDate === null
+              ? "--"
+              : moment(item.LastUpdateDate).format("YYYY-MM-DD"),
+          Note: item.Note,
+          HeadquartersLastUpdateDateTime: item.HeadquartersLastUpdateDateTime,
+          IsDeleteFlag: item.IsDeleteFlag,
+          UserID: item.UserID,
+          TaxGroupCodeID: item.TaxGroupCodeID,
+          TypeOf: null,
+          OldType: null,
+        };
+        listItemMasterNew.push(data);
+      });
+      // Save Area List In To Redux
+      dispatch(ItemMasterReducer.actions.SeachItemMaster(listItemMasterNew));
+      // Seach Success
+      SetMessageError(seachResult.MessageError);
+      // Enable Button Dowload
+      ref_btnDowload.current.disabled = false;
+    } else {
+      // Save Area List In To Redux
+      dispatch(ItemMasterReducer.actions.SeachItemMaster([]));
+      SetMessageError(seachResult.MessageError);
+    }
+    return;
   };
 
   return (
@@ -247,10 +334,24 @@ function ItemMaster() {
                   <th>PriceOrigin</th>
                   <th>priceSale</th>
                   <th>Quantity</th>
-                  <th>Status</th>
+                  <th>LastUpdate Date</th>
                 </tr>
               </thead>
-              <tbody></tbody>
+              <tbody>
+                {ListItemMasterRedux.map((item) => (
+                  <tr key={item.ItemCode}>
+                    <td className="firsColum" style={{ color: "blue" }}>
+                      {item.ItemCode}
+                    </td>
+                    <td style={{ color: "blue" }}>{item.ApplyDate}</td>
+                    <td style={{ color: "blue" }}>{item.Description}</td>
+                    <td style={{ color: "blue" }}>{item.PriceOrigin}</td>
+                    <td style={{ color: "blue" }}>{item.priceSale}</td>
+                    <td style={{ color: "blue" }}>{item.Quantity}</td>
+                    <td style={{ color: "blue" }}>{item.LastUpdateDate}</td>
+                  </tr>
+                ))}
+              </tbody>
             </Table>
           </div>
         </Col>
@@ -269,6 +370,8 @@ function ItemMaster() {
           <FontAwesomeIcon icon={faSquareCheck} /> Confirm
         </Button>
       </p>
+      {/* Show And Hide Laoding Data */}
+      {state_Show && <LoadingModal />}
     </Container>
   );
 }

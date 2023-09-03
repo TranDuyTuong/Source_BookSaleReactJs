@@ -43,4 +43,5 @@ export const HandleInitializaItemMaster = async (request) => {
 // Handle Seach ItemMaster
 export const HandleSeachItemMaster = async (request) => {
   const data = await ItemMasterAPI(request, SeachItemMaster_Post, post);
+  return data;
 };
