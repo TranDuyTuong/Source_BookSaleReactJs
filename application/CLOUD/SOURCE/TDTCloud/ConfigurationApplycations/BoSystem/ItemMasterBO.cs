@@ -405,5 +405,16 @@ namespace ConfigurationApplycations.BoSystem
             }
             return result;
         }
+
+        /// <summary>
+        /// ValidationItemMaster
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public Task<M_ListItemMaster> ValidationItemMaster(M_ListItemMaster request)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

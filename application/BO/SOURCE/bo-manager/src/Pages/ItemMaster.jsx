@@ -1,19 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
-import "../Styles/Home.css";
+import "../Styles/ItemMaster.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
 import InputGroup from "react-bootstrap/InputGroup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlus,
   faPenToSquare,
-  faCopy,
-  faTags,
   faEye,
   faSearch,
   faSquareCheck,
@@ -37,17 +34,6 @@ import {
 } from "../ObjectCommon/EventCommon";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { Create, Update, Delete, Revert } from "../Contants/DataContant";
-import {
-  titleCreate,
-  messageNulAreaCode,
-  messageNullDescriptionAreaCode,
-  titleUpdate,
-  messageAreaCodealreadyexist,
-  titleDelete,
-  messageErrorNotFindAreaCode,
-  titleRevert,
-} from "../MessageCommon/Message";
 import LoadingModal from "../CommonPage/LoadingCommon";
 import { useNavigate } from "react-router-dom";
 import { OldURLReducer } from "../ReduxCommon/ReducerCommon/ReducerURL";
@@ -169,6 +155,11 @@ function ItemMaster() {
   // Handle Back Menu
   const HandleBackMenuUI = (e) => {
     navigate("/menu");
+  };
+
+  // Handle Go to CreateItemMaster
+  const HandleCreateItemMasterUI = (e) => {
+    navigate("/createitemmaster");
   };
 
   // Handle Select Store
@@ -340,15 +331,13 @@ function ItemMaster() {
               <tbody>
                 {ListItemMasterRedux.map((item) => (
                   <tr key={item.ItemCode}>
-                    <td className="firsColum" style={{ color: "blue" }}>
-                      {item.ItemCode}
-                    </td>
-                    <td style={{ color: "blue" }}>{item.ApplyDate}</td>
-                    <td style={{ color: "blue" }}>{item.Description}</td>
-                    <td style={{ color: "blue" }}>{item.PriceOrigin}</td>
-                    <td style={{ color: "blue" }}>{item.priceSale}</td>
-                    <td style={{ color: "blue" }}>{item.Quantity}</td>
-                    <td style={{ color: "blue" }}>{item.LastUpdateDate}</td>
+                    <td className="firsColum">{item.ItemCode}</td>
+                    <td>{item.ApplyDate}</td>
+                    <td>{item.Description}</td>
+                    <td>{item.PriceOrigin}</td>
+                    <td>{item.priceSale}</td>
+                    <td>{item.Quantity}</td>
+                    <td>{item.LastUpdateDate}</td>
                   </tr>
                 ))}
               </tbody>
@@ -357,7 +346,11 @@ function ItemMaster() {
         </Col>
       </Row>
       <p className="alinebuttonsetting">
-        <Button variant="primary" className="btn_setting">
+        <Button
+          variant="primary"
+          className="btn_setting"
+          onClick={(e) => HandleCreateItemMasterUI()}
+        >
           <FontAwesomeIcon icon={faPlus} /> Add
         </Button>
         <Button variant="danger" className="btn_setting" ref={ref_btnDetail}>

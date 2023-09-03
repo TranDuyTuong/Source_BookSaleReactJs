@@ -23,5 +23,12 @@ namespace ConfigurationInterfaces.BoSystem
         /// <param name="request"></param>
         /// <returns></returns>
         Task<M_ListItemMaster> SeachItemMaster(M_ListItemMaster request);
+
+        /// <summary>
+        /// ValidationItemMaster
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<M_ListItemMaster> ValidationItemMaster(M_ListItemMaster request);
     }
 }

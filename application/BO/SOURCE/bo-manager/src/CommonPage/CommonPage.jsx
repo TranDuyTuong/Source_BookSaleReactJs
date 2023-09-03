@@ -9,6 +9,7 @@ import Area from "../Pages/Area";
 import Store from "../Pages/Store";
 import ItemMaster from "../Pages/ItemMaster";
 import Menu from "../Pages/Menu";
+import CreateItemMaster from "../Pages/CreateItemMaster";
 
 // Main Page
 function CommonPage() {
@@ -23,6 +24,10 @@ function CommonPage() {
             <Route path="/store" element={<Store />}></Route>
             <Route path="/itemmaster" element={<ItemMaster />}></Route>
             <Route path="/menu" element={<Menu />}></Route>
+            <Route
+              path="/createitemmaster"
+              element={<CreateItemMaster />}
+            ></Route>
           </Routes>
         </Col>
       </Row>

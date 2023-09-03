@@ -130,6 +130,7 @@ export const ListButtonMain = [
     id: "Main_05",
     buttonName: "Create ItemMaster",
     stylebutton: "outline-primary",
+    buttonUrl: "/createitemmaster",
     eventCode: EventCreateItemMaster,
   },
   {
