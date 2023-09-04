@@ -19,7 +19,7 @@ import "../Styles/ItemMaster.css";
 import {
   GetCookies,
   ConcatStringEvent,
-  HandleGetAllStore,
+  HandleGetInitializaItemMaster,
   HandleCheckRoleStaff,
 } from "../ObjectCommon/FunctionCommon";
 import {
@@ -128,7 +128,7 @@ function CreateItemMaster() {
           formData.append("Status", true);
           formData.append("CompanyCode", CompanyCode);
           // Call Api Initializa Data
-          const response = await HandleGetAllStore(formData);
+          const response = await HandleGetInitializaItemMaster(formData);
           if (response.Status === true) {
             SetListSotre(response.ListStore);
             // Set Array Null In List ItemMaster When Initializa Data

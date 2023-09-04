@@ -29,9 +29,9 @@ namespace ConfigurationApplycations.BoSystem
         /// <param name="request"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public async Task<M_ListStore> InitializaItemMaster(InitializaDataMaters request)
+        public async Task<M_InitializaDataMaster> InitializaItemMaster(InitializaDataMaters request)
         {
-            var result = new M_ListStore();
+            var result = new M_InitializaDataMaster();
             try
             {
                 // Check CompanyCode
@@ -49,7 +49,6 @@ namespace ConfigurationApplycations.BoSystem
                         result.UserID = request.UserID;
                         result.RoleID = request.RoleID;
                         result.EventCode = request.EventCode;
-                        result.TotalStore = 0;
                         result.KeySeach = null;
                         result.CompanyCode = request.CompanyCode;
                         result.Status = false;
@@ -59,8 +58,12 @@ namespace ConfigurationApplycations.BoSystem
                     {
                         // Get All Store in DB
                         var queryStore = await this.context.stores.Where(x => x.IsDeleteFlag == false).ToArrayAsync();
+                        // Get All Author in DB
+                        var queryAuthor = await this.context.authors.Where(x => x.IsDeleteFlag == false).ToArrayAsync();
+                        // Get All PublishingCompanys in DB
+                        var queryPublishingCompany = await this.context.publishingCompanies.Where(x => x.IsDeleteFlag == false).ToArrayAsync();
 
-                        if(queryStore.Any() == true)
+                        if (queryStore.Any() == true && queryAuthor.Any() == true && queryPublishingCompany.Any() == true)
                         {
                             List<M_Store> storeList = new List<M_Store>();
 
@@ -78,7 +81,6 @@ namespace ConfigurationApplycations.BoSystem
                             result.UserID = request.UserID;
                             result.RoleID = request.RoleID;
                             result.EventCode = request.EventCode;
-                            result.TotalStore = 0;
                             result.KeySeach = null;
                             result.CompanyCode = request.CompanyCode;
                             result.Status = true;
@@ -91,7 +93,6 @@ namespace ConfigurationApplycations.BoSystem
                             result.UserID = request.UserID;
                             result.RoleID = request.RoleID;
                             result.EventCode = request.EventCode;
-                            result.TotalStore = 0;
                             result.KeySeach = null;
                             result.CompanyCode = request.CompanyCode;
                             result.Status = false;
@@ -106,7 +107,6 @@ namespace ConfigurationApplycations.BoSystem
                     result.UserID = request.UserID;
                     result.RoleID = request.RoleID;
                     result.EventCode = request.EventCode;
-                    result.TotalStore = 0;
                     result.KeySeach = null;
                     result.CompanyCode = request.CompanyCode;
                     result.Status = false;
@@ -120,7 +120,6 @@ namespace ConfigurationApplycations.BoSystem
                 result.UserID = request.UserID;
                 result.RoleID = request.RoleID;
                 result.EventCode = request.EventCode;
-                result.TotalStore = 0;
                 result.KeySeach = null;
                 result.CompanyCode = request.CompanyCode;
                 result.Status = false;

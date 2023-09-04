@@ -15,7 +15,7 @@ namespace ConfigurationInterfaces.BoSystem
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<M_ListStore> InitializaItemMaster(InitializaDataMaters request);
+        Task<M_InitializaDataMaster> InitializaItemMaster(InitializaDataMaters request);
 
         /// <summary>
         /// SeachItemMaster

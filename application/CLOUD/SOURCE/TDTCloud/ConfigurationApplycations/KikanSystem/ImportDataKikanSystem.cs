@@ -276,15 +276,15 @@ namespace ConfigurationApplycations.KikanSystem
                                             {
                                                 AuthorID = author.AuthorID,
                                                 NameAuthor = author.NameAuthor,
-                                                Birthday = author.Birthday,
-                                                Hometown = author.Hometown,
+                                                //Birthday = author.Birthday,
+                                                //Hometown = author.Hometown,
                                                 Description = author.Description,
                                                 DateCreate = author.DateCreate,
                                                 UserID = author.UserID,
                                                 HeadquartersLastUpdateDateTime = author.HeadquartersLastUpdateDateTime,
                                                 LastUpdateDate = author.LasUpdateDate,
                                                 ContentLastUpdateDate = author.ContentLastUpdateDate,
-                                                TotalBook = author.TotalBook,
+                                                //TotalBook = author.TotalBook,
                                                 IsDeleteFlag = author.IsDeleteFlag,
                                             };
                                             listAuthor.Add(authorItem);

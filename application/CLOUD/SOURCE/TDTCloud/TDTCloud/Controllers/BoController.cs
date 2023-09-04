@@ -507,7 +507,7 @@ namespace TDTCloud.Controllers
                     // Check Token Null
                     if (dataConver.Token == null || dataConver.Token == "")
                     {
-                        var tokenNull = new M_ListStore()
+                        var tokenNull = new M_InitializaDataMaster()
                         {
                             Status = false,
                             MessageError = CommonConfiguration.DataCommon.MessageNullToken
@@ -515,7 +515,7 @@ namespace TDTCloud.Controllers
                         };
 
                         // Conver Object to json
-                        result = ConverToJson<M_ListStore>.ConverObjectToJson(tokenNull);
+                        result = ConverToJson<M_InitializaDataMaster>.ConverObjectToJson(tokenNull);
                     }
                     else
                     {
@@ -524,27 +524,27 @@ namespace TDTCloud.Controllers
                         var tokenResult = f_CheckValidationToken.ReadContentToken(dataConver.Token, ev.IdPlugin);
                         if (tokenResult.Status == false)
                         {
-                            var resultContent = new M_ListStore()
+                            var resultContent = new M_InitializaDataMaster()
                             {
                                 Status = tokenResult.Status,
                                 Token = dataConver.Token,
                                 EventCode = DataCommon.EventError
 
                             };
-                            result = ConverToJson<M_ListStore>.ConverObjectToJson(resultContent);
+                            result = ConverToJson<M_InitializaDataMaster>.ConverObjectToJson(resultContent);
                         }
                         else
                         {
-                            // Confirm store To DB
-                            var getStore = await this.itemMasterBO.InitializaItemMaster(dataConver);
+                            // Get Initializa itemMaster To DB
+                            var getDataInitializa = await this.itemMasterBO.InitializaItemMaster(dataConver);
                             // Conver Object to json
-                            result = ConverToJson<M_ListStore>.ConverObjectToJson(getStore);
+                            result = ConverToJson<M_InitializaDataMaster>.ConverObjectToJson(getDataInitializa);
                         }
                     }
                 }
                 else
                 {
-                    var errorEventCode = new M_ListStore()
+                    var errorEventCode = new M_InitializaDataMaster()
                     {
                         Status = false,
                         EventCode = DataCommon.EventError,
@@ -553,12 +553,12 @@ namespace TDTCloud.Controllers
                     };
 
                     // Conver Object to Json
-                    result = ConverToJson<M_ListStore>.ConverObjectToJson(errorEventCode);
+                    result = ConverToJson<M_InitializaDataMaster>.ConverObjectToJson(errorEventCode);
                 }
             }
             else
             {
-                var nullData = new M_ListStore()
+                var nullData = new M_InitializaDataMaster()
                 {
                     Status = false,
                     EventCode = DataCommon.EventError,
@@ -567,7 +567,7 @@ namespace TDTCloud.Controllers
                 };
 
                 // Conver Object to Json
-                result = ConverToJson<M_ListStore>.ConverObjectToJson(nullData);
+                result = ConverToJson<M_InitializaDataMaster>.ConverObjectToJson(nullData);
             }
             return Ok(result);
         }

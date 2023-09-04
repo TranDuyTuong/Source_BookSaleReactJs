@@ -27,24 +27,6 @@ namespace TDTSettingTable
         }
 
         /// <summary>
-        /// Birthday
-        /// </summary>
-        public DateTime? Birthday
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Hometown
-        /// </summary>
-        public string Hometown
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
         /// Discription
         /// </summary>
         public string Description
@@ -93,15 +75,6 @@ namespace TDTSettingTable
         /// ContentLastUpdateDate
         /// </summary>
         public string ContentLastUpdateDate
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// TotalBook
-        /// </summary>
-        public int TotalBook
         {
             get;
             set;
