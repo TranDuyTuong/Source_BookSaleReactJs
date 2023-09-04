@@ -2,6 +2,7 @@ import instance from "../ApiLablary/Axios";
 import {
   InitializaItemMaster_Post,
   SeachItemMaster_Post,
+  ValidationItemMaster_Post,
 } from "../ObjectCommon/ApiCommon";
 import { post } from "../Contants/DataContant";
 
@@ -43,5 +44,11 @@ export const HandleInitializaItemMaster = async (request) => {
 // Handle Seach ItemMaster
 export const HandleSeachItemMaster = async (request) => {
   const data = await ItemMasterAPI(request, SeachItemMaster_Post, post);
+  return data;
+};
+
+// Handle Validation ItemCode
+export const HandleValidationItemCode = async (request) => {
+  const data = await ItemMasterAPI(request, ValidationItemMaster_Post, post);
   return data;
 };

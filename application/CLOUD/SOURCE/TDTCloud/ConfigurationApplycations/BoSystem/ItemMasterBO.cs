@@ -412,9 +412,133 @@ namespace ConfigurationApplycations.BoSystem
         /// <param name="request"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public Task<M_ListItemMaster> ValidationItemMaster(M_ListItemMaster request)
+        public async Task<M_ListItemMaster> ValidationItemMaster(M_ListItemMaster request)
         {
-            throw new NotImplementedException();
+            var result = new M_ListItemMaster();
+            try
+            {
+                // Check CompanyCode
+                bool isCompanyCode = this.contactCommon.ValidationCompanyCode(request.CompanyCode);
+
+                if (isCompanyCode == true)
+                {
+                    // Check Role User Handle
+                    bool isRole = await this.contactCommon.ValidationRoleUserLimit(request.RoleID, request.UserID, request.EventCode);
+
+                    if (isRole == true)
+                    {
+                        // Don't have role handle
+                        result.Token = request.Token;
+                        result.UserID = request.UserID;
+                        result.RoleID = request.RoleID;
+                        result.EventCode = request.EventCode;
+                        result.TotalItemMaster = 0;
+                        result.KeySeach = null;
+                        result.CompanyCode = request.CompanyCode;
+                        result.Status = false;
+                        result.MessageError = CommonConfiguration.DataCommon.MessageRoleUserLimit;
+                    }
+                    else
+                    {
+                        if(request.KeySeach == null)
+                        {
+                            // Error null ItemCode
+                            result.Token = request.Token;
+                            result.UserID = request.UserID;
+                            result.RoleID = request.RoleID;
+                            result.EventCode = request.EventCode;
+                            result.TotalItemMaster = 0;
+                            result.KeySeach = request.KeySeach;
+                            result.CompanyCode = request.CompanyCode;
+                            result.Status = false;
+                            result.MessageError = CommonConfiguration.DataCommon.MessageNullData;
+                        }
+                        else
+                        {
+                            // Validation Lenght ItemCode
+                            if (request.KeySeach.Length > CommonConfiguration.DataCommon.MaxLenghtItemCode)
+                            {
+                                // Error Lenght ItemCode Is Validation
+                                result.Token = request.Token;
+                                result.UserID = request.UserID;
+                                result.RoleID = request.RoleID;
+                                result.EventCode = request.EventCode;
+                                result.TotalItemMaster = 0;
+                                result.KeySeach = request.KeySeach;
+                                result.CompanyCode = request.CompanyCode;
+                                result.Status = false;
+                                result.MessageError = CommonConfiguration.DataCommon.MessageErrorLenghtItemCode;
+                            }
+                            else
+                            {
+                                // Check ItemCode Exist in DB
+                                var queryItemCode = from item in this.context.itemMasters
+                                                    where (
+                                                        item.ItemCode == request.KeySeach &&
+                                                        item.IsDeleteFlag == false
+                                                    )
+                                                    select new { item };
+
+                                if (queryItemCode.Count() == 0)
+                                {
+                                    // Not Exit itemcode in DB, Can use this itemcode
+                                    result.Token = request.Token;
+                                    result.UserID = request.UserID;
+                                    result.RoleID = request.RoleID;
+                                    result.EventCode = request.EventCode;
+                                    result.TotalItemMaster = 0;
+                                    result.KeySeach = request.KeySeach;
+                                    result.CompanyCode = request.CompanyCode;
+                                    result.Status = true;
+                                    result.MessageError = null;
+                                }
+                                else
+                                {
+                                    // Exit itemcode in DB, Not use this itemcode
+                                    result.Token = request.Token;
+                                    result.UserID = request.UserID;
+                                    result.RoleID = request.RoleID;
+                                    result.EventCode = request.EventCode;
+                                    result.TotalItemMaster = 0;
+                                    result.KeySeach = request.KeySeach;
+                                    result.CompanyCode = request.CompanyCode;
+                                    result.Status = false;
+                                    result.MessageError = "ItemCode Exit in System, Please Try ItemCode Another!";
+                                }
+                            }
+                        }
+
+                    }
+                }
+                else
+                {
+                    // Don't Find CompanyCode
+                    result.Token = request.Token;
+                    result.UserID = request.UserID;
+                    result.RoleID = request.RoleID;
+                    result.EventCode = request.EventCode;
+                    result.TotalItemMaster = 0;
+                    result.KeySeach = null;
+                    result.CompanyCode = request.CompanyCode;
+                    result.Status = false;
+                    result.MessageError = CommonConfiguration.DataCommon.MessageNotFindCompanyCode;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Token = request.Token;
+                result.UserID = request.UserID;
+                result.RoleID = request.RoleID;
+                result.EventCode = request.EventCode;
+                result.TotalItemMaster = 0;
+                result.KeySeach = null;
+                result.CompanyCode = request.CompanyCode;
+                result.Status = false;
+                result.MessageError = ex.Message;
+            }
+            return result;
         }
+
     }
 }

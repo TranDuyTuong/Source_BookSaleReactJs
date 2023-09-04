@@ -26,6 +26,11 @@ namespace CommonConfiguration
         public static int MaxRecol = 100;
 
         /// <summary>
+        /// MaxLenghtItemCode
+        /// </summary>
+        public static int MaxLenghtItemCode = 26;
+
+        /// <summary>
         /// StringRegex
         /// </summary>
         public static Regex StringRegex = new Regex("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
@@ -159,6 +164,11 @@ namespace CommonConfiguration
         /// MessageErrorMoreThan100Recol
         /// </summary>
         public static string MessageErrorMoreThan100Recol = "Find More Than 100 Recol, Should Show 100 Recol Fist!";
+
+        /// <summary>
+        /// MessageErrorLenghtItemCode
+        /// </summary>
+        public static string MessageErrorLenghtItemCode = "Lenght ItemCode More Than Lenght ItemCode Defaul Is 26";
 
         ///-------------------------------------------Event Code-------------------------------------------------
         /// <summary>
