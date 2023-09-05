@@ -2,7 +2,10 @@
 using ConfigurationInterfaces.BoSystem;
 using ConfigurationInterfaces.DataCommon;
 using Microsoft.EntityFrameworkCore;
+using ModelConfiguration.M_Bo.AuthorData;
+using ModelConfiguration.M_Bo.CategoryData;
 using ModelConfiguration.M_Bo.ItemMasterData;
+using ModelConfiguration.M_Bo.PublishingCompanysData;
 using ModelConfiguration.M_Bo.StoreData;
 using System;
 using System.Collections.Generic;
@@ -62,9 +65,12 @@ namespace ConfigurationApplycations.BoSystem
                         var queryAuthor = await this.context.authors.Where(x => x.IsDeleteFlag == false).ToArrayAsync();
                         // Get All PublishingCompanys in DB
                         var queryPublishingCompany = await this.context.publishingCompanies.Where(x => x.IsDeleteFlag == false).ToArrayAsync();
+                        // Get All Category in DB
+                        var queryCategory = await this.context.categoryItemMasters.Where(x => x.IsDeleteFlag == false).ToArrayAsync();
 
-                        if (queryStore.Any() == true && queryAuthor.Any() == true && queryPublishingCompany.Any() == true)
+                        if (queryStore.Any() == true && queryAuthor.Any() == true && queryPublishingCompany.Any() == true && queryCategory.Any() == true)
                         {
+                            // Store
                             List<M_Store> storeList = new List<M_Store>();
 
                             foreach (var store in queryStore)
@@ -77,6 +83,45 @@ namespace ConfigurationApplycations.BoSystem
                                 storeList.Add(storeItem);
                             }
 
+                            // Author
+                            List<M_Author> authorList = new List<M_Author>();
+
+                            foreach(var author in queryAuthor)
+                            {
+                                var authorItem = new M_Author()
+                                {
+                                    AuthorID = author.AuthorID,
+                                    Description = author.Description
+                                };
+                                authorList.Add(authorItem);
+                            }
+
+                            // PublishingCompanys
+                            List<M_PublishingCompany> publishingCompaniList = new List<M_PublishingCompany>();
+
+                            foreach(var publishingCompany in queryPublishingCompany)
+                            {
+                                var publishingCompanyItem = new M_PublishingCompany()
+                                {
+                                    PublishingCompanyID = publishingCompany.PublishingCompanyID,
+                                    Description = publishingCompany.Description
+                                };
+                                publishingCompaniList.Add(publishingCompanyItem);
+                            }
+
+                            // Category
+                            List<M_Category> categoryList = new List<M_Category>();
+
+                            foreach(var category in queryCategory)
+                            {
+                                var categoryItem = new M_Category()
+                                {
+                                    CategoryItemMasterID = category.CategoryItemMasterID,
+                                    Description = category.Description
+                                };
+                                categoryList.Add(categoryItem);
+                            }
+
                             result.Token = request.Token;
                             result.UserID = request.UserID;
                             result.RoleID = request.RoleID;
@@ -86,6 +131,9 @@ namespace ConfigurationApplycations.BoSystem
                             result.Status = true;
                             result.MessageError = null;
                             result.ListStore = storeList;
+                            result.ListAuthor = authorList;
+                            result.ListPublishingCompany = publishingCompaniList;
+                            result.ListCategory = categoryList;
                         }
                         else
                         {

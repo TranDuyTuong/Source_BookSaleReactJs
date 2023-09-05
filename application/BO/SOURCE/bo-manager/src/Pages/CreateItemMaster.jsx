@@ -60,6 +60,13 @@ function CreateItemMaster() {
 
   // Show Store Select
   const [state_ListStore, SetListSotre] = useState([]);
+  // Show Author Select
+  const [state_ListAuthor, SetListAuthor] = useState([]);
+  // Show Publishing Companys Select
+  const [state_ListPublishingCompany, SetPublishingCompany] = useState([]);
+  // Show Category Select
+  const [state_ListCategory, SetCategory] = useState([]);
+
   // Message Error
   const [state_MessageError, SetMessageError] = useState("");
   // Show And Hide Loading Data
@@ -130,7 +137,12 @@ function CreateItemMaster() {
           // Call Api Initializa Data
           const response = await HandleGetInitializaItemMaster(formData);
           if (response.Status === true) {
+            // List Select
             SetListSotre(response.ListStore);
+            SetListAuthor(response.ListAuthor);
+            SetPublishingCompany(response.ListPublishingCompany);
+            SetCategory(response.ListCategory);
+
             // Set Array Null In List ItemMaster When Initializa Data
             dispatch(ItemMasterReducer.actions.SeachItemMaster([]));
           } else {
@@ -394,8 +406,11 @@ function CreateItemMaster() {
               <option defaultChecked value="0">
                 Select Category
               </option>
-              {state_ListStore.map((item) => (
-                <option key={item.StoreCode} value={item.StoreCode}>
+              {state_ListCategory.map((item) => (
+                <option
+                  key={item.CategoryItemMasterID}
+                  value={item.CategoryItemMasterID}
+                >
                   {item.Description}
                 </option>
               ))}
@@ -413,8 +428,8 @@ function CreateItemMaster() {
               <option defaultChecked value="0">
                 Select Author
               </option>
-              {state_ListStore.map((item) => (
-                <option key={item.StoreCode} value={item.StoreCode}>
+              {state_ListAuthor.map((item) => (
+                <option key={item.AuthorID} value={item.AuthorID}>
                   {item.Description}
                 </option>
               ))}
@@ -432,8 +447,11 @@ function CreateItemMaster() {
               <option defaultChecked value="0">
                 Select Publishing Company
               </option>
-              {state_ListStore.map((item) => (
-                <option key={item.StoreCode} value={item.StoreCode}>
+              {state_ListPublishingCompany.map((item) => (
+                <option
+                  key={item.PublishingCompanyID}
+                  value={item.PublishingCompanyID}
+                >
                   {item.Description}
                 </option>
               ))}

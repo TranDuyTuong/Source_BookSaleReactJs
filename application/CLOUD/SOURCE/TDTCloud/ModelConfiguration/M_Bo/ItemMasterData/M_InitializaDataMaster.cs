@@ -1,4 +1,5 @@
 ﻿using ModelConfiguration.M_Bo.AuthorData;
+using ModelConfiguration.M_Bo.CategoryData;
 using ModelConfiguration.M_Bo.PublishingCompanysData;
 using ModelConfiguration.M_Bo.StoreData;
 using System;
@@ -118,5 +119,14 @@ namespace ModelConfiguration.M_Bo.ItemMasterData
             get;
             set;
         } = new List<M_PublishingCompany>();
+
+        /// <summary>
+        /// ListCategory
+        /// </summary>
+        public List<M_Category> ListCategory
+        {
+            get;
+            set;
+        } = new List<M_Category>();
     }
 }

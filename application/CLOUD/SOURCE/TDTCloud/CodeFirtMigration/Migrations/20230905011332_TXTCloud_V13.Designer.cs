@@ -4,14 +4,16 @@ using CodeFirtMigration.DataFE;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CodeFirtMigration.Migrations
 {
     [DbContext(typeof(ContextFE))]
-    partial class ContextFEModelSnapshot : ModelSnapshot
+    [Migration("20230905011332_TXTCloud_V13")]
+    partial class TXTCloud_V13
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
