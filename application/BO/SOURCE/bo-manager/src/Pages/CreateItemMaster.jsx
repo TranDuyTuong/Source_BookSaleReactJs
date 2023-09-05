@@ -7,13 +7,14 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import Table from "react-bootstrap/Table";
+import Modal from "react-bootstrap/Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlus,
   faPenToSquare,
-  faEye,
   faSquareCheck,
   faSquareCaretLeft,
+  faImages,
 } from "@fortawesome/free-solid-svg-icons";
 import "../Styles/ItemMaster.css";
 import {
@@ -44,6 +45,7 @@ import { HandleValidationItemCode } from "../ApiLablary/ItemMasterApi";
 function CreateItemMaster() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  let ListImageAdd = [];
 
   // State Form Create ItemMaster
   const [state_ItemCode, SetItemCode] = useState("");
@@ -66,11 +68,16 @@ function CreateItemMaster() {
   const [state_ListPublishingCompany, SetPublishingCompany] = useState([]);
   // Show Category Select
   const [state_ListCategory, SetCategory] = useState([]);
+  // Show And Hide Dialog Add Image
+  const [showDialog, setShowDialog] = useState(false);
 
   // Message Error
   const [state_MessageError, SetMessageError] = useState("");
   // Show And Hide Loading Data
   const [state_Show, SetShow] = useState(false);
+  // Url Image
+  const [state_Url, SetUrl] = useState("");
+  const [state_UrlDefault, SetUrlDefault] = useState("");
 
   useEffect(() => {
     // Call Api Check Validation Token And Role User
@@ -170,6 +177,8 @@ function CreateItemMaster() {
           document.getElementById("Btn_DisplayAuthor").disabled = true;
           document.getElementById("Btn_DisplaySize").disabled = true;
           document.getElementById("Btn_DisplayNote").disabled = true;
+
+          ListImageAdd = [];
         }
         InitializaData();
       }
@@ -187,6 +196,16 @@ function CreateItemMaster() {
     if (e === 0 || e === "0") {
     } else {
     }
+  };
+
+  // Handle Show Dialog Add Image Item
+  const HandleAddImageItem = (e) => {
+    setShowDialog(true);
+  };
+
+  // Handle Add New Image in List Image
+  const HandleAddNewImage = (e) => {
+    alert(state_Url);
   };
 
   // Handle Seach ItemCode
@@ -482,6 +501,18 @@ function CreateItemMaster() {
                 style={{ height: "50px" }}
               />
             </InputGroup>
+
+            {/* input image url */}
+            <p className="titleItem">Url Image</p>
+            <InputGroup className="mb-3">
+              <Button
+                variant="secondary"
+                onClick={() => HandleAddImageItem()}
+                style={{ width: "inherit" }}
+              >
+                <FontAwesomeIcon icon={faImages} />
+              </Button>
+            </InputGroup>
           </Form.Group>
         </Col>
       </Row>
@@ -521,6 +552,37 @@ function CreateItemMaster() {
       </p>
       {/* Show And Hide Laoding Data */}
       {state_Show && <LoadingModal />}
+
+      {/* Dialog Add Image Item */}
+      <Modal show={showDialog}>
+        <Modal.Header style={{ background: "white" }}>
+          <Modal.Title>Add Image ItemMaster</Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{ background: "white" }}>
+          <InputGroup className="mb-3">
+            <Form.Control
+              placeholder="Enter Url Image Default ..."
+              type="text"
+              onChange={(e) => SetUrlDefault(e.target.value)}
+            />
+          </InputGroup>
+
+          <InputGroup className="mb-3">
+            <Form.Control
+              placeholder="Enter Url Image ..."
+              as="textarea"
+              style={{ height: "100px", "white-space": "pre" }}
+              onChange={(e) => SetUrl(e.target.value)}
+            />
+          </InputGroup>
+        </Modal.Body>
+        <Modal.Footer style={{ background: "white" }}>
+          <Button variant="secondary">Close</Button>
+          <Button variant="primary" onClick={() => HandleAddNewImage()}>
+            Save
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 }
