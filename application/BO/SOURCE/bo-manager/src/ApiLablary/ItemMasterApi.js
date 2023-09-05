@@ -29,6 +29,9 @@ export const HandleInitializaItemMaster = async (request) => {
     const result = {
       Status: data.Status,
       ListStore: data.ListStore,
+      ListAuthor: data.ListAuthor,
+      ListPublishingCompany: data.ListPublishingCompany,
+      ListCategory: data.ListCategory,
     };
     return result;
   } else {

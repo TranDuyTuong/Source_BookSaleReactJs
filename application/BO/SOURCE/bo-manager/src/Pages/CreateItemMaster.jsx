@@ -41,11 +41,48 @@ import { ItemMasterReducer } from "../ReduxCommon/ReducerCommon/ReducerItemMaste
 import moment from "moment";
 import { HandleValidationItemCode } from "../ApiLablary/ItemMasterApi";
 
+// Function Validation Create
+function ValidationItemMaster(dataValidation) {
+  const result = {
+    Status: true,
+    listError: [],
+  };
+
+  // ApplyDate
+  if (
+    dataValidation.Applydate === null ||
+    dataValidation.Applydate === undefined ||
+    dataValidation.Applydate === ""
+  ) {
+    result.Status = false;
+    const error = {
+      id: 1,
+      messageError: "ApplyDate Not Null",
+    };
+    result.listError.push(error);
+  }
+
+  // Price Origin
+  if (
+    dataValidation.PriceOrigin === null ||
+    dataValidation.PriceOrigin === undefined ||
+    dataValidation.PriceOrigin === ""
+  ) {
+    result.Status = false;
+    const error = {
+      id: 2,
+      messageError: "PriceOrigin Not Null",
+    };
+    result.listError.push(error);
+  }
+
+  return result;
+}
+
 // Main Function
 function CreateItemMaster() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  let ListImageAdd = [];
 
   // State Form Create ItemMaster
   const [state_ItemCode, SetItemCode] = useState("");
@@ -53,6 +90,7 @@ function CreateItemMaster() {
   // Setting Button
   const btn_Update = useRef(null);
   const btn_Confirm = useRef(null);
+  const btn_Image = useRef(null);
   const Btn_DisplayApplydate = useRef(null);
   const Btn_DisplayPriceOrigin = useRef(null);
   const Btn_DisplayPriceSale = useRef(null);
@@ -67,7 +105,7 @@ function CreateItemMaster() {
   // Show Publishing Companys Select
   const [state_ListPublishingCompany, SetPublishingCompany] = useState([]);
   // Show Category Select
-  const [state_ListCategory, SetCategory] = useState([]);
+  const [state_ListCategory, SetListCategory] = useState([]);
   // Show And Hide Dialog Add Image
   const [showDialog, setShowDialog] = useState(false);
 
@@ -78,6 +116,23 @@ function CreateItemMaster() {
   // Url Image
   const [state_Url, SetUrl] = useState("");
   const [state_UrlDefault, SetUrlDefault] = useState("");
+  const [state_ConfirmUrlImage, SetConfirmUrlImage] = useState("");
+  const [state_MessageErrorImage, SetMessageErrorImage] = useState("");
+
+  // Create ItemMaster
+  const [state_Applydate, SetApplydate] = useState("");
+  const [state_PriceOrigin, SetPriceOrigin] = useState("");
+  const [state_PriceSale, SetPriceSale] = useState("");
+  const [state_Description, SetDescription] = useState("");
+  const [state_DescriptionLong, SetDescriptionLong] = useState("");
+  const [state_DescriptionShort, SetDescriptionShort] = useState("");
+  const [state_Store, SetStore] = useState("");
+  const [state_Quantity, SetQuantity] = useState("");
+  const [state_Category, SetCategory] = useState("");
+  const [state_Author, SetAuthor] = useState("");
+  const [state_PublisingCompany, SetPublisingCompany] = useState("");
+  const [state_Size, SetSize] = useState("");
+  const [state_Note, SetNote] = useState("");
 
   useEffect(() => {
     // Call Api Check Validation Token And Role User
@@ -148,7 +203,7 @@ function CreateItemMaster() {
             SetListSotre(response.ListStore);
             SetListAuthor(response.ListAuthor);
             SetPublishingCompany(response.ListPublishingCompany);
-            SetCategory(response.ListCategory);
+            SetListCategory(response.ListCategory);
 
             // Set Array Null In List ItemMaster When Initializa Data
             dispatch(ItemMasterReducer.actions.SeachItemMaster([]));
@@ -159,6 +214,7 @@ function CreateItemMaster() {
           // disabled button
           btn_Update.current.disabled = true;
           btn_Confirm.current.disabled = true;
+          btn_Image.current.disabled = true;
 
           document.getElementById("Btn_DisplayApplydate").disabled = true;
           document.getElementById("Btn_DisplayPriceOrigin").disabled = true;
@@ -177,8 +233,6 @@ function CreateItemMaster() {
           document.getElementById("Btn_DisplayAuthor").disabled = true;
           document.getElementById("Btn_DisplaySize").disabled = true;
           document.getElementById("Btn_DisplayNote").disabled = true;
-
-          ListImageAdd = [];
         }
         InitializaData();
       }
@@ -194,8 +248,49 @@ function CreateItemMaster() {
   // Handle Select Store
   const HandleSelectStore = (e) => {
     if (e === 0 || e === "0") {
+      SetMessageError("Please Choose A Store!");
     } else {
+      SetStore(e);
     }
+    return;
+  };
+
+  // Handle Select Author
+  const HandleSelectAuthor = (e) => {
+    if (e === 0 || e === "0") {
+      SetMessageError("Please Choose A Author!");
+    } else {
+      SetAuthor(e);
+    }
+    return;
+  };
+
+  // Handle Select PublishingCompany
+  const HandleSelectPublishingCompany = (e) => {
+    if (e === 0 || e === "0") {
+      SetMessageError("Please Choose A Publishing Company!");
+    } else {
+      SetPublisingCompany(e);
+    }
+    return;
+  };
+
+  // Handle Select Category
+  const HandleSelectCategory = (e) => {
+    if (e === 0 || e === "0") {
+      SetMessageError("Please Choose A Category!");
+    } else {
+      SetCategory(e);
+    }
+    return;
+  };
+
+  // Handle Close Dialog Image
+  const HandleCloseDialogImage = (e) => {
+    SetUrlDefault("");
+    SetUrl("");
+    SetMessageErrorImage("");
+    setShowDialog(false);
   };
 
   // Handle Show Dialog Add Image Item
@@ -205,7 +300,25 @@ function CreateItemMaster() {
 
   // Handle Add New Image in List Image
   const HandleAddNewImage = (e) => {
-    alert(state_Url);
+    // Validation Url Image
+    if (
+      state_UrlDefault === null ||
+      state_UrlDefault === undefined ||
+      state_UrlDefault === "" ||
+      state_Url === null ||
+      state_Url === undefined ||
+      state_Url === ""
+    ) {
+      SetMessageErrorImage("Url Image Not Null, Please Try Again!");
+    } else {
+      const ImageItemMaster = {
+        IsDefaulr: true,
+        UrlImageDefault: state_UrlDefault,
+        UrlImage: state_Url,
+      };
+      SetConfirmUrlImage(ImageItemMaster);
+    }
+    return;
   };
 
   // Handle Seach ItemCode
@@ -227,8 +340,10 @@ function CreateItemMaster() {
     formData.append("CompanyCode", CompanyCode);
     formData.append("ListItemMaster", []);
 
+    SetShow(true);
     // Call Api check itemMaster code
     const resultValidaion = await HandleValidationItemCode(formData);
+    SetShow(false);
 
     if (resultValidaion.Status === true) {
       SetMessageError("");
@@ -246,6 +361,7 @@ function CreateItemMaster() {
       document.getElementById("Btn_DisplayPublishingCompany").disabled = false;
       document.getElementById("Btn_DisplaySize").disabled = false;
       document.getElementById("Btn_DisplayNote").disabled = false;
+      btn_Image.current.disabled = false;
     } else {
       SetMessageError(resultValidaion.MessageError);
       // Don't use this itemcode
@@ -256,12 +372,61 @@ function CreateItemMaster() {
       document.getElementById("Btn_DisplayDescriptionLong").disabled = true;
       document.getElementById("Btn_DisplayDescriptionShort").disabled = true;
       document.getElementById("Btn_DisplayStore").disabled = true;
-      document.getElementById("Btn_DisplayQuantity").dispatch = true;
+      document.getElementById("Btn_DisplayQuantity").disabled = true;
       document.getElementById("Btn_DisplayCategory").disabled = true;
       document.getElementById("Btn_DisplayAuthor").disabled = true;
       document.getElementById("Btn_DisplayPublishingCompany").disabled = true;
       document.getElementById("Btn_DisplaySize").disabled = true;
       document.getElementById("Btn_DisplayNote").disabled = true;
+      btn_Image.current.disabled = true;
+    }
+  };
+
+  // Handle Create ItemMaster
+  const HandleCreateItemMaster = (e) => {
+    // Validation Form
+    const formData = {
+      Applydate: state_Applydate,
+      PriceOrigin: state_PriceOrigin,
+      PriceSale: state_PriceSale,
+      Description: state_Description,
+      DescriptionLong: state_DescriptionLong,
+      DescriptionShort: state_DescriptionShort,
+      Store: state_Store,
+      Quantity: state_Quantity,
+      Category: state_Category,
+      Author: state_Author,
+      PublisingCompany: state_PublisingCompany,
+      Size: state_Size,
+      Note: state_Note,
+    };
+    const validation = ValidationItemMaster(formData);
+
+    document.getElementById("Btn_DisplayApplydate").style.backgroundColor =
+      "white";
+    document.getElementById("Btn_DisplayPriceOrigin").style.backgroundColor =
+      "white";
+
+    if (validation.Status === false) {
+      // Error
+      validation.listError.forEach(function (itemError) {
+        switch (itemError.id) {
+          case 1:
+            document.getElementById(
+              "Btn_DisplayApplydate"
+            ).style.backgroundColor = "yellow";
+            break;
+          case 2:
+            document.getElementById(
+              "Btn_DisplayPriceOrigin"
+            ).style.backgroundColor = "yellow";
+            break;
+          default:
+            break;
+        }
+      });
+    } else {
+      // Success
     }
   };
 
@@ -308,6 +473,8 @@ function CreateItemMaster() {
                 aria-describedby="basic-addon2"
                 ref={Btn_DisplayApplydate}
                 id="Btn_DisplayApplydate"
+                onChange={(e) => SetApplydate(e.target.value)}
+                value={state_Applydate}
               />
             </InputGroup>
 
@@ -322,6 +489,8 @@ function CreateItemMaster() {
                 aria-describedby="basic-addon2"
                 ref={Btn_DisplayPriceOrigin}
                 id="Btn_DisplayPriceOrigin"
+                onChange={(e) => SetPriceOrigin(e.target.value)}
+                value={state_PriceOrigin}
               />
             </InputGroup>
 
@@ -336,6 +505,8 @@ function CreateItemMaster() {
                 aria-describedby="basic-addon2"
                 ref={Btn_DisplayPriceSale}
                 id="Btn_DisplayPriceSale"
+                onChange={(e) => SetPriceSale(e.target.value)}
+                value={state_PriceSale}
               />
             </InputGroup>
           </Form.Group>
@@ -351,6 +522,8 @@ function CreateItemMaster() {
                 placeholder="Enter Name Item ..."
                 aria-describedby="basic-addon2"
                 id="Btn_DisplayDescription"
+                onChange={(e) => SetDescription(e.target.value)}
+                value={state_Description}
               />
             </InputGroup>
 
@@ -363,6 +536,8 @@ function CreateItemMaster() {
                 placeholder="Enter Name Item Long ..."
                 aria-describedby="basic-addon2"
                 id="Btn_DisplayDescriptionLong"
+                onChange={(e) => SetDescriptionLong(e.target.value)}
+                value={state_DescriptionLong}
               />
             </InputGroup>
 
@@ -375,6 +550,8 @@ function CreateItemMaster() {
                 placeholder="Enter Name Item Short ..."
                 aria-describedby="basic-addon2"
                 id="Btn_DisplayDescriptionShort"
+                onChange={(e) => SetDescriptionShort(e.target.value)}
+                value={state_DescriptionShort}
               />
             </InputGroup>
 
@@ -410,6 +587,8 @@ function CreateItemMaster() {
                 aria-describedby="basic-addon2"
                 type="Number"
                 id="Btn_DisplayQuantity"
+                onChange={(e) => SetQuantity(e.target.value)}
+                value={state_Quantity}
               />
             </InputGroup>
 
@@ -419,7 +598,7 @@ function CreateItemMaster() {
             </p>
             <Form.Select
               className="selectstore mb-3"
-              onChange={(e) => HandleSelectStore(e.target.value)}
+              onChange={(e) => HandleSelectCategory(e.target.value)}
               id="Btn_DisplayCategory"
             >
               <option defaultChecked value="0">
@@ -441,7 +620,7 @@ function CreateItemMaster() {
             </p>
             <Form.Select
               className="selectstore mb-3"
-              onChange={(e) => HandleSelectStore(e.target.value)}
+              onChange={(e) => HandleSelectAuthor(e.target.value)}
               id="Btn_DisplayAuthor"
             >
               <option defaultChecked value="0">
@@ -449,7 +628,7 @@ function CreateItemMaster() {
               </option>
               {state_ListAuthor.map((item) => (
                 <option key={item.AuthorID} value={item.AuthorID}>
-                  {item.Description}
+                  {item.NameAuthor}
                 </option>
               ))}
             </Form.Select>
@@ -460,7 +639,7 @@ function CreateItemMaster() {
             </p>
             <Form.Select
               className="selectstore mb-3"
-              onChange={(e) => HandleSelectStore(e.target.value)}
+              onChange={(e) => HandleSelectPublishingCompany(e.target.value)}
               id="Btn_DisplayPublishingCompany"
             >
               <option defaultChecked value="0">
@@ -488,6 +667,8 @@ function CreateItemMaster() {
                 id="Btn_DisplaySize"
                 placeholder="Enter Size ..."
                 aria-describedby="basic-addon2"
+                onChange={(e) => SetSize(e.target.value)}
+                value={state_Size}
               />
             </InputGroup>
 
@@ -499,6 +680,8 @@ function CreateItemMaster() {
                 placeholder="Enter Note ..."
                 as="textarea"
                 style={{ height: "50px" }}
+                onChange={(e) => SetNote(e.target.value)}
+                value={state_Note}
               />
             </InputGroup>
 
@@ -506,6 +689,7 @@ function CreateItemMaster() {
             <p className="titleItem">Url Image</p>
             <InputGroup className="mb-3">
               <Button
+                ref={btn_Image}
                 variant="secondary"
                 onClick={() => HandleAddImageItem()}
                 style={{ width: "inherit" }}
@@ -540,7 +724,11 @@ function CreateItemMaster() {
         </Col>
       </Row>
       <p className="alinebuttonsetting">
-        <Button variant="primary" className="btn_setting">
+        <Button
+          variant="primary"
+          className="btn_setting"
+          onClick={(e) => HandleCreateItemMaster()}
+        >
           <FontAwesomeIcon icon={faPlus} /> Add
         </Button>
         <Button variant="warning" className="btn_setting" ref={btn_Update}>
@@ -559,16 +747,21 @@ function CreateItemMaster() {
           <Modal.Title>Add Image ItemMaster</Modal.Title>
         </Modal.Header>
         <Modal.Body style={{ background: "white" }}>
+          <p className="messageError">{state_MessageErrorImage}</p>
+          <span className="itemNotNull">*</span>
           <InputGroup className="mb-3">
             <Form.Control
+              value={state_UrlDefault}
               placeholder="Enter Url Image Default ..."
               type="text"
               onChange={(e) => SetUrlDefault(e.target.value)}
             />
           </InputGroup>
 
+          <span className="itemNotNull">*</span>
           <InputGroup className="mb-3">
             <Form.Control
+              value={state_Url}
               placeholder="Enter Url Image ..."
               as="textarea"
               style={{ height: "100px", "white-space": "pre" }}
@@ -577,7 +770,9 @@ function CreateItemMaster() {
           </InputGroup>
         </Modal.Body>
         <Modal.Footer style={{ background: "white" }}>
-          <Button variant="secondary">Close</Button>
+          <Button variant="secondary" onClick={() => HandleCloseDialogImage()}>
+            Close
+          </Button>
           <Button variant="primary" onClick={() => HandleAddNewImage()}>
             Save
           </Button>

@@ -109,7 +109,7 @@ export const HandleCheckTimeOut = () => {
   }
 };
 
-// Get All Store
+// Get All Data InitializaItemMaster
 export const HandleGetInitializaItemMaster = async (info) => {
   const result = await HandleInitializaItemMaster(info);
   return result;

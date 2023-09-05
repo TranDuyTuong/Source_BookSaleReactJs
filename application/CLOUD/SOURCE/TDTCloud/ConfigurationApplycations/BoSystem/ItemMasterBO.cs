@@ -91,7 +91,7 @@ namespace ConfigurationApplycations.BoSystem
                                 var authorItem = new M_Author()
                                 {
                                     AuthorID = author.AuthorID,
-                                    Description = author.Description
+                                    NameAuthor = author.NameAuthor
                                 };
                                 authorList.Add(authorItem);
                             }
