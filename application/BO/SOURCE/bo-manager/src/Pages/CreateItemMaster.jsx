@@ -76,6 +76,150 @@ function ValidationItemMaster(dataValidation) {
     result.listError.push(error);
   }
 
+  // Price Sale
+  if (
+    dataValidation.PriceSale === null ||
+    dataValidation.PriceSale === undefined ||
+    dataValidation.PriceSale === ""
+  ) {
+    result.Status = false;
+    const error = {
+      id: 3,
+      messageError: "PriceSale Not Null",
+    };
+    result.listError.push(error);
+  }
+
+  // Description
+  if (
+    dataValidation.Description === null ||
+    dataValidation.Description === undefined ||
+    dataValidation.Description === ""
+  ) {
+    result.Status = false;
+    const error = {
+      id: 4,
+      messageError: "Description Not Null",
+    };
+    result.listError.push(error);
+  }
+
+  // Description Long
+  if (
+    dataValidation.DescriptionLong === null ||
+    dataValidation.DescriptionLong === undefined ||
+    dataValidation.DescriptionLong === ""
+  ) {
+    result.Status = false;
+    const error = {
+      id: 5,
+      messageError: "DescriptionLong Not Null",
+    };
+    result.listError.push(error);
+  }
+
+  // Description Short
+  if (
+    dataValidation.DescriptionShort === null ||
+    dataValidation.DescriptionShort === undefined ||
+    dataValidation.DescriptionShort === ""
+  ) {
+    result.Status = false;
+    const error = {
+      id: 6,
+      messageError: "DescriptionShort Not Null",
+    };
+    result.listError.push(error);
+  }
+
+  // Store
+  if (
+    dataValidation.Store === null ||
+    dataValidation.Store === undefined ||
+    dataValidation.Store === "0" ||
+    dataValidation.Store === 0
+  ) {
+    result.Status = false;
+    const error = {
+      id: 7,
+      messageError: "Store Not Null",
+    };
+    result.listError.push(error);
+  }
+
+  // Quantity
+  if (
+    dataValidation.Quantity === null ||
+    dataValidation.Quantity === undefined ||
+    dataValidation.Quantity === ""
+  ) {
+    result.Status = false;
+    const error = {
+      id: 8,
+      messageError: "Quantity Not Null",
+    };
+    result.listError.push(error);
+  }
+
+  // Category
+  if (
+    dataValidation.Category === null ||
+    dataValidation.Category === undefined ||
+    dataValidation.Category === "0" ||
+    dataValidation.Category === 0
+  ) {
+    result.Status = false;
+    const error = {
+      id: 9,
+      messageError: "Category Not Null",
+    };
+    result.listError.push(error);
+  }
+
+  // Author
+  if (
+    dataValidation.Author === null ||
+    dataValidation.Author === undefined ||
+    dataValidation.Author === "0" ||
+    dataValidation.Author === 0
+  ) {
+    result.Status = false;
+    const error = {
+      id: 10,
+      messageError: "Author Not Null",
+    };
+    result.listError.push(error);
+  }
+
+  // PublisingCompany
+  if (
+    dataValidation.PublisingCompany === null ||
+    dataValidation.PublisingCompany === undefined ||
+    dataValidation.PublisingCompany === "0" ||
+    dataValidation.PublisingCompany === 0
+  ) {
+    result.Status = false;
+    const error = {
+      id: 11,
+      messageError: "PublisingCompany Not Null",
+    };
+    result.listError.push(error);
+  }
+
+  // Size
+  if (
+    dataValidation.Size === null ||
+    dataValidation.Size === undefined ||
+    dataValidation.Size === ""
+  ) {
+    result.Status = false;
+    const error = {
+      id: 12,
+      messageError: "Size Not Null",
+    };
+    result.listError.push(error);
+  }
+
   return result;
 }
 
