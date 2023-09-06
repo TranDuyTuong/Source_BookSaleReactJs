@@ -40,6 +40,7 @@ import { OldURLReducer } from "../ReduxCommon/ReducerCommon/ReducerURL";
 import { ItemMasterReducer } from "../ReduxCommon/ReducerCommon/ReducerItemMaster";
 import moment from "moment";
 import { HandleValidationItemCode } from "../ApiLablary/ItemMasterApi";
+import { Create, Delete, Update } from "../Contants/DataContant";
 
 // Function Validation Create
 function ValidationItemMaster(dataValidation) {
@@ -137,7 +138,8 @@ function ValidationItemMaster(dataValidation) {
     dataValidation.Store === null ||
     dataValidation.Store === undefined ||
     dataValidation.Store === "0" ||
-    dataValidation.Store === 0
+    dataValidation.Store === 0 ||
+    dataValidation.Store === ""
   ) {
     result.Status = false;
     const error = {
@@ -166,7 +168,8 @@ function ValidationItemMaster(dataValidation) {
     dataValidation.Category === null ||
     dataValidation.Category === undefined ||
     dataValidation.Category === "0" ||
-    dataValidation.Category === 0
+    dataValidation.Category === 0 ||
+    dataValidation.Category === ""
   ) {
     result.Status = false;
     const error = {
@@ -181,7 +184,8 @@ function ValidationItemMaster(dataValidation) {
     dataValidation.Author === null ||
     dataValidation.Author === undefined ||
     dataValidation.Author === "0" ||
-    dataValidation.Author === 0
+    dataValidation.Author === 0 ||
+    dataValidation.Author === ""
   ) {
     result.Status = false;
     const error = {
@@ -196,7 +200,8 @@ function ValidationItemMaster(dataValidation) {
     dataValidation.PublisingCompany === null ||
     dataValidation.PublisingCompany === undefined ||
     dataValidation.PublisingCompany === "0" ||
-    dataValidation.PublisingCompany === 0
+    dataValidation.PublisingCompany === 0 ||
+    dataValidation.PublisingCompany === ""
   ) {
     result.Status = false;
     const error = {
@@ -241,6 +246,10 @@ function CreateItemMaster() {
 
   // Call url old in redux
   const OldUrldata = useSelector((item) => item.oldUrl.ListoldUrlItem);
+  // Get List ItemMaster Create
+  const ListItemMasterMain = useSelector(
+    (item) => item.itemMasterData.ListItemMaster
+  );
 
   // Show Store Select
   const [state_ListStore, SetListSotre] = useState([]);
@@ -434,11 +443,16 @@ function CreateItemMaster() {
     SetUrlDefault("");
     SetUrl("");
     SetMessageErrorImage("");
+    SetConfirmUrlImage("");
     setShowDialog(false);
   };
 
   // Handle Show Dialog Add Image Item
   const HandleAddImageItem = (e) => {
+    SetUrlDefault("");
+    SetUrl("");
+    SetMessageErrorImage("");
+    SetConfirmUrlImage("");
     setShowDialog(true);
   };
 
@@ -461,6 +475,12 @@ function CreateItemMaster() {
         UrlImage: state_Url,
       };
       SetConfirmUrlImage(ImageItemMaster);
+
+      SetUrlDefault("");
+      SetUrl("");
+      SetMessageErrorImage("");
+      SetMessageError("");
+      setShowDialog(false);
     }
     return;
   };
@@ -550,6 +570,27 @@ function CreateItemMaster() {
       "white";
     document.getElementById("Btn_DisplayPriceOrigin").style.backgroundColor =
       "white";
+    document.getElementById("Btn_DisplayPriceSale").style.backgroundColor =
+      "white";
+    document.getElementById("Btn_DisplayDescription").style.backgroundColor =
+      "white";
+    document.getElementById(
+      "Btn_DisplayDescriptionLong"
+    ).style.backgroundColor = "white";
+    document.getElementById(
+      "Btn_DisplayDescriptionShort"
+    ).style.backgroundColor = "white";
+    document.getElementById("Btn_DisplayStore").style.backgroundColor = "white";
+    document.getElementById("Btn_DisplayQuantity").style.backgroundColor =
+      "white";
+    document.getElementById("Btn_DisplayCategory").style.backgroundColor =
+      "white";
+    document.getElementById("Btn_DisplayAuthor").style.backgroundColor =
+      "white";
+    document.getElementById(
+      "Btn_DisplayPublishingCompany"
+    ).style.backgroundColor = "white";
+    document.getElementById("Btn_DisplaySize").style.backgroundColor = "white";
 
     if (validation.Status === false) {
       // Error
@@ -565,13 +606,128 @@ function CreateItemMaster() {
               "Btn_DisplayPriceOrigin"
             ).style.backgroundColor = "yellow";
             break;
+          case 3:
+            document.getElementById(
+              "Btn_DisplayPriceSale"
+            ).style.backgroundColor = "yellow";
+            break;
+          case 4:
+            document.getElementById(
+              "Btn_DisplayDescription"
+            ).style.backgroundColor = "yellow";
+            break;
+          case 5:
+            document.getElementById(
+              "Btn_DisplayDescriptionLong"
+            ).style.backgroundColor = "yellow";
+            break;
+          case 6:
+            document.getElementById(
+              "Btn_DisplayDescriptionShort"
+            ).style.backgroundColor = "yellow";
+            break;
+          case 7:
+            document.getElementById("Btn_DisplayStore").style.backgroundColor =
+              "yellow";
+            break;
+          case 8:
+            document.getElementById(
+              "Btn_DisplayQuantity"
+            ).style.backgroundColor = "yellow";
+            break;
+          case 9:
+            document.getElementById(
+              "Btn_DisplayCategory"
+            ).style.backgroundColor = "yellow";
+            break;
+          case 10:
+            document.getElementById("Btn_DisplayAuthor").style.backgroundColor =
+              "yellow";
+            break;
+          case 11:
+            document.getElementById(
+              "Btn_DisplayPublishingCompany"
+            ).style.backgroundColor = "yellow";
+            break;
+          case 12:
+            document.getElementById("Btn_DisplaySize").style.backgroundColor =
+              "yellow";
+            break;
           default:
             break;
         }
       });
     } else {
-      // Success
+      // Check UrlImage
+      if (
+        state_ConfirmUrlImage === null ||
+        state_ConfirmUrlImage === undefined ||
+        state_ConfirmUrlImage === ""
+      ) {
+        // Error Image Url
+        SetMessageError("Url Image Not Null, Please Try Again!");
+      } else {
+        const currentDate = new Date();
+        // Success Add ItemMaster Create In Redux
+        const ItemMaster = {
+          CompanyCode: CompanyCode,
+          StoreCode: state_Store,
+          ItemCode: state_ItemCode,
+          ApplyDate: state_Applydate,
+          Description: state_Description,
+          DescriptionShort: state_DescriptionShort,
+          DescriptionLong: state_DescriptionLong,
+          PriceOrigin: state_PriceOrigin,
+          PercentDiscount: 0,
+          priceSale: state_PriceSale,
+          QuantityDiscountID: null,
+          PairDiscountID: null,
+          SpecialDiscountID: null,
+          Quantity: state_Quantity,
+          Viewer: 0,
+          Buy: 0,
+          CategoryItemMasterID: state_Category,
+          AuthorID: state_Author,
+          DateCreate: moment(currentDate).format("YYYY-MM-DD"),
+          IssuingCompanyID: null,
+          PublicationDate: moment(currentDate).format("YYYY-MM-DD"),
+          size: state_Size,
+          PageNumber: 0,
+          PublishingCompanyID: state_PublisingCompany,
+          IsSale: true,
+          LastUpdateDate: null,
+          Note: state_Note,
+          HeadquartersLastUpdateDateTime: null,
+          IsDeleteFlag: false,
+          UserID: window.localStorage.getItem("UserID"),
+          TaxGroupCodeID: null,
+          TypeOf: Create,
+          OldType: null,
+          UrlImage: state_ConfirmUrlImage,
+        };
+
+        // Check ItemCode In ListItemCode Reux Main
+        const checkItemCode = ListItemMasterMain.find(
+          (item) => item.ItemCode === ItemMaster.ItemCode
+        );
+
+        if (checkItemCode === undefined) {
+          SetMessageError("");
+          // Dispatch Action Add ItemMaster
+          dispatch(ItemMasterReducer.actions.AddItemMaster(ItemMaster));
+
+          // Reset Select Store
+          const dd = document.getElementById("Btn_DisplayStore");
+          dd.selectedIndex = [...dd.options].findIndex(
+            (option) => option.text === "Select Store"
+          );
+          SetStore("0");
+        } else {
+          SetMessageError("Exist ItemCode In System, Please Try Again!");
+        }
+      }
     }
+    return;
   };
 
   return (
@@ -858,11 +1014,66 @@ function CreateItemMaster() {
                   <th>Category</th>
                   <th>Author</th>
                   <th>PriceSale</th>
-                  <th>Quantity</th>
+                  <th>PublishingCompanyID</th>
                   <th>Description</th>
+                  <th>Status</th>
                 </tr>
               </thead>
-              <tbody></tbody>
+              <tbody>
+                {ListItemMasterMain.map(
+                  (item) =>
+                    (item.TypeOf === Create && (
+                      <tr key={item.ItemCode}>
+                        <td style={{ color: "blue" }}>{item.ItemCode}</td>
+                        <td style={{ color: "blue" }}>{item.ApplyDate}</td>
+                        <td style={{ color: "blue" }}>{item.StoreCode}</td>
+                        <td style={{ color: "blue" }}>{item.Quantity}</td>
+                        <td style={{ color: "blue" }}>
+                          {item.CategoryItemMasterID}
+                        </td>
+                        <td style={{ color: "blue" }}>{item.AuthorID}</td>
+                        <td style={{ color: "blue" }}>{item.priceSale}</td>
+                        <td style={{ color: "blue" }}>
+                          {item.PublishingCompanyID}
+                        </td>
+                        <td style={{ color: "blue" }}>{item.Description}</td>
+                        <td style={{ color: "blue" }}>{item.TypeOf}</td>
+                      </tr>
+                    )) ||
+                    (item.TypeOf === Update && (
+                      <tr key={item.ItemCode}>
+                        <td style={{ color: "red" }}>{item.ItemCode}</td>
+                        <td style={{ color: "red" }}>{item.ApplyDate}</td>
+                        <td style={{ color: "red" }}>{item.StoreCode}</td>
+                        <td style={{ color: "red" }}>{item.Quantity}</td>
+                        <td style={{ color: "red" }}>
+                          {item.CategoryItemMasterID}
+                        </td>
+                        <td style={{ color: "red" }}>{item.AuthorID}</td>
+                        <td style={{ color: "red" }}>{item.priceSale}</td>
+                        <td style={{ color: "red" }}>
+                          {item.PublishingCompanyID}
+                        </td>
+                        <td style={{ color: "red" }}>{item.Description}</td>
+                        <td style={{ color: "red" }}>{item.TypeOf}</td>
+                      </tr>
+                    )) ||
+                    (item.TypeOf === Delete && (
+                      <tr key={item.ItemCode}>
+                        <td>{item.ItemCode}</td>
+                        <td>{item.ApplyDate}</td>
+                        <td>{item.StoreCode}</td>
+                        <td>{item.Quantity}</td>
+                        <td>{item.CategoryItemMasterID}</td>
+                        <td>{item.AuthorID}</td>
+                        <td>{item.priceSale}</td>
+                        <td>{item.PublishingCompanyID}</td>
+                        <td>{item.Description}</td>
+                        <td>{item.TypeOf}</td>
+                      </tr>
+                    ))
+                )}
+              </tbody>
             </Table>
           </div>
         </Col>

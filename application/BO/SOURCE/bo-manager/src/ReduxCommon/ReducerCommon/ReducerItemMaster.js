@@ -9,5 +9,13 @@ export const ItemMasterReducer = createSlice({
     SeachItemMaster: (state, action) => {
       state.ListItemMaster = action.payload;
     },
+    AddItemMaster: (state, action) => {
+      const checkItemCode = state.ListItemMaster.find(
+        (item) => item.ItemCode === action.payload.ItemCode
+      );
+      if (checkItemCode === undefined) {
+        state.ListItemMaster.unshift(action.payload);
+      }
+    },
   },
 });
