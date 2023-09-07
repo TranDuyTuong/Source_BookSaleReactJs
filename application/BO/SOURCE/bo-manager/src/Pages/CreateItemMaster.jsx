@@ -228,6 +228,93 @@ function ValidationItemMaster(dataValidation) {
   return result;
 }
 
+// Function Set Backround Validation Success
+function ChangeBackroundValidationSuccess() {
+  document.getElementById("Btn_DisplayApplydate").style.backgroundColor =
+    "white";
+  document.getElementById("Btn_DisplayPriceOrigin").style.backgroundColor =
+    "white";
+  document.getElementById("Btn_DisplayPriceSale").style.backgroundColor =
+    "white";
+  document.getElementById("Btn_DisplayDescription").style.backgroundColor =
+    "white";
+  document.getElementById("Btn_DisplayDescriptionLong").style.backgroundColor =
+    "white";
+  document.getElementById("Btn_DisplayDescriptionShort").style.backgroundColor =
+    "white";
+  document.getElementById("Btn_DisplayStore").style.backgroundColor = "white";
+  document.getElementById("Btn_DisplayQuantity").style.backgroundColor =
+    "white";
+  document.getElementById("Btn_DisplayCategory").style.backgroundColor =
+    "white";
+  document.getElementById("Btn_DisplayAuthor").style.backgroundColor = "white";
+  document.getElementById(
+    "Btn_DisplayPublishingCompany"
+  ).style.backgroundColor = "white";
+  document.getElementById("Btn_DisplaySize").style.backgroundColor = "white";
+}
+
+// Function Set Display Item In Form
+function ChangeDispayItemForm() {
+  document.getElementById("Btn_DisplayApplydate").disabled = true;
+  document.getElementById("Btn_DisplayPriceOrigin").disabled = true;
+  document.getElementById("Btn_DisplayPriceSale").disabled = true;
+  document.getElementById("Btn_DisplayDescription").disabled = true;
+  document.getElementById("Btn_DisplayDescriptionLong").disabled = true;
+  document.getElementById("Btn_DisplayDescriptionShort").disabled = true;
+  document.getElementById("Btn_DisplayStore").disabled = true;
+  document.getElementById("Btn_DisplayQuantity").disabled = true;
+  document.getElementById("Btn_DisplayCategory").disabled = true;
+  document.getElementById("Btn_DisplayPublishingCompany").disabled = true;
+  document.getElementById("Btn_DisplayAuthor").disabled = true;
+  document.getElementById("Btn_DisplaySize").disabled = true;
+  document.getElementById("Btn_DisplayNote").disabled = true;
+}
+
+// Function Set An Display Item In Form
+function ChangeAnDispayItemForm() {
+  document.getElementById("Btn_DisplayApplydate").disabled = false;
+  document.getElementById("Btn_DisplayPriceOrigin").disabled = false;
+  document.getElementById("Btn_DisplayPriceSale").disabled = false;
+  document.getElementById("Btn_DisplayDescription").disabled = false;
+  document.getElementById("Btn_DisplayDescriptionLong").disabled = false;
+  document.getElementById("Btn_DisplayDescriptionShort").disabled = false;
+  document.getElementById("Btn_DisplayStore").disabled = false;
+  document.getElementById("Btn_DisplayQuantity").disabled = false;
+  document.getElementById("Btn_DisplayCategory").disabled = false;
+  document.getElementById("Btn_DisplayAuthor").disabled = false;
+  document.getElementById("Btn_DisplayPublishingCompany").disabled = false;
+  document.getElementById("Btn_DisplaySize").disabled = false;
+  document.getElementById("Btn_DisplayNote").disabled = false;
+}
+
+// Function Set Backround none when create itemMaster Success
+function ChangeBackoundNoneCreateItemMasterSuccess() {
+  document.getElementById("Btn_DisplayApplydate").style.backgroundColor =
+    "#e9ecef";
+  document.getElementById("Btn_DisplayPriceOrigin").style.backgroundColor =
+    "#e9ecef";
+  document.getElementById("Btn_DisplayPriceSale").style.backgroundColor =
+    "#e9ecef";
+  document.getElementById("Btn_DisplayDescription").style.backgroundColor =
+    "#e9ecef";
+  document.getElementById("Btn_DisplayDescriptionLong").style.backgroundColor =
+    "#e9ecef";
+  document.getElementById("Btn_DisplayDescriptionShort").style.backgroundColor =
+    "#e9ecef";
+  document.getElementById("Btn_DisplayStore").style.backgroundColor = "#e9ecef";
+  document.getElementById("Btn_DisplayQuantity").style.backgroundColor =
+    "#e9ecef";
+  document.getElementById("Btn_DisplayCategory").style.backgroundColor =
+    "#e9ecef";
+  document.getElementById("Btn_DisplayAuthor").style.backgroundColor =
+    "#e9ecef";
+  document.getElementById(
+    "Btn_DisplayPublishingCompany"
+  ).style.backgroundColor = "#e9ecef";
+  document.getElementById("Btn_DisplaySize").style.backgroundColor = "#e9ecef";
+}
+
 // Main Function
 function CreateItemMaster() {
   const navigate = useNavigate();
@@ -286,6 +373,9 @@ function CreateItemMaster() {
   const [state_PublisingCompany, SetPublisingCompany] = useState("");
   const [state_Size, SetSize] = useState("");
   const [state_Note, SetNote] = useState("");
+
+  // Control State
+  const [state_Control, setControl] = useState(0);
 
   useEffect(() => {
     // Call Api Check Validation Token And Role User
@@ -368,24 +458,9 @@ function CreateItemMaster() {
           btn_Update.current.disabled = true;
           btn_Confirm.current.disabled = true;
           btn_Image.current.disabled = true;
-
-          document.getElementById("Btn_DisplayApplydate").disabled = true;
-          document.getElementById("Btn_DisplayPriceOrigin").disabled = true;
-          document.getElementById("Btn_DisplayPriceSale").disabled = true;
-          document.getElementById("Btn_DisplayDescription").disabled = true;
-          document.getElementById("Btn_DisplayDescriptionLong").disabled = true;
-          document.getElementById(
-            "Btn_DisplayDescriptionShort"
-          ).disabled = true;
-          document.getElementById("Btn_DisplayStore").disabled = true;
-          document.getElementById("Btn_DisplayQuantity").disabled = true;
-          document.getElementById("Btn_DisplayCategory").disabled = true;
-          document.getElementById(
-            "Btn_DisplayPublishingCompany"
-          ).disabled = true;
-          document.getElementById("Btn_DisplayAuthor").disabled = true;
-          document.getElementById("Btn_DisplaySize").disabled = true;
-          document.getElementById("Btn_DisplayNote").disabled = true;
+          // Display Item Form
+          ChangeDispayItemForm();
+          setControl(0);
         }
         InitializaData();
       }
@@ -449,10 +524,12 @@ function CreateItemMaster() {
 
   // Handle Show Dialog Add Image Item
   const HandleAddImageItem = (e) => {
-    SetUrlDefault("");
-    SetUrl("");
+    if (state_Control !== 1) {
+      SetUrlDefault("");
+      SetUrl("");
+      SetConfirmUrlImage("");
+    }
     SetMessageErrorImage("");
-    SetConfirmUrlImage("");
     setShowDialog(true);
   };
 
@@ -485,6 +562,39 @@ function CreateItemMaster() {
     return;
   };
 
+  // Handle Click Row Item In Table
+  const HandleClickRowItem = (e) => {
+    SetMessageError("");
+    const findItemCode = ListItemMasterMain.find((item) => item.ItemCode === e);
+
+    if (findItemCode !== undefined) {
+      // Change Backround form
+      ChangeBackroundValidationSuccess();
+      // An Dispay Form
+      ChangeAnDispayItemForm();
+      // Set Data in Form
+      btn_Image.current.disabled = false;
+      SetItemCode(findItemCode.ItemCode);
+      SetApplydate(findItemCode.ApplyDate);
+      SetPriceOrigin(findItemCode.PriceOrigin);
+      SetPriceSale(findItemCode.priceSale);
+      SetDescription(findItemCode.Description);
+      SetDescriptionLong(findItemCode.DescriptionLong);
+      SetDescriptionShort(findItemCode.DescriptionShort);
+      SetQuantity(findItemCode.Quantity);
+      SetSize(findItemCode.size);
+      SetNote(findItemCode.Note);
+      SetUrlDefault(findItemCode.UrlImage.UrlImageDefault);
+      SetUrl(findItemCode.UrlImage.UrlImage);
+      // Update State Control
+      setControl(1);
+      // An Display Button Update
+      btn_Confirm.current.disabled = false;
+    } else {
+      SetMessageError("Not Find ItemCode, Please Try Again!");
+    }
+  };
+
   // Handle Seach ItemCode
   const HandleSeachItemCodeUI = async (e) => {
     // Get Token
@@ -512,42 +622,23 @@ function CreateItemMaster() {
     if (resultValidaion.Status === true) {
       SetMessageError("");
       // Can use this itemcode
-      document.getElementById("Btn_DisplayApplydate").disabled = false;
-      document.getElementById("Btn_DisplayPriceOrigin").disabled = false;
-      document.getElementById("Btn_DisplayPriceSale").disabled = false;
-      document.getElementById("Btn_DisplayDescription").disabled = false;
-      document.getElementById("Btn_DisplayDescriptionLong").disabled = false;
-      document.getElementById("Btn_DisplayDescriptionShort").disabled = false;
-      document.getElementById("Btn_DisplayStore").disabled = false;
-      document.getElementById("Btn_DisplayQuantity").disabled = false;
-      document.getElementById("Btn_DisplayCategory").disabled = false;
-      document.getElementById("Btn_DisplayAuthor").disabled = false;
-      document.getElementById("Btn_DisplayPublishingCompany").disabled = false;
-      document.getElementById("Btn_DisplaySize").disabled = false;
-      document.getElementById("Btn_DisplayNote").disabled = false;
+      ChangeAnDispayItemForm();
+      ChangeBackroundValidationSuccess();
       btn_Image.current.disabled = false;
     } else {
       SetMessageError(resultValidaion.MessageError);
       // Don't use this itemcode
-      document.getElementById("Btn_DisplayApplydate").disabled = true;
-      document.getElementById("Btn_DisplayPriceOrigin").disabled = true;
-      document.getElementById("Btn_DisplayPriceSale").disabled = true;
-      document.getElementById("Btn_DisplayDescription").disabled = true;
-      document.getElementById("Btn_DisplayDescriptionLong").disabled = true;
-      document.getElementById("Btn_DisplayDescriptionShort").disabled = true;
-      document.getElementById("Btn_DisplayStore").disabled = true;
-      document.getElementById("Btn_DisplayQuantity").disabled = true;
-      document.getElementById("Btn_DisplayCategory").disabled = true;
-      document.getElementById("Btn_DisplayAuthor").disabled = true;
-      document.getElementById("Btn_DisplayPublishingCompany").disabled = true;
-      document.getElementById("Btn_DisplaySize").disabled = true;
-      document.getElementById("Btn_DisplayNote").disabled = true;
+      ChangeDispayItemForm();
       btn_Image.current.disabled = true;
     }
+    btn_Confirm.current.disabled = true;
+    setControl(0);
   };
 
   // Handle Create ItemMaster
   const HandleCreateItemMaster = (e) => {
+    SetMessageError("");
+    const currentDate = new Date().toISOString();
     // Validation Form
     const formData = {
       Applydate: state_Applydate,
@@ -564,34 +655,14 @@ function CreateItemMaster() {
       Size: state_Size,
       Note: state_Note,
     };
+
+    // Validation Data Create
     const validation = ValidationItemMaster(formData);
 
-    document.getElementById("Btn_DisplayApplydate").style.backgroundColor =
-      "white";
-    document.getElementById("Btn_DisplayPriceOrigin").style.backgroundColor =
-      "white";
-    document.getElementById("Btn_DisplayPriceSale").style.backgroundColor =
-      "white";
-    document.getElementById("Btn_DisplayDescription").style.backgroundColor =
-      "white";
-    document.getElementById(
-      "Btn_DisplayDescriptionLong"
-    ).style.backgroundColor = "white";
-    document.getElementById(
-      "Btn_DisplayDescriptionShort"
-    ).style.backgroundColor = "white";
-    document.getElementById("Btn_DisplayStore").style.backgroundColor = "white";
-    document.getElementById("Btn_DisplayQuantity").style.backgroundColor =
-      "white";
-    document.getElementById("Btn_DisplayCategory").style.backgroundColor =
-      "white";
-    document.getElementById("Btn_DisplayAuthor").style.backgroundColor =
-      "white";
-    document.getElementById(
-      "Btn_DisplayPublishingCompany"
-    ).style.backgroundColor = "white";
-    document.getElementById("Btn_DisplaySize").style.backgroundColor = "white";
+    // Change Backround when Validation Success
+    ChangeBackroundValidationSuccess();
 
+    // Result Validation Form Data
     if (validation.Status === false) {
       // Error
       validation.listError.forEach(function (itemError) {
@@ -657,6 +728,13 @@ function CreateItemMaster() {
             break;
         }
       });
+      // Check Applydate More than Current Date
+      if (state_Applydate <= currentDate) {
+        SetApplydate("");
+        document.getElementById("Btn_DisplayApplydate").style.backgroundColor =
+          "yellow";
+        SetMessageError("Apply date not less current date");
+      }
     } else {
       // Check UrlImage
       if (
@@ -667,7 +745,6 @@ function CreateItemMaster() {
         // Error Image Url
         SetMessageError("Url Image Not Null, Please Try Again!");
       } else {
-        const currentDate = new Date();
         // Success Add ItemMaster Create In Redux
         const ItemMaster = {
           CompanyCode: CompanyCode,
@@ -717,16 +794,64 @@ function CreateItemMaster() {
           dispatch(ItemMasterReducer.actions.AddItemMaster(ItemMaster));
 
           // Reset Select Store
-          const dd = document.getElementById("Btn_DisplayStore");
-          dd.selectedIndex = [...dd.options].findIndex(
+          const storeSelect = document.getElementById("Btn_DisplayStore");
+          storeSelect.selectedIndex = [...storeSelect.options].findIndex(
             (option) => option.text === "Select Store"
           );
           SetStore("0");
+
+          // Reset Select Category
+          const categorySelect = document.getElementById("Btn_DisplayCategory");
+          categorySelect.selectedIndex = [...categorySelect.options].findIndex(
+            (option) => option.text === "Select Category"
+          );
+          SetCategory("0");
+
+          // Reset Select Author
+          const authorSelect = document.getElementById("Btn_DisplayAuthor");
+          authorSelect.selectedIndex = [...authorSelect.options].findIndex(
+            (option) => option.text === "Select Author"
+          );
+          SetAuthor("0");
+
+          // Reset Select Author
+          const publishingCompanySelect = document.getElementById(
+            "Btn_DisplayPublishingCompany"
+          );
+          publishingCompanySelect.selectedIndex = [
+            ...publishingCompanySelect.options,
+          ].findIndex((option) => option.text === "Select Publishing Company");
+          SetPublisingCompany("0");
+
+          // Reset Data In Form
+          SetItemCode("");
+          SetApplydate("");
+          SetPriceOrigin("");
+          SetPriceSale("");
+          SetDescription("");
+          SetDescriptionLong("");
+          SetDescriptionShort("");
+          SetQuantity("");
+          SetSize("");
+          SetNote("");
+          SetConfirmUrlImage("");
+
+          // Change Backound none when create Success
+          ChangeBackoundNoneCreateItemMasterSuccess();
+          // Display Form input
+          ChangeDispayItemForm();
+
+          btn_Image.current.disabled = true;
+
+          // Create ItemMaster Success
+          btn_Confirm.current.disabled = false;
         } else {
           SetMessageError("Exist ItemCode In System, Please Try Again!");
         }
       }
     }
+    btn_Confirm.current.disabled = true;
+    setControl(0);
     return;
   };
 
@@ -1023,7 +1148,10 @@ function CreateItemMaster() {
                 {ListItemMasterMain.map(
                   (item) =>
                     (item.TypeOf === Create && (
-                      <tr key={item.ItemCode}>
+                      <tr
+                        key={item.ItemCode}
+                        onClick={(e) => HandleClickRowItem(item.ItemCode)}
+                      >
                         <td style={{ color: "blue" }}>{item.ItemCode}</td>
                         <td style={{ color: "blue" }}>{item.ApplyDate}</td>
                         <td style={{ color: "blue" }}>{item.StoreCode}</td>
@@ -1041,7 +1169,10 @@ function CreateItemMaster() {
                       </tr>
                     )) ||
                     (item.TypeOf === Update && (
-                      <tr key={item.ItemCode}>
+                      <tr
+                        key={item.ItemCode}
+                        onClick={(e) => HandleClickRowItem(item.ItemCode)}
+                      >
                         <td style={{ color: "red" }}>{item.ItemCode}</td>
                         <td style={{ color: "red" }}>{item.ApplyDate}</td>
                         <td style={{ color: "red" }}>{item.StoreCode}</td>
@@ -1059,7 +1190,10 @@ function CreateItemMaster() {
                       </tr>
                     )) ||
                     (item.TypeOf === Delete && (
-                      <tr key={item.ItemCode}>
+                      <tr
+                        key={item.ItemCode}
+                        onClick={(e) => HandleClickRowItem(item.ItemCode)}
+                      >
                         <td>{item.ItemCode}</td>
                         <td>{item.ApplyDate}</td>
                         <td>{item.StoreCode}</td>
