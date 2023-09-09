@@ -225,6 +225,20 @@ function ValidationItemMaster(dataValidation) {
     result.listError.push(error);
   }
 
+  // ItemCode
+  if (
+    dataValidation.ItemCode === null ||
+    dataValidation.ItemCode === undefined ||
+    dataValidation.ItemCode === ""
+  ) {
+    result.Status = false;
+    const error = {
+      id: 13,
+      messageError: "ItemCode Not Null",
+    };
+    result.listError.push(error);
+  }
+
   return result;
 }
 
@@ -252,6 +266,7 @@ function ChangeBackroundValidationSuccess() {
     "Btn_DisplayPublishingCompany"
   ).style.backgroundColor = "white";
   document.getElementById("Btn_DisplaySize").style.backgroundColor = "white";
+  document.getElementById("Btn_ItemCode").style.backgroundColor = "white";
 }
 
 // Function Set Display Item In Form
@@ -320,10 +335,8 @@ function CreateItemMaster() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // State Form Create ItemMaster
-  const [state_ItemCode, SetItemCode] = useState("");
-
   // Setting Button
+  const btn_Add = useRef(null);
   const btn_Update = useRef(null);
   const btn_Confirm = useRef(null);
   const btn_Image = useRef(null);
@@ -340,12 +353,14 @@ function CreateItemMaster() {
 
   // Show Store Select
   const [state_ListStore, SetListSotre] = useState([]);
+  const [state_DefaulStore, SetDefaulStore] = useState("0");
   // Show Author Select
   const [state_ListAuthor, SetListAuthor] = useState([]);
   // Show Publishing Companys Select
   const [state_ListPublishingCompany, SetPublishingCompany] = useState([]);
   // Show Category Select
   const [state_ListCategory, SetListCategory] = useState([]);
+
   // Show And Hide Dialog Add Image
   const [showDialog, setShowDialog] = useState(false);
 
@@ -360,6 +375,7 @@ function CreateItemMaster() {
   const [state_MessageErrorImage, SetMessageErrorImage] = useState("");
 
   // Create ItemMaster
+  const [state_ItemCode, SetItemCode] = useState("");
   const [state_Applydate, SetApplydate] = useState("");
   const [state_PriceOrigin, SetPriceOrigin] = useState("");
   const [state_PriceSale, SetPriceSale] = useState("");
@@ -443,7 +459,22 @@ function CreateItemMaster() {
           const response = await HandleGetInitializaItemMaster(formData);
           if (response.Status === true) {
             // List Select
-            SetListSotre(response.ListStore);
+            const listStore = [];
+            response.ListStore.forEach(function (item) {
+              const store = {
+                StoreCode: item.StoreCode,
+                Description: item.Description,
+                DefaultSelect: null,
+              };
+              listStore.push(store);
+            });
+            const defauleStore = {
+              StoreCode: "0",
+              Description: "Select Store",
+            };
+            listStore.push(defauleStore);
+            SetListSotre(listStore);
+
             SetListAuthor(response.ListAuthor);
             SetPublishingCompany(response.ListPublishingCompany);
             SetListCategory(response.ListCategory);
@@ -455,6 +486,7 @@ function CreateItemMaster() {
           }
 
           // disabled button
+          btn_Add.current.disabled = true;
           btn_Update.current.disabled = true;
           btn_Confirm.current.disabled = true;
           btn_Image.current.disabled = true;
@@ -478,6 +510,7 @@ function CreateItemMaster() {
     if (e === 0 || e === "0") {
       SetMessageError("Please Choose A Store!");
     } else {
+      SetDefaulStore(e);
       SetStore(e);
     }
     return;
@@ -515,10 +548,12 @@ function CreateItemMaster() {
 
   // Handle Close Dialog Image
   const HandleCloseDialogImage = (e) => {
-    SetUrlDefault("");
-    SetUrl("");
+    if (state_Control !== 1) {
+      SetUrlDefault("");
+      SetUrl("");
+      SetConfirmUrlImage("");
+    }
     SetMessageErrorImage("");
-    SetConfirmUrlImage("");
     setShowDialog(false);
   };
 
@@ -586,8 +621,17 @@ function CreateItemMaster() {
       SetNote(findItemCode.Note);
       SetUrlDefault(findItemCode.UrlImage.UrlImageDefault);
       SetUrl(findItemCode.UrlImage.UrlImage);
+      // Set Image Confirm when click row
+      const ImageItemMaster = {
+        IsDefaulr: true,
+        UrlImageDefault: state_UrlDefault,
+        UrlImage: state_Url,
+      };
+      SetConfirmUrlImage(ImageItemMaster);
       // Update State Control
       setControl(1);
+      // Set Select Defaul
+      SetDefaulStore(findItemCode.StoreCode);
       // An Display Button Update
       btn_Confirm.current.disabled = false;
     } else {
@@ -625,14 +669,59 @@ function CreateItemMaster() {
       ChangeAnDispayItemForm();
       ChangeBackroundValidationSuccess();
       btn_Image.current.disabled = false;
+      btn_Add.current.disabled = false;
     } else {
       SetMessageError(resultValidaion.MessageError);
       // Don't use this itemcode
       ChangeDispayItemForm();
       btn_Image.current.disabled = true;
+      btn_Add.current.disabled = true;
     }
+    // Reset Select Store
+    const storeSelect = document.getElementById("Btn_DisplayStore");
+    storeSelect.selectedIndex = [...storeSelect.options].findIndex(
+      (option) => option.text === "Select Store"
+    );
+    SetStore("0");
+
+    // Reset Select Category
+    const categorySelect = document.getElementById("Btn_DisplayCategory");
+    categorySelect.selectedIndex = [...categorySelect.options].findIndex(
+      (option) => option.text === "Select Category"
+    );
+    SetCategory("0");
+
+    // Reset Select Author
+    const authorSelect = document.getElementById("Btn_DisplayAuthor");
+    authorSelect.selectedIndex = [...authorSelect.options].findIndex(
+      (option) => option.text === "Select Author"
+    );
+    SetAuthor("0");
+
+    // Reset Select Author
+    const publishingCompanySelect = document.getElementById(
+      "Btn_DisplayPublishingCompany"
+    );
+    publishingCompanySelect.selectedIndex = [
+      ...publishingCompanySelect.options,
+    ].findIndex((option) => option.text === "Select Publishing Company");
+    SetPublisingCompany("0");
+
+    // Reset Data In Form
+    SetApplydate("");
+    SetPriceOrigin("");
+    SetPriceSale("");
+    SetDescription("");
+    SetDescriptionLong("");
+    SetDescriptionShort("");
+    SetQuantity("");
+    SetSize("");
+    SetNote("");
+    SetConfirmUrlImage("");
+
     btn_Confirm.current.disabled = true;
     setControl(0);
+    SetDefaulStore("0");
   };
 
   // Handle Create ItemMaster
@@ -641,6 +730,7 @@ function CreateItemMaster() {
     const currentDate = new Date().toISOString();
     // Validation Form
     const formData = {
+      ItemCode: state_ItemCode,
       Applydate: state_Applydate,
       PriceOrigin: state_PriceOrigin,
       PriceSale: state_PriceSale,
@@ -724,17 +814,26 @@ function CreateItemMaster() {
             document.getElementById("Btn_DisplaySize").style.backgroundColor =
               "yellow";
             break;
+          case 13:
+            document.getElementById("Btn_ItemCode").style.backgroundColor =
+              "yellow";
+            break;
           default:
             break;
         }
       });
+
       // Check Applydate More than Current Date
-      if (state_Applydate <= currentDate) {
+      if (
+        moment(state_Applydate).format("YYYY/MM/DD") <=
+        moment(currentDate).format("YYYY/MM/DD")
+      ) {
         SetApplydate("");
         document.getElementById("Btn_DisplayApplydate").style.backgroundColor =
           "yellow";
         SetMessageError("Apply date not less current date");
       }
+      setControl(1);
     } else {
       // Check UrlImage
       if (
@@ -845,13 +944,15 @@ function CreateItemMaster() {
 
           // Create ItemMaster Success
           btn_Confirm.current.disabled = false;
+
+          setControl(0);
+          SetDefaulStore("0");
         } else {
           SetMessageError("Exist ItemCode In System, Please Try Again!");
         }
       }
     }
     btn_Confirm.current.disabled = true;
-    setControl(0);
     return;
   };
 
@@ -876,6 +977,7 @@ function CreateItemMaster() {
             </p>
             <InputGroup className="mb-3">
               <Form.Control
+                id="Btn_ItemCode"
                 value={state_ItemCode}
                 placeholder="Enter ItemCode ..."
                 onChange={(e) => SetItemCode(e.target.value)}
@@ -951,7 +1053,6 @@ function CreateItemMaster() {
                 value={state_Description}
               />
             </InputGroup>
-
             {/* input Description Long */}
             <p className="titleItem">
               Description Long <span className="itemNotNull">*</span>
@@ -965,7 +1066,6 @@ function CreateItemMaster() {
                 value={state_DescriptionLong}
               />
             </InputGroup>
-
             {/* input Description Long */}
             <p className="titleItem">
               Description Short <span className="itemNotNull">*</span>
@@ -979,7 +1079,6 @@ function CreateItemMaster() {
                 value={state_DescriptionShort}
               />
             </InputGroup>
-
             {/* input Store */}
             <p className="titleItem">
               Store <span className="itemNotNull">*</span>
@@ -987,11 +1086,9 @@ function CreateItemMaster() {
             <Form.Select
               id="Btn_DisplayStore"
               className="selectstore"
+              value={state_DefaulStore}
               onChange={(e) => HandleSelectStore(e.target.value)}
             >
-              <option defaultChecked value="0">
-                Select Store
-              </option>
               {state_ListStore.map((item) => (
                 <option key={item.StoreCode} value={item.StoreCode}>
                   {item.Description}
@@ -1122,6 +1219,17 @@ function CreateItemMaster() {
                 <FontAwesomeIcon icon={faImages} />
               </Button>
             </InputGroup>
+            {state_ConfirmUrlImage.IsDefaulr === true && (
+              <p
+                style={{
+                  color: "green",
+                  "text-align": "right",
+                  "font-size": "20px",
+                }}
+              >
+                <FontAwesomeIcon icon={faImages} />
+              </p>
+            )}
           </Form.Group>
         </Col>
       </Row>
@@ -1216,6 +1324,7 @@ function CreateItemMaster() {
         <Button
           variant="primary"
           className="btn_setting"
+          ref={btn_Add}
           onClick={(e) => HandleCreateItemMaster()}
         >
           <FontAwesomeIcon icon={faPlus} /> Add
