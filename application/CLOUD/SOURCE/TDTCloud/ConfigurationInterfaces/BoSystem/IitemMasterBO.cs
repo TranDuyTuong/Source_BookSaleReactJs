@@ -1,5 +1,6 @@
 ﻿using ModelConfiguration.M_Bo.ItemMasterData;
 using ModelConfiguration.M_Bo.StoreData;
+using ModelConfiguration.M_Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,5 +31,12 @@ namespace ConfigurationInterfaces.BoSystem
         /// <param name="request"></param>
         /// <returns></returns>
         Task<M_ListItemMaster> ValidationItemMaster(M_ListItemMaster request);
+
+        /// <summary>
+        /// ConfirmItemMaster
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<M_ListItemMaster> ConfirmItemMaster(M_ListItemMaster request);
     }
 }

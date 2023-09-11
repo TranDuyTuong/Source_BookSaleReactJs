@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "b3p6YedDqxyiSN/z5CE7H9GvrOioPS/C21KIIBb30n3lqkdY2+olVhqpo5n+QSYAeoiPuxGJlF95U+CeZL1pnQ==",
+  "dgSpecHash": "yuSwW8qZ600KfA/yXP2x/K0agOjh2vMGz7PKgWJPVohbCY1PHNXol9HIfy72y4ryEcae4BSVpdbI/YecNXRXIA==",
   "success": true,
-  "projectFilePath": "D:\\Dev_Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\ConfigurationInterfaces\\ConfigurationInterfaces.csproj",
+  "projectFilePath": "D:\\Project\\Source_BookSaleReactJs\\application\\CLOUD\\SOURCE\\TDTCloud\\ConfigurationInterfaces\\ConfigurationInterfaces.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

@@ -7,6 +7,7 @@ using ModelConfiguration.M_Bo.CategoryData;
 using ModelConfiguration.M_Bo.ItemMasterData;
 using ModelConfiguration.M_Bo.PublishingCompanysData;
 using ModelConfiguration.M_Bo.StoreData;
+using ModelConfiguration.M_Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,16 @@ namespace ConfigurationApplycations.BoSystem
         {
             this.context = _context;
             this.contactCommon = _contactCommon;
+        }
+
+        /// <summary>
+        /// ConfirmItemMaster
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public Task<ReturnCommonApi> ConfirmItemMaster(M_ListItemMaster request)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
