@@ -28,16 +28,6 @@ namespace ConfigurationApplycations.BoSystem
         }
 
         /// <summary>
-        /// ConfirmItemMaster
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        public Task<ReturnCommonApi> ConfirmItemMaster(M_ListItemMaster request)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
         /// InitializaItemMaster
         /// </summary>
         /// <param name="request"></param>
@@ -565,6 +555,87 @@ namespace ConfigurationApplycations.BoSystem
                                 }
                             }
                         }
+
+                    }
+                }
+                else
+                {
+                    // Don't Find CompanyCode
+                    result.Token = request.Token;
+                    result.UserID = request.UserID;
+                    result.RoleID = request.RoleID;
+                    result.EventCode = request.EventCode;
+                    result.TotalItemMaster = 0;
+                    result.KeySeach = null;
+                    result.CompanyCode = request.CompanyCode;
+                    result.Status = false;
+                    result.MessageError = CommonConfiguration.DataCommon.MessageNotFindCompanyCode;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Token = request.Token;
+                result.UserID = request.UserID;
+                result.RoleID = request.RoleID;
+                result.EventCode = request.EventCode;
+                result.TotalItemMaster = 0;
+                result.KeySeach = null;
+                result.CompanyCode = request.CompanyCode;
+                result.Status = false;
+                result.MessageError = ex.Message;
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// ConfirmItemMaster
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task<M_ListItemMaster> ConfirmItemMaster(M_ListItemMaster request)
+        {
+            var result = new M_ListItemMaster();
+            try
+            {
+                // Check CompanyCode
+                bool isCompanyCode = this.contactCommon.ValidationCompanyCode(request.CompanyCode);
+
+                if (isCompanyCode == true)
+                {
+                    // Check Role User Handle
+                    bool isRole = await this.contactCommon.ValidationRoleUserLimit(request.RoleID, request.UserID, request.EventCode);
+
+                    if (isRole == true)
+                    {
+                        // Don't have role handle
+                        result.Token = request.Token;
+                        result.UserID = request.UserID;
+                        result.RoleID = request.RoleID;
+                        result.EventCode = request.EventCode;
+                        result.TotalItemMaster = 0;
+                        result.KeySeach = null;
+                        result.CompanyCode = request.CompanyCode;
+                        result.Status = false;
+                        result.MessageError = CommonConfiguration.DataCommon.MessageRoleUserLimit;
+                    }
+                    else
+                    {
+                        // List Store Validation
+                        List<M_Store> listStore = new List<M_Store>();
+                        foreach(var item in request.ListItemMaster)
+                        {
+                            var store = new M_Store()
+                            {
+                                StoreCode = item.StoreCode,
+                            };
+                            listStore.Add(store);
+                        }
+                        var storeResult = this.contactCommon.ValidationStoreCode(listStore);
+
+                        // List Author Validation
+
 
                     }
                 }

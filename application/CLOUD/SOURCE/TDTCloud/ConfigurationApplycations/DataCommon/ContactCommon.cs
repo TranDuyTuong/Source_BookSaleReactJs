@@ -1,6 +1,7 @@
 ﻿using CodeFirtMigration.DataFE;
 using ConfigurationInterfaces.DataCommon;
 using Microsoft.EntityFrameworkCore;
+using ModelConfiguration.M_Bo.StoreData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -176,5 +177,48 @@ namespace ConfigurationApplycations.DataCommon
             return false;
         }
 
+        /// <summary>
+        /// ValidationStoreCode
+        /// </summary>
+        /// <param name="storeID"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public bool ValidationStoreCode(string storeID)
+        {
+            // check storeCode
+            var queryStore = this.context.stores.Where(x => x.StoreCode == storeID && x.IsDeleteFlag == false).ToArray();
+
+            if(queryStore.Any() == true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// ValidationStoreCode
+        /// </summary>
+        /// <param name="listStore"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public bool ValidationStoreCode(List<M_Store> listStore)
+        {
+            // Get All Store In DB
+            var queryStore = this.context.stores.Where(x => x.IsDeleteFlag == false).ToArray();
+
+            foreach(var store in listStore)
+            {
+                var item = queryStore.FirstOrDefault(x => x.StoreCode == store.StoreCode);
+                
+                if(item == null)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }

@@ -21,7 +21,7 @@ export const ItemMasterReducer = createSlice({
       const findItemMaster = state.ListItemMaster.find(
         (item) => item.ItemCode === action.payload.ItemCode
       );
-      if (checkItemCode !== undefined) {
+      if (findItemMaster !== undefined) {
         findItemMaster.CompanyCode = action.payload.CompanyCode;
         findItemMaster.StoreCode = action.payload.StoreCode;
         findItemMaster.ItemCode = action.payload.ItemCode;

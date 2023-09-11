@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelConfiguration.M_Bo.StoreData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,14 +9,6 @@ namespace ConfigurationInterfaces.DataCommon
 {
     public interface IContactCommon
     {
-        /// <summary>
-        /// ValidationRoleUser
-        /// </summary>
-        /// <param name="role"></param>
-        /// <param name="UserId"></param>
-        /// <param name="eventCode"></param>
-        /// <returns></returns>
-        //bool ValidationRoleUser(string role, string UserId, string eventCode);
 
         /// <summary>
         /// ValidationCityDistrict
@@ -61,5 +54,19 @@ namespace ConfigurationInterfaces.DataCommon
         /// <param name="companyID"></param>
         /// <returns></returns>
         bool ValidationCompanyCode(string companyID);
+
+        /// <summary>
+        /// ValidationStoreCode
+        /// </summary>
+        /// <param name="storeID"></param>
+        /// <returns></returns>
+        bool ValidationStoreCode(string storeID);
+
+        /// <summary>
+        /// ValidationListStoreCode
+        /// </summary>
+        /// <param name="listStore"></param>
+        /// <returns></returns>
+        bool ValidationStoreCode(List<M_Store> listStore);
     }
 }

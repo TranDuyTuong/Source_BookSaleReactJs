@@ -1,6 +1,48 @@
-import { useState } from "react";
-import { Delete, Update } from "../Contants/DataContant";
-import "../Import/CreateItemMaster_Import";
+import React, { useState, useEffect, useRef } from "react";
+import "../Styles/CreateItemMaster.css";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import InputGroup from "react-bootstrap/InputGroup";
+import Table from "react-bootstrap/Table";
+import Modal from "react-bootstrap/Modal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPlus,
+  faPenToSquare,
+  faSquareCheck,
+  faSquareCaretLeft,
+  faImages,
+  faRotate,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
+import "../Styles/ItemMaster.css";
+import {
+  GetCookies,
+  ConcatStringEvent,
+  HandleGetInitializaItemMaster,
+  HandleCheckRoleStaff,
+} from "../ObjectCommon/FunctionCommon";
+import {
+  CompanyCode,
+  FistCode,
+  EventInitializaItemMaster,
+  EventItemMaster,
+  EventSeachItemMaster,
+  EventCreateItemMaster,
+  UserLogin,
+} from "../ObjectCommon/EventCommon";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import LoadingModal from "../CommonPage/LoadingCommon";
+import { useNavigate } from "react-router-dom";
+import { OldURLReducer } from "../ReduxCommon/ReducerCommon/ReducerURL";
+import { ItemMasterReducer } from "../ReduxCommon/ReducerCommon/ReducerItemMaster";
+import moment from "moment";
+import { HandleValidationItemCode } from "../ApiLablary/ItemMasterApi";
+import { Create, Delete, Update, Revert } from "../Contants/DataContant";
 
 // Function Validation Create
 function ValidationItemMaster(dataValidation) {
@@ -326,8 +368,8 @@ function InitializaDataSelect(
     result.listAuthor.push(author);
   });
   const defauleAuthor = {
-    StoreCode: "0",
-    Description: "Select Author",
+    AuthorID: "0",
+    NameAuthor: "Select Author",
   };
   result.listAuthor.push(defauleAuthor);
 
@@ -619,15 +661,24 @@ function CreateItemMaster() {
     ) {
       SetMessageErrorImage("Url Image Not Null, Please Try Again!");
     } else {
-      const ImageItemMaster = {
-        IsDefaulr: true,
-        UrlImageDefault: state_UrlDefault,
-        UrlImage: state_Url,
-      };
-      SetConfirmUrlImage(ImageItemMaster);
+      if (state_Control !== 1) {
+        const ImageItemMaster = {
+          IsDefaulr: true,
+          UrlImageDefault: state_UrlDefault,
+          UrlImage: state_Url,
+        };
+        SetConfirmUrlImage(ImageItemMaster);
 
-      SetUrlDefault("");
-      SetUrl("");
+        SetUrlDefault("");
+        SetUrl("");
+      } else {
+        const ImageItemMaster = {
+          IsDefaulr: true,
+          UrlImageDefault: state_UrlDefault,
+          UrlImage: state_Url,
+        };
+        SetConfirmUrlImage(ImageItemMaster);
+      }
       SetMessageErrorImage("");
       SetMessageError("");
       setShowDialog(false);
@@ -662,21 +713,23 @@ function CreateItemMaster() {
       // Set Image Confirm when click row
       const ImageItemMaster = {
         IsDefaulr: true,
-        UrlImageDefault: state_UrlDefault,
-        UrlImage: state_Url,
+        UrlImageDefault: findItemCode.UrlImage.UrlImageDefault,
+        UrlImage: findItemCode.UrlImage.UrlImage,
       };
       SetConfirmUrlImage(ImageItemMaster);
       // Update State Control
       setControl(1);
       // Set Select Defaul
       SetDefaulStore(findItemCode.StoreCode);
-      SetDefaultAuthor(findItemCode.Author);
-      SetDefaultCategory(findItemCode.Category);
-      SetDefaultPublishingCompany(findItemCode.PublisingCompany);
+      SetDefaultAuthor(findItemCode.AuthorID);
+      SetDefaultCategory(findItemCode.CategoryItemMasterID);
+      SetDefaultPublishingCompany(findItemCode.PublishingCompanyID);
       // An Display Button Update
-      btn_Confirm.current.disabled = false;
+      btn_Update.current.disabled = false;
       // Set Kind Button Setting Delete Or Revert
-      SetKindButton(findItemCode.TypeOf);
+      if (findItemCode.TypeOf === Delete) {
+        SetKindButton(Revert);
+      }
     } else {
       SetMessageError("Not Find ItemCode, Please Try Again!");
     }
@@ -765,6 +818,9 @@ function CreateItemMaster() {
     btn_Confirm.current.disabled = true;
     setControl(0);
     SetDefaulStore("0");
+    SetDefaultAuthor("0");
+    SetDefaultCategory("0");
+    SetDefaultPublishingCompany("0");
     SetKindButton("");
   };
 
@@ -781,11 +837,11 @@ function CreateItemMaster() {
       Description: state_Description,
       DescriptionLong: state_DescriptionLong,
       DescriptionShort: state_DescriptionShort,
-      Store: state_Store,
+      Store: state_DefaulStore,
       Quantity: state_Quantity,
-      Category: state_Category,
-      Author: state_Author,
-      PublisingCompany: state_PublisingCompany,
+      Category: state_DefaultCategory,
+      Author: state_DefaulAuthor,
+      PublisingCompany: state_DefaultPublishingCompany,
       Size: state_Size,
       Note: state_Note,
     };
@@ -891,7 +947,7 @@ function CreateItemMaster() {
         // Success Add ItemMaster Create In Redux
         const ItemMaster = {
           CompanyCode: CompanyCode,
-          StoreCode: state_Store,
+          StoreCode: state_DefaulStore,
           ItemCode: state_ItemCode,
           ApplyDate: state_Applydate,
           Description: state_Description,
@@ -906,14 +962,14 @@ function CreateItemMaster() {
           Quantity: state_Quantity,
           Viewer: 0,
           Buy: 0,
-          CategoryItemMasterID: state_Category,
-          AuthorID: state_Author,
+          CategoryItemMasterID: state_DefaultCategory,
+          AuthorID: state_DefaulAuthor,
           DateCreate: moment(currentDate).format("YYYY-MM-DD"),
           IssuingCompanyID: null,
           PublicationDate: moment(currentDate).format("YYYY-MM-DD"),
           size: state_Size,
           PageNumber: 0,
-          PublishingCompanyID: state_PublisingCompany,
+          PublishingCompanyID: state_DefaultPublishingCompany,
           IsSale: true,
           LastUpdateDate: null,
           Note: state_Note,
@@ -1017,15 +1073,14 @@ function CreateItemMaster() {
       Description: state_Description,
       DescriptionLong: state_DescriptionLong,
       DescriptionShort: state_DescriptionShort,
-      Store: state_Store,
+      Store: state_DefaulStore,
       Quantity: state_Quantity,
-      Category: state_Category,
-      Author: state_Author,
-      PublisingCompany: state_PublisingCompany,
+      Category: state_DefaultCategory,
+      Author: state_DefaulAuthor,
+      PublisingCompany: state_DefaultPublishingCompany,
       Size: state_Size,
       Note: state_Note,
     };
-
     // Validation Data Create
     const validation = ValidationItemMaster(formData);
 
@@ -1127,7 +1182,7 @@ function CreateItemMaster() {
         // Success Add ItemMaster Create In Redux
         const ItemMaster = {
           CompanyCode: CompanyCode,
-          StoreCode: state_Store,
+          StoreCode: state_DefaulStore,
           ItemCode: state_ItemCode,
           ApplyDate: state_Applydate,
           Description: state_Description,
@@ -1142,14 +1197,14 @@ function CreateItemMaster() {
           Quantity: state_Quantity,
           Viewer: 0,
           Buy: 0,
-          CategoryItemMasterID: state_Category,
-          AuthorID: state_Author,
+          CategoryItemMasterID: state_DefaultCategory,
+          AuthorID: state_DefaulAuthor,
           DateCreate: moment(currentDate).format("YYYY-MM-DD"),
           IssuingCompanyID: null,
           PublicationDate: moment(currentDate).format("YYYY-MM-DD"),
           size: state_Size,
           PageNumber: 0,
-          PublishingCompanyID: state_PublisingCompany,
+          PublishingCompanyID: state_DefaultPublishingCompany,
           IsSale: true,
           LastUpdateDate: null,
           Note: state_Note,
@@ -1245,72 +1300,77 @@ function CreateItemMaster() {
     );
 
     if (checkItemCode !== undefined) {
-      const ItemMaster = {
-        ItemCode: checkItemCode.ItemCode,
-        TypeOf: Delete,
-        OldType: checkItemCode.OldType,
-      };
-      SetMessageError("");
-      // Dispatch Action Delete ItemMaster
-      dispatch(ItemMasterReducer.actions.DeleteItemMaster(ItemMaster));
+      // Check ItemMaster was Delete ?
+      if (checkItemCode.TypeOf === Delete) {
+        SetMessageError("This ItemCode Were Delete, Cannot Delete");
+      } else {
+        const ItemMaster = {
+          ItemCode: checkItemCode.ItemCode,
+          TypeOf: Delete,
+          OldType: checkItemCode.TypeOf,
+        };
+        SetMessageError("");
+        // Dispatch Action Delete ItemMaster
+        dispatch(ItemMasterReducer.actions.DeleteItemMaster(ItemMaster));
 
-      // Reset Select Store
-      const storeSelect = document.getElementById("Btn_DisplayStore");
-      storeSelect.selectedIndex = [...storeSelect.options].findIndex(
-        (option) => option.text === "Select Store"
-      );
-      SetStore("0");
+        // Reset Select Store
+        const storeSelect = document.getElementById("Btn_DisplayStore");
+        storeSelect.selectedIndex = [...storeSelect.options].findIndex(
+          (option) => option.text === "Select Store"
+        );
+        SetStore("0");
 
-      // Reset Select Category
-      const categorySelect = document.getElementById("Btn_DisplayCategory");
-      categorySelect.selectedIndex = [...categorySelect.options].findIndex(
-        (option) => option.text === "Select Category"
-      );
-      SetCategory("0");
+        // Reset Select Category
+        const categorySelect = document.getElementById("Btn_DisplayCategory");
+        categorySelect.selectedIndex = [...categorySelect.options].findIndex(
+          (option) => option.text === "Select Category"
+        );
+        SetCategory("0");
 
-      // Reset Select Author
-      const authorSelect = document.getElementById("Btn_DisplayAuthor");
-      authorSelect.selectedIndex = [...authorSelect.options].findIndex(
-        (option) => option.text === "Select Author"
-      );
-      SetAuthor("0");
+        // Reset Select Author
+        const authorSelect = document.getElementById("Btn_DisplayAuthor");
+        authorSelect.selectedIndex = [...authorSelect.options].findIndex(
+          (option) => option.text === "Select Author"
+        );
+        SetAuthor("0");
 
-      // Reset Select Author
-      const publishingCompanySelect = document.getElementById(
-        "Btn_DisplayPublishingCompany"
-      );
-      publishingCompanySelect.selectedIndex = [
-        ...publishingCompanySelect.options,
-      ].findIndex((option) => option.text === "Select Publishing Company");
-      SetPublisingCompany("0");
+        // Reset Select Author
+        const publishingCompanySelect = document.getElementById(
+          "Btn_DisplayPublishingCompany"
+        );
+        publishingCompanySelect.selectedIndex = [
+          ...publishingCompanySelect.options,
+        ].findIndex((option) => option.text === "Select Publishing Company");
+        SetPublisingCompany("0");
 
-      // Reset Data In Form
-      SetItemCode("");
-      SetApplydate("");
-      SetPriceOrigin("");
-      SetPriceSale("");
-      SetDescription("");
-      SetDescriptionLong("");
-      SetDescriptionShort("");
-      SetQuantity("");
-      SetSize("");
-      SetNote("");
-      SetConfirmUrlImage("");
+        // Reset Data In Form
+        SetItemCode("");
+        SetApplydate("");
+        SetPriceOrigin("");
+        SetPriceSale("");
+        SetDescription("");
+        SetDescriptionLong("");
+        SetDescriptionShort("");
+        SetQuantity("");
+        SetSize("");
+        SetNote("");
+        SetConfirmUrlImage("");
 
-      // Change Backound none when create Success
-      ChangeBackoundNoneCreateItemMasterSuccess();
-      // Display Form input
-      ChangeDispayItemForm();
-      btn_Image.current.disabled = true;
-      btn_Confirm.current.disabled = false;
-      btn_Update.current.disabled = true;
-      setControl(0);
-      SetDefaulStore("0");
-      SetDefaultAuthor("0");
-      SetDefaultCategory("0");
-      SetDefaultPublishingCompany("0");
+        // Change Backound none when create Success
+        ChangeBackoundNoneCreateItemMasterSuccess();
+        // Display Form input
+        ChangeDispayItemForm();
+        btn_Image.current.disabled = true;
+        btn_Confirm.current.disabled = false;
+        btn_Update.current.disabled = true;
+        setControl(0);
+        SetDefaulStore("0");
+        SetDefaultAuthor("0");
+        SetDefaultCategory("0");
+        SetDefaultPublishingCompany("0");
+      }
     } else {
-      SetMessageError("Not Find ItemCode In System, Please Try Again!");
+      SetMessageError("Please Choose a ItemCode Want Delete!");
     }
     SetKindButton("");
     return;
@@ -1667,26 +1727,6 @@ function CreateItemMaster() {
                 <FontAwesomeIcon icon={faImages} />
               </p>
             )}
-            <InputGroup className="mb-3">
-              {(state_KindButton === Update && (
-                <Button
-                  variant="danger"
-                  style={{ width: "inherit" }}
-                  onClick={(e) => HandleDeleteItemMaster()}
-                >
-                  Delete
-                </Button>
-              )) ||
-                (state_KindButton === Delete && (
-                  <Button
-                    variant="info"
-                    style={{ width: "inherit" }}
-                    onClick={(e) => HandleRevertItemMaster()}
-                  >
-                    Revert
-                  </Button>
-                ))}
-            </InputGroup>
           </Form.Group>
         </Col>
       </Row>
@@ -1759,15 +1799,78 @@ function CreateItemMaster() {
                         key={item.ItemCode}
                         onClick={(e) => HandleClickRowItem(item.ItemCode)}
                       >
-                        <td>{item.ItemCode}</td>
-                        <td>{item.ApplyDate}</td>
-                        <td>{item.StoreCode}</td>
-                        <td>{item.Quantity}</td>
-                        <td>{item.CategoryItemMasterID}</td>
-                        <td>{item.AuthorID}</td>
-                        <td>{item.priceSale}</td>
-                        <td>{item.PublishingCompanyID}</td>
-                        <td>{item.Description}</td>
+                        <td
+                          style={{
+                            color: "gray",
+                            "text-decoration": "line-through red",
+                          }}
+                        >
+                          {item.ItemCode}
+                        </td>
+                        <td
+                          style={{
+                            color: "gray",
+                            "text-decoration": "line-through red",
+                          }}
+                        >
+                          {item.ApplyDate}
+                        </td>
+                        <td
+                          style={{
+                            color: "gray",
+                            "text-decoration": "line-through red",
+                          }}
+                        >
+                          {item.StoreCode}
+                        </td>
+                        <td
+                          style={{
+                            color: "gray",
+                            "text-decoration": "line-through red",
+                          }}
+                        >
+                          {item.Quantity}
+                        </td>
+                        <td
+                          style={{
+                            color: "gray",
+                            "text-decoration": "line-through red",
+                          }}
+                        >
+                          {item.CategoryItemMasterID}
+                        </td>
+                        <td
+                          style={{
+                            color: "gray",
+                            "text-decoration": "line-through red",
+                          }}
+                        >
+                          {item.AuthorID}
+                        </td>
+                        <td
+                          style={{
+                            color: "gray",
+                            "text-decoration": "line-through red",
+                          }}
+                        >
+                          {item.priceSale}
+                        </td>
+                        <td
+                          style={{
+                            color: "gray",
+                            "text-decoration": "line-through red",
+                          }}
+                        >
+                          {item.PublishingCompanyID}
+                        </td>
+                        <td
+                          style={{
+                            color: "gray",
+                            "text-decoration": "line-through red",
+                          }}
+                        >
+                          {item.Description}
+                        </td>
                         <td>{item.TypeOf}</td>
                       </tr>
                     ))
@@ -1778,6 +1881,24 @@ function CreateItemMaster() {
         </Col>
       </Row>
       <p className="alinebuttonsetting">
+        {ListItemMasterMain.length !== 0 && (
+          <Button
+            variant="danger"
+            className="btn_setting"
+            onClick={(e) => HandleDeleteItemMaster()}
+          >
+            <FontAwesomeIcon icon={faTrash} /> Delete
+          </Button>
+        )}
+        {state_KindButton === Revert && (
+          <Button
+            variant="info"
+            className="btn_setting"
+            onClick={(e) => HandleRevertItemMaster()}
+          >
+            <FontAwesomeIcon icon={faRotate} /> Revert
+          </Button>
+        )}
         <Button
           variant="primary"
           className="btn_setting"

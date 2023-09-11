@@ -755,6 +755,7 @@ namespace TDTCloud.Controllers
         /// </summary>
         /// <param name="itemMaster"></param>
         /// <returns></returns>
+        [HttpPost("ConfirmItemMaster")]
         public async Task<IActionResult> ConfirmItemMaster([FromForm] M_ListItemMaster itemMaster)
         {
             string result = null;
