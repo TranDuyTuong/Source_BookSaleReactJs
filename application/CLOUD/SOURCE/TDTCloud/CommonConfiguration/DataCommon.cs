@@ -170,6 +170,16 @@ namespace CommonConfiguration
         /// </summary>
         public static string MessageErrorLenghtItemCode = "Lenght ItemCode More Than Lenght ItemCode Defaul Is 26";
 
+        /// <summary>
+        /// MessageErrorNotFindDataSelect
+        /// </summary>
+        public static string MessageErrorNotFindDataSelect = "Don't Find Store Code Or Author Or Category Or PublishingCompany, Please Contact Manager!";
+
+        /// <summary>
+        /// MessageExistRecolInDB
+        /// </summary>
+        public static string MessageExistRecolInDB = "Exist A Recol In System Create Fail, Please Contact Manager!";
+
         ///-------------------------------------------Event Code-------------------------------------------------
         /// <summary>
         /// EventRegiter

@@ -1,4 +1,7 @@
-﻿using ModelConfiguration.M_Bo.StoreData;
+﻿using ModelConfiguration.M_Bo.AuthorData;
+using ModelConfiguration.M_Bo.CategoryData;
+using ModelConfiguration.M_Bo.PublishingCompanysData;
+using ModelConfiguration.M_Bo.StoreData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -67,6 +70,27 @@ namespace ConfigurationInterfaces.DataCommon
         /// </summary>
         /// <param name="listStore"></param>
         /// <returns></returns>
-        bool ValidationStoreCode(List<M_Store> listStore);
+        bool ValidationStoreCode(List<M_Store> listStore, string userID);
+
+        /// <summary>
+        /// ValidationAuthor
+        /// </summary>
+        /// <param name="listAuthor"></param>
+        /// <returns></returns>
+        bool ValidationAuthor(List<M_Author> listAuthor, string userID);
+
+        /// <summary>
+        /// ValidationCategory
+        /// </summary>
+        /// <param name="listCategory"></param>
+        /// <returns></returns>
+        bool ValidationCategory(List<M_Category> listCategory, string userID);
+
+        /// <summary>
+        /// ValidationPublishingCompany
+        /// </summary>
+        /// <param name="listPublishingCompany"></param>
+        /// <returns></returns>
+        bool ValidationPublishingCompany(List<M_PublishingCompany> listPublishingCompany, string userID);
     }
 }

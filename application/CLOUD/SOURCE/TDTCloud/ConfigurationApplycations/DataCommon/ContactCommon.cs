@@ -1,6 +1,9 @@
 ﻿using CodeFirtMigration.DataFE;
 using ConfigurationInterfaces.DataCommon;
 using Microsoft.EntityFrameworkCore;
+using ModelConfiguration.M_Bo.AuthorData;
+using ModelConfiguration.M_Bo.CategoryData;
+using ModelConfiguration.M_Bo.PublishingCompanysData;
 using ModelConfiguration.M_Bo.StoreData;
 using System;
 using System.Collections.Generic;
@@ -180,7 +183,7 @@ namespace ConfigurationApplycations.DataCommon
         /// <summary>
         /// ValidationStoreCode
         /// </summary>
-        /// <param name="storeID"></param>
+        /// <param name="storeID">storeID</param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
         public bool ValidationStoreCode(string storeID)
@@ -204,7 +207,7 @@ namespace ConfigurationApplycations.DataCommon
         /// <param name="listStore"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public bool ValidationStoreCode(List<M_Store> listStore)
+        public bool ValidationStoreCode(List<M_Store> listStore, string userID)
         {
             // Get All Store In DB
             var queryStore = this.context.stores.Where(x => x.IsDeleteFlag == false).ToArray();
@@ -215,10 +218,125 @@ namespace ConfigurationApplycations.DataCommon
                 
                 if(item == null)
                 {
+                    // Save Log Error
+                    var logError = new Log()
+                    {
+                        Id = new Guid(),
+                        UserID = userID,
+                        Message = "Error! Not Find Store Code: " + store.StoreCode,
+                        DateCreate = DateTime.Now,
+                        Status = true
+                    };
+                    this.context.logs.Add(logError);
+                    this.context.SaveChanges();
                     return false;
                 }
             }
             return true;
         }
+
+        /// <summary>
+        /// ValidationAuthor
+        /// </summary>
+        /// <param name="listAuthor"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public bool ValidationAuthor(List<M_Author> listAuthor, string userID)
+        {
+            // Get All Author In DB
+            var queryAuthor = this.context.authors.Where(x => x.IsDeleteFlag == false).ToArray();
+
+            foreach(var author in listAuthor)
+            {
+                var item = queryAuthor.FirstOrDefault(x => x.AuthorID == author.AuthorID);
+
+                if(item == null)
+                {
+                    // Save Log Error
+                    var logError = new Log()
+                    {
+                        Id = new Guid(),
+                        UserID = userID,
+                        Message = "Error! Not Find Author Code: " + author.AuthorID,
+                        DateCreate = DateTime.Now,
+                        Status = true
+                    };
+                    this.context.logs.Add(logError);
+                    this.context.SaveChanges();
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// ValidationCategory
+        /// </summary>
+        /// <param name="listCategory"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public bool ValidationCategory(List<M_Category> listCategory, string userID)
+        {
+            // Get All Category In DB
+            var queryCategory = this.context.categoryItemMasters.Where(x => x.IsDeleteFlag == false).ToArray();
+
+            foreach(var category in listCategory)
+            {
+                var item = queryCategory.FirstOrDefault(x => x.CategoryItemMasterID ==  category.CategoryItemMasterID);
+
+                if(item == null)
+                {
+                    // Save Log Error
+                    var logError = new Log()
+                    {
+                        Id = new Guid(),
+                        UserID = userID,
+                        Message = "Error! Not Find Category: " + category.CategoryItemMasterID,
+                        DateCreate = DateTime.Now,
+                        Status = true
+                    };
+                    this.context.logs.Add(logError);
+                    this.context.SaveChanges();
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// ValidationPublishingCompany
+        /// </summary>
+        /// <param name="listPublishingCompany"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public bool ValidationPublishingCompany(List<M_PublishingCompany> listPublishingCompany, string userID)
+        {
+            // Get All PublishingCompany In DB
+            var queryPublishingCompany = this.context.publishingCompanies.Where(x => x.IsDeleteFlag == false).ToArray();
+
+            foreach(var publishingCompany in listPublishingCompany)
+            {
+                var item = queryPublishingCompany.FirstOrDefault(x => x.PublishingCompanyID == publishingCompany.PublishingCompanyID);
+
+                if(item == null)
+                {
+                    // Save Log Error
+                    var logError = new Log()
+                    {
+                        Id = new Guid(),
+                        UserID = userID,
+                        Message = "Error! Not Find PublishingCompany: " + publishingCompany.PublishingCompanyID,
+                        DateCreate = DateTime.Now,
+                        Status = true
+                    };
+                    this.context.logs.Add(logError);
+                    this.context.SaveChanges();
+                    return false;
+                }
+            }
+            return true;
+        }
+
+
     }
 }

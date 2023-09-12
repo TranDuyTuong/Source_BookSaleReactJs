@@ -38,7 +38,7 @@ namespace TDTSettingTable
         /// <summary>
         /// ApplyDate
         /// </summary>
-        public DateTime? ApplyDate
+        public DateTime ApplyDate
         {
             get;
             set;

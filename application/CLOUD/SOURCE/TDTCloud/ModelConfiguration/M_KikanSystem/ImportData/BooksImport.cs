@@ -38,7 +38,7 @@ namespace ModelConfiguration.M_KikanSystem.ImportData
         /// <summary>
         /// ApplyDate
         /// </summary>
-        public DateTime? ApplyDate
+        public DateTime ApplyDate
         {
             get;
             set;

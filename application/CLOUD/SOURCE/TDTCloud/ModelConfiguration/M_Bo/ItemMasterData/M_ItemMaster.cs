@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelConfiguration.M_Bo.ImageItemMasterData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -38,7 +39,7 @@ namespace ModelConfiguration.M_Bo.ItemMasterData
         /// <summary>
         /// ApplyDate
         /// </summary>
-        public DateTime? ApplyDate
+        public DateTime ApplyDate
         {
             get;
             set;
@@ -302,6 +303,15 @@ namespace ModelConfiguration.M_Bo.ItemMasterData
         {
             get;
             set;
+        }
+
+        /// <summary>
+        /// ImageItemMaster
+        /// </summary>
+        public M_ImageItemMaster ImageItemMaster 
+        { 
+            get; 
+            set; 
         }
     }
 }
