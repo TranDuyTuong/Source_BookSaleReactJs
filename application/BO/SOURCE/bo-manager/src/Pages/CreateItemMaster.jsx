@@ -41,7 +41,10 @@ import { useNavigate } from "react-router-dom";
 import { OldURLReducer } from "../ReduxCommon/ReducerCommon/ReducerURL";
 import { ItemMasterReducer } from "../ReduxCommon/ReducerCommon/ReducerItemMaster";
 import moment from "moment";
-import { HandleValidationItemCode } from "../ApiLablary/ItemMasterApi";
+import {
+  HandleValidationItemCode,
+  HandleInsertItemMaster,
+} from "../ApiLablary/ItemMasterApi";
 import { Create, Delete, Update, Revert } from "../Contants/DataContant";
 
 // Function Validation Create
@@ -463,11 +466,7 @@ function CreateItemMaster() {
   const [state_Description, SetDescription] = useState("");
   const [state_DescriptionLong, SetDescriptionLong] = useState("");
   const [state_DescriptionShort, SetDescriptionShort] = useState("");
-  const [state_Store, SetStore] = useState("");
   const [state_Quantity, SetQuantity] = useState("");
-  const [state_Category, SetCategory] = useState("");
-  const [state_Author, SetAuthor] = useState("");
-  const [state_PublisingCompany, SetPublisingCompany] = useState("");
   const [state_Size, SetSize] = useState("");
   const [state_Note, SetNote] = useState("");
 
@@ -557,6 +556,8 @@ function CreateItemMaster() {
             SetListCategory(initializaDataSelect.listCategory);
             // Set Array Null In List ItemMaster When Initializa Data
             dispatch(ItemMasterReducer.actions.SeachItemMaster([]));
+            // Focus inputItemCode
+            document.getElementById("Btn_ItemCode").focus();
           } else {
             SetMessageError(response.MessageError);
           }
@@ -588,7 +589,6 @@ function CreateItemMaster() {
       SetMessageError("Please Choose A Store!");
     } else {
       SetDefaulStore(e);
-      SetStore(e);
     }
     return;
   };
@@ -599,7 +599,6 @@ function CreateItemMaster() {
       SetMessageError("Please Choose A Author!");
     } else {
       SetDefaultAuthor(e);
-      SetAuthor(e);
     }
     return;
   };
@@ -610,7 +609,6 @@ function CreateItemMaster() {
       SetMessageError("Please Choose A Publishing Company!");
     } else {
       SetDefaultPublishingCompany(e);
-      SetPublisingCompany(e);
     }
     return;
   };
@@ -621,7 +619,6 @@ function CreateItemMaster() {
       SetMessageError("Please Choose A Category!");
     } else {
       SetDefaultCategory(e);
-      SetCategory(e);
     }
     return;
   };
@@ -663,7 +660,7 @@ function CreateItemMaster() {
     } else {
       if (state_Control !== 1) {
         const ImageItemMaster = {
-          IsDefaulr: true,
+          IsDefault: true,
           UrlImageDefault: state_UrlDefault,
           UrlImage: state_Url,
         };
@@ -778,21 +775,21 @@ function CreateItemMaster() {
     storeSelect.selectedIndex = [...storeSelect.options].findIndex(
       (option) => option.text === "Select Store"
     );
-    SetStore("0");
+    SetDefaulStore("0");
 
     // Reset Select Category
     const categorySelect = document.getElementById("Btn_DisplayCategory");
     categorySelect.selectedIndex = [...categorySelect.options].findIndex(
       (option) => option.text === "Select Category"
     );
-    SetCategory("0");
+    SetDefaultCategory("0");
 
     // Reset Select Author
     const authorSelect = document.getElementById("Btn_DisplayAuthor");
     authorSelect.selectedIndex = [...authorSelect.options].findIndex(
       (option) => option.text === "Select Author"
     );
-    SetAuthor("0");
+    SetDefaultAuthor("0");
 
     // Reset Select Author
     const publishingCompanySelect = document.getElementById(
@@ -801,7 +798,7 @@ function CreateItemMaster() {
     publishingCompanySelect.selectedIndex = [
       ...publishingCompanySelect.options,
     ].findIndex((option) => option.text === "Select Publishing Company");
-    SetPublisingCompany("0");
+    SetDefaultPublishingCompany("0");
 
     // Reset Data In Form
     SetApplydate("");
@@ -997,21 +994,21 @@ function CreateItemMaster() {
           storeSelect.selectedIndex = [...storeSelect.options].findIndex(
             (option) => option.text === "Select Store"
           );
-          SetStore("0");
+          SetDefaulStore("0");
 
           // Reset Select Category
           const categorySelect = document.getElementById("Btn_DisplayCategory");
           categorySelect.selectedIndex = [...categorySelect.options].findIndex(
             (option) => option.text === "Select Category"
           );
-          SetCategory("0");
+          SetDefaultCategory("0");
 
           // Reset Select Author
           const authorSelect = document.getElementById("Btn_DisplayAuthor");
           authorSelect.selectedIndex = [...authorSelect.options].findIndex(
             (option) => option.text === "Select Author"
           );
-          SetAuthor("0");
+          SetDefaultCategory("0");
 
           // Reset Select Author
           const publishingCompanySelect = document.getElementById(
@@ -1020,7 +1017,7 @@ function CreateItemMaster() {
           publishingCompanySelect.selectedIndex = [
             ...publishingCompanySelect.options,
           ].findIndex((option) => option.text === "Select Publishing Company");
-          SetPublisingCompany("0");
+          SetDefaultPublishingCompany("0");
 
           // Reset Data In Form
           SetItemCode("");
@@ -1232,21 +1229,21 @@ function CreateItemMaster() {
           storeSelect.selectedIndex = [...storeSelect.options].findIndex(
             (option) => option.text === "Select Store"
           );
-          SetStore("0");
+          SetDefaulStore("0");
 
           // Reset Select Category
           const categorySelect = document.getElementById("Btn_DisplayCategory");
           categorySelect.selectedIndex = [...categorySelect.options].findIndex(
             (option) => option.text === "Select Category"
           );
-          SetCategory("0");
+          SetDefaultCategory("0");
 
           // Reset Select Author
           const authorSelect = document.getElementById("Btn_DisplayAuthor");
           authorSelect.selectedIndex = [...authorSelect.options].findIndex(
             (option) => option.text === "Select Author"
           );
-          SetAuthor("0");
+          SetDefaultAuthor("0");
 
           // Reset Select Author
           const publishingCompanySelect = document.getElementById(
@@ -1255,7 +1252,7 @@ function CreateItemMaster() {
           publishingCompanySelect.selectedIndex = [
             ...publishingCompanySelect.options,
           ].findIndex((option) => option.text === "Select Publishing Company");
-          SetPublisingCompany("0");
+          SetDefaultPublishingCompany("0");
 
           // Reset Data In Form
           SetItemCode("");
@@ -1318,21 +1315,21 @@ function CreateItemMaster() {
         storeSelect.selectedIndex = [...storeSelect.options].findIndex(
           (option) => option.text === "Select Store"
         );
-        SetStore("0");
+        SetDefaulStore("0");
 
         // Reset Select Category
         const categorySelect = document.getElementById("Btn_DisplayCategory");
         categorySelect.selectedIndex = [...categorySelect.options].findIndex(
           (option) => option.text === "Select Category"
         );
-        SetCategory("0");
+        SetDefaultCategory("0");
 
         // Reset Select Author
         const authorSelect = document.getElementById("Btn_DisplayAuthor");
         authorSelect.selectedIndex = [...authorSelect.options].findIndex(
           (option) => option.text === "Select Author"
         );
-        SetAuthor("0");
+        SetDefaultAuthor("0");
 
         // Reset Select Author
         const publishingCompanySelect = document.getElementById(
@@ -1341,7 +1338,7 @@ function CreateItemMaster() {
         publishingCompanySelect.selectedIndex = [
           ...publishingCompanySelect.options,
         ].findIndex((option) => option.text === "Select Publishing Company");
-        SetPublisingCompany("0");
+        SetDefaultPublishingCompany("0");
 
         // Reset Data In Form
         SetItemCode("");
@@ -1399,21 +1396,21 @@ function CreateItemMaster() {
       storeSelect.selectedIndex = [...storeSelect.options].findIndex(
         (option) => option.text === "Select Store"
       );
-      SetStore("0");
+      SetDefaulStore("0");
 
       // Reset Select Category
       const categorySelect = document.getElementById("Btn_DisplayCategory");
       categorySelect.selectedIndex = [...categorySelect.options].findIndex(
         (option) => option.text === "Select Category"
       );
-      SetCategory("0");
+      SetDefaultCategory("0");
 
       // Reset Select Author
       const authorSelect = document.getElementById("Btn_DisplayAuthor");
       authorSelect.selectedIndex = [...authorSelect.options].findIndex(
         (option) => option.text === "Select Author"
       );
-      SetAuthor("0");
+      SetDefaultAuthor("0");
 
       // Reset Select Author
       const publishingCompanySelect = document.getElementById(
@@ -1422,7 +1419,7 @@ function CreateItemMaster() {
       publishingCompanySelect.selectedIndex = [
         ...publishingCompanySelect.options,
       ].findIndex((option) => option.text === "Select Publishing Company");
-      SetPublisingCompany("0");
+      SetDefaultPublishingCompany("0");
 
       // Reset Data In Form
       SetItemCode("");
@@ -1457,7 +1454,82 @@ function CreateItemMaster() {
   };
 
   // Handle Confirm ItemMaster
-  const HandleConfirmItemMaster = (e) => {};
+  const HandleConfirmItemMaster = async (e) => {
+    // Handle Get All ItemMaster Create in Redux
+    const listItemMasterConfirm = [];
+    ListItemMasterMain.forEach(function (item) {
+      if (item.TypeOf !== Delete) {
+        const insertItem = {
+          CompanyCode: item.CompanyCode,
+          StoreCode: item.StoreCode,
+          ItemCode: item.ItemCode,
+          ApplyDate: item.ApplyDate,
+          Description: item.Description,
+          DescriptionShort: item.DescriptionShort,
+          DescriptionLong: item.DescriptionLong,
+          PriceOrigin: item.PriceOrigin,
+          PercentDiscount: item.PercentDiscount,
+          priceSale: item.priceSale,
+          QuantityDiscountID: item.QuantityDiscountID,
+          PairDiscountID: item.PairDiscountID,
+          SpecialDiscountID: item.SpecialDiscountID,
+          Quantity: item.Quantity,
+          Viewer: item.Viewer,
+          Buy: item.Buy,
+          CategoryItemMasterID: item.CategoryItemMasterID,
+          AuthorID: item.AuthorID,
+          DateCreate: item.DateCreate,
+          IssuingCompanyID: item.IssuingCompanyID,
+          PublicationDate: item.PublicationDate,
+          size: item.size,
+          PageNumber: item.PageNumber,
+          PublishingCompanyID: item.PublishingCompanyID,
+          IsSale: item.IsSale,
+          LastUpdateDate: item.LastUpdateDate,
+          Note: item.Note,
+          HeadquartersLastUpdateDateTime: item.HeadquartersLastUpdateDateTime,
+          IsDeleteFlag: item.IsDeleteFlag,
+          UserID: item.UserID,
+          TaxGroupCodeID: item.TaxGroupCodeID,
+          TypeOf: item.TypeOf,
+          OldType: item.OldType,
+          ImageItemMaster: item.UrlImage,
+        };
+        listItemMasterConfirm.push(insertItem);
+      }
+    });
+
+    // Conver Array to Json
+    var jsonItemMasterInsert = JSON.stringify(listItemMasterConfirm);
+    // Get Token
+    var token = GetCookies(UserLogin);
+    // Get EventCode
+    var eventCode = ConcatStringEvent(FistCode, EventCreateItemMaster);
+    // Setting Data Seach Area
+    var formData = new FormData();
+    formData.append("Token", token);
+    formData.append("UserID", window.localStorage.getItem("UserID"));
+    formData.append("RoleID", window.localStorage.getItem("RoleEmployer"));
+    formData.append("EventCode", eventCode);
+    formData.append("TotalItemMaster", 0);
+    formData.append("MessageError", null);
+    formData.append("Status", true);
+    formData.append("KeySeach", jsonItemMasterInsert);
+    formData.append("CompanyCode", CompanyCode);
+    formData.append("ListItemMaster", []);
+
+    // Call Api Confirm Insert ItemMaster
+    const resultData = await HandleInsertItemMaster(formData);
+
+    if (resultData.Status === true) {
+      // Success
+      alert("Create ItemMaster Success!");
+      window.location.reload();
+    } else {
+      // Error
+      SetMessageError(resultData.MessageError);
+    }
+  };
 
   return (
     <Container fluid className="fixedPotionArea">

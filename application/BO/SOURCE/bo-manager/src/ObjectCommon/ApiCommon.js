@@ -33,3 +33,6 @@ export const SeachItemMaster_Post = "/Bo/SeachItemMaster";
 
 // ValidationItemMaster_Post
 export const ValidationItemMaster_Post = "/Bo/ValidationItemMaster";
+
+// CreateItemMaster_Post
+export const CreateItemMaster_Post = "/Bo/ConfirmItemMaster";

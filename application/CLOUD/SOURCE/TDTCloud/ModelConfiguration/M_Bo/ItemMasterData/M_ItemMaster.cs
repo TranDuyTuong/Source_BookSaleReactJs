@@ -308,7 +308,7 @@ namespace ModelConfiguration.M_Bo.ItemMasterData
         /// <summary>
         /// ImageItemMaster
         /// </summary>
-        public M_ImageItemMaster ImageItemMaster 
+        public M_GetUrlImageBo ImageItemMaster 
         { 
             get; 
             set; 

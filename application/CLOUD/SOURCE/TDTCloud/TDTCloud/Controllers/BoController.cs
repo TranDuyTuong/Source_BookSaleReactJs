@@ -759,20 +759,21 @@ namespace TDTCloud.Controllers
         public async Task<IActionResult> ConfirmItemMaster([FromForm] M_ListItemMaster itemMaster)
         {
             string result = null;
-            // Conver Object to Json
-            string request = ConverToJson<M_ListItemMaster>.ConverObjectToJson(itemMaster);
+            // Conver json to list ItemMaster Insert
+            List<M_ItemMaster> request = ConverToJson<List<M_ItemMaster>>.ConverJsonToObject(itemMaster.KeySeach);
 
             // Conver Json to Object
-            var dataConver = ConverToJson<M_ListItemMaster>.ConverJsonToObject(request);
-            if (dataConver != null)
+            itemMaster.ListItemMaster = request;
+
+            if (itemMaster != null)
             {
                 // Check event code
-                var ev = ValidationEventCode.CheckEventCode(dataConver.EventCode);
+                var ev = ValidationEventCode.CheckEventCode(itemMaster.EventCode);
 
                 if (ev.Status == true)
                 {
                     // Check Token Null
-                    if (dataConver.Token == null || dataConver.Token == "")
+                    if (itemMaster.Token == null || itemMaster.Token == "")
                     {
                         var tokenNull = new M_ListItemMaster()
                         {
@@ -788,13 +789,13 @@ namespace TDTCloud.Controllers
                     {
                         // Check Content Token
                         var f_CheckValidationToken = new ValidationToken();
-                        var tokenResult = f_CheckValidationToken.ReadContentToken(dataConver.Token, ev.IdPlugin);
+                        var tokenResult = f_CheckValidationToken.ReadContentToken(itemMaster.Token, ev.IdPlugin);
                         if (tokenResult.Status == false)
                         {
                             var resultContent = new M_ListItemMaster()
                             {
                                 Status = tokenResult.Status,
-                                Token = dataConver.Token,
+                                Token = itemMaster.Token,
                                 EventCode = DataCommon.EventError
 
                             };
@@ -803,7 +804,7 @@ namespace TDTCloud.Controllers
                         else
                         {
                             // Confirm ItemMaster To DB
-                            var confirmResult = await this.itemMasterBO.ConfirmItemMaster(dataConver);
+                            var confirmResult = await this.itemMasterBO.ConfirmItemMaster(itemMaster);
                             // Conver Object to json
                             result = ConverToJson<M_ListItemMaster>.ConverObjectToJson(confirmResult);
                         }
@@ -815,7 +816,7 @@ namespace TDTCloud.Controllers
                     {
                         Status = false,
                         EventCode = DataCommon.EventError,
-                        Token = dataConver.Token,
+                        Token = itemMaster.Token,
                         MessageError = CommonConfiguration.DataCommon.MessageErrorEvent
                     };
 
@@ -829,7 +830,7 @@ namespace TDTCloud.Controllers
                 {
                     Status = false,
                     EventCode = DataCommon.EventError,
-                    Token = dataConver.Token,
+                    Token = itemMaster.Token,
                     MessageError = CommonConfiguration.DataCommon.MessageNullData
                 };
 

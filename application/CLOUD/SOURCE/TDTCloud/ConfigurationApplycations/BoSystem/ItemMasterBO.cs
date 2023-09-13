@@ -529,7 +529,7 @@ namespace ConfigurationApplycations.BoSystem
                                                     )
                                                     select new { item };
 
-                                if (queryItemCode.Count() == 0)
+                                if (queryItemCode.Any() == false)
                                 {
                                     // Not Exit itemcode in DB, Can use this itemcode
                                     result.Token = request.Token;
@@ -702,7 +702,7 @@ namespace ConfigurationApplycations.BoSystem
 
                             // Query ItemMasterImage
                             var queryItemMasterImage = from imageItem in this.context.imageItemMasters
-                                                       where(
+                                                       where (
                                                        imageItem.IsDeleteFlag == false
                                                        )
                                                        select imageItem;
@@ -711,7 +711,7 @@ namespace ConfigurationApplycations.BoSystem
                                 ImageItemID = x.ImageItemID,
                                 ItemCode = x.ItemCode,
                                 DateCreate = x.DateCreate,
-                                UserID  = x.UserID,
+                                UserID = x.UserID,
                                 IsDefault = x.IsDefault,
                                 LastUpdateDate = x.LastUpdateDate,
                                 Url = x.Url,
@@ -750,76 +750,81 @@ namespace ConfigurationApplycations.BoSystem
                                     // Add ItemMaster In List Insert
                                     var insertItemMaster = new ItemMaster()
                                     {
-                                            CompanyCode = itemMaster.CompanyCode,
-                                            StoreCode = itemMaster.StoreCode,
-                                            ItemCode = itemMaster.ItemCode,
-                                            ApplyDate = itemMaster.ApplyDate,
-                                            Description = itemMaster.Description,
-                                            DescriptionShort = itemMaster.DescriptionShort,
-                                            DescriptionLong = itemMaster.DescriptionLong,
-                                            PriceOrigin = itemMaster.PriceOrigin,
-                                            PercentDiscount = itemMaster.PercentDiscount,
-                                            priceSale = itemMaster.priceSale,
-                                            QuantityDiscountID = itemMaster.QuantityDiscountID,
-                                            PairDiscountID = itemMaster.PairDiscountID,
-                                            SpecialDiscountID = itemMaster.SpecialDiscountID,
-                                            Quantity = itemMaster.Quantity,
-                                            Viewer = itemMaster.Viewer,
-                                            Buy = itemMaster.Buy,
-                                            CategoryItemMasterID = itemMaster.CategoryItemMasterID,
-                                            AuthorID = itemMaster.AuthorID,
-                                            DateCreate = itemMaster.DateCreate,
-                                            IssuingCompanyID = itemMaster.IssuingCompanyID,
-                                            PublicationDate = itemMaster.PublicationDate,
-                                            size = itemMaster.size,
-                                            PageNumber = itemMaster.PageNumber,
-                                            PublishingCompanyID = itemMaster.PublishingCompanyID,
-                                            IsSale = itemMaster.IsSale,
-                                            LastUpdateDate = itemMaster.LastUpdateDate,
-                                            Note = itemMaster.Note,
-                                            HeadquartersLastUpdateDateTime = itemMaster.HeadquartersLastUpdateDateTime,
-                                            IsDeleteFlag = itemMaster.IsDeleteFlag,
-                                            UserID = request.UserID,
-                                            TaxGroupCodeID = itemMaster.TaxGroupCodeID,
+                                        CompanyCode = itemMaster.CompanyCode,
+                                        StoreCode = itemMaster.StoreCode,
+                                        ItemCode = itemMaster.ItemCode,
+                                        ApplyDate = itemMaster.ApplyDate,
+                                        Description = itemMaster.Description,
+                                        DescriptionShort = itemMaster.DescriptionShort,
+                                        DescriptionLong = itemMaster.DescriptionLong,
+                                        PriceOrigin = itemMaster.PriceOrigin,
+                                        PercentDiscount = itemMaster.PercentDiscount,
+                                        priceSale = itemMaster.priceSale,
+                                        QuantityDiscountID = itemMaster.QuantityDiscountID,
+                                        PairDiscountID = itemMaster.PairDiscountID,
+                                        SpecialDiscountID = itemMaster.SpecialDiscountID,
+                                        Quantity = itemMaster.Quantity,
+                                        Viewer = itemMaster.Viewer,
+                                        Buy = itemMaster.Buy,
+                                        CategoryItemMasterID = itemMaster.CategoryItemMasterID,
+                                        AuthorID = itemMaster.AuthorID,
+                                        DateCreate = itemMaster.DateCreate,
+                                        IssuingCompanyID = itemMaster.IssuingCompanyID,
+                                        PublicationDate = itemMaster.PublicationDate,
+                                        size = itemMaster.size,
+                                        PageNumber = itemMaster.PageNumber,
+                                        PublishingCompanyID = itemMaster.PublishingCompanyID,
+                                        IsSale = itemMaster.IsSale,
+                                        LastUpdateDate = itemMaster.LastUpdateDate,
+                                        Note = itemMaster.Note,
+                                        HeadquartersLastUpdateDateTime = itemMaster.HeadquartersLastUpdateDateTime,
+                                        IsDeleteFlag = itemMaster.IsDeleteFlag,
+                                        UserID = request.UserID,
+                                        TaxGroupCodeID = itemMaster.TaxGroupCodeID,
                                     };
                                     listItemMasterInsert.Add(insertItemMaster);
 
                                     // Find ItemCode in Table ImageItemMaster
                                     var findImageItemCode = listItemMasterImage.FirstOrDefault(x => x.ItemCode == itemMaster.ItemCode);
 
-                                    if(findImageItemCode != null)
+                                    if (findImageItemCode != null)
                                     {
                                         // Remove this ItemCode In Table ImageItemMaster
                                         listImageItemMasterRemove.Add(findImageItemCode);
                                     }
 
                                     // Affter Add ItemMaster Remove Will get ImageItemCode New Insert List Create ItemMaster
-                                    var imageItemMasterInsert = new ImageItemMaster()
+                                    var imageItemMasterResult = HandleSplitUrlImage(request.ListItemMaster, itemMaster.ItemCode);
+
+                                    foreach (var item in imageItemMasterResult)
                                     {
-                                        ImageItemID = new Guid(),
-                                        ItemCode = itemMaster.ItemCode,
-                                        DateCreate = DateTime.Now,
-                                        UserID = request.UserID,
-                                        IsDefault = itemMaster.ImageItemMaster.IsDefault,
-                                        LastUpdateDate = null,
-                                        Url = itemMaster.ImageItemMaster.Url,
-                                        NameImage = null,
-                                        IsDeleteFlag = itemMaster.ImageItemMaster.IsDeleteFlag
-                                    };
-                                    listImageItemMasterInsert.Add(imageItemMasterInsert);
+                                        var imageItemMasterInsert = new ImageItemMaster()
+                                        {
+                                            ImageItemID = item.ImageItemID,
+                                            ItemCode = item.ItemCode,
+                                            DateCreate = item.DateCreate,
+                                            UserID = request.UserID,
+                                            IsDefault = item.IsDefault,
+                                            LastUpdateDate = item.LastUpdateDate,
+                                            Url = item.Url,
+                                            NameImage = null,
+                                            IsDeleteFlag = item.IsDeleteFlag
+                                        };
+                                        listImageItemMasterInsert.Add(imageItemMasterInsert);
+                                    }
 
                                     result.Status = true;
                                 }
                             }
-                            
-                            if(result.Status != false)
+
+                            if (result.Status != false)
                             {
                                 // Insert ItemMaster
                                 await this.context.itemMasters.AddRangeAsync(listItemMasterInsert);
                                 // Create Log Insert ItemMaster
                                 List<Log> listLogInsertItemMaster = new List<Log>();
 
-                                foreach(var itemMaster in listItemMasterInsert)
+                                foreach (var itemMaster in listItemMasterInsert)
                                 {
                                     var logInsertItemMaster = new Log()
                                     {
@@ -839,7 +844,7 @@ namespace ConfigurationApplycations.BoSystem
                                 // Create Log Remove ImageItemMaster
                                 List<Log> listLogRemoveImageItemMaster = new List<Log>();
 
-                                foreach(var image in listImageItemMasterRemove)
+                                foreach (var image in listImageItemMasterRemove)
                                 {
                                     var logRemoveImage = new Log()
                                     {
@@ -859,7 +864,7 @@ namespace ConfigurationApplycations.BoSystem
                                 // Create Log Insert ImageItemMaster
                                 List<Log> listLogInsertImageItemMaster = new List<Log>();
 
-                                foreach(var image in listImageItemMasterInsert)
+                                foreach (var image in listImageItemMasterInsert)
                                 {
                                     var logInsertImage = new Log()
                                     {
@@ -927,9 +932,51 @@ namespace ConfigurationApplycations.BoSystem
         /// </summary>
         /// <param name="listItemMaster"></param>
         /// <returns></returns>
-        private List<M_ImageItemMaster> HandleSplitUrlImage (List<M_ItemMaster> listItemMaster)
+        private List<M_ImageItemMaster> HandleSplitUrlImage(List<M_ItemMaster> listItemMaster, string itemCode)
         {
             List<M_ImageItemMaster> listImageAffterHandle = new List<M_ImageItemMaster>();
+
+            foreach (var item in listItemMaster)
+            {
+                if (item.ItemCode == itemCode)
+                {
+                    // Split Url 
+                    string[] splitUrl = item.ImageItemMaster.UrlImage.Split("\n");
+
+                    foreach (var urlSplit in splitUrl)
+                    {
+                        // url child
+                        var url = new M_ImageItemMaster()
+                        {
+                            ImageItemID = new Guid(),
+                            ItemCode = item.ItemCode,
+                            DateCreate = DateTime.Now,
+                            UserID = item.UserID,
+                            IsDefault = false,
+                            LastUpdateDate = null,
+                            Url = urlSplit,
+                            NameImage = null,
+                            IsDeleteFlag = false
+                        };
+                        listImageAffterHandle.Add(url);
+                    }
+
+                    // Handle Url Default
+                    var urlDefault = new M_ImageItemMaster()
+                    {
+                        ImageItemID = new Guid(),
+                        ItemCode = item.ItemCode,
+                        DateCreate = DateTime.Now,
+                        UserID = item.UserID,
+                        IsDefault = item.ImageItemMaster.IsDefault,
+                        LastUpdateDate = null,
+                        Url = item.ImageItemMaster.UrlImageDefault,
+                        NameImage = null,
+                        IsDeleteFlag = false
+                    };
+                    listImageAffterHandle.Add(urlDefault);
+                }
+            }
 
             return listImageAffterHandle;
         }
