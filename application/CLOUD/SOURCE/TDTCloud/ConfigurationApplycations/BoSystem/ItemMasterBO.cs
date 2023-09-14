@@ -821,9 +821,9 @@ namespace ConfigurationApplycations.BoSystem
                             {
                                 // Insert ItemMaster
                                 await this.context.itemMasters.AddRangeAsync(listItemMasterInsert);
+
                                 // Create Log Insert ItemMaster
                                 List<Log> listLogInsertItemMaster = new List<Log>();
-
                                 foreach (var itemMaster in listItemMasterInsert)
                                 {
                                     var logInsertItemMaster = new Log()
@@ -836,14 +836,13 @@ namespace ConfigurationApplycations.BoSystem
                                     };
                                     listLogInsertItemMaster.Add(logInsertItemMaster);
                                 }
-
                                 await this.context.logs.AddRangeAsync(listLogInsertItemMaster);
 
                                 // Remove ImageItemMaster When Exit ItemCode
                                 this.context.imageItemMasters.RemoveRange(listImageItemMasterRemove);
+
                                 // Create Log Remove ImageItemMaster
                                 List<Log> listLogRemoveImageItemMaster = new List<Log>();
-
                                 foreach (var image in listImageItemMasterRemove)
                                 {
                                     var logRemoveImage = new Log()
@@ -856,14 +855,13 @@ namespace ConfigurationApplycations.BoSystem
                                     };
                                     listLogRemoveImageItemMaster.Add(logRemoveImage);
                                 }
-
                                 await this.context.logs.AddRangeAsync(listLogRemoveImageItemMaster);
 
                                 // Insert New ImageItemMaster
                                 await this.context.imageItemMasters.AddRangeAsync(listImageItemMasterInsert);
+
                                 // Create Log Insert ImageItemMaster
                                 List<Log> listLogInsertImageItemMaster = new List<Log>();
-
                                 foreach (var image in listImageItemMasterInsert)
                                 {
                                     var logInsertImage = new Log()
@@ -876,6 +874,8 @@ namespace ConfigurationApplycations.BoSystem
                                     };
                                     listLogInsertImageItemMaster.Add(logInsertImage);
                                 }
+                                // Insert New Log Create ImageItemMaster
+                                await this.context.logs.AddRangeAsync(listLogInsertImageItemMaster);
 
                                 // Save In DB
                                 await this.context.SaveChangesAsync();
@@ -968,7 +968,7 @@ namespace ConfigurationApplycations.BoSystem
                         ItemCode = item.ItemCode,
                         DateCreate = DateTime.Now,
                         UserID = item.UserID,
-                        IsDefault = item.ImageItemMaster.IsDefault,
+                        IsDefault = true,
                         LastUpdateDate = null,
                         Url = item.ImageItemMaster.UrlImageDefault,
                         NameImage = null,
