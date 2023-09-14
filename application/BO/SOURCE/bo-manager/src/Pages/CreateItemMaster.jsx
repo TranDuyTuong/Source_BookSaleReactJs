@@ -1788,14 +1788,8 @@ function CreateItemMaster() {
                 <FontAwesomeIcon icon={faImages} />
               </Button>
             </InputGroup>
-            {state_ConfirmUrlImage.IsDefaulr === true && (
-              <p
-                style={{
-                  color: "green",
-                  "text-align": "right",
-                  "font-size": "20px",
-                }}
-              >
+            {state_ConfirmUrlImage.IsDefault === true && (
+              <p className="itemIconImage">
                 <FontAwesomeIcon icon={faImages} />
               </p>
             )}
@@ -1871,76 +1865,31 @@ function CreateItemMaster() {
                         key={item.ItemCode}
                         onClick={(e) => HandleClickRowItem(item.ItemCode)}
                       >
-                        <td
-                          style={{
-                            color: "gray",
-                            "text-decoration": "line-through red",
-                          }}
-                        >
+                        <td className="decorationTypeDelete">
                           {item.ItemCode}
                         </td>
-                        <td
-                          style={{
-                            color: "gray",
-                            "text-decoration": "line-through red",
-                          }}
-                        >
+                        <td className="decorationTypeDelete">
                           {item.ApplyDate}
                         </td>
-                        <td
-                          style={{
-                            color: "gray",
-                            "text-decoration": "line-through red",
-                          }}
-                        >
+                        <td className="decorationTypeDelete">
                           {item.StoreCode}
                         </td>
-                        <td
-                          style={{
-                            color: "gray",
-                            "text-decoration": "line-through red",
-                          }}
-                        >
+                        <td className="decorationTypeDelete">
                           {item.Quantity}
                         </td>
-                        <td
-                          style={{
-                            color: "gray",
-                            "text-decoration": "line-through red",
-                          }}
-                        >
+                        <td className="decorationTypeDelete">
                           {item.CategoryItemMasterID}
                         </td>
-                        <td
-                          style={{
-                            color: "gray",
-                            "text-decoration": "line-through red",
-                          }}
-                        >
+                        <td className="decorationTypeDelete">
                           {item.AuthorID}
                         </td>
-                        <td
-                          style={{
-                            color: "gray",
-                            "text-decoration": "line-through red",
-                          }}
-                        >
+                        <td className="decorationTypeDelete">
                           {item.priceSale}
                         </td>
-                        <td
-                          style={{
-                            color: "gray",
-                            "text-decoration": "line-through red",
-                          }}
-                        >
+                        <td className="decorationTypeDelete">
                           {item.PublishingCompanyID}
                         </td>
-                        <td
-                          style={{
-                            color: "gray",
-                            "text-decoration": "line-through red",
-                          }}
-                        >
+                        <td className="decorationTypeDelete">
                           {item.Description}
                         </td>
                         <td>{item.TypeOf}</td>
@@ -2001,10 +1950,10 @@ function CreateItemMaster() {
 
       {/* Dialog Add Image Item */}
       <Modal show={showDialog}>
-        <Modal.Header style={{ background: "white" }}>
+        <Modal.Header className="backroundModal">
           <Modal.Title>Add Image ItemMaster</Modal.Title>
         </Modal.Header>
-        <Modal.Body style={{ background: "white" }}>
+        <Modal.Body className="backroundModal">
           <p className="messageError">{state_MessageErrorImage}</p>
           <span className="itemNotNull">*</span>
           <InputGroup className="mb-3">
@@ -2022,12 +1971,12 @@ function CreateItemMaster() {
               value={state_Url}
               placeholder="Enter Url Image ..."
               as="textarea"
-              style={{ height: "100px", "white-space": "pre" }}
+              className="inputUrlImage"
               onChange={(e) => SetUrl(e.target.value)}
             />
           </InputGroup>
         </Modal.Body>
-        <Modal.Footer style={{ background: "white" }}>
+        <Modal.Footer className="backroundModal">
           <Button variant="secondary" onClick={() => HandleCloseDialogImage()}>
             Close
           </Button>

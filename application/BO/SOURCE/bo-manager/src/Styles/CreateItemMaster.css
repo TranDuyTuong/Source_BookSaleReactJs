@@ -18,3 +18,19 @@
   font-family: initial;
   font-size: 13px;
 }
+.decorationTypeDelete {
+  color: gray;
+  text-decoration: line-through red;
+}
+.itemIconImage {
+  color: green;
+  text-align: right;
+  font-size: 20px;
+}
+.inputUrlImage {
+  height: 100px;
+  white-space: pre;
+}
+.backroundModal {
+  background: white;
+}
