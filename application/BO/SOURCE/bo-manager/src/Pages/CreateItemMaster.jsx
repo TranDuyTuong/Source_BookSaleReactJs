@@ -46,366 +46,15 @@ import {
   HandleInsertItemMaster,
 } from "../ApiLablary/ItemMasterApi";
 import { Create, Delete, Update, Revert } from "../Contants/DataContant";
-
-// Function Validation Create
-function ValidationItemMaster(dataValidation) {
-  const result = {
-    Status: true,
-    listError: [],
-  };
-
-  // ApplyDate
-  if (
-    dataValidation.Applydate === null ||
-    dataValidation.Applydate === undefined ||
-    dataValidation.Applydate === ""
-  ) {
-    result.Status = false;
-    const error = {
-      id: 1,
-      messageError: "ApplyDate Not Null",
-    };
-    result.listError.push(error);
-  }
-
-  // Price Origin
-  if (
-    dataValidation.PriceOrigin === null ||
-    dataValidation.PriceOrigin === undefined ||
-    dataValidation.PriceOrigin === ""
-  ) {
-    result.Status = false;
-    const error = {
-      id: 2,
-      messageError: "PriceOrigin Not Null",
-    };
-    result.listError.push(error);
-  }
-
-  // Price Sale
-  if (
-    dataValidation.PriceSale === null ||
-    dataValidation.PriceSale === undefined ||
-    dataValidation.PriceSale === ""
-  ) {
-    result.Status = false;
-    const error = {
-      id: 3,
-      messageError: "PriceSale Not Null",
-    };
-    result.listError.push(error);
-  }
-
-  // Description
-  if (
-    dataValidation.Description === null ||
-    dataValidation.Description === undefined ||
-    dataValidation.Description === ""
-  ) {
-    result.Status = false;
-    const error = {
-      id: 4,
-      messageError: "Description Not Null",
-    };
-    result.listError.push(error);
-  }
-
-  // Description Long
-  if (
-    dataValidation.DescriptionLong === null ||
-    dataValidation.DescriptionLong === undefined ||
-    dataValidation.DescriptionLong === ""
-  ) {
-    result.Status = false;
-    const error = {
-      id: 5,
-      messageError: "DescriptionLong Not Null",
-    };
-    result.listError.push(error);
-  }
-
-  // Description Short
-  if (
-    dataValidation.DescriptionShort === null ||
-    dataValidation.DescriptionShort === undefined ||
-    dataValidation.DescriptionShort === ""
-  ) {
-    result.Status = false;
-    const error = {
-      id: 6,
-      messageError: "DescriptionShort Not Null",
-    };
-    result.listError.push(error);
-  }
-
-  // Store
-  if (
-    dataValidation.Store === null ||
-    dataValidation.Store === undefined ||
-    dataValidation.Store === "0" ||
-    dataValidation.Store === 0 ||
-    dataValidation.Store === ""
-  ) {
-    result.Status = false;
-    const error = {
-      id: 7,
-      messageError: "Store Not Null",
-    };
-    result.listError.push(error);
-  }
-
-  // Quantity
-  if (
-    dataValidation.Quantity === null ||
-    dataValidation.Quantity === undefined ||
-    dataValidation.Quantity === ""
-  ) {
-    result.Status = false;
-    const error = {
-      id: 8,
-      messageError: "Quantity Not Null",
-    };
-    result.listError.push(error);
-  }
-
-  // Category
-  if (
-    dataValidation.Category === null ||
-    dataValidation.Category === undefined ||
-    dataValidation.Category === "0" ||
-    dataValidation.Category === 0 ||
-    dataValidation.Category === ""
-  ) {
-    result.Status = false;
-    const error = {
-      id: 9,
-      messageError: "Category Not Null",
-    };
-    result.listError.push(error);
-  }
-
-  // Author
-  if (
-    dataValidation.Author === null ||
-    dataValidation.Author === undefined ||
-    dataValidation.Author === "0" ||
-    dataValidation.Author === 0 ||
-    dataValidation.Author === ""
-  ) {
-    result.Status = false;
-    const error = {
-      id: 10,
-      messageError: "Author Not Null",
-    };
-    result.listError.push(error);
-  }
-
-  // PublisingCompany
-  if (
-    dataValidation.PublisingCompany === null ||
-    dataValidation.PublisingCompany === undefined ||
-    dataValidation.PublisingCompany === "0" ||
-    dataValidation.PublisingCompany === 0 ||
-    dataValidation.PublisingCompany === ""
-  ) {
-    result.Status = false;
-    const error = {
-      id: 11,
-      messageError: "PublisingCompany Not Null",
-    };
-    result.listError.push(error);
-  }
-
-  // Size
-  if (
-    dataValidation.Size === null ||
-    dataValidation.Size === undefined ||
-    dataValidation.Size === ""
-  ) {
-    result.Status = false;
-    const error = {
-      id: 12,
-      messageError: "Size Not Null",
-    };
-    result.listError.push(error);
-  }
-
-  // ItemCode
-  if (
-    dataValidation.ItemCode === null ||
-    dataValidation.ItemCode === undefined ||
-    dataValidation.ItemCode === ""
-  ) {
-    result.Status = false;
-    const error = {
-      id: 13,
-      messageError: "ItemCode Not Null",
-    };
-    result.listError.push(error);
-  }
-
-  return result;
-}
-
-// Function Set Backround Validation Success
-function ChangeBackroundValidationSuccess() {
-  document.getElementById("Btn_DisplayApplydate").style.backgroundColor =
-    "white";
-  document.getElementById("Btn_DisplayPriceOrigin").style.backgroundColor =
-    "white";
-  document.getElementById("Btn_DisplayPriceSale").style.backgroundColor =
-    "white";
-  document.getElementById("Btn_DisplayDescription").style.backgroundColor =
-    "white";
-  document.getElementById("Btn_DisplayDescriptionLong").style.backgroundColor =
-    "white";
-  document.getElementById("Btn_DisplayDescriptionShort").style.backgroundColor =
-    "white";
-  document.getElementById("Btn_DisplayStore").style.backgroundColor = "white";
-  document.getElementById("Btn_DisplayQuantity").style.backgroundColor =
-    "white";
-  document.getElementById("Btn_DisplayCategory").style.backgroundColor =
-    "white";
-  document.getElementById("Btn_DisplayAuthor").style.backgroundColor = "white";
-  document.getElementById(
-    "Btn_DisplayPublishingCompany"
-  ).style.backgroundColor = "white";
-  document.getElementById("Btn_DisplaySize").style.backgroundColor = "white";
-  document.getElementById("Btn_ItemCode").style.backgroundColor = "white";
-}
-
-// Function Set Display Item In Form
-function ChangeDispayItemForm() {
-  document.getElementById("Btn_DisplayApplydate").disabled = true;
-  document.getElementById("Btn_DisplayPriceOrigin").disabled = true;
-  document.getElementById("Btn_DisplayPriceSale").disabled = true;
-  document.getElementById("Btn_DisplayDescription").disabled = true;
-  document.getElementById("Btn_DisplayDescriptionLong").disabled = true;
-  document.getElementById("Btn_DisplayDescriptionShort").disabled = true;
-  document.getElementById("Btn_DisplayStore").disabled = true;
-  document.getElementById("Btn_DisplayQuantity").disabled = true;
-  document.getElementById("Btn_DisplayCategory").disabled = true;
-  document.getElementById("Btn_DisplayPublishingCompany").disabled = true;
-  document.getElementById("Btn_DisplayAuthor").disabled = true;
-  document.getElementById("Btn_DisplaySize").disabled = true;
-  document.getElementById("Btn_DisplayNote").disabled = true;
-}
-
-// Function Set An Display Item In Form
-function ChangeAnDispayItemForm() {
-  document.getElementById("Btn_DisplayApplydate").disabled = false;
-  document.getElementById("Btn_DisplayPriceOrigin").disabled = false;
-  document.getElementById("Btn_DisplayPriceSale").disabled = false;
-  document.getElementById("Btn_DisplayDescription").disabled = false;
-  document.getElementById("Btn_DisplayDescriptionLong").disabled = false;
-  document.getElementById("Btn_DisplayDescriptionShort").disabled = false;
-  document.getElementById("Btn_DisplayStore").disabled = false;
-  document.getElementById("Btn_DisplayQuantity").disabled = false;
-  document.getElementById("Btn_DisplayCategory").disabled = false;
-  document.getElementById("Btn_DisplayAuthor").disabled = false;
-  document.getElementById("Btn_DisplayPublishingCompany").disabled = false;
-  document.getElementById("Btn_DisplaySize").disabled = false;
-  document.getElementById("Btn_DisplayNote").disabled = false;
-}
-
-// Function Set Backround none when create itemMaster Success
-function ChangeBackoundNoneCreateItemMasterSuccess() {
-  document.getElementById("Btn_DisplayApplydate").style.backgroundColor =
-    "#e9ecef";
-  document.getElementById("Btn_DisplayPriceOrigin").style.backgroundColor =
-    "#e9ecef";
-  document.getElementById("Btn_DisplayPriceSale").style.backgroundColor =
-    "#e9ecef";
-  document.getElementById("Btn_DisplayDescription").style.backgroundColor =
-    "#e9ecef";
-  document.getElementById("Btn_DisplayDescriptionLong").style.backgroundColor =
-    "#e9ecef";
-  document.getElementById("Btn_DisplayDescriptionShort").style.backgroundColor =
-    "#e9ecef";
-  document.getElementById("Btn_DisplayStore").style.backgroundColor = "#e9ecef";
-  document.getElementById("Btn_DisplayQuantity").style.backgroundColor =
-    "#e9ecef";
-  document.getElementById("Btn_DisplayCategory").style.backgroundColor =
-    "#e9ecef";
-  document.getElementById("Btn_DisplayAuthor").style.backgroundColor =
-    "#e9ecef";
-  document.getElementById(
-    "Btn_DisplayPublishingCompany"
-  ).style.backgroundColor = "#e9ecef";
-  document.getElementById("Btn_DisplaySize").style.backgroundColor = "#e9ecef";
-}
-
-// Function Set Data Select when Initializa
-function InitializaDataSelect(
-  LISTSTORE,
-  LISTAUTHOR,
-  LISTCATEGORY,
-  LISTPUBLISHINGCOMPANY
-) {
-  const result = {
-    listStore: [],
-    listAuthor: [],
-    listPublishingCompany: [],
-    listCategory: [],
-  };
-  // List Select Store
-  LISTSTORE.forEach(function (item) {
-    const store = {
-      StoreCode: item.StoreCode,
-      Description: item.Description,
-    };
-    result.listStore.push(store);
-  });
-  const defauleStore = {
-    StoreCode: "0",
-    Description: "Select Store",
-  };
-  result.listStore.push(defauleStore);
-
-  // List Select Author
-  LISTAUTHOR.forEach(function (item) {
-    const author = {
-      AuthorID: item.AuthorID,
-      NameAuthor: item.NameAuthor,
-    };
-    result.listAuthor.push(author);
-  });
-  const defauleAuthor = {
-    AuthorID: "0",
-    NameAuthor: "Select Author",
-  };
-  result.listAuthor.push(defauleAuthor);
-
-  // List Select PublishingCompany
-  LISTPUBLISHINGCOMPANY.forEach(function (item) {
-    const publishingCompany = {
-      PublishingCompanyID: item.PublishingCompanyID,
-      Description: item.Description,
-    };
-    result.listPublishingCompany.push(publishingCompany);
-  });
-  const defaulePublishingCompany = {
-    PublishingCompanyID: "0",
-    Description: "Select PublishingCompany",
-  };
-  result.listPublishingCompany.push(defaulePublishingCompany);
-
-  // List Select Category
-  LISTCATEGORY.forEach(function (item) {
-    const category = {
-      CategoryItemMasterID: item.CategoryItemMasterID,
-      Description: item.Description,
-    };
-    result.listCategory.push(category);
-  });
-  const defaulCategory = {
-    CategoryItemMasterID: "0",
-    Description: "Select Category",
-  };
-  result.listCategory.push(defaulCategory);
-
-  return result;
-}
+import {
+  ValidationItemMaster,
+  ChangeBackroundValidationSuccess,
+  ChangeDispayItemForm,
+  ChangeAnDispayItemForm,
+  ChangeBackoundNoneCreateItemMasterSuccess,
+  InitializaDataSelect,
+  ValidationContentInputItemMaster,
+} from "../Validations/ValidationCreateItemMaster";
 
 // Main Function
 function CreateItemMaster() {
@@ -415,7 +64,6 @@ function CreateItemMaster() {
   // Setting Button
   const btn_Add = useRef(null);
   const btn_Update = useRef(null);
-  const btn_Confirm = useRef(null);
   const btn_Image = useRef(null);
   const Btn_DisplayApplydate = useRef(null);
   const Btn_DisplayPriceOrigin = useRef(null);
@@ -565,19 +213,143 @@ function CreateItemMaster() {
           // disabled button
           btn_Add.current.disabled = true;
           btn_Update.current.disabled = true;
-          btn_Confirm.current.disabled = true;
           btn_Image.current.disabled = true;
           // Display Item Form
           ChangeDispayItemForm();
-          setControl(0);
-          SetKindButton("");
+          // Reset Form
+          ResetForm();
         }
         InitializaData();
       }
     };
     CheckTokenAndRole();
   }, []);
+  //---------------------------------------------------------------------------
+  // COMMON FUNCTION
+  // Handle Common Form
+  function ResetForm() {
+    // Reset Select Store
+    const storeSelect = document.getElementById("Btn_DisplayStore");
+    storeSelect.selectedIndex = [...storeSelect.options].findIndex(
+      (option) => option.text === "Select Store"
+    );
+    SetDefaulStore("0");
 
+    // Reset Select Category
+    const categorySelect = document.getElementById("Btn_DisplayCategory");
+    categorySelect.selectedIndex = [...categorySelect.options].findIndex(
+      (option) => option.text === "Select Category"
+    );
+    SetDefaultCategory("0");
+
+    // Reset Select Author
+    const authorSelect = document.getElementById("Btn_DisplayAuthor");
+    authorSelect.selectedIndex = [...authorSelect.options].findIndex(
+      (option) => option.text === "Select Author"
+    );
+    SetDefaultAuthor("0");
+
+    // Reset Select Author
+    const publishingCompanySelect = document.getElementById(
+      "Btn_DisplayPublishingCompany"
+    );
+    publishingCompanySelect.selectedIndex = [
+      ...publishingCompanySelect.options,
+    ].findIndex((option) => option.text === "Select Publishing Company");
+    SetDefaultPublishingCompany("0");
+
+    SetApplydate("");
+    SetPriceOrigin("");
+    SetPriceSale("");
+    SetDescription("");
+    SetDescriptionLong("");
+    SetDescriptionShort("");
+    SetQuantity("");
+    SetSize("");
+    SetNote("");
+    SetConfirmUrlImage("");
+    setControl(0);
+    SetKindButton("");
+  }
+
+  // Handle Common Validation Applydate And Url Image
+  function ValidationApplydate(applydate, currentdate) {
+    const resultAplydate = {
+      Status: true,
+    };
+    if (applydate <= currentdate) {
+      // Update UI
+      SetApplydate("");
+      document.getElementById("Btn_DisplayApplydate").style.backgroundColor =
+        "yellow";
+      SetMessageError("Apply date not less current date");
+      // Result Error
+      resultAplydate.Status = false;
+    }
+    setControl(1);
+    return resultAplydate;
+  }
+
+  // Handle Common Validation Url Cofirm Image
+  function ValidationUrlImage() {
+    const resultUrlImage = {
+      Status: true,
+    };
+    if (
+      state_ConfirmUrlImage === null ||
+      state_ConfirmUrlImage === undefined ||
+      state_ConfirmUrlImage === ""
+    ) {
+      // Error Message UI
+      SetMessageError("Url Image Not Null, Please Try Again!");
+      resultUrlImage.Status = false;
+    }
+    return resultUrlImage;
+  }
+
+  // Handle Common Contant ItemMaster
+  function ContantItemMaster(typeHandle) {
+    const currentDate = new Date().toISOString();
+    const contatnResult = {
+      CompanyCode: CompanyCode,
+      StoreCode: state_DefaulStore,
+      ItemCode: state_ItemCode,
+      ApplyDate: state_Applydate,
+      Description: state_Description,
+      DescriptionShort: state_DescriptionShort,
+      DescriptionLong: state_DescriptionLong,
+      PriceOrigin: state_PriceOrigin,
+      PercentDiscount: 0,
+      priceSale: state_PriceSale,
+      QuantityDiscountID: null,
+      PairDiscountID: null,
+      SpecialDiscountID: null,
+      Quantity: state_Quantity,
+      Viewer: 0,
+      Buy: 0,
+      CategoryItemMasterID: state_DefaultCategory,
+      AuthorID: state_DefaulAuthor,
+      DateCreate: moment(currentDate).format("YYYY-MM-DD"),
+      IssuingCompanyID: null,
+      PublicationDate: moment(currentDate).format("YYYY-MM-DD"),
+      size: state_Size,
+      PageNumber: 0,
+      PublishingCompanyID: state_DefaultPublishingCompany,
+      IsSale: true,
+      LastUpdateDate: null,
+      Note: state_Note,
+      HeadquartersLastUpdateDateTime: null,
+      IsDeleteFlag: false,
+      UserID: window.localStorage.getItem("UserID"),
+      TaxGroupCodeID: null,
+      TypeOf: typeHandle,
+      OldType: null,
+      UrlImage: state_ConfirmUrlImage,
+    };
+    return contatnResult;
+  }
+
+  //---------------------------------------------------------------------------
   // Handle Back Menu
   const HandleBackMenuUI = (e) => {
     navigate("/menu");
@@ -670,7 +442,7 @@ function CreateItemMaster() {
         SetUrl("");
       } else {
         const ImageItemMaster = {
-          IsDefaulr: true,
+          IsDefault: true,
           UrlImageDefault: state_UrlDefault,
           UrlImage: state_Url,
         };
@@ -709,7 +481,7 @@ function CreateItemMaster() {
       SetUrl(findItemCode.UrlImage.UrlImage);
       // Set Image Confirm when click row
       const ImageItemMaster = {
-        IsDefaulr: true,
+        IsDefault: true,
         UrlImageDefault: findItemCode.UrlImage.UrlImageDefault,
         UrlImage: findItemCode.UrlImage.UrlImage,
       };
@@ -770,55 +542,8 @@ function CreateItemMaster() {
       btn_Image.current.disabled = true;
       btn_Add.current.disabled = true;
     }
-    // Reset Select Store
-    const storeSelect = document.getElementById("Btn_DisplayStore");
-    storeSelect.selectedIndex = [...storeSelect.options].findIndex(
-      (option) => option.text === "Select Store"
-    );
-    SetDefaulStore("0");
-
-    // Reset Select Category
-    const categorySelect = document.getElementById("Btn_DisplayCategory");
-    categorySelect.selectedIndex = [...categorySelect.options].findIndex(
-      (option) => option.text === "Select Category"
-    );
-    SetDefaultCategory("0");
-
-    // Reset Select Author
-    const authorSelect = document.getElementById("Btn_DisplayAuthor");
-    authorSelect.selectedIndex = [...authorSelect.options].findIndex(
-      (option) => option.text === "Select Author"
-    );
-    SetDefaultAuthor("0");
-
-    // Reset Select Author
-    const publishingCompanySelect = document.getElementById(
-      "Btn_DisplayPublishingCompany"
-    );
-    publishingCompanySelect.selectedIndex = [
-      ...publishingCompanySelect.options,
-    ].findIndex((option) => option.text === "Select Publishing Company");
-    SetDefaultPublishingCompany("0");
-
     // Reset Data In Form
-    SetApplydate("");
-    SetPriceOrigin("");
-    SetPriceSale("");
-    SetDescription("");
-    SetDescriptionLong("");
-    SetDescriptionShort("");
-    SetQuantity("");
-    SetSize("");
-    SetNote("");
-    SetConfirmUrlImage("");
-
-    btn_Confirm.current.disabled = true;
-    setControl(0);
-    SetDefaulStore("0");
-    SetDefaultAuthor("0");
-    SetDefaultCategory("0");
-    SetDefaultPublishingCompany("0");
-    SetKindButton("");
+    ResetForm();
   };
 
   // Handle Create ItemMaster
@@ -843,8 +568,17 @@ function CreateItemMaster() {
       Note: state_Note,
     };
 
-    // Validation Data Create
+    // Check Validation Null Data Create
     const validation = ValidationItemMaster(formData);
+    // Check Validation Content Data Create
+    const validationContent = ValidationContentInputItemMaster(formData);
+    // Check Url Image Confirm
+    const urlImageConfirm = ValidationUrlImage();
+    // Check Applydate More than Current Date
+    const validationApplydate = ValidationApplydate(
+      moment(state_Applydate).format("YYYY/MM/DD"),
+      moment(currentDate).format("YYYY/MM/DD")
+    );
 
     // Change Backround when Validation Success
     ChangeBackroundValidationSuccess();
@@ -919,141 +653,76 @@ function CreateItemMaster() {
             break;
         }
       });
+    }
 
-      // Check Applydate More than Current Date
-      if (
-        moment(state_Applydate).format("YYYY/MM/DD") <=
-        moment(currentDate).format("YYYY/MM/DD")
-      ) {
-        SetApplydate("");
-        document.getElementById("Btn_DisplayApplydate").style.backgroundColor =
-          "yellow";
-        SetMessageError("Apply date not less current date");
+    // Result Validation Content Form Data
+    if (validationContent.Status === false) {
+      // Error
+      switch (validationContent.ContantError) {
+        case 1:
+          document.getElementById("Btn_ItemCode").style.backgroundColor =
+            "yellow";
+          SetMessageError(validationContent.MessageError);
+          break;
+        case 2:
+          document.getElementById(
+            "Btn_DisplayDescription"
+          ).style.backgroundColor = "yellow";
+          SetMessageError(validationContent.MessageError);
+          break;
+        case 3:
+          document.getElementById(
+            "Btn_DisplayDescriptionShort"
+          ).style.backgroundColor = "yellow";
+          SetMessageError(validationContent.MessageError);
+          break;
+        case 4:
+          document.getElementById(
+            "Btn_DisplayDescriptionLong"
+          ).style.backgroundColor = "yellow";
+          SetMessageError(validationContent.MessageError);
+          break;
+        default:
+          document.getElementById("Btn_DisplaySize").style.backgroundColor =
+            "yellow";
+          SetMessageError(validationContent.MessageError);
+          break;
       }
       setControl(1);
-    } else {
-      // Check UrlImage
-      if (
-        state_ConfirmUrlImage === null ||
-        state_ConfirmUrlImage === undefined ||
-        state_ConfirmUrlImage === ""
-      ) {
-        // Error Image Url
-        SetMessageError("Url Image Not Null, Please Try Again!");
+    }
+
+    // Validation Successs
+    if (
+      validationContent.Status === true &&
+      validation.Status === true &&
+      validationApplydate.Status === true &&
+      urlImageConfirm.Status === true
+    ) {
+      // Success Add ItemMaster Create In Redux
+      const ItemMaster = ContantItemMaster(Create);
+
+      // Check ItemCode In ListItemCode Reux Main
+      const checkItemCode = ListItemMasterMain.find(
+        (item) => item.ItemCode === ItemMaster.ItemCode
+      );
+
+      if (checkItemCode === undefined) {
+        SetMessageError("");
+        // Dispatch Action Add ItemMaster
+        dispatch(ItemMasterReducer.actions.AddItemMaster(ItemMaster));
+        // Reset Data In Form
+        ResetForm();
+        // Change Backound none when create Success
+        ChangeBackoundNoneCreateItemMasterSuccess();
+        // Display Form input
+        ChangeDispayItemForm();
+        btn_Image.current.disabled = true;
+        // Reset Input ItemCode
+        SetItemCode("");
       } else {
-        // Success Add ItemMaster Create In Redux
-        const ItemMaster = {
-          CompanyCode: CompanyCode,
-          StoreCode: state_DefaulStore,
-          ItemCode: state_ItemCode,
-          ApplyDate: state_Applydate,
-          Description: state_Description,
-          DescriptionShort: state_DescriptionShort,
-          DescriptionLong: state_DescriptionLong,
-          PriceOrigin: state_PriceOrigin,
-          PercentDiscount: 0,
-          priceSale: state_PriceSale,
-          QuantityDiscountID: null,
-          PairDiscountID: null,
-          SpecialDiscountID: null,
-          Quantity: state_Quantity,
-          Viewer: 0,
-          Buy: 0,
-          CategoryItemMasterID: state_DefaultCategory,
-          AuthorID: state_DefaulAuthor,
-          DateCreate: moment(currentDate).format("YYYY-MM-DD"),
-          IssuingCompanyID: null,
-          PublicationDate: moment(currentDate).format("YYYY-MM-DD"),
-          size: state_Size,
-          PageNumber: 0,
-          PublishingCompanyID: state_DefaultPublishingCompany,
-          IsSale: true,
-          LastUpdateDate: null,
-          Note: state_Note,
-          HeadquartersLastUpdateDateTime: null,
-          IsDeleteFlag: false,
-          UserID: window.localStorage.getItem("UserID"),
-          TaxGroupCodeID: null,
-          TypeOf: Create,
-          OldType: null,
-          UrlImage: state_ConfirmUrlImage,
-        };
-
-        // Check ItemCode In ListItemCode Reux Main
-        const checkItemCode = ListItemMasterMain.find(
-          (item) => item.ItemCode === ItemMaster.ItemCode
-        );
-
-        if (checkItemCode === undefined) {
-          SetMessageError("");
-          // Dispatch Action Add ItemMaster
-          dispatch(ItemMasterReducer.actions.AddItemMaster(ItemMaster));
-
-          // Reset Select Store
-          const storeSelect = document.getElementById("Btn_DisplayStore");
-          storeSelect.selectedIndex = [...storeSelect.options].findIndex(
-            (option) => option.text === "Select Store"
-          );
-          SetDefaulStore("0");
-
-          // Reset Select Category
-          const categorySelect = document.getElementById("Btn_DisplayCategory");
-          categorySelect.selectedIndex = [...categorySelect.options].findIndex(
-            (option) => option.text === "Select Category"
-          );
-          SetDefaultCategory("0");
-
-          // Reset Select Author
-          const authorSelect = document.getElementById("Btn_DisplayAuthor");
-          authorSelect.selectedIndex = [...authorSelect.options].findIndex(
-            (option) => option.text === "Select Author"
-          );
-          SetDefaultCategory("0");
-
-          // Reset Select Author
-          const publishingCompanySelect = document.getElementById(
-            "Btn_DisplayPublishingCompany"
-          );
-          publishingCompanySelect.selectedIndex = [
-            ...publishingCompanySelect.options,
-          ].findIndex((option) => option.text === "Select Publishing Company");
-          SetDefaultPublishingCompany("0");
-
-          // Reset Data In Form
-          SetItemCode("");
-          SetApplydate("");
-          SetPriceOrigin("");
-          SetPriceSale("");
-          SetDescription("");
-          SetDescriptionLong("");
-          SetDescriptionShort("");
-          SetQuantity("");
-          SetSize("");
-          SetNote("");
-          SetConfirmUrlImage("");
-
-          // Change Backound none when create Success
-          ChangeBackoundNoneCreateItemMasterSuccess();
-          // Display Form input
-          ChangeDispayItemForm();
-
-          btn_Image.current.disabled = true;
-
-          // Create ItemMaster Success
-          btn_Confirm.current.disabled = false;
-
-          setControl(0);
-          SetDefaulStore("0");
-          SetDefaultAuthor("0");
-          SetDefaultCategory("0");
-          SetDefaultPublishingCompany("0");
-        } else {
-          SetMessageError("Exist ItemCode In System, Please Try Again!");
-        }
+        SetMessageError("Exist ItemCode In System, Please Try Again!");
       }
     }
-    SetKindButton("");
-    btn_Confirm.current.disabled = true;
     return;
   };
 
@@ -1078,8 +747,17 @@ function CreateItemMaster() {
       Size: state_Size,
       Note: state_Note,
     };
-    // Validation Data Create
+    // Check Validation Null Data Create
     const validation = ValidationItemMaster(formData);
+    // Check Validation Content Data Create
+    const validationContent = ValidationContentInputItemMaster(formData);
+    // Check Url Image Confirm
+    const urlImageConfirm = ValidationUrlImage();
+    // Check Applydate More than Current Date
+    const validationApplydate = ValidationApplydate(
+      moment(state_Applydate).format("YYYY/MM/DD"),
+      moment(currentDate).format("YYYY/MM/DD")
+    );
 
     // Change Backround when Validation Success
     ChangeBackroundValidationSuccess();
@@ -1166,125 +844,75 @@ function CreateItemMaster() {
         SetMessageError("Apply date not less current date");
       }
       setControl(1);
-    } else {
-      // Check UrlImage
-      if (
-        state_ConfirmUrlImage === null ||
-        state_ConfirmUrlImage === undefined ||
-        state_ConfirmUrlImage === ""
-      ) {
-        // Error Image Url
-        SetMessageError("Url Image Not Null, Please Try Again!");
+    }
+    // Result Validation Content Form Data
+    if (validationContent.Status === false) {
+      // Error
+      switch (validationContent.ContantError) {
+        case 1:
+          document.getElementById("Btn_ItemCode").style.backgroundColor =
+            "yellow";
+          SetMessageError(validationContent.MessageError);
+          break;
+        case 2:
+          document.getElementById(
+            "Btn_DisplayDescription"
+          ).style.backgroundColor = "yellow";
+          SetMessageError(validationContent.MessageError);
+          break;
+        case 3:
+          document.getElementById(
+            "Btn_DisplayDescriptionShort"
+          ).style.backgroundColor = "yellow";
+          SetMessageError(validationContent.MessageError);
+          break;
+        case 4:
+          document.getElementById(
+            "Btn_DisplayDescriptionLong"
+          ).style.backgroundColor = "yellow";
+          SetMessageError(validationContent.MessageError);
+          break;
+        default:
+          document.getElementById("Btn_DisplaySize").style.backgroundColor =
+            "yellow";
+          SetMessageError(validationContent.MessageError);
+          break;
+      }
+      setControl(1);
+    }
+
+    if (
+      validationContent.Status === true &&
+      validation.Status === true &&
+      validationApplydate.Status === true &&
+      urlImageConfirm.Status === true
+    ) {
+      // Success Add ItemMaster Create In Redux
+      const ItemMaster = ContantItemMaster(Update);
+
+      // Check ItemCode In ListItemCode Reux Main
+      const checkItemCode = ListItemMasterMain.find(
+        (item) => item.ItemCode === ItemMaster.ItemCode
+      );
+
+      if (checkItemCode !== undefined) {
+        SetMessageError("");
+        // Dispatch Action Add ItemMaster
+        dispatch(ItemMasterReducer.actions.UpdateItemMaster(ItemMaster));
+        // Reset Data In Form
+        ResetForm();
+        // Change Backound none when create Success
+        ChangeBackoundNoneCreateItemMasterSuccess();
+        // Display Form input
+        ChangeDispayItemForm();
+        btn_Image.current.disabled = true;
+        btn_Update.current.disabled = true;
+        // Reset ItemCode
+        SetItemCode("");
       } else {
-        // Success Add ItemMaster Create In Redux
-        const ItemMaster = {
-          CompanyCode: CompanyCode,
-          StoreCode: state_DefaulStore,
-          ItemCode: state_ItemCode,
-          ApplyDate: state_Applydate,
-          Description: state_Description,
-          DescriptionShort: state_DescriptionShort,
-          DescriptionLong: state_DescriptionLong,
-          PriceOrigin: state_PriceOrigin,
-          PercentDiscount: 0,
-          priceSale: state_PriceSale,
-          QuantityDiscountID: null,
-          PairDiscountID: null,
-          SpecialDiscountID: null,
-          Quantity: state_Quantity,
-          Viewer: 0,
-          Buy: 0,
-          CategoryItemMasterID: state_DefaultCategory,
-          AuthorID: state_DefaulAuthor,
-          DateCreate: moment(currentDate).format("YYYY-MM-DD"),
-          IssuingCompanyID: null,
-          PublicationDate: moment(currentDate).format("YYYY-MM-DD"),
-          size: state_Size,
-          PageNumber: 0,
-          PublishingCompanyID: state_DefaultPublishingCompany,
-          IsSale: true,
-          LastUpdateDate: null,
-          Note: state_Note,
-          HeadquartersLastUpdateDateTime: null,
-          IsDeleteFlag: false,
-          UserID: window.localStorage.getItem("UserID"),
-          TaxGroupCodeID: null,
-          TypeOf: Update,
-          OldType: null,
-          UrlImage: state_ConfirmUrlImage,
-        };
-
-        // Check ItemCode In ListItemCode Reux Main
-        const checkItemCode = ListItemMasterMain.find(
-          (item) => item.ItemCode === ItemMaster.ItemCode
-        );
-
-        if (checkItemCode !== undefined) {
-          SetMessageError("");
-          // Dispatch Action Add ItemMaster
-          dispatch(ItemMasterReducer.actions.UpdateItemMaster(ItemMaster));
-
-          // Reset Select Store
-          const storeSelect = document.getElementById("Btn_DisplayStore");
-          storeSelect.selectedIndex = [...storeSelect.options].findIndex(
-            (option) => option.text === "Select Store"
-          );
-          SetDefaulStore("0");
-
-          // Reset Select Category
-          const categorySelect = document.getElementById("Btn_DisplayCategory");
-          categorySelect.selectedIndex = [...categorySelect.options].findIndex(
-            (option) => option.text === "Select Category"
-          );
-          SetDefaultCategory("0");
-
-          // Reset Select Author
-          const authorSelect = document.getElementById("Btn_DisplayAuthor");
-          authorSelect.selectedIndex = [...authorSelect.options].findIndex(
-            (option) => option.text === "Select Author"
-          );
-          SetDefaultAuthor("0");
-
-          // Reset Select Author
-          const publishingCompanySelect = document.getElementById(
-            "Btn_DisplayPublishingCompany"
-          );
-          publishingCompanySelect.selectedIndex = [
-            ...publishingCompanySelect.options,
-          ].findIndex((option) => option.text === "Select Publishing Company");
-          SetDefaultPublishingCompany("0");
-
-          // Reset Data In Form
-          SetItemCode("");
-          SetApplydate("");
-          SetPriceOrigin("");
-          SetPriceSale("");
-          SetDescription("");
-          SetDescriptionLong("");
-          SetDescriptionShort("");
-          SetQuantity("");
-          SetSize("");
-          SetNote("");
-          SetConfirmUrlImage("");
-
-          // Change Backound none when create Success
-          ChangeBackoundNoneCreateItemMasterSuccess();
-          // Display Form input
-          ChangeDispayItemForm();
-          btn_Image.current.disabled = true;
-          btn_Confirm.current.disabled = false;
-          btn_Update.current.disabled = true;
-          setControl(0);
-          SetDefaulStore("0");
-          SetDefaultAuthor("0");
-          SetDefaultCategory("0");
-          SetDefaultPublishingCompany("0");
-        } else {
-          SetMessageError("Not Find ItemCode In System, Please Try Again!");
-        }
+        SetMessageError("Not Find ItemCode In System, Please Try Again!");
       }
     }
-    SetKindButton("");
     return;
   };
 
@@ -1309,67 +937,20 @@ function CreateItemMaster() {
         SetMessageError("");
         // Dispatch Action Delete ItemMaster
         dispatch(ItemMasterReducer.actions.DeleteItemMaster(ItemMaster));
-
-        // Reset Select Store
-        const storeSelect = document.getElementById("Btn_DisplayStore");
-        storeSelect.selectedIndex = [...storeSelect.options].findIndex(
-          (option) => option.text === "Select Store"
-        );
-        SetDefaulStore("0");
-
-        // Reset Select Category
-        const categorySelect = document.getElementById("Btn_DisplayCategory");
-        categorySelect.selectedIndex = [...categorySelect.options].findIndex(
-          (option) => option.text === "Select Category"
-        );
-        SetDefaultCategory("0");
-
-        // Reset Select Author
-        const authorSelect = document.getElementById("Btn_DisplayAuthor");
-        authorSelect.selectedIndex = [...authorSelect.options].findIndex(
-          (option) => option.text === "Select Author"
-        );
-        SetDefaultAuthor("0");
-
-        // Reset Select Author
-        const publishingCompanySelect = document.getElementById(
-          "Btn_DisplayPublishingCompany"
-        );
-        publishingCompanySelect.selectedIndex = [
-          ...publishingCompanySelect.options,
-        ].findIndex((option) => option.text === "Select Publishing Company");
-        SetDefaultPublishingCompany("0");
-
         // Reset Data In Form
-        SetItemCode("");
-        SetApplydate("");
-        SetPriceOrigin("");
-        SetPriceSale("");
-        SetDescription("");
-        SetDescriptionLong("");
-        SetDescriptionShort("");
-        SetQuantity("");
-        SetSize("");
-        SetNote("");
-        SetConfirmUrlImage("");
-
+        ResetForm();
         // Change Backound none when create Success
         ChangeBackoundNoneCreateItemMasterSuccess();
         // Display Form input
         ChangeDispayItemForm();
         btn_Image.current.disabled = true;
-        btn_Confirm.current.disabled = false;
         btn_Update.current.disabled = true;
-        setControl(0);
-        SetDefaulStore("0");
-        SetDefaultAuthor("0");
-        SetDefaultCategory("0");
-        SetDefaultPublishingCompany("0");
+        // Reset ItemCode input
+        SetItemCode("");
       }
     } else {
       SetMessageError("Please Choose a ItemCode Want Delete!");
     }
-    SetKindButton("");
     return;
   };
 
@@ -1390,66 +971,19 @@ function CreateItemMaster() {
       SetMessageError("");
       // Dispatch Action Revert ItemMaster
       dispatch(ItemMasterReducer.actions.RevertItemMaster(ItemMaster));
-
-      // Reset Select Store
-      const storeSelect = document.getElementById("Btn_DisplayStore");
-      storeSelect.selectedIndex = [...storeSelect.options].findIndex(
-        (option) => option.text === "Select Store"
-      );
-      SetDefaulStore("0");
-
-      // Reset Select Category
-      const categorySelect = document.getElementById("Btn_DisplayCategory");
-      categorySelect.selectedIndex = [...categorySelect.options].findIndex(
-        (option) => option.text === "Select Category"
-      );
-      SetDefaultCategory("0");
-
-      // Reset Select Author
-      const authorSelect = document.getElementById("Btn_DisplayAuthor");
-      authorSelect.selectedIndex = [...authorSelect.options].findIndex(
-        (option) => option.text === "Select Author"
-      );
-      SetDefaultAuthor("0");
-
-      // Reset Select Author
-      const publishingCompanySelect = document.getElementById(
-        "Btn_DisplayPublishingCompany"
-      );
-      publishingCompanySelect.selectedIndex = [
-        ...publishingCompanySelect.options,
-      ].findIndex((option) => option.text === "Select Publishing Company");
-      SetDefaultPublishingCompany("0");
-
       // Reset Data In Form
-      SetItemCode("");
-      SetApplydate("");
-      SetPriceOrigin("");
-      SetPriceSale("");
-      SetDescription("");
-      SetDescriptionLong("");
-      SetDescriptionShort("");
-      SetQuantity("");
-      SetSize("");
-      SetNote("");
-      SetConfirmUrlImage("");
-
+      ResetForm();
       // Change Backound none when create Success
       ChangeBackoundNoneCreateItemMasterSuccess();
       // Display Form input
       ChangeDispayItemForm();
       btn_Image.current.disabled = true;
-      btn_Confirm.current.disabled = false;
       btn_Update.current.disabled = true;
-      setControl(0);
-      SetDefaulStore("0");
-      SetDefaultAuthor("0");
-      SetDefaultCategory("0");
-      SetDefaultPublishingCompany("0");
+      // Reset ItemCode Input
+      SetItemCode("");
     } else {
       SetMessageError("Not Find ItemCode In System, Please Try Again!");
     }
-    SetKindButton("");
     return;
   };
 
@@ -1936,14 +1470,15 @@ function CreateItemMaster() {
         >
           <FontAwesomeIcon icon={faPenToSquare} /> Update
         </Button>
-        <Button
-          variant="success"
-          className="btn_setting"
-          ref={btn_Confirm}
-          onClick={(e) => HandleConfirmItemMaster()}
-        >
-          <FontAwesomeIcon icon={faSquareCheck} /> Confirm
-        </Button>
+        {ListItemMasterMain.length !== 0 && (
+          <Button
+            variant="success"
+            className="btn_setting"
+            onClick={(e) => HandleConfirmItemMaster()}
+          >
+            <FontAwesomeIcon icon={faSquareCheck} /> Confirm
+          </Button>
+        )}
       </p>
       {/* Show And Hide Laoding Data */}
       {state_Show && <LoadingModal />}
