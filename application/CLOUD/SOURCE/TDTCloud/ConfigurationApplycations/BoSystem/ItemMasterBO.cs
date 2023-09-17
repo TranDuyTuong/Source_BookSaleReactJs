@@ -61,14 +61,14 @@ namespace ConfigurationApplycations.BoSystem
                     }
                     else
                     {
-                        // Get All Store in DB
-                        var queryStore = await this.context.stores.Where(x => x.IsDeleteFlag == false).ToArrayAsync();
-                        // Get All Author in DB
-                        var queryAuthor = await this.context.authors.Where(x => x.IsDeleteFlag == false).ToArrayAsync();
-                        // Get All PublishingCompanys in DB
-                        var queryPublishingCompany = await this.context.publishingCompanies.Where(x => x.IsDeleteFlag == false).ToArrayAsync();
-                        // Get All Category in DB
-                        var queryCategory = await this.context.categoryItemMasters.Where(x => x.IsDeleteFlag == false).ToArrayAsync();
+                        // Get All Store in DB Store Proceduer
+                        var queryStore = await this.context.stores.FromSqlRaw("exec GetAll_Store").ToArrayAsync();
+                        // Get All Author in DB Store Proceduer
+                        var queryAuthor = await this.context.authors.FromSqlRaw("exec GetAll_Author").ToArrayAsync();
+                        // Get All PublishingCompanys in DB Store Proceduer
+                        var queryPublishingCompany = await this.context.publishingCompanies.FromSqlRaw("exec GetAll_PublishingCompany").ToArrayAsync();
+                        // Get All Category in DB Category Store Proceduer
+                        var queryCategory = await this.context.categoryItemMasters.FromSqlRaw("exec GetAll_Category").ToArrayAsync();
 
                         if (queryStore.Any() == true && queryAuthor.Any() == true && queryPublishingCompany.Any() == true && queryCategory.Any() == true)
                         {
