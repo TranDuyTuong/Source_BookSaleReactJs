@@ -26,6 +26,13 @@ namespace ConfigurationInterfaces.BoSystem
         Task<M_ListItemMaster> SeachItemMaster(M_ListItemMaster request);
 
         /// <summary>
+        /// SeachUpdateItemMaster
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<M_ListItemMaster> SeachUpdateItemMaster(M_ListItemMaster request);
+
+        /// <summary>
         /// ValidationItemMaster
         /// </summary>
         /// <param name="request"></param>
@@ -38,5 +45,12 @@ namespace ConfigurationInterfaces.BoSystem
         /// <param name="request"></param>
         /// <returns></returns>
         Task<M_ListItemMaster> ConfirmItemMaster(M_ListItemMaster request);
+
+        /// <summary>
+        /// GetAllItemMaster
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<M_ListItemMaster> GetAllItemMaster(InitializaDataMaters request);
     }
 }

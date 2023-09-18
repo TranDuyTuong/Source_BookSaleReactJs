@@ -10,6 +10,7 @@ import Store from "../Pages/Store";
 import ItemMaster from "../Pages/ItemMaster";
 import Menu from "../Pages/Menu";
 import CreateItemMaster from "../Pages/CreateItemMaster";
+import UpdateItemMaster from "../Pages/UpdateItemMaster";
 
 // Main Page
 function CommonPage() {
@@ -27,6 +28,10 @@ function CommonPage() {
             <Route
               path="/createitemmaster"
               element={<CreateItemMaster />}
+            ></Route>
+            <Route
+              path="/updateitemmaster"
+              element={<UpdateItemMaster />}
             ></Route>
           </Routes>
         </Col>
