@@ -46,3 +46,15 @@ D:\Project\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\TDTSettingTa
 D:\Project\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\TDTSettingTable\obj\Debug\net5.0\TDTSettingTable.dll
 D:\Project\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\TDTSettingTable\obj\Debug\net5.0\ref\TDTSettingTable.dll
 D:\Project\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\TDTSettingTable\obj\Debug\net5.0\TDTSettingTable.pdb
+D:\TXT_Project\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\TDTSettingTable\bin\Debug\net5.0\TDTSettingTable.deps.json
+D:\TXT_Project\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\TDTSettingTable\bin\Debug\net5.0\TDTSettingTable.dll
+D:\TXT_Project\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\TDTSettingTable\bin\Debug\net5.0\ref\TDTSettingTable.dll
+D:\TXT_Project\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\TDTSettingTable\bin\Debug\net5.0\TDTSettingTable.pdb
+D:\TXT_Project\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\TDTSettingTable\obj\Debug\net5.0\TDTSettingTable.csproj.AssemblyReference.cache
+D:\TXT_Project\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\TDTSettingTable\obj\Debug\net5.0\TDTSettingTable.GeneratedMSBuildEditorConfig.editorconfig
+D:\TXT_Project\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\TDTSettingTable\obj\Debug\net5.0\TDTSettingTable.AssemblyInfoInputs.cache
+D:\TXT_Project\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\TDTSettingTable\obj\Debug\net5.0\TDTSettingTable.AssemblyInfo.cs
+D:\TXT_Project\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\TDTSettingTable\obj\Debug\net5.0\TDTSettingTable.csproj.CoreCompileInputs.cache
+D:\TXT_Project\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\TDTSettingTable\obj\Debug\net5.0\TDTSettingTable.dll
+D:\TXT_Project\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\TDTSettingTable\obj\Debug\net5.0\ref\TDTSettingTable.dll
+D:\TXT_Project\Source_BookSaleReactJs\application\CLOUD\SOURCE\TDTCloud\TDTSettingTable\obj\Debug\net5.0\TDTSettingTable.pdb

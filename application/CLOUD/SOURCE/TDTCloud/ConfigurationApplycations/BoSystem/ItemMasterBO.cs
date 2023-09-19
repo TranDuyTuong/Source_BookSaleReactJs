@@ -3,7 +3,7 @@ using ConfigurationInterfaces.BoSystem;
 using ConfigurationInterfaces.DataCommon;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Protocols;
+using Microsoft.Extensions.Configuration;
 using ModelConfiguration.M_Bo.AuthorData;
 using ModelConfiguration.M_Bo.CategoryData;
 using ModelConfiguration.M_Bo.ImageItemMasterData;
@@ -24,10 +24,12 @@ namespace ConfigurationApplycations.BoSystem
     {
         private readonly ContextFE context;
         private readonly IContactCommon contactCommon;
-        public ItemMasterBO(ContextFE _context, IContactCommon _contactCommon)
+        private readonly IConfiguration configuration;
+        public ItemMasterBO(ContextFE _context, IContactCommon _contactCommon, IConfiguration _configuration)
         {
             this.context = _context;
             this.contactCommon = _contactCommon;
+            this.configuration = _configuration;
         }
 
         /// <summary>
@@ -425,73 +427,6 @@ namespace ConfigurationApplycations.BoSystem
                             result.MessageError = CommonConfiguration.DataCommon.MessageNotFindData;
                             result.ListItemMaster = null;
                         }
-
-                    }
-                }
-                else
-                {
-                    // Don't Find CompanyCode
-                    result.Token = request.Token;
-                    result.UserID = request.UserID;
-                    result.RoleID = request.RoleID;
-                    result.EventCode = request.EventCode;
-                    result.TotalItemMaster = 0;
-                    result.KeySeach = null;
-                    result.CompanyCode = request.CompanyCode;
-                    result.Status = false;
-                    result.MessageError = CommonConfiguration.DataCommon.MessageNotFindCompanyCode;
-
-                }
-            }
-            catch (Exception ex)
-            {
-                result.Token = request.Token;
-                result.UserID = request.UserID;
-                result.RoleID = request.RoleID;
-                result.EventCode = request.EventCode;
-                result.TotalItemMaster = 0;
-                result.KeySeach = null;
-                result.CompanyCode = request.CompanyCode;
-                result.Status = false;
-                result.MessageError = ex.Message;
-            }
-            return result;
-        }
-
-        /// <summary>
-        /// SeachUpdateItemMaster
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        public async Task<M_ListItemMaster> SeachUpdateItemMaster(M_ListItemMaster request)
-        {
-            var result = new M_ListItemMaster();
-            try
-            {
-                // Check CompanyCode
-                bool isCompanyCode = this.contactCommon.ValidationCompanyCode(request.CompanyCode);
-
-                if (isCompanyCode == true)
-                {
-                    // Check Role User Handle
-                    bool isRole = await this.contactCommon.ValidationRoleUserLimit(request.RoleID, request.UserID, request.EventCode);
-
-                    if (isRole == true)
-                    {
-                        // Don't have role handle
-                        result.Token = request.Token;
-                        result.UserID = request.UserID;
-                        result.RoleID = request.RoleID;
-                        result.EventCode = request.EventCode;
-                        result.TotalItemMaster = 0;
-                        result.KeySeach = null;
-                        result.CompanyCode = request.CompanyCode;
-                        result.Status = false;
-                        result.MessageError = CommonConfiguration.DataCommon.MessageRoleUserLimit;
-                    }
-                    else
-                    {
 
                     }
                 }
@@ -1001,7 +936,6 @@ namespace ConfigurationApplycations.BoSystem
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
         public async Task<M_ListItemMaster> GetAllItemMaster(InitializaDataMaters request)
         {
             var result = new M_ListItemMaster();
@@ -1030,9 +964,154 @@ namespace ConfigurationApplycations.BoSystem
                     }
                     else
                     {
-                        // Get All Itemmaster in DB Store Proceduer
-                        var queryItemMaster = await this.context.itemMasters.FromSqlRaw("exec GetAll_ItemMaster").ToArrayAsync();
+                        // Get ItemMaster in DB OrderBy Applydate max
+                        var queryItemMaster = await this.context.itemMasters.Where(x => x.IsDeleteFlag == false)
+                                                                    .OrderByDescending(x => x.ApplyDate).ToArrayAsync();
+                        string temItemCode = null;
+                        List<M_ItemMaster> listItemMaster = new List<M_ItemMaster>();
 
+                        foreach (var item in queryItemMaster)
+                        {
+                            if (item.ItemCode == temItemCode)
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                var itemMasterData = new M_ItemMaster()
+                                {
+                                    ItemCode = item.ItemCode,
+                                    Description = item.Description
+                                };
+                                listItemMaster.Add(itemMasterData);
+                                temItemCode = item.ItemCode;
+                            }
+                        }
+
+                        // Set Data result
+                        result.Token = request.Token;
+                        result.UserID = request.UserID;
+                        result.RoleID = request.RoleID;
+                        result.EventCode = request.EventCode;
+                        result.TotalItemMaster = listItemMaster.Count;
+                        result.KeySeach = null;
+                        result.CompanyCode = request.CompanyCode;
+                        result.Status = true;
+                        result.MessageError = null;
+                        result.ListItemMaster = listItemMaster;
+                    }
+                }
+                else
+                {
+                    // Don't Find CompanyCode
+                    result.Token = request.Token;
+                    result.UserID = request.UserID;
+                    result.RoleID = request.RoleID;
+                    result.EventCode = request.EventCode;
+                    result.TotalItemMaster = 0;
+                    result.KeySeach = null;
+                    result.CompanyCode = request.CompanyCode;
+                    result.Status = false;
+                    result.MessageError = CommonConfiguration.DataCommon.MessageNotFindCompanyCode;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Token = request.Token;
+                result.UserID = request.UserID;
+                result.RoleID = request.RoleID;
+                result.EventCode = request.EventCode;
+                result.TotalItemMaster = 0;
+                result.KeySeach = null;
+                result.CompanyCode = request.CompanyCode;
+                result.Status = false;
+                result.MessageError = ex.Message;
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// GetItemMasterById
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public async Task<M_ListItemMaster> GetItemMasterById(M_ListItemMaster request)
+        {
+            var result = new M_ListItemMaster();
+            try
+            {
+                // Check CompanyCode
+                bool isCompanyCode = this.contactCommon.ValidationCompanyCode(request.CompanyCode);
+
+                if (isCompanyCode == true)
+                {
+                    // Check Role User Handle
+                    bool isRole = await this.contactCommon.ValidationRoleUserLimit(request.RoleID, request.UserID, request.EventCode);
+
+                    if (isRole == true)
+                    {
+                        // Don't have role handle
+                        result.Token = request.Token;
+                        result.UserID = request.UserID;
+                        result.RoleID = request.RoleID;
+                        result.EventCode = request.EventCode;
+                        result.TotalItemMaster = 0;
+                        result.KeySeach = null;
+                        result.CompanyCode = request.CompanyCode;
+                        result.Status = false;
+                        result.MessageError = CommonConfiguration.DataCommon.MessageRoleUserLimit;
+                    }
+                    else
+                    {
+                        List<M_ItemMaster> listItemMaster = new List<M_ItemMaster>();
+                        // Get ItemMaster By ItemCode By StoredProcedure
+                        // Get Connectionstring
+                        SqlConnection con = new SqlConnection();
+                        con.ConnectionString = this.configuration["ConnectionStrings:TXTCloud"];
+
+                        // way 1
+                        //using (var sqlcmd = con.CreateCommand())
+                        //{
+                        //    sqlcmd.CommandText = "GetItemMasterById";
+                        //    sqlcmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        //    sqlcmd.Parameters.AddWithValue("@itemCode", request.KeySeach);
+                        //    var readers = sqlcmd.ExecuteReader();
+                        //}
+
+                        // way 2
+                        // Get StoredProcedure
+                        SqlCommand cmd = new SqlCommand()
+                        {
+                            CommandText = "GetItemMasterById",
+                            Connection = con,
+                            CommandType = System.Data.CommandType.StoredProcedure
+                        };
+
+                        // Create Param
+                        SqlParameter param = new SqlParameter
+                        {
+                            ParameterName = "@itemCode",
+                            SqlDbType = System.Data.SqlDbType.NVarChar,
+                            Value = request.KeySeach,
+                            Direction = System.Data.ParameterDirection.Input
+                        };
+                        cmd.Parameters.Add(param);
+
+                        // Run StoredProcedure
+                        var reader = cmd.ExecuteReader();
+                        // Read data result
+                        while (reader.Read())
+                        {
+                            var itemMaster = new M_ItemMaster()
+                            {
+                                CompanyCode = reader["CompanyCode"].ToString(),
+                                StoreCode = reader["StoreCode"].ToString(),
+                                ItemCode = reader["ItemCode"].ToString(),
+
+                            };
+                            listItemMaster.Add(itemMaster);
+                        }
                     }
                 }
                 else
@@ -1118,6 +1197,5 @@ namespace ConfigurationApplycations.BoSystem
 
             return listImageAffterHandle;
         }
-
     }
 }
