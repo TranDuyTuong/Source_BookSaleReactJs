@@ -273,6 +273,15 @@ namespace CommonConfiguration.UserCommon
                         Message = "Success Event Create ItemMaster"
                     };
                     break;
+                // event GetAll ItemMaster
+                case var item when item == DataCommon.EventBo_GetAllItemMaster:
+                    result = new ReturnCommonApi()
+                    {
+                        Status = true,
+                        IdPlugin = DataCommon.EventBo_GetAllItemMaster,
+                        Message = "Success Event GetAll ItemMaster"
+                    };
+                    break;
                 default:
                     result = new ReturnCommonApi()
                     {

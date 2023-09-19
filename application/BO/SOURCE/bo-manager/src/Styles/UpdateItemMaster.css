@@ -1,9 +1,18 @@
 .titleItem {
   text-align: left;
   margin: 0px 3px;
-  font-family: inherit;
+  font-family: initial;
   font-weight: 600;
   font-size: 13px;
+}
+.MessageWaining {
+  text-align: right;
+  font-family: initial;
+  color: red;
+}
+.sizeBody {
+  height: 450px;
+  overflow: auto;
 }
 
 .itemNotNull {
@@ -33,4 +42,17 @@
 }
 .backroundModal {
   background: white;
+}
+table {
+  width: 100%;
+}
+
+table thead tr th {
+  /* Important */
+  top: 0;
+}
+
+td {
+  /* Not required only for visualizing */
+  padding: 1em;
 }

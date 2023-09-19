@@ -36,3 +36,6 @@ export const ValidationItemMaster_Post = "/Bo/ValidationItemMaster";
 
 // CreateItemMaster_Post
 export const CreateItemMaster_Post = "/Bo/ConfirmItemMaster";
+
+// GetAllItemMaster_Post
+export const GetAllItemMaster_Post = "/Bo/GetAllItemMaster";

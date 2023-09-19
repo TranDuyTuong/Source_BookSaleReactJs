@@ -63,6 +63,9 @@ export const EventChangePriceItemMaster = "BO014";
 // Event Seach ItemMaster
 export const EventSeachItemMaster = "BO015";
 
+// Event GetAll ItemMaster
+export const EventGetAllItemMaster = "BO016";
+
 //---------------------------------------------------------------------------
 
 //UserLogin

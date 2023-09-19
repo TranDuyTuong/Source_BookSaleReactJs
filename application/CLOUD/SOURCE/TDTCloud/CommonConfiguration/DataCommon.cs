@@ -336,6 +336,11 @@ namespace CommonConfiguration
         /// </summary>
         public static string EventBo_CreateItemMaster = "BO012";
 
+        /// <summary>
+        /// EventBo_GetAllItemMaster
+        /// </summary>
+        public static string EventBo_GetAllItemMaster = "BO016";
+
         ///--------------------------------------------Option Type Create, Update, Delete------------------------- <summary>
         /// <summary>
         /// CREATE

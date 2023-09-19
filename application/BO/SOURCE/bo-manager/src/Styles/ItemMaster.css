@@ -22,22 +22,14 @@
 }
 .customtableItemMaster {
   overflow: auto;
-  height: 520px;
+  height: 500px;
 }
 table {
-  /* Not required only for visualizing */
+  text-align: left;
+  position: relative;
   border-collapse: collapse;
-  width: 100%;
 }
-
-table thead tr th {
-  /* Important */
+th {
   position: sticky;
-  z-index: 9;
-  top: 0;
-}
-
-td {
-  /* Not required only for visualizing */
-  padding: 1em;
+  top: 0; /* Don't forget this, required for the stickiness */
 }

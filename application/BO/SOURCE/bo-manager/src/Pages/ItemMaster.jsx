@@ -316,7 +316,7 @@ function ItemMaster() {
       <Row>
         <Col>
           <div className="customtableItemMaster">
-            <Table bordered hover>
+            <Table hover>
               <thead>
                 <tr>
                   <th>Item Code</th>

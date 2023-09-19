@@ -13,6 +13,7 @@ import {
   faSquareCheck,
   faSquareCaretLeft,
   faImages,
+  faEllipsis,
 } from "@fortawesome/free-solid-svg-icons";
 import "../Styles/UpdateItemMaster.css";
 import {
@@ -29,6 +30,7 @@ import {
   EventSeachItemMaster,
   EventUpdateItemMaster,
   UserLogin,
+  EventGetAllItemMaster,
 } from "../ObjectCommon/EventCommon";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -36,7 +38,10 @@ import LoadingModal from "../CommonPage/LoadingCommon";
 import { useNavigate } from "react-router-dom";
 import { OldURLReducer } from "../ReduxCommon/ReducerCommon/ReducerURL";
 import { ItemMasterReducer } from "../ReduxCommon/ReducerCommon/ReducerItemMaster";
-import { HandleValidationItemCode } from "../ApiLablary/ItemMasterApi";
+import {
+  HandleValidationItemCode,
+  HandleGetAllItemMaster,
+} from "../ApiLablary/ItemMasterApi";
 import { Update } from "../Contants/DataContant";
 import {
   InitializaDataSelect,
@@ -78,6 +83,13 @@ function CreateItemMaster() {
 
   // Show And Hide Dialog Add Image
   const [showDialog, setShowDialog] = useState(false);
+
+  // Show And Hide Dialog Choose ItemMaster
+  const [showDialogItemMaster, setShowDialogItemMaster] = useState(false);
+  // State get All ItemMaster When Seach
+  const [state_ListItemMaster, SetListItemMaster] = useState([]);
+  // Message waining
+  const [state_MessageWaining, SetMessageWaining] = useState("");
 
   // Message Error
   const [state_MessageError, SetMessageError] = useState("");
@@ -494,6 +506,41 @@ function CreateItemMaster() {
     });
   };
 
+  // Handle GetAll ItemMaster
+  const HandleGetAllItemMasterUI = async (e) => {
+    SetMessageError("");
+    // Get Token
+    var token = GetCookies(UserLogin);
+    // Get EventCode
+    var eventCode = ConcatStringEvent(FistCode, EventGetAllItemMaster);
+    // Setting Data Seach Area
+    var formData = new FormData();
+    formData.append("Token", token);
+    formData.append("UserID", window.localStorage.getItem("UserID"));
+    formData.append("RoleID", window.localStorage.getItem("RoleEmployer"));
+    formData.append("EventCode", eventCode);
+    formData.append("MessageError", null);
+    formData.append("Status", true);
+    formData.append("CompanyCode", CompanyCode);
+
+    // Call Api
+    const result = await HandleGetAllItemMaster(formData);
+    if (result.Status === true) {
+      if (result.TotalItemMaster === 0) {
+        SetMessageWaining(result.MessageError);
+      } else {
+        SetMessageWaining(result.TotalItemMaster);
+      }
+      // render list itemMaster In UI
+      SetListItemMaster(result.ListItemMaster);
+      setShowDialogItemMaster(true);
+    } else {
+      SetMessageError(
+        "Not Find List Item Master In System, Please Contact Manager!"
+      );
+    }
+  };
+
   return (
     <Container fluid className="fixedPotionArea">
       <h3 className="areaTitle">
@@ -520,6 +567,12 @@ function CreateItemMaster() {
                 placeholder="Enter ItemCode ..."
                 onChange={(e) => SetItemCode(e.target.value)}
               />
+              <Button
+                variant="outline-primary"
+                onClick={(e) => HandleGetAllItemMasterUI()}
+              >
+                <FontAwesomeIcon icon={faEllipsis} />
+              </Button>
               <Button
                 variant="outline-secondary"
                 onClick={(e) => HandleSeachItemCodeUI()}
@@ -803,6 +856,33 @@ function CreateItemMaster() {
           </Button>
           <Button variant="primary" onClick={() => HandleAddNewImage()}>
             Save
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      {/* Dialog list itemMaster */}
+      <Modal show={showDialogItemMaster}>
+        <Modal.Header className="backroundModal">
+          <Modal.Title>List Item Master</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="backroundModal sizeBody">
+          <p className="MessageWaining">{state_MessageWaining}</p>
+          <Table bordered hover>
+            <tbody>
+              {state_ListItemMaster.map((item) => (
+                <tr key={item.ItemCode}>
+                  <td>{item.ItemCode}</td>
+                  <td>{item.Description}</td>
+                  <td>
+                    <Button variant="primary">Choose</Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </Modal.Body>
+        <Modal.Footer className="backroundModal">
+          <Button variant="secondary" onClick={() => HandleCloseDialogImage()}>
+            Close
           </Button>
         </Modal.Footer>
       </Modal>

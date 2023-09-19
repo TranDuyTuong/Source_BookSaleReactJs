@@ -966,7 +966,7 @@ namespace ConfigurationApplycations.BoSystem
                     {
                         // Get ItemMaster in DB OrderBy Applydate max
                         var queryItemMaster = await this.context.itemMasters.Where(x => x.IsDeleteFlag == false)
-                                                                    .OrderByDescending(x => x.ApplyDate).ToArrayAsync();
+                                                                    .OrderByDescending(x => x.ApplyDate).Take(CommonConfiguration.DataCommon.MaxRecol).ToArrayAsync();
                         string temItemCode = null;
                         List<M_ItemMaster> listItemMaster = new List<M_ItemMaster>();
 
@@ -988,16 +988,23 @@ namespace ConfigurationApplycations.BoSystem
                             }
                         }
 
+                        if(queryItemMaster.Count() < CommonConfiguration.DataCommon.MaxRecol)
+                        {
+                            result.TotalItemMaster = listItemMaster.Count;
+                        }
+                        else
+                        {
+                            result.TotalItemMaster = 0;
+                            result.MessageError = "More Than 100 recol in system, should show 100 recol fist!";
+                        }
                         // Set Data result
                         result.Token = request.Token;
                         result.UserID = request.UserID;
                         result.RoleID = request.RoleID;
                         result.EventCode = request.EventCode;
-                        result.TotalItemMaster = listItemMaster.Count;
                         result.KeySeach = null;
                         result.CompanyCode = request.CompanyCode;
                         result.Status = true;
-                        result.MessageError = null;
                         result.ListItemMaster = listItemMaster;
                     }
                 }
