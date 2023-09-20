@@ -870,10 +870,16 @@ function CreateItemMaster() {
             <tbody>
               {state_ListItemMaster.map((item) => (
                 <tr key={item.ItemCode}>
-                  <td>{item.ItemCode}</td>
-                  <td>{item.Description}</td>
                   <td>
-                    <Button variant="primary">Choose</Button>
+                    <p className="buttonChoose">{item.ItemCode} </p>
+                  </td>
+                  <td>
+                    <p className="buttonChoose">{item.Description}</p>
+                  </td>
+                  <td>
+                    <p className="buttonChoose">
+                      <Button variant="primary">Choose</Button>
+                    </p>
                   </td>
                 </tr>
               ))}

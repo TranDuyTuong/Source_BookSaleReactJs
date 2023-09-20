@@ -778,7 +778,7 @@ namespace ConfigurationApplycations.BoSystem
                                         size = itemMaster.size,
                                         PageNumber = itemMaster.PageNumber,
                                         PublishingCompanyID = itemMaster.PublishingCompanyID,
-                                        IsSale = itemMaster.IsSale,
+                                        IsSale = false,
                                         LastUpdateDate = itemMaster.LastUpdateDate,
                                         Note = itemMaster.Note,
                                         HeadquartersLastUpdateDateTime = itemMaster.HeadquartersLastUpdateDateTime,
@@ -964,31 +964,29 @@ namespace ConfigurationApplycations.BoSystem
                     }
                     else
                     {
-                        // Get ItemMaster in DB OrderBy Applydate max
-                        var queryItemMaster = await this.context.itemMasters.Where(x => x.IsDeleteFlag == false)
-                                                                    .OrderByDescending(x => x.ApplyDate).Take(CommonConfiguration.DataCommon.MaxRecol).ToArrayAsync();
-                        string temItemCode = null;
                         List<M_ItemMaster> listItemMaster = new List<M_ItemMaster>();
-
-                        foreach (var item in queryItemMaster)
+                        // Get ItemMaster in DB OrderBy Applydate max
+                        SqlConnection con = new SqlConnection();
+                        con.ConnectionString = this.configuration["ConnectionStrings:TXTCloud"];
+                        con.Open();
+                        using (var sqlcmd = con.CreateCommand())
                         {
-                            if (item.ItemCode == temItemCode)
-                            {
-                                continue;
-                            }
-                            else
+                            sqlcmd.CommandText = "GetAll_ItemMaster";
+                            sqlcmd.CommandType = System.Data.CommandType.StoredProcedure;
+                            var readers = sqlcmd.ExecuteReader();
+                            while (readers.Read())
                             {
                                 var itemMasterData = new M_ItemMaster()
                                 {
-                                    ItemCode = item.ItemCode,
-                                    Description = item.Description
+                                    ItemCode = readers["ItemCode"].ToString(),
+                                    Description = readers["Description"].ToString()
                                 };
                                 listItemMaster.Add(itemMasterData);
-                                temItemCode = item.ItemCode;
                             }
                         }
+                        con.Close();
 
-                        if(queryItemMaster.Count() < CommonConfiguration.DataCommon.MaxRecol)
+                        if(listItemMaster.Count() < CommonConfiguration.DataCommon.MaxRecol)
                         {
                             result.TotalItemMaster = listItemMaster.Count;
                         }

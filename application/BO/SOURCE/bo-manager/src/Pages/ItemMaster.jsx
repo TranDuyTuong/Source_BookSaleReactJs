@@ -154,6 +154,7 @@ function ItemMaster() {
 
   // Handle Back Menu
   const HandleBackMenuUI = (e) => {
+    dispatch(ItemMasterReducer.actions.SeachItemMaster([]));
     navigate("/menu");
   };
 
