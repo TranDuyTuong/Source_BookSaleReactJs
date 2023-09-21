@@ -965,13 +965,14 @@ namespace ConfigurationApplycations.BoSystem
                     else
                     {
                         List<M_ItemMaster> listItemMaster = new List<M_ItemMaster>();
-                        // Get ItemMaster in DB OrderBy Applydate max
+                        // Get ItemMaster by store code in DB
                         SqlConnection con = new SqlConnection();
                         con.ConnectionString = this.configuration["ConnectionStrings:TXTCloud"];
                         con.Open();
                         using (var sqlcmd = con.CreateCommand())
                         {
                             sqlcmd.CommandText = "GetAll_ItemMaster";
+                            sqlcmd.Parameters.AddWithValue("@StoreCode", request.StoreCode == null ? null : request.StoreCode);
                             sqlcmd.CommandType = System.Data.CommandType.StoredProcedure;
                             var readers = sqlcmd.ExecuteReader();
                             while (readers.Read())
@@ -1074,17 +1075,6 @@ namespace ConfigurationApplycations.BoSystem
                         // Get Connectionstring
                         SqlConnection con = new SqlConnection();
                         con.ConnectionString = this.configuration["ConnectionStrings:TXTCloud"];
-
-                        // way 1
-                        //using (var sqlcmd = con.CreateCommand())
-                        //{
-                        //    sqlcmd.CommandText = "GetItemMasterById";
-                        //    sqlcmd.CommandType = System.Data.CommandType.StoredProcedure;
-                        //    sqlcmd.Parameters.AddWithValue("@itemCode", request.KeySeach);
-                        //    var readers = sqlcmd.ExecuteReader();
-                        //}
-
-                        // way 2
                         // Get StoredProcedure
                         SqlCommand cmd = new SqlCommand()
                         {

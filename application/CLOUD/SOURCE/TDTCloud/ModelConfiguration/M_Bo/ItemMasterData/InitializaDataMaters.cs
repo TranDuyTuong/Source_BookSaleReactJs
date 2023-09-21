@@ -70,5 +70,14 @@ namespace ModelConfiguration.M_Bo.ItemMasterData
             get;
             set;
         }
+
+        /// <summary>
+        /// StoreCode
+        /// </summary>
+        public string StoreCode
+        {
+            get;
+            set;
+        }
     }
 }

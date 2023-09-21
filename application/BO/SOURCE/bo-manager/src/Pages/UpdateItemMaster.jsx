@@ -65,7 +65,7 @@ function CreateItemMaster() {
   );
 
   // Show Store Select
-  const [state_ListStore, SetListSotre] = useState([]);
+  const [state_ListStore, SetListStore] = useState([]);
   const [state_DefaulStore, SetDefaulStore] = useState("0");
 
   // Show Author Select
@@ -147,66 +147,16 @@ function CreateItemMaster() {
       } else {
         // Reomve Old  Url
         window.localStorage.removeItem("oldURL");
-
         // Create New Url
         dispatch(OldURLReducer.actions.DeleteURL());
         dispatch(OldURLReducer.actions.AddUrl("/updateitemmaster"));
         window.localStorage.setItem("oldURL", "/updateitemmaster");
-
         // Setting Title Page
         document.title = "Update Item Maters";
-
-        // Initializa Item Master, get all store
-        async function InitializaData() {
-          // Get Token
-          var token = GetCookies(UserLogin);
-          // Get EventCode
-          var eventCode = ConcatStringEvent(
-            FistCode,
-            EventInitializaItemMaster
-          );
-
-          var formData = new FormData();
-          formData.append("Token", token);
-          formData.append("UserID", window.localStorage.getItem("UserID"));
-          formData.append(
-            "RoleID",
-            window.localStorage.getItem("RoleEmployer")
-          );
-          formData.append("EventCode", eventCode);
-          formData.append("MessageError", null);
-          formData.append("Status", true);
-          formData.append("CompanyCode", CompanyCode);
-          // Call Api Initializa Data
-          const response = await HandleGetInitializaItemMaster(formData);
-          if (response.Status === true) {
-            const initializaDataSelect = InitializaDataSelect(
-              response.ListStore,
-              response.ListAuthor,
-              response.ListCategory,
-              response.ListPublishingCompany
-            );
-            // List Select Store
-            SetListSotre(initializaDataSelect.listStore);
-            // List Select Author
-            SetListAuthor(initializaDataSelect.listAuthor);
-            // List Select PublishingCompany
-            SetPublishingCompany(initializaDataSelect.listPublishingCompany);
-            // List Select Category
-            SetListCategory(initializaDataSelect.listCategory);
-            // Focus inputItemCode
-            document.getElementById("Btn_ItemCode").focus();
-          } else {
-            SetMessageError(response.MessageError);
-          }
-
-          // disabled button and Form
-          DispayItemForm();
-          btn_Image.current.disabled = true;
-          // Reset Form
-          ResetForm();
-        }
-        InitializaData();
+        SetListStore([]);
+        SetListAuthor([]);
+        SetPublishingCompany([]);
+        SetListCategory([]);
       }
     };
     CheckTokenAndRole();
@@ -236,7 +186,7 @@ function CreateItemMaster() {
     );
     SetDefaultAuthor("0");
 
-    // Reset Select Author
+    // Reset Select publishingCompanySelect
     const publishingCompanySelect = document.getElementById(
       "Btn_DisplayPublishingCompany"
     );
@@ -264,11 +214,17 @@ function CreateItemMaster() {
   };
 
   // Handle Select Store
-  const HandleSelectStore = (e) => {
-    if (e === 0 || e === "0") {
-      SetMessageError("Please Choose A Store!");
-    } else {
+  const HandleSelectStore = (e, type) => {
+    if (type === "Type01") {
+      // Select store for seach ItemMaster By StoreCode
       SetDefaulStore(e);
+    } else {
+      // Update StoreCode for ItemMaster
+      if (e === 0 || e === "0") {
+        SetMessageError("Please Choose A Store!");
+      } else {
+        SetDefaulStore(e);
+      }
     }
     return;
   };
@@ -506,6 +462,35 @@ function CreateItemMaster() {
     });
   };
 
+  // Handle Show Dialog Get All ItemMaster UI
+  const HandleShowDialogGetAllItemMasterUI = async (e) => {
+    // Get Store For Selector
+    // Get Token
+    var token = GetCookies(UserLogin);
+    // Get EventCode
+    var eventCode = ConcatStringEvent(FistCode, EventInitializaItemMaster);
+
+    var formData = new FormData();
+    formData.append("Token", token);
+    formData.append("UserID", window.localStorage.getItem("UserID"));
+    formData.append("RoleID", window.localStorage.getItem("RoleEmployer"));
+    formData.append("EventCode", eventCode);
+    formData.append("MessageError", null);
+    formData.append("Status", true);
+    formData.append("CompanyCode", CompanyCode);
+    // Call Api Initializa Data
+    const response = await HandleGetInitializaItemMaster(formData);
+    if (response.Status === true) {
+      const initializaDataSelect = InitializaDataSelect(response.ListStore);
+      // List Select Store
+      SetListStore(initializaDataSelect.listStore);
+      setShowDialogItemMaster(true);
+    } else {
+      SetListStore([]);
+      SetMessageError(response.MessageError);
+    }
+  };
+
   // Handle GetAll ItemMaster
   const HandleGetAllItemMasterUI = async (e) => {
     SetMessageError("");
@@ -521,6 +506,7 @@ function CreateItemMaster() {
     formData.append("EventCode", eventCode);
     formData.append("MessageError", null);
     formData.append("Status", true);
+    formData.append("StoreCode", state_DefaulStore);
     formData.append("CompanyCode", CompanyCode);
 
     // Call Api
@@ -533,11 +519,8 @@ function CreateItemMaster() {
       }
       // render list itemMaster In UI
       SetListItemMaster(result.ListItemMaster);
-      setShowDialogItemMaster(true);
     } else {
-      SetMessageError(
-        "Not Find List Item Master In System, Please Contact Manager!"
-      );
+      SetMessageError(result.MessageError);
     }
   };
 
@@ -569,7 +552,7 @@ function CreateItemMaster() {
               />
               <Button
                 variant="outline-primary"
-                onClick={(e) => HandleGetAllItemMasterUI()}
+                onClick={(e) => HandleShowDialogGetAllItemMasterUI()}
               >
                 <FontAwesomeIcon icon={faEllipsis} />
               </Button>
@@ -634,7 +617,7 @@ function CreateItemMaster() {
               id="Btn_DisplayStore"
               className="selectstore mb-3"
               value={state_DefaulStore}
-              onChange={(e) => HandleSelectStore(e.target.value)}
+              onChange={(e) => HandleSelectStore(e.target.value, "Type02")}
             >
               {state_ListStore.map((item) => (
                 <option key={item.StoreCode} value={item.StoreCode}>
@@ -862,7 +845,26 @@ function CreateItemMaster() {
       {/* Dialog list itemMaster */}
       <Modal show={showDialogItemMaster}>
         <Modal.Header className="backroundModal">
-          <Modal.Title>List Item Master</Modal.Title>
+          <InputGroup className="mb-3">
+            <Form.Select
+              id="Btn_DisplayStore"
+              className="selectstore mb-3"
+              value={state_DefaulStore}
+              onChange={(e) => HandleSelectStore(e.target.value, "Type01")}
+            >
+              {state_ListStore.map((item) => (
+                <option key={item.StoreCode} value={item.StoreCode}>
+                  {item.Description}
+                </option>
+              ))}
+            </Form.Select>
+            <Button
+              variant="outline-primary"
+              onClick={(e) => HandleGetAllItemMasterUI()}
+            >
+              Filter
+            </Button>
+          </InputGroup>
         </Modal.Header>
         <Modal.Body className="backroundModal sizeBody">
           <p className="MessageWaining">{state_MessageWaining}</p>
