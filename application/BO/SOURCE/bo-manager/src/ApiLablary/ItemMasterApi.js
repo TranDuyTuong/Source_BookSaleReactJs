@@ -5,6 +5,7 @@ import {
   ValidationItemMaster_Post,
   CreateItemMaster_Post,
   GetAllItemMaster_Post,
+  SeachUpdateItemMaster_Post,
 } from "../ObjectCommon/ApiCommon";
 import { post } from "../Contants/DataContant";
 
@@ -67,5 +68,11 @@ export const HandleInsertItemMaster = async (request) => {
 // Handle GetAll ItemMaster
 export const HandleGetAllItemMaster = async (request) => {
   const data = await ItemMasterAPI(request, GetAllItemMaster_Post, post);
+  return data;
+};
+
+// Handle Seach ItemMaster For Update
+export const HandleSeachItemMasterUpdate = async (request) => {
+  const data = await ItemMasterAPI(request, SeachUpdateItemMaster_Post, post);
   return data;
 };

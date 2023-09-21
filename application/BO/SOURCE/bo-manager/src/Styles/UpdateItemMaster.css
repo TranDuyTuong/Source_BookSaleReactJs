@@ -60,3 +60,6 @@ td {
   text-align: center;
   margin: 0px 0px;
 }
+.fuilterItemMaster {
+  height: fit-content;
+}

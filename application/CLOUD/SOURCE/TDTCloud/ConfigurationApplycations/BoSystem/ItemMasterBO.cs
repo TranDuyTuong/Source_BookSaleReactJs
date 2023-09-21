@@ -989,7 +989,7 @@ namespace ConfigurationApplycations.BoSystem
 
                         if(listItemMaster.Count() < CommonConfiguration.DataCommon.MaxRecol)
                         {
-                            result.TotalItemMaster = listItemMaster.Count;
+                            result.MessageError = "Find: " + listItemMaster.Count + " recol";
                         }
                         else
                         {

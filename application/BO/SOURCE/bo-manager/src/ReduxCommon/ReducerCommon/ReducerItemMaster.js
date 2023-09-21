@@ -78,5 +78,7 @@ export const ItemMasterReducer = createSlice({
         findItemMaster.OldType = action.payload.OldType;
       }
     },
+    UpdateItemMasterShort: (state, action) => {},
+    SeachItemMaterShort: (state, action) => {},
   },
 });

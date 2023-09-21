@@ -12,7 +12,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSquareCheck,
   faSquareCaretLeft,
-  faImages,
   faEllipsis,
 } from "@fortawesome/free-solid-svg-icons";
 import "../Styles/UpdateItemMaster.css";
@@ -26,7 +25,6 @@ import {
   CompanyCode,
   FistCode,
   EventInitializaItemMaster,
-  EventItemMaster,
   EventSeachItemMaster,
   EventUpdateItemMaster,
   UserLogin,
@@ -39,10 +37,9 @@ import { useNavigate } from "react-router-dom";
 import { OldURLReducer } from "../ReduxCommon/ReducerCommon/ReducerURL";
 import { ItemMasterReducer } from "../ReduxCommon/ReducerCommon/ReducerItemMaster";
 import {
-  HandleValidationItemCode,
+  HandleSeachItemMasterUpdate,
   HandleGetAllItemMaster,
 } from "../ApiLablary/ItemMasterApi";
-import { Update } from "../Contants/DataContant";
 import {
   InitializaDataSelect,
   DispayItemForm,
@@ -81,9 +78,6 @@ function CreateItemMaster() {
   const [state_ListCategory, SetListCategory] = useState([]);
   const [state_DefaultCategory, SetDefaultCategory] = useState("0");
 
-  // Show And Hide Dialog Add Image
-  const [showDialog, setShowDialog] = useState(false);
-
   // Show And Hide Dialog Choose ItemMaster
   const [showDialogItemMaster, setShowDialogItemMaster] = useState(false);
   // State get All ItemMaster When Seach
@@ -95,25 +89,15 @@ function CreateItemMaster() {
   const [state_MessageError, SetMessageError] = useState("");
   // Show And Hide Loading Data
   const [state_Show, SetShow] = useState(false);
-  // Url Image
-  const [state_Url, SetUrl] = useState("");
-  const [state_UrlDefault, SetUrlDefault] = useState("");
-  const [state_ConfirmUrlImage, SetConfirmUrlImage] = useState("");
-  const [state_MessageErrorImage, SetMessageErrorImage] = useState("");
 
   // Create ItemMaster
   const [state_ItemCode, SetItemCode] = useState("");
-  const [state_PriceOrigin, SetPriceOrigin] = useState("");
-  const [state_PriceSale, SetPriceSale] = useState("");
   const [state_Description, SetDescription] = useState("");
   const [state_DescriptionLong, SetDescriptionLong] = useState("");
   const [state_DescriptionShort, SetDescriptionShort] = useState("");
   const [state_Quantity, SetQuantity] = useState("");
   const [state_Size, SetSize] = useState("");
   const [state_Note, SetNote] = useState("");
-
-  // Control State
-  const [state_Control, setControl] = useState(0);
 
   useEffect(() => {
     // Call Api Check Validation Token And Role User
@@ -157,57 +141,50 @@ function CreateItemMaster() {
         SetListAuthor([]);
         SetPublishingCompany([]);
         SetListCategory([]);
+        // Reset form
+        DispayItemForm(0);
+        // Initializa Item Master, get all store
+        async function InitializaData() {
+          // Get Token
+          var token = GetCookies(UserLogin);
+          // Get EventCode
+          var eventCode = ConcatStringEvent(
+            FistCode,
+            EventInitializaItemMaster
+          );
+
+          var formData = new FormData();
+          formData.append("Token", token);
+          formData.append("UserID", window.localStorage.getItem("UserID"));
+          formData.append(
+            "RoleID",
+            window.localStorage.getItem("RoleEmployer")
+          );
+          formData.append("EventCode", eventCode);
+          formData.append("MessageError", null);
+          formData.append("Status", true);
+          formData.append("CompanyCode", CompanyCode);
+          // Call Api Initializa Data
+          const response = await HandleGetInitializaItemMaster(formData);
+          if (response.Status === true) {
+            const initializaDataSelect = InitializaDataSelect(
+              response.ListStore
+            );
+            // List Select Store
+            SetListStore(initializaDataSelect.listStore);
+          } else {
+            SetListStore([]);
+            SetMessageError(response.MessageError);
+          }
+        }
+        InitializaData();
       }
+      // reset List ItemMaster in Redux
+      dispatch(ItemMasterReducer.actions.SeachItemMaster([]));
     };
     CheckTokenAndRole();
   }, []);
-  //---------------------------------------------------------------------------
-  // COMMON FUNCTION
-  // Handle Common Form
-  function ResetForm() {
-    // Reset Select Store
-    const storeSelect = document.getElementById("Btn_DisplayStore");
-    storeSelect.selectedIndex = [...storeSelect.options].findIndex(
-      (option) => option.text === "Select Store"
-    );
-    SetDefaulStore("0");
 
-    // Reset Select Category
-    const categorySelect = document.getElementById("Btn_DisplayCategory");
-    categorySelect.selectedIndex = [...categorySelect.options].findIndex(
-      (option) => option.text === "Select Category"
-    );
-    SetDefaultCategory("0");
-
-    // Reset Select Author
-    const authorSelect = document.getElementById("Btn_DisplayAuthor");
-    authorSelect.selectedIndex = [...authorSelect.options].findIndex(
-      (option) => option.text === "Select Author"
-    );
-    SetDefaultAuthor("0");
-
-    // Reset Select publishingCompanySelect
-    const publishingCompanySelect = document.getElementById(
-      "Btn_DisplayPublishingCompany"
-    );
-    publishingCompanySelect.selectedIndex = [
-      ...publishingCompanySelect.options,
-    ].findIndex((option) => option.text === "Select Publishing Company");
-    SetDefaultPublishingCompany("0");
-
-    SetPriceOrigin("");
-    SetPriceSale("");
-    SetDescription("");
-    SetDescriptionLong("");
-    SetDescriptionShort("");
-    SetQuantity("");
-    SetSize("");
-    SetNote("");
-    SetConfirmUrlImage("");
-    setControl(0);
-  }
-
-  //---------------------------------------------------------------------------
   // Handle Back Menu
   const HandleBackMenuUI = (e) => {
     navigate("/menu");
@@ -259,66 +236,6 @@ function CreateItemMaster() {
     return;
   };
 
-  // Handle Close Dialog Image
-  const HandleCloseDialogImage = (e) => {
-    if (state_Control !== 1) {
-      SetUrlDefault("");
-      SetUrl("");
-      SetConfirmUrlImage("");
-    }
-    SetMessageErrorImage("");
-    setShowDialog(false);
-  };
-
-  // Handle Show Dialog Add Image Item
-  const HandleAddImageItem = (e) => {
-    if (state_Control !== 1) {
-      SetUrlDefault("");
-      SetUrl("");
-      SetConfirmUrlImage("");
-    }
-    SetMessageErrorImage("");
-    setShowDialog(true);
-  };
-
-  // Handle Add New Image in List Image
-  const HandleAddNewImage = (e) => {
-    // Validation Url Image
-    if (
-      state_UrlDefault === null ||
-      state_UrlDefault === undefined ||
-      state_UrlDefault === "" ||
-      state_Url === null ||
-      state_Url === undefined ||
-      state_Url === ""
-    ) {
-      SetMessageErrorImage("Url Image Not Null, Please Try Again!");
-    } else {
-      if (state_Control !== 1) {
-        const ImageItemMaster = {
-          IsDefault: true,
-          UrlImageDefault: state_UrlDefault,
-          UrlImage: state_Url,
-        };
-        SetConfirmUrlImage(ImageItemMaster);
-
-        SetUrlDefault("");
-        SetUrl("");
-      } else {
-        const ImageItemMaster = {
-          IsDefault: true,
-          UrlImageDefault: state_UrlDefault,
-          UrlImage: state_Url,
-        };
-        SetConfirmUrlImage(ImageItemMaster);
-      }
-      SetMessageErrorImage("");
-      SetMessageError("");
-      setShowDialog(false);
-    }
-    return;
-  };
-
   // Handle Click Row Item In Table
   const HandleClickRowItem = (e) => {
     SetMessageError("");
@@ -328,25 +245,12 @@ function CreateItemMaster() {
       // Set Data in Form
       btn_Image.current.disabled = false;
       SetItemCode(findItemCode.ItemCode);
-      SetPriceOrigin(findItemCode.PriceOrigin);
-      SetPriceSale(findItemCode.priceSale);
       SetDescription(findItemCode.Description);
       SetDescriptionLong(findItemCode.DescriptionLong);
       SetDescriptionShort(findItemCode.DescriptionShort);
       SetQuantity(findItemCode.Quantity);
       SetSize(findItemCode.size);
       SetNote(findItemCode.Note);
-      SetUrlDefault(findItemCode.UrlImage.UrlImageDefault);
-      SetUrl(findItemCode.UrlImage.UrlImage);
-      // Set Image Confirm when click row
-      const ImageItemMaster = {
-        IsDefault: true,
-        UrlImageDefault: findItemCode.UrlImage.UrlImageDefault,
-        UrlImage: findItemCode.UrlImage.UrlImage,
-      };
-      SetConfirmUrlImage(ImageItemMaster);
-      // Update State Control
-      setControl(1);
       // Set Select Defaul
       SetDefaulStore(findItemCode.StoreCode);
       SetDefaultAuthor(findItemCode.AuthorID);
@@ -360,135 +264,47 @@ function CreateItemMaster() {
   };
 
   // Handle Seach ItemCode
-  const HandleSeachItemCodeUI = async (e) => {
-    // Get Token
-    var token = GetCookies(UserLogin);
-    // Get EventCode
-    var eventCode = ConcatStringEvent(FistCode, EventSeachItemMaster);
-    // Setting Data Seach Area
-    var formData = new FormData();
-    formData.append("Token", token);
-    formData.append("UserID", window.localStorage.getItem("UserID"));
-    formData.append("RoleID", window.localStorage.getItem("RoleEmployer"));
-    formData.append("EventCode", eventCode);
-    formData.append("TotalItemMaster", 0);
-    formData.append("MessageError", null);
-    formData.append("Status", true);
-    formData.append("KeySeach", state_ItemCode);
-    formData.append("CompanyCode", CompanyCode);
-    formData.append("ListItemMaster", []);
-
-    SetShow(true);
-    // Call Api check itemMaster code
-    const resultValidaion = await HandleValidationItemCode(formData);
-    SetShow(false);
-
-    if (resultValidaion.Status === true) {
-      SetMessageError("");
-      // Can use this itemcode
-      btn_Image.current.disabled = false;
-    } else {
-      SetMessageError(resultValidaion.MessageError);
-      // Don't use this itemcode
-      btn_Image.current.disabled = true;
-    }
-    // Reset Data In Form
-    ResetForm();
-  };
-
-  // Handle Update ItemMaster
-  const HandleUpdateItemMaster = (e) => {
+  const HandleSeachItemCodeUI = async (itemCode, typeSent, storecode) => {
     SetMessageError("");
-    // Validation Form
-    const formData = {
-      ItemCode: state_ItemCode,
-      PriceOrigin: state_PriceOrigin,
-      PriceSale: state_PriceSale,
-      Description: state_Description,
-      DescriptionLong: state_DescriptionLong,
-      DescriptionShort: state_DescriptionShort,
-      Store: state_DefaulStore,
-      Quantity: state_Quantity,
-      Category: state_DefaultCategory,
-      Author: state_DefaulAuthor,
-      PublisingCompany: state_DefaultPublishingCompany,
-      Size: state_Size,
-      Note: state_Note,
-    };
-    return;
-  };
+    if (storecode === "0" || storecode === undefined) {
+      SetMessageError("Please Choose A Store!");
+    } else {
+      if (typeSent === "TypeSent02") {
+        setShowDialogItemMaster(false);
+      }
+      // Get Token
+      var token = GetCookies(UserLogin);
+      // Get EventCode
+      var eventCode = ConcatStringEvent(FistCode, EventSeachItemMaster);
+      // Setting Data Seach Area
+      var formData = new FormData();
+      formData.append("Token", token);
+      formData.append("UserID", window.localStorage.getItem("UserID"));
+      formData.append("RoleID", window.localStorage.getItem("RoleEmployer"));
+      formData.append("EventCode", eventCode);
+      formData.append("TotalItemMaster", 0);
+      formData.append("MessageError", null);
+      formData.append("Status", true);
+      formData.append("KeySeach", itemCode);
+      formData.append("CompanyCode", CompanyCode);
+      formData.append("StoreCode", storecode);
+      formData.append("ListItemMaster", []);
 
-  // Handle Confirm ItemMaster
-  const HandleConfirmItemMaster = async (e) => {
-    // Handle Get All ItemMaster Create in Redux
-    const listItemMasterConfirm = [];
-    ListItemMasterMain.forEach(function (item) {
-      const insertItem = {
-        CompanyCode: item.CompanyCode,
-        StoreCode: item.StoreCode,
-        ItemCode: item.ItemCode,
-        Description: item.Description,
-        DescriptionShort: item.DescriptionShort,
-        DescriptionLong: item.DescriptionLong,
-        PriceOrigin: item.PriceOrigin,
-        PercentDiscount: item.PercentDiscount,
-        priceSale: item.priceSale,
-        QuantityDiscountID: item.QuantityDiscountID,
-        PairDiscountID: item.PairDiscountID,
-        SpecialDiscountID: item.SpecialDiscountID,
-        Quantity: item.Quantity,
-        Viewer: item.Viewer,
-        Buy: item.Buy,
-        CategoryItemMasterID: item.CategoryItemMasterID,
-        AuthorID: item.AuthorID,
-        DateCreate: item.DateCreate,
-        IssuingCompanyID: item.IssuingCompanyID,
-        PublicationDate: item.PublicationDate,
-        size: item.size,
-        PageNumber: item.PageNumber,
-        PublishingCompanyID: item.PublishingCompanyID,
-        IsSale: item.IsSale,
-        LastUpdateDate: item.LastUpdateDate,
-        Note: item.Note,
-        HeadquartersLastUpdateDateTime: item.HeadquartersLastUpdateDateTime,
-        IsDeleteFlag: item.IsDeleteFlag,
-        UserID: item.UserID,
-        TaxGroupCodeID: item.TaxGroupCodeID,
-        TypeOf: item.TypeOf,
-        OldType: item.OldType,
-        ImageItemMaster: item.UrlImage,
-      };
-      listItemMasterConfirm.push(insertItem);
-    });
+      // Call Api Get ItemMaster By ItemCode
+      const resultData = await HandleSeachItemMasterUpdate(formData);
+    }
+    return;
   };
 
   // Handle Show Dialog Get All ItemMaster UI
   const HandleShowDialogGetAllItemMasterUI = async (e) => {
-    // Get Store For Selector
-    // Get Token
-    var token = GetCookies(UserLogin);
-    // Get EventCode
-    var eventCode = ConcatStringEvent(FistCode, EventInitializaItemMaster);
-
-    var formData = new FormData();
-    formData.append("Token", token);
-    formData.append("UserID", window.localStorage.getItem("UserID"));
-    formData.append("RoleID", window.localStorage.getItem("RoleEmployer"));
-    formData.append("EventCode", eventCode);
-    formData.append("MessageError", null);
-    formData.append("Status", true);
-    formData.append("CompanyCode", CompanyCode);
-    // Call Api Initializa Data
-    const response = await HandleGetInitializaItemMaster(formData);
-    if (response.Status === true) {
-      const initializaDataSelect = InitializaDataSelect(response.ListStore);
-      // List Select Store
-      SetListStore(initializaDataSelect.listStore);
-      setShowDialogItemMaster(true);
-    } else {
-      SetListStore([]);
-      SetMessageError(response.MessageError);
-    }
+    const storeSelect = document.getElementById("Btn_DisplayStore");
+    storeSelect.selectedIndex = [...storeSelect.options].findIndex(
+      (option) => option.text === "Select Store"
+    );
+    SetDefaulStore("0");
+    setShowDialogItemMaster(true);
+    SetListItemMaster([]);
   };
 
   // Handle GetAll ItemMaster
@@ -522,6 +338,20 @@ function CreateItemMaster() {
     } else {
       SetMessageError(result.MessageError);
     }
+  };
+
+  // Handle Close Dialog Filter ItemMaster
+  const HandleCloseDialogFilterItemMaster = (e) => {
+    const storeSelect = document.getElementById("Btn_DisplayStore");
+    storeSelect.selectedIndex = [...storeSelect.options].findIndex(
+      (option) => option.text === "Select Store"
+    );
+    SetDefaulStore("0");
+
+    SetMessageWaining("");
+    SetMessageError("");
+    setShowDialogItemMaster(false);
+    SetListItemMaster([]);
   };
 
   return (
@@ -558,7 +388,13 @@ function CreateItemMaster() {
               </Button>
               <Button
                 variant="outline-secondary"
-                onClick={(e) => HandleSeachItemCodeUI()}
+                onClick={(e) =>
+                  HandleSeachItemCodeUI(
+                    state_ItemCode,
+                    "TypeSent01",
+                    state_DefaulStore
+                  )
+                }
               >
                 Seach
               </Button>
@@ -727,29 +563,7 @@ function CreateItemMaster() {
             </InputGroup>
           </Form.Group>
         </Col>
-        <Col xs={2}>
-          <Form.Group>
-            {/* input image url */}
-            <p className="titleItem">
-              Url Image <span className="itemNotNull">*</span>
-            </p>
-            <InputGroup className="mb-3">
-              <Button
-                ref={btn_Image}
-                variant="secondary"
-                onClick={() => HandleAddImageItem()}
-                style={{ width: "inherit" }}
-              >
-                <FontAwesomeIcon icon={faImages} />
-              </Button>
-            </InputGroup>
-            {state_ConfirmUrlImage.IsDefault === true && (
-              <p className="itemIconImage">
-                <FontAwesomeIcon icon={faImages} />
-              </p>
-            )}
-          </Form.Group>
-        </Col>
+        <Col xs={2}></Col>
       </Row>
       <p className="messageError">{state_MessageError}</p>
       <Row>
@@ -793,55 +607,13 @@ function CreateItemMaster() {
       </Row>
       <p className="alinebuttonsetting">
         {ListItemMasterMain.length !== 0 && (
-          <Button
-            variant="success"
-            className="btn_setting"
-            onClick={(e) => HandleConfirmItemMaster()}
-          >
+          <Button variant="success" className="btn_setting">
             <FontAwesomeIcon icon={faSquareCheck} /> Confirm
           </Button>
         )}
       </p>
       {/* Show And Hide Laoding Data */}
       {state_Show && <LoadingModal />}
-
-      {/* Dialog Add Image Item */}
-      <Modal show={showDialog}>
-        <Modal.Header className="backroundModal">
-          <Modal.Title>Add Image ItemMaster</Modal.Title>
-        </Modal.Header>
-        <Modal.Body className="backroundModal">
-          <p className="messageError">{state_MessageErrorImage}</p>
-          <span className="itemNotNull">*</span>
-          <InputGroup className="mb-3">
-            <Form.Control
-              value={state_UrlDefault}
-              placeholder="Enter Url Image Default ..."
-              type="text"
-              onChange={(e) => SetUrlDefault(e.target.value)}
-            />
-          </InputGroup>
-
-          <span className="itemNotNull">*</span>
-          <InputGroup className="mb-3">
-            <Form.Control
-              value={state_Url}
-              placeholder="Enter Url Image ..."
-              as="textarea"
-              className="inputUrlImage"
-              onChange={(e) => SetUrl(e.target.value)}
-            />
-          </InputGroup>
-        </Modal.Body>
-        <Modal.Footer className="backroundModal">
-          <Button variant="secondary" onClick={() => HandleCloseDialogImage()}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={() => HandleAddNewImage()}>
-            Save
-          </Button>
-        </Modal.Footer>
-      </Modal>
       {/* Dialog list itemMaster */}
       <Modal show={showDialogItemMaster}>
         <Modal.Header className="backroundModal">
@@ -859,6 +631,7 @@ function CreateItemMaster() {
               ))}
             </Form.Select>
             <Button
+              className="fuilterItemMaster"
               variant="outline-primary"
               onClick={(e) => HandleGetAllItemMasterUI()}
             >
@@ -880,7 +653,18 @@ function CreateItemMaster() {
                   </td>
                   <td>
                     <p className="buttonChoose">
-                      <Button variant="primary">Choose</Button>
+                      <Button
+                        variant="primary"
+                        onClick={(e) =>
+                          HandleSeachItemCodeUI(
+                            item.ItemCode,
+                            "TypeSent02",
+                            state_DefaulStore
+                          )
+                        }
+                      >
+                        Choose
+                      </Button>
                     </p>
                   </td>
                 </tr>
@@ -889,7 +673,10 @@ function CreateItemMaster() {
           </Table>
         </Modal.Body>
         <Modal.Footer className="backroundModal">
-          <Button variant="secondary" onClick={() => HandleCloseDialogImage()}>
+          <Button
+            variant="secondary"
+            onClick={() => HandleCloseDialogFilterItemMaster()}
+          >
             Close
           </Button>
         </Modal.Footer>

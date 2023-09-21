@@ -39,3 +39,6 @@ export const CreateItemMaster_Post = "/Bo/ConfirmItemMaster";
 
 // GetAllItemMaster_Post
 export const GetAllItemMaster_Post = "/Bo/GetAllItemMaster";
+
+// SeachUpdateItemMaster_Post
+export const SeachUpdateItemMaster_Post = "/Bo/SeachUpdateItemMaster";
