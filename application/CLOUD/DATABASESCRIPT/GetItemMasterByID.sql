@@ -15,7 +15,8 @@ AS
 		 PublishingCompanyID nvarchar(MAX), 
 		 Quantity int, 
 		 size nvarchar(100), 
-		 Note nvarchar(MAX)
+		 Note nvarchar(MAX),
+		 ImageDefault nvarchar(MAX)
 	 )
 INSERT INTO @ItemMasterByID (
 		 ItemCode, 
@@ -28,19 +29,34 @@ INSERT INTO @ItemMasterByID (
 		 PublishingCompanyID, 
 		 Quantity, 
 		 size, 
-		 Note
+		 Note	 
 	 )
-SELECT dbo.ItemMasters.ItemCode, 
-		dbo.ItemMasters.Description, 
-		dbo.ItemMasters.DescriptionLong, 
-		dbo.ItemMasters.DescriptionShort, 
-		dbo.ItemMasters.StoreCode,
-		dbo.ItemMasters.CategoryItemMasterID, 
-		dbo.ItemMasters.AuthorID, 
-		dbo.ItemMasters.PublishingCompanyID, 
-		dbo.ItemMasters.Quantity, 
-		dbo.ItemMasters.size, 
-		dbo.ItemMasters.Note
+SELECT TXTCloud.dbo.ItemMasters.ItemCode, 
+		TXTCloud.dbo.ItemMasters.Description, 
+		TXTCloud.dbo.ItemMasters.DescriptionLong, 
+		TXTCloud.dbo.ItemMasters.DescriptionShort, 
+		TXTCloud.dbo.ItemMasters.StoreCode,
+		TXTCloud.dbo.ItemMasters.CategoryItemMasterID, 
+		TXTCloud.dbo.ItemMasters.AuthorID, 
+		TXTCloud.dbo.ItemMasters.PublishingCompanyID, 
+		TXTCloud.dbo.ItemMasters.Quantity, 
+		TXTCloud.dbo.ItemMasters.size, 
+		TXTCloud.dbo.ItemMasters.Note
 FROM TXTCloud.dbo.ItemMasters 
  WHERE ItemCode = @itemCode AND StoreCode = @storeCode AND IsDeleteFlag = 0 --FALSE
+
+-- Get Image By ItemCode
+DECLARE @recolURL nvarchar(MAX);
+SET @recolURL = (
+			SELECT TXTCloud.dbo.ImageItemMasters.Url
+			FROM TXTCloud.dbo.ImageItemMasters 
+			WHERE TXTCloud.dbo.ImageItemMasters.ItemCode = @itemCode 
+				AND TXTCloud.dbo.ImageItemMasters.IsDefault = 1 
+				AND TXTCloud.dbo.ImageItemMasters.IsDeleteFlag = 0
+				)
+
+-- Update Table @ItemMasterByID 
+UPDATE @ItemMasterByID
+SET ImageDefault  = @recolURL
 SELECT * FROM @ItemMasterByID
+
