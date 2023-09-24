@@ -1075,37 +1075,72 @@ namespace ConfigurationApplycations.BoSystem
                         // Get Connectionstring
                         SqlConnection con = new SqlConnection();
                         con.ConnectionString = this.configuration["ConnectionStrings:TXTCloud"];
-                        // Get StoredProcedure
-                        SqlCommand cmd = new SqlCommand()
+                        con.Open();
+                        using(var sqlcmd = con.CreateCommand())
                         {
-                            CommandText = "GetItemMasterById",
-                            Connection = con,
-                            CommandType = System.Data.CommandType.StoredProcedure
-                        };
-
-                        // Create Param
-                        SqlParameter param = new SqlParameter
-                        {
-                            ParameterName = "@itemCode",
-                            SqlDbType = System.Data.SqlDbType.NVarChar,
-                            Value = request.KeySeach,
-                            Direction = System.Data.ParameterDirection.Input
-                        };
-                        cmd.Parameters.Add(param);
-
-                        // Run StoredProcedure
-                        var reader = cmd.ExecuteReader();
-                        // Read data result
-                        while (reader.Read())
-                        {
-                            var itemMaster = new M_ItemMaster()
+                            sqlcmd.CommandText = "GetItemMaster_ByID";
+                            sqlcmd.Parameters.AddWithValue("@itemCode", request.KeySeach);
+                            sqlcmd.Parameters.AddWithValue("@storeCode", request.StoreCode);
+                            sqlcmd.CommandType = System.Data.CommandType.StoredProcedure;
+                            var reader = sqlcmd.ExecuteReader();
+                            while (reader.Read())
                             {
-                                CompanyCode = reader["CompanyCode"].ToString(),
-                                StoreCode = reader["StoreCode"].ToString(),
-                                ItemCode = reader["ItemCode"].ToString(),
+                                // Image ItemMaster Data
+                                var urlDefaultImage = new M_GetUrlImageBo()
+                                {
+                                    IsDefault = true,
+                                    UrlImageDefault = reader["ImageDefault"].ToString(),
+                                    UrlImage = null
+                                };
 
-                            };
-                            listItemMaster.Add(itemMaster);
+                                // ItemMaster Data
+                                var itemMasterData = new M_ItemMaster()
+                                {
+                                    ItemCode = reader["ItemCode"].ToString(),
+                                    Description = reader["Description"].ToString(),
+                                    DescriptionLong = reader["DescriptionLong"].ToString(),
+                                    DescriptionShort = reader["DescriptionShort"].ToString(),
+                                    StoreCode = reader["StoreCode"].ToString(),
+                                    CategoryItemMasterID = reader["CategoryItemMasterID"].ToString(),
+                                    AuthorID = reader["AuthorID"].ToString(),
+                                    PublishingCompanyID = reader["PublishingCompanyID"].ToString(),
+                                    Quantity = Convert.ToInt32(reader["Quantity"].ToString()),
+                                    size = reader["size"].ToString(),
+                                    Note = reader["Note"].ToString(),
+                                    ImageItemMaster = urlDefaultImage
+                                };
+
+                                // Add ItemMaster Result 
+                                listItemMaster.Add(itemMasterData);
+                            }
+                        }
+
+                        // Result ItemMaster Data
+                        if(listItemMaster.Any() == true)
+                        {
+                            result.CompanyCode = request.CompanyCode;
+                            result.Token = request.Token;
+                            result.UserID = request.UserID;
+                            result.RoleID = request.RoleID;
+                            result.EventCode = request.EventCode;
+                            result.TotalItemMaster = listItemMaster.Count();
+                            result.KeySeach = request.KeySeach;
+                            result.CompanyCode = request.CompanyCode;
+                            result.Status = true;
+                            result.MessageError = null;
+                            result.ListItemMaster = listItemMaster;
+                        }
+                        else
+                        {
+                            result.Token = request.Token;
+                            result.UserID = request.UserID;
+                            result.RoleID = request.RoleID;
+                            result.EventCode = request.EventCode;
+                            result.TotalItemMaster = 0;
+                            result.KeySeach = null;
+                            result.CompanyCode = request.CompanyCode;
+                            result.Status = false;
+                            result.MessageError = CommonConfiguration.DataCommon.MessageNotFindData;
                         }
                     }
                 }

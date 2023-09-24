@@ -13,6 +13,7 @@ import {
   faSquareCheck,
   faSquareCaretLeft,
   faEllipsis,
+  faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import "../Styles/UpdateItemMaster.css";
 import {
@@ -98,6 +99,7 @@ function CreateItemMaster() {
   const [state_Quantity, SetQuantity] = useState("");
   const [state_Size, SetSize] = useState("");
   const [state_Note, SetNote] = useState("");
+  const [state_ImageDefault, SetImageDefault] = useState("");
 
   useEffect(() => {
     // Call Api Check Validation Token And Role User
@@ -266,32 +268,51 @@ function CreateItemMaster() {
   // Handle Seach ItemCode
   const HandleSeachItemCodeUI = async (itemCode, typeSent, storecode) => {
     SetMessageError("");
-    if (storecode === "0" || storecode === undefined) {
-      SetMessageError("Please Choose A Store!");
+    // Validation ItemCode Is Null
+    if (itemCode === null || itemCode === undefined || itemCode === "") {
     } else {
-      if (typeSent === "TypeSent02") {
-        setShowDialogItemMaster(false);
-      }
-      // Get Token
-      var token = GetCookies(UserLogin);
-      // Get EventCode
-      var eventCode = ConcatStringEvent(FistCode, EventSeachItemMaster);
-      // Setting Data Seach Area
-      var formData = new FormData();
-      formData.append("Token", token);
-      formData.append("UserID", window.localStorage.getItem("UserID"));
-      formData.append("RoleID", window.localStorage.getItem("RoleEmployer"));
-      formData.append("EventCode", eventCode);
-      formData.append("TotalItemMaster", 0);
-      formData.append("MessageError", null);
-      formData.append("Status", true);
-      formData.append("KeySeach", itemCode);
-      formData.append("CompanyCode", CompanyCode);
-      formData.append("StoreCode", storecode);
-      formData.append("ListItemMaster", []);
+      if (storecode === "0" || storecode === undefined) {
+        SetMessageError("Please Choose A Store!");
+      } else {
+        // Hide Dialog Get All ItemMaster
+        if (typeSent === "TypeSent02") {
+          setShowDialogItemMaster(false);
+        }
+        // Show loading dialog
+        SetShow(true);
+        // Get Token
+        var token = GetCookies(UserLogin);
+        // Get EventCode
+        var eventCode = ConcatStringEvent(FistCode, EventSeachItemMaster);
+        // Setting Data Seach Area
+        var formData = new FormData();
+        formData.append("Token", token);
+        formData.append("UserID", window.localStorage.getItem("UserID"));
+        formData.append("RoleID", window.localStorage.getItem("RoleEmployer"));
+        formData.append("EventCode", eventCode);
+        formData.append("TotalItemMaster", 0);
+        formData.append("MessageError", null);
+        formData.append("Status", true);
+        formData.append("KeySeach", itemCode);
+        formData.append("CompanyCode", CompanyCode);
+        formData.append("StoreCode", storecode);
+        formData.append("ListItemMaster", []);
 
-      // Call Api Get ItemMaster By ItemCode
-      const resultData = await HandleSeachItemMasterUpdate(formData);
+        // Call Api Get ItemMaster By ItemCode
+        const resultData = await HandleSeachItemMasterUpdate(formData);
+
+        // Hide loading Dialog
+        SetShow(false);
+
+        // Result
+        if (resultData.Status === false) {
+          SetMessageError(resultData.MessageError);
+        } else {
+          dispatch(
+            ItemMasterReducer.actions.SeachItemMaster(resultData.ListItemMaster)
+          );
+        }
+      }
     }
     return;
   };
@@ -563,7 +584,23 @@ function CreateItemMaster() {
             </InputGroup>
           </Form.Group>
         </Col>
-        <Col xs={2}></Col>
+        <Col xs={2}>
+          <Form.Group>
+            <img
+              className="imgDefault"
+              src={state_ImageDefault}
+              alt="zkteco-k14-Default"
+              border="0"
+            />
+          </Form.Group>
+          <Form.Group>
+            <InputGroup className="mb-3">
+              <Button variant="outline-primary" style={{ width: "100%" }}>
+                <FontAwesomeIcon icon={faPenToSquare} /> Update
+              </Button>
+            </InputGroup>
+          </Form.Group>
+        </Col>
       </Row>
       <p className="messageError">{state_MessageError}</p>
       <Row>

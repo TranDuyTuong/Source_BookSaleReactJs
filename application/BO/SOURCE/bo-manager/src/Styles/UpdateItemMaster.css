@@ -63,3 +63,6 @@ td {
 .fuilterItemMaster {
   height: fit-content;
 }
+.imgDefault {
+  width: -webkit-fill-available;
+}
