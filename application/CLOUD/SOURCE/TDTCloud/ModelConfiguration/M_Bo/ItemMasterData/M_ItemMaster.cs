@@ -10,6 +10,15 @@ namespace ModelConfiguration.M_Bo.ItemMasterData
     public class M_ItemMaster
     {
         /// <summary>
+        /// Id
+        /// </summary>
+        public Guid Id 
+        { 
+            get; 
+            set; 
+        }
+
+        /// <summary>
         /// CompanyCode
         /// </summary>
         public string CompanyCode

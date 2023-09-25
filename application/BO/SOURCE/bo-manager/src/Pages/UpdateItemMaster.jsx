@@ -16,6 +16,7 @@ import {
   faSquareCaretLeft,
   faEllipsis,
   faPenToSquare,
+  faBan,
 } from "@fortawesome/free-solid-svg-icons";
 import "../Styles/UpdateItemMaster.css";
 import {
@@ -46,7 +47,10 @@ import {
 import {
   InitializaDataSelect,
   DispayItemForm,
+  ValidationItemMasterUpdate,
+  ValidationCharacterItemMasterUpdate,
 } from "../Validations/ValidationUpdateItemMaster";
+import { Update } from "../Contants/DataContant";
 
 // Main Function
 function CreateItemMaster() {
@@ -210,7 +214,8 @@ function CreateItemMaster() {
     } else {
       // Update StoreCode for ItemMaster
       if (e === 0 || e === "0") {
-        SetMessageError("Please Choose A Store!");
+        toast.error("Please Choose A Store!");
+        SetDefaulStore(e);
       } else {
         SetDefaulStore(e);
       }
@@ -221,7 +226,8 @@ function CreateItemMaster() {
   // Handle Select Author
   const HandleSelectAuthor = (e) => {
     if (e === 0 || e === "0") {
-      SetMessageError("Please Choose A Author!");
+      toast.error("Please Choose A Author!");
+      SetDefaultAuthor(e);
     } else {
       SetDefaultAuthor(e);
     }
@@ -231,7 +237,8 @@ function CreateItemMaster() {
   // Handle Select PublishingCompany
   const HandleSelectPublishingCompany = (e) => {
     if (e === 0 || e === "0") {
-      SetMessageError("Please Choose A Publishing Company!");
+      toast.error("Please Choose A Publishing Company!");
+      SetDefaultPublishingCompany(e);
     } else {
       SetDefaultPublishingCompany(e);
     }
@@ -241,7 +248,8 @@ function CreateItemMaster() {
   // Handle Select Category
   const HandleSelectCategory = (e) => {
     if (e === 0 || e === "0") {
-      SetMessageError("Please Choose A Category!");
+      toast.error("Please Choose A Category!");
+      SetDefaultCategory(e);
     } else {
       SetDefaultCategory(e);
     }
@@ -249,9 +257,11 @@ function CreateItemMaster() {
   };
 
   // Handle Click Row Item In Table
-  const HandleClickRowItem = (e) => {
+  const HandleClickRowItem = (itemcode, applydate) => {
     SetMessageError("");
-    const findItemCode = ListItemMasterMain.find((item) => item.ItemCode === e);
+    const findItemCode = ListItemMasterMain.find(
+      (item) => item.ItemCode === itemcode && item.ApplyDate === applydate
+    );
 
     if (findItemCode !== undefined) {
       btnUpdate.current.disabled = false;
@@ -397,8 +407,109 @@ function CreateItemMaster() {
 
   // Handle Update ItemMaster
   const HandleUpdateItemMasterUI = (itemcode, applydate) => {
-    toast.error(itemcode);
+    if (itemcode === null || itemcode === "" || itemcode === undefined) {
+      toast.error("ItemCode Is Not Null!");
+      return;
+    }
+    // VALIDATION DATA ITEMMASTER
+    var itemMaster_Vali = {
+      ItemCode: itemcode,
+      Applydate: applydate,
+      Description: state_Description,
+      DescriptionLong: state_DescriptionLong,
+      DescriptionShort: state_DescriptionShort,
+      Quantity: state_Quantity,
+      Size: state_Size,
+      Note: state_Note,
+      StoreCode: state_DefaulStore,
+      AuthorID: state_DefaulAuthor,
+      CategoryItemMasterID: state_DefaultCategory,
+      PublishingCompanyID: state_DefaultPublishingCompany,
+      TypeOf: Update,
+    };
+
+    // Validation Class 1
+    const resultVali = ValidationItemMasterUpdate(itemMaster_Vali);
+    if (resultVali.Status === false) {
+      // Error Fail Validation
+      toast.error(resultVali.MessageError);
+      document.getElementById(resultVali.IdElement).focus();
+      return;
+    }
+
+    // Validation Class 2
+    const resultValiCharacter =
+      ValidationCharacterItemMasterUpdate(itemMaster_Vali);
+    if (resultValiCharacter.Status === false) {
+      // Error Fail Validation
+      toast.error(resultValiCharacter.MessageError);
+      document.getElementById(resultValiCharacter.IdElement).focus();
+      return;
+    }
+
+    // VALIDATION ITEMMASTER SUCCESS UPDATE ITEMMASTER In REDUX
+    dispatch(ItemMasterReducer.actions.UpdateItemMasterShort(itemMaster_Vali));
+    toast.success(
+      "Update ItemCode: " +
+        itemcode +
+        " , Have Applydate: " +
+        applydate +
+        " Success"
+    );
+    // Reset
+    const storeSelect = document.getElementById("Btn_DisplayStore");
+    storeSelect.selectedIndex = [...storeSelect.options].findIndex(
+      (option) => option.text === "Select Store"
+    );
+    SetDefaulStore("0");
+    SetDefaultAuthor("0");
+    SetDefaultCategory("0");
+    SetDefaultPublishingCompany("0");
+
+    // Set Data in Form
+    DispayItemForm(0);
+    btnUpdate.current.disabled = true;
+    document.getElementById("Btn_ItemCode").disabled = false;
+    document.getElementById("Btn_ItemCode").focus();
+    SetItemCode("");
+    SetDescription("");
+    SetDescriptionLong("");
+    SetDescriptionShort("");
+    SetQuantity("");
+    SetSize("");
+    SetNote("");
+    SetMessageError("");
   };
+
+  // Handle Cancel ItemMaster
+  const HandleCancelItemMasterUI = (e) => {
+    // Reset
+    const storeSelect = document.getElementById("Btn_DisplayStore");
+    storeSelect.selectedIndex = [...storeSelect.options].findIndex(
+      (option) => option.text === "Select Store"
+    );
+    SetDefaulStore("0");
+    SetDefaultAuthor("0");
+    SetDefaultCategory("0");
+    SetDefaultPublishingCompany("0");
+
+    // Set Data in Form
+    DispayItemForm(0);
+    btnUpdate.current.disabled = true;
+    document.getElementById("Btn_ItemCode").disabled = false;
+    document.getElementById("Btn_ItemCode").focus();
+    SetItemCode("");
+    SetDescription("");
+    SetDescriptionLong("");
+    SetDescriptionShort("");
+    SetQuantity("");
+    SetSize("");
+    SetNote("");
+    SetMessageError("");
+  };
+
+  // Handle Confirm ItemMaster
+  const HandleConfirmItemMasterUI = (e) => {};
 
   return (
     <Container fluid className="fixedPotionArea">
@@ -612,20 +723,30 @@ function CreateItemMaster() {
         <Col xs={2}>
           <Form.Group>
             {state_ImageDefault !== null && (
-              <img className="imgDefault" src={state_ImageDefault} border="0" />
+              <img
+                className="imgDefault"
+                alt={state_ImageDefault}
+                src={state_ImageDefault}
+                border="0"
+              />
             )}
           </Form.Group>
           <Form.Group>
-            <InputGroup className="mb-3">
+            <InputGroup className="mb-12">
               <Button
                 variant="outline-primary"
-                style={{ width: "100%" }}
                 onClick={(e) =>
                   HandleUpdateItemMasterUI(state_ItemCode, state_MessageError)
                 }
                 ref={btnUpdate}
               >
                 <FontAwesomeIcon icon={faPenToSquare} /> Update
+              </Button>
+              <Button
+                variant="outline-danger"
+                onClick={(e) => HandleCancelItemMasterUI()}
+              >
+                <FontAwesomeIcon icon={faBan} /> Cancel
               </Button>
             </InputGroup>
           </Form.Group>
@@ -652,8 +773,10 @@ function CreateItemMaster() {
               <tbody>
                 {ListItemMasterMain.map((item) => (
                   <tr
-                    key={item.ItemCode}
-                    onClick={(e) => HandleClickRowItem(item.ItemCode)}
+                    key={item.Id}
+                    onClick={(e) =>
+                      HandleClickRowItem(item.ItemCode, item.ApplyDate)
+                    }
                   >
                     <td>{item.ItemCode}</td>
                     <td>{item.StoreCode}</td>
@@ -663,7 +786,12 @@ function CreateItemMaster() {
                     <td>{item.priceSale}</td>
                     <td>{item.PublishingCompanyID}</td>
                     <td>{item.Description}</td>
-                    <td>{item.TypeOf}</td>
+                    {(item.TypeOf === Update && (
+                      <td style={{ color: "red" }}>{item.TypeOf}</td>
+                    )) ||
+                      (item.TypeOf === null && (
+                        <td style={{ color: "blue" }}>---</td>
+                      ))}
                   </tr>
                 ))}
               </tbody>
@@ -673,7 +801,11 @@ function CreateItemMaster() {
       </Row>
       <p className="alinebuttonsetting">
         {ListItemMasterMain.length !== 0 && (
-          <Button variant="success" className="btn_setting">
+          <Button
+            variant="success"
+            className="btn_setting"
+            onClick={(e) => HandleConfirmItemMasterUI()}
+          >
             <FontAwesomeIcon icon={faSquareCheck} /> Confirm
           </Button>
         )}

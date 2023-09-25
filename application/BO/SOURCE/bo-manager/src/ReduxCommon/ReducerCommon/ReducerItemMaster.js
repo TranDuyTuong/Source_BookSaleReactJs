@@ -78,7 +78,26 @@ export const ItemMasterReducer = createSlice({
         findItemMaster.OldType = action.payload.OldType;
       }
     },
-    UpdateItemMasterShort: (state, action) => {},
-    SeachItemMaterShort: (state, action) => {},
+    UpdateItemMasterShort: (state, action) => {
+      const findItemMaster = state.ListItemMaster.find(
+        (item) =>
+          item.ItemCode === action.payload.ItemCode &&
+          item.ApplyDate === action.payload.Applydate
+      );
+
+      // Not Null
+      if (findItemMaster !== undefined) {
+        findItemMaster.Description = action.payload.Description;
+        findItemMaster.DescriptionShort = action.payload.DescriptionShort;
+        findItemMaster.DescriptionLong = action.payload.DescriptionLong;
+        findItemMaster.CategoryItemMasterID =
+          action.payload.CategoryItemMasterID;
+        findItemMaster.AuthorID = action.payload.AuthorID;
+        findItemMaster.size = action.payload.size;
+        findItemMaster.PublishingCompanyID = action.payload.PublishingCompanyID;
+        findItemMaster.Note = action.payload.Note;
+        findItemMaster.TypeOf = action.payload.TypeOf;
+      }
+    },
   },
 });

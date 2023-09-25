@@ -1096,6 +1096,8 @@ namespace ConfigurationApplycations.BoSystem
                                 // ItemMaster Data
                                 var itemMasterData = new M_ItemMaster()
                                 {
+                                    CompanyCode = request.CompanyCode,
+                                    Id = Guid.NewGuid(),
                                     ItemCode = reader["ItemCode"].ToString(),
                                     Description = reader["Description"].ToString(),
                                     DescriptionLong = reader["DescriptionLong"].ToString(),
