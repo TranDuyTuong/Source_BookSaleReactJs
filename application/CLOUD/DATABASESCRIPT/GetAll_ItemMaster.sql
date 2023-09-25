@@ -8,7 +8,7 @@ GO
 CREATE PROC [dbo].[GetAll_ItemMaster]
 @StoreCode nvarchar(10)
 AS
-IF @StoreCode = NULL
+IF @StoreCode = '0'
 	SELECT ItemMasters.ItemCode, ItemMasters.CompanyCode, ItemMasters.StoreCode, ItemMasters.Description
 	FROM TXTCloud.dbo.ItemMasters 
 	WHERE dbo.ItemMasters.IsDeleteFlag = 0 AND dbo.ItemMasters.IsSale = 1

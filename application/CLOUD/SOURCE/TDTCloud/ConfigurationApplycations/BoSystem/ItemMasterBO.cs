@@ -1107,6 +1107,7 @@ namespace ConfigurationApplycations.BoSystem
                                     Quantity = Convert.ToInt32(reader["Quantity"].ToString()),
                                     size = reader["size"].ToString(),
                                     Note = reader["Note"].ToString(),
+                                    ApplyDate = Convert.ToDateTime(reader["ApplyDate"].ToString()),
                                     ImageItemMaster = urlDefaultImage
                                 };
 

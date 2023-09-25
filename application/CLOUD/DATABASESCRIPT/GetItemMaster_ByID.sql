@@ -16,7 +16,8 @@ AS
 		 Quantity int, 
 		 size nvarchar(100), 
 		 Note nvarchar(MAX),
-		 ImageDefault nvarchar(MAX)
+		 ImageDefault nvarchar(MAX),
+		 ApplyDate datetime2(7)
 	 )
 INSERT INTO @ItemMasterByID (
 		 ItemCode, 
@@ -29,7 +30,8 @@ INSERT INTO @ItemMasterByID (
 		 PublishingCompanyID, 
 		 Quantity, 
 		 size, 
-		 Note	 
+		 Note,
+		 ApplyDate
 	 )
 SELECT TXTCloud.dbo.ItemMasters.ItemCode, 
 		TXTCloud.dbo.ItemMasters.Description, 
@@ -41,7 +43,8 @@ SELECT TXTCloud.dbo.ItemMasters.ItemCode,
 		TXTCloud.dbo.ItemMasters.PublishingCompanyID, 
 		TXTCloud.dbo.ItemMasters.Quantity, 
 		TXTCloud.dbo.ItemMasters.size, 
-		TXTCloud.dbo.ItemMasters.Note
+		TXTCloud.dbo.ItemMasters.Note,
+		TXTCloud.dbo.ItemMasters.ApplyDate
 FROM TXTCloud.dbo.ItemMasters 
  WHERE ItemCode = @itemCode AND StoreCode = @storeCode AND IsDeleteFlag = 0 --FALSE
 

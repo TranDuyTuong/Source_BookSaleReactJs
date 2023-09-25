@@ -8,6 +8,8 @@ import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import Table from "react-bootstrap/Table";
 import Modal from "react-bootstrap/Modal";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSquareCheck,
@@ -50,10 +52,7 @@ import {
 function CreateItemMaster() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  // Setting Button
-  const btn_Update = useRef(null);
-  const btn_Image = useRef(null);
+  const btnUpdate = useRef();
 
   // Call url old in redux
   const OldUrldata = useSelector((item) => item.oldUrl.ListoldUrlItem);
@@ -170,10 +169,20 @@ function CreateItemMaster() {
           const response = await HandleGetInitializaItemMaster(formData);
           if (response.Status === true) {
             const initializaDataSelect = InitializaDataSelect(
-              response.ListStore
+              response.ListStore,
+              response.ListAuthor,
+              response.ListCategory,
+              response.ListPublishingCompany
             );
             // List Select Store
             SetListStore(initializaDataSelect.listStore);
+            // List Select Author
+            SetListAuthor(initializaDataSelect.listAuthor);
+            // List Select PublishingCompany
+            SetPublishingCompany(initializaDataSelect.listPublishingCompany);
+            // List Select Category
+            SetListCategory(initializaDataSelect.listCategory);
+            document.getElementById("Btn_ItemCode").focus();
           } else {
             SetListStore([]);
             SetMessageError(response.MessageError);
@@ -181,6 +190,7 @@ function CreateItemMaster() {
         }
         InitializaData();
       }
+      btnUpdate.current.disabled = true;
       // reset List ItemMaster in Redux
       dispatch(ItemMasterReducer.actions.SeachItemMaster([]));
     };
@@ -244,8 +254,10 @@ function CreateItemMaster() {
     const findItemCode = ListItemMasterMain.find((item) => item.ItemCode === e);
 
     if (findItemCode !== undefined) {
+      btnUpdate.current.disabled = false;
+      DispayItemForm(1);
+      document.getElementById("Btn_ItemCode").disabled = true;
       // Set Data in Form
-      btn_Image.current.disabled = false;
       SetItemCode(findItemCode.ItemCode);
       SetDescription(findItemCode.Description);
       SetDescriptionLong(findItemCode.DescriptionLong);
@@ -253,13 +265,13 @@ function CreateItemMaster() {
       SetQuantity(findItemCode.Quantity);
       SetSize(findItemCode.size);
       SetNote(findItemCode.Note);
+      SetMessageError(findItemCode.ApplyDate);
       // Set Select Defaul
       SetDefaulStore(findItemCode.StoreCode);
       SetDefaultAuthor(findItemCode.AuthorID);
       SetDefaultCategory(findItemCode.CategoryItemMasterID);
       SetDefaultPublishingCompany(findItemCode.PublishingCompanyID);
-      // An Display Button Update
-      btn_Update.current.disabled = false;
+      SetImageDefault(findItemCode.ImageItemMaster.UrlImageDefault);
     } else {
       SetMessageError("Not Find ItemCode, Please Try Again!");
     }
@@ -270,6 +282,8 @@ function CreateItemMaster() {
     SetMessageError("");
     // Validation ItemCode Is Null
     if (itemCode === null || itemCode === undefined || itemCode === "") {
+      SetMessageError("ItemCode Not Null!");
+      document.getElementById("Btn_ItemCode").focus();
     } else {
       if (storecode === "0" || storecode === undefined) {
         SetMessageError("Please Choose A Store!");
@@ -306,8 +320,14 @@ function CreateItemMaster() {
 
         // Result
         if (resultData.Status === false) {
+          SetItemCode("");
           SetMessageError(resultData.MessageError);
+          document.getElementById("Btn_ItemCode").focus();
+          SetDefaulStore("0");
         } else {
+          SetItemCode("");
+          document.getElementById("Btn_ItemCode").focus();
+          SetDefaulStore("0");
           dispatch(
             ItemMasterReducer.actions.SeachItemMaster(resultData.ListItemMaster)
           );
@@ -373,6 +393,11 @@ function CreateItemMaster() {
     SetMessageError("");
     setShowDialogItemMaster(false);
     SetListItemMaster([]);
+  };
+
+  // Handle Update ItemMaster
+  const HandleUpdateItemMasterUI = (itemcode, applydate) => {
+    toast.error(itemcode);
   };
 
   return (
@@ -586,16 +611,20 @@ function CreateItemMaster() {
         </Col>
         <Col xs={2}>
           <Form.Group>
-            <img
-              className="imgDefault"
-              src={state_ImageDefault}
-              alt="zkteco-k14-Default"
-              border="0"
-            />
+            {state_ImageDefault !== null && (
+              <img className="imgDefault" src={state_ImageDefault} border="0" />
+            )}
           </Form.Group>
           <Form.Group>
             <InputGroup className="mb-3">
-              <Button variant="outline-primary" style={{ width: "100%" }}>
+              <Button
+                variant="outline-primary"
+                style={{ width: "100%" }}
+                onClick={(e) =>
+                  HandleUpdateItemMasterUI(state_ItemCode, state_MessageError)
+                }
+                ref={btnUpdate}
+              >
                 <FontAwesomeIcon icon={faPenToSquare} /> Update
               </Button>
             </InputGroup>
@@ -718,6 +747,7 @@ function CreateItemMaster() {
           </Button>
         </Modal.Footer>
       </Modal>
+      <ToastContainer />
     </Container>
   );
 }
