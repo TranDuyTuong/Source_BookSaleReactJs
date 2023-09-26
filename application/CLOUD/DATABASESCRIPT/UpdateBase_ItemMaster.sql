@@ -1,17 +1,17 @@
 CREATE PROCEDURE UpdateBase_ItemMaster
-@StoreCode nvarchar(10),
-@ItemCode nvarchar(26),
-@ApplyDate datetime2(7),
-@Description nvarchar(50),
-@DescriptionShort nvarchar(25),
-@DescriptionLong nvarchar(100),
-@Quantity int,
-@CategoryItemMasterID nvarchar(MAX),
-@AuthorID nvarchar(MAX),
-@size nvarchar(100),
-@PublishingCompanyID nvarchar(MAX),
-@Note nvarchar(MAX),
-@UserID nvarchar(MAX)
+@StoreCode				nvarchar(10),
+@ItemCode				nvarchar(26),
+@ApplyDate				datetime2(7),
+@Description			nvarchar(50),
+@DescriptionShort		nvarchar(25),
+@DescriptionLong		nvarchar(100),
+@Quantity				int,
+@CategoryItemMasterID	nvarchar(MAX),
+@AuthorID				nvarchar(MAX),
+@size					nvarchar(100),
+@PublishingCompanyID	nvarchar(MAX),
+@Note					nvarchar(MAX),
+@UserID					nvarchar(MAX)
 AS
 BEGIN
 -- Update ItemMaster
@@ -29,7 +29,9 @@ SET
 	Note = @Note, 
 	UserID = @UserID,
 	LastUpdateDate = GETDATE()
-WHERE TXTCloud.dbo.ItemMasters.ItemCode = @ItemCode AND TXTCloud.dbo.ItemMasters.ApplyDate = @ApplyDate
+WHERE 
+		TXTCloud.dbo.ItemMasters.ItemCode = @ItemCode 
+	AND TXTCloud.dbo.ItemMasters.ApplyDate = @ApplyDate
 
 -- Insert Log Update
 INSERT INTO TXTCloud.dbo.Logs(
