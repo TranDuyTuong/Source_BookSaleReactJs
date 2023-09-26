@@ -100,6 +100,15 @@ namespace ModelConfiguration.M_Bo.ItemMasterData
         }
 
         /// <summary>
+        /// OTPControl (0 => create, 1 => update base, 2 => delete)
+        /// </summary>
+        public int OTPControl
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// ListItemMaster
         /// </summary>
         public List<M_ItemMaster> ListItemMaster

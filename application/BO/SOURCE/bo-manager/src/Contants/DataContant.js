@@ -252,3 +252,8 @@ export const Detail = "DETAIL";
 export const post = "post";
 
 export const get = "get";
+
+// OTP Control ItemMaster
+export const Create_ItemMaster = 0;
+export const UpdateBase_ItemMaster = 1;
+export const Delete_ItemMaster = 2;

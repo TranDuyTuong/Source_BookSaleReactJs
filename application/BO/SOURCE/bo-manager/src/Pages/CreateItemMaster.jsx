@@ -45,7 +45,13 @@ import {
   HandleValidationItemCode,
   HandleInsertItemMaster,
 } from "../ApiLablary/ItemMasterApi";
-import { Create, Delete, Update, Revert } from "../Contants/DataContant";
+import {
+  Create,
+  Delete,
+  Update,
+  Revert,
+  Create_ItemMaster,
+} from "../Contants/DataContant";
 import {
   ValidationItemMaster,
   ChangeBackroundValidationSuccess,
@@ -1050,6 +1056,7 @@ function CreateItemMaster() {
     formData.append("Status", true);
     formData.append("KeySeach", jsonItemMasterInsert);
     formData.append("CompanyCode", CompanyCode);
+    formData.append("OTPControl", Create_ItemMaster);
     formData.append("ListItemMaster", []);
 
     // Call Api Confirm Insert ItemMaster

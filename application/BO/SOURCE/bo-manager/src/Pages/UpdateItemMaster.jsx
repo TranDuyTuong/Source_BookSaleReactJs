@@ -509,7 +509,10 @@ function CreateItemMaster() {
   };
 
   // Handle Confirm ItemMaster
-  const HandleConfirmItemMasterUI = (e) => {};
+  const HandleConfirmItemMasterUI = (e) => {
+    // create new list itemMaster Update
+    const listUpdateItemMaster = [];
+  };
 
   return (
     <Container fluid className="fixedPotionArea">
