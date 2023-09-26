@@ -173,9 +173,9 @@ export function ValidationItemMasterUpdate(dataVali) {
   }
 
   if (
-    dataVali.Size === null ||
-    dataVali.Size === undefined ||
-    dataVali.Size === ""
+    dataVali.size === null ||
+    dataVali.size === undefined ||
+    dataVali.size === ""
   ) {
     result.Status = false;
     result.IdElement = "Btn_DisplaySize";
@@ -234,7 +234,7 @@ export function ValidationCharacterItemMasterUpdate(dataVali) {
     result.MessageError = "Content DescriptionShort must small than 25 !";
   }
 
-  if (dataVali.Size.length > 100) {
+  if (dataVali.size.length > 100) {
     result.Status = false;
     result.IdElement = "Btn_DisplaySize";
     result.MessageError = "Content Size must small than 100 !";

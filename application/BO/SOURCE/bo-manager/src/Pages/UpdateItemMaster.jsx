@@ -43,6 +43,7 @@ import { ItemMasterReducer } from "../ReduxCommon/ReducerCommon/ReducerItemMaste
 import {
   HandleSeachItemMasterUpdate,
   HandleGetAllItemMaster,
+  HandleUpdateBaseItemMaster,
 } from "../ApiLablary/ItemMasterApi";
 import {
   InitializaDataSelect,
@@ -50,7 +51,7 @@ import {
   ValidationItemMasterUpdate,
   ValidationCharacterItemMasterUpdate,
 } from "../Validations/ValidationUpdateItemMaster";
-import { Update } from "../Contants/DataContant";
+import { Update, UpdateBase_ItemMaster } from "../Contants/DataContant";
 
 // Main Function
 function CreateItemMaster() {
@@ -419,7 +420,7 @@ function CreateItemMaster() {
       DescriptionLong: state_DescriptionLong,
       DescriptionShort: state_DescriptionShort,
       Quantity: state_Quantity,
-      Size: state_Size,
+      size: state_Size,
       Note: state_Note,
       StoreCode: state_DefaulStore,
       AuthorID: state_DefaulAuthor,
@@ -479,6 +480,7 @@ function CreateItemMaster() {
     SetSize("");
     SetNote("");
     SetMessageError("");
+    SetImageDefault("");
   };
 
   // Handle Cancel ItemMaster
@@ -509,9 +511,84 @@ function CreateItemMaster() {
   };
 
   // Handle Confirm ItemMaster
-  const HandleConfirmItemMasterUI = (e) => {
+  const HandleConfirmItemMasterUI = async (e) => {
     // create new list itemMaster Update
     const listUpdateItemMaster = [];
+    // Get Data In List Redux
+    ListItemMasterMain.forEach(function (item) {
+      if (item.TypeOf === Update) {
+        const itemMaster = {
+          CompanyCode: item.CompanyCode,
+          StoreCode: item.StoreCode,
+          ItemCode: item.ItemCode,
+          ApplyDate: item.ApplyDate,
+          Description: item.Description,
+          DescriptionShort: item.DescriptionShort,
+          DescriptionLong: item.DescriptionLong,
+          CategoryItemMasterID: item.CategoryItemMasterID,
+          AuthorID: item.AuthorID,
+          PublishingCompanyID: item.PublishingCompanyID,
+          Note: item.Note,
+          size: item.size,
+          Quantity: item.Quantity,
+          UserID: window.localStorage.getItem("UserID"),
+        };
+        listUpdateItemMaster.push(itemMaster);
+      }
+    });
+
+    if (listUpdateItemMaster.length !== 0) {
+      // Conver Array to Json
+      var jsonItemMasterUpdate = JSON.stringify(listUpdateItemMaster);
+      // Get Token
+      var token = GetCookies(UserLogin);
+      // Get EventCode
+      var eventCode = ConcatStringEvent(FistCode, EventUpdateItemMaster);
+      // Setting Data Seach Area
+      var formData = new FormData();
+      formData.append("Token", token);
+      formData.append("UserID", window.localStorage.getItem("UserID"));
+      formData.append("RoleID", window.localStorage.getItem("RoleEmployer"));
+      formData.append("EventCode", eventCode);
+      formData.append("TotalItemMaster", 0);
+      formData.append("MessageError", null);
+      formData.append("Status", true);
+      formData.append("KeySeach", jsonItemMasterUpdate);
+      formData.append("CompanyCode", CompanyCode);
+      formData.append("StoreCode", null);
+      formData.append("OTPControl", UpdateBase_ItemMaster);
+      formData.append("ListItemMaster", []);
+
+      // Call Api
+      SetShow(true);
+      const resultUpdate = await HandleUpdateBaseItemMaster(formData);
+      SetShow(false);
+
+      if (resultUpdate.Status === false) {
+        // Update Fail
+        SetMessageError(resultUpdate.MessageError);
+      } else {
+        // Update Success
+        toast.success("Update ItemMaster Success!");
+      }
+    }
+
+    // Set Data in Form
+    DispayItemForm(0);
+    btnUpdate.current.disabled = true;
+    document.getElementById("Btn_ItemCode").disabled = false;
+    document.getElementById("Btn_ItemCode").focus();
+    SetItemCode("");
+    SetDescription("");
+    SetDescriptionLong("");
+    SetDescriptionShort("");
+    SetQuantity("");
+    SetSize("");
+    SetNote("");
+    SetImageDefault("");
+    // reset List ItemMaster in Redux
+    dispatch(ItemMasterReducer.actions.SeachItemMaster([]));
+    return;
   };
 
   return (

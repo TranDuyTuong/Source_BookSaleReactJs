@@ -97,6 +97,8 @@ export const ItemMasterReducer = createSlice({
         findItemMaster.PublishingCompanyID = action.payload.PublishingCompanyID;
         findItemMaster.Note = action.payload.Note;
         findItemMaster.TypeOf = action.payload.TypeOf;
+        findItemMaster.Quantity = action.payload.Quantity;
+        findItemMaster.StoreCode = action.payload.StoreCode;
       }
     },
   },
