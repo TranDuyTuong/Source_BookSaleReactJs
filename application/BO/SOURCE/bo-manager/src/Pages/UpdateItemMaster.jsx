@@ -54,7 +54,7 @@ import {
 import { Update, UpdateBase_ItemMaster } from "../Contants/DataContant";
 
 // Main Function
-function CreateItemMaster() {
+function UpdateItemMaster() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const btnUpdate = useRef();
@@ -964,4 +964,4 @@ function CreateItemMaster() {
   );
 }
 
-export default CreateItemMaster;
+export default UpdateItemMaster;

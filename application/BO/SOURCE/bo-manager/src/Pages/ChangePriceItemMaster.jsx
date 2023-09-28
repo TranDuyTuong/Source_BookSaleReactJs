@@ -45,19 +45,13 @@ import {
   HandleGetAllItemMaster,
   HandleUpdateBaseItemMaster,
 } from "../ApiLablary/ItemMasterApi";
-import {
-  InitializaDataSelect,
-  DispayItemForm,
-  ValidationItemMasterUpdate,
-  ValidationCharacterItemMasterUpdate,
-} from "../Validations/ValidationUpdateItemMaster";
+import { InitializaDataSelect } from "../Validations/ValidationChangePriceItemMaster";
 import { Update, UpdateBase_ItemMaster } from "../Contants/DataContant";
 
 // Main Function
-function CreateItemMaster() {
+function ChangePriceItemMaster() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const btnUpdate = useRef();
 
   // Call url old in redux
   const OldUrldata = useSelector((item) => item.oldUrl.ListoldUrlItem);
@@ -69,22 +63,13 @@ function CreateItemMaster() {
   // Show Store Select
   const [state_ListStore, SetListStore] = useState([]);
   const [state_DefaulStore, SetDefaulStore] = useState("0");
-
-  // Show And Hide Dialog Choose ItemMaster
-  const [showDialogItemMaster, setShowDialogItemMaster] = useState(false);
-  // State get All ItemMaster When Seach
-  const [state_ListItemMaster, SetListItemMaster] = useState([]);
-  // Message waining
-  const [state_MessageWaining, SetMessageWaining] = useState("");
-
   // Message Error
   const [state_MessageError, SetMessageError] = useState("");
-  // Show And Hide Loading Data
-  const [state_Show, SetShow] = useState(false);
-
-  // Create ItemMaster
-  const [state_ItemCode, SetItemCode] = useState("");
-  const [state_Description, SetDescription] = useState("");
+  // Show Loading Dialog
+  const [Show, SetShow] = useState(false);
+  const [DialogGetItemMaster, SetDialogGetItemMaster] = useState(false);
+  // Show list ItemMaster Affter Fuilter
+  const [ListItemMaster, SetListItemMaster] = useState([]);
 
   useEffect(() => {
     // Call Api Check Validation Token And Role User
@@ -106,7 +91,7 @@ function CreateItemMaster() {
       var resultCheckRole = await HandleCheckRoleStaff(formData);
       if (resultCheckRole.Status === true) {
         // var OldURL = window.localStorage.getItem("oldURL");
-        toast.error(resultCheckRole.Message);
+        alert(resultCheckRole.Message);
         // User Don't have Role
         if (OldUrldata[0] === window.location.origin) {
           // redirect to Login Pgae
@@ -123,8 +108,8 @@ function CreateItemMaster() {
         dispatch(OldURLReducer.actions.AddUrl("/updateitemmaster"));
         window.localStorage.setItem("oldURL", "/updateitemmaster");
         // Setting Title Page
-        document.title = "Change Price Item Maters";
-        SetListStore([]);
+        document.title = "Update Item Maters";
+
         // Initializa Item Master, get all store
         async function InitializaData() {
           // Get Token
@@ -150,12 +135,13 @@ function CreateItemMaster() {
           const response = await HandleGetInitializaItemMaster(formData);
           if (response.Status === true) {
             const initializaDataSelect = InitializaDataSelect(
-              response.ListStore
+              response.ListStore,
+              response.ListAuthor,
+              response.ListCategory,
+              response.ListPublishingCompany
             );
             // List Select Store
             SetListStore(initializaDataSelect.listStore);
-
-            document.getElementById("Btn_ItemCode").focus();
           } else {
             SetListStore([]);
             SetMessageError(response.MessageError);
@@ -163,7 +149,6 @@ function CreateItemMaster() {
         }
         InitializaData();
       }
-      btnUpdate.current.disabled = true;
       // reset List ItemMaster in Redux
       dispatch(ItemMasterReducer.actions.SeachItemMaster([]));
     };
@@ -176,27 +161,76 @@ function CreateItemMaster() {
   };
 
   // Handle Select Store
-  const HandleSelectStore = (e) => {
-    // Update StoreCode for ItemMaster
-    if (e === 0 || e === "0") {
-      toast.error("Please Choose A Store!");
+  const HandleSelectStore = (e, type) => {
+    if (type === "Type01") {
+      // Select store for seach ItemMaster By StoreCode
       SetDefaulStore(e);
     } else {
-      SetDefaulStore(e);
+      // Update StoreCode for ItemMaster
+      if (e === 0 || e === "0") {
+        toast.error("Please Choose A Store!");
+        SetDefaulStore(e);
+      } else {
+        SetDefaulStore(e);
+      }
     }
     return;
   };
 
-  // Handle Seach ItemCode
+  // Show dialog get all ItemMaster
+  const HandleShowGetAllItemMaster = (e) => {
+    SetDialogGetItemMaster(true);
+    SetDefaulStore("0");
+  };
+
+  // Handle Fuilter ItemMaster
+  const HandleFilterItemMaster = async (e) => {
+    if (state_DefaulStore === "0") {
+      toast.error("Please Choose A Store!");
+    } else {
+      SetMessageError("");
+      // Get Token
+      var token = GetCookies(UserLogin);
+      // Get EventCode
+      var eventCode = ConcatStringEvent(FistCode, EventGetAllItemMaster);
+      // Setting Data Seach Area
+      var formData = new FormData();
+      formData.append("Token", token);
+      formData.append("UserID", window.localStorage.getItem("UserID"));
+      formData.append("RoleID", window.localStorage.getItem("RoleEmployer"));
+      formData.append("EventCode", eventCode);
+      formData.append("MessageError", null);
+      formData.append("Status", true);
+      formData.append("StoreCode", state_DefaulStore);
+      formData.append("CompanyCode", CompanyCode);
+
+      // Call Api
+      SetShow(true);
+      const result = await HandleGetAllItemMaster(formData);
+      SetShow(false);
+
+      if (result.Status === true) {
+        if (result.TotalItemMaster === 0) {
+          toast.success(result.MessageError);
+        }
+        // render list itemMaster In UI
+        SetListItemMaster(result.ListItemMaster);
+      } else {
+        toast.error(result.MessageError);
+      }
+    }
+    return;
+  };
+
+  // Handle Seach ItemMaster
   const HandleSeachItemCodeUI = async (itemCode, storecode) => {
     SetMessageError("");
     // Validation ItemCode Is Null
     if (itemCode === null || itemCode === undefined || itemCode === "") {
-      SetMessageError("ItemCode Not Null!");
-      document.getElementById("Btn_ItemCode").focus();
+      toast.error("ItemCode Not Null!");
     } else {
       if (storecode === "0" || storecode === undefined) {
-        SetMessageError("Please Choose A Store!");
+        toast.error("Please Choose A Store!");
       } else {
         // Show loading dialog
         SetShow(true);
@@ -217,22 +251,15 @@ function CreateItemMaster() {
         formData.append("CompanyCode", CompanyCode);
         formData.append("StoreCode", storecode);
         formData.append("ListItemMaster", []);
-
         // Call Api Get ItemMaster By ItemCode
         const resultData = await HandleSeachItemMasterUpdate(formData);
-
         // Hide loading Dialog
         SetShow(false);
-
         // Result
         if (resultData.Status === false) {
-          SetItemCode("");
           SetMessageError(resultData.MessageError);
-          document.getElementById("Btn_ItemCode").focus();
           SetDefaulStore("0");
         } else {
-          SetItemCode("");
-          document.getElementById("Btn_ItemCode").focus();
           SetDefaulStore("0");
           dispatch(
             ItemMasterReducer.actions.SeachItemMaster(resultData.ListItemMaster)
@@ -240,65 +267,8 @@ function CreateItemMaster() {
         }
       }
     }
+    SetDialogGetItemMaster(false);
     return;
-  };
-
-  // Handle Show Dialog Get All ItemMaster UI
-  const HandleShowDialogGetAllItemMasterUI = async (e) => {
-    const storeSelect = document.getElementById("Btn_DisplayStore");
-    storeSelect.selectedIndex = [...storeSelect.options].findIndex(
-      (option) => option.text === "Select Store"
-    );
-    SetDefaulStore("0");
-    setShowDialogItemMaster(true);
-    SetListItemMaster([]);
-  };
-
-  // Handle GetAll ItemMaster
-  const HandleGetAllItemMasterUI = async (e) => {
-    SetMessageError("");
-    // Get Token
-    var token = GetCookies(UserLogin);
-    // Get EventCode
-    var eventCode = ConcatStringEvent(FistCode, EventGetAllItemMaster);
-    // Setting Data Seach Area
-    var formData = new FormData();
-    formData.append("Token", token);
-    formData.append("UserID", window.localStorage.getItem("UserID"));
-    formData.append("RoleID", window.localStorage.getItem("RoleEmployer"));
-    formData.append("EventCode", eventCode);
-    formData.append("MessageError", null);
-    formData.append("Status", true);
-    formData.append("StoreCode", state_DefaulStore);
-    formData.append("CompanyCode", CompanyCode);
-
-    // Call Api
-    const result = await HandleGetAllItemMaster(formData);
-    if (result.Status === true) {
-      if (result.TotalItemMaster === 0) {
-        SetMessageWaining(result.MessageError);
-      } else {
-        SetMessageWaining(result.TotalItemMaster);
-      }
-      // render list itemMaster In UI
-      SetListItemMaster(result.ListItemMaster);
-    } else {
-      SetMessageError(result.MessageError);
-    }
-  };
-
-  // Handle Close Dialog Filter ItemMaster
-  const HandleCloseDialogFilterItemMaster = (e) => {
-    const storeSelect = document.getElementById("Btn_DisplayStore");
-    storeSelect.selectedIndex = [...storeSelect.options].findIndex(
-      (option) => option.text === "Select Store"
-    );
-    SetDefaulStore("0");
-
-    SetMessageWaining("");
-    SetMessageError("");
-    setShowDialogItemMaster(false);
-    SetListItemMaster([]);
   };
 
   return (
@@ -307,11 +277,11 @@ function CreateItemMaster() {
         <Button
           type="button"
           variant="light"
-          onClick={() => HandleBackMenuUI()}
+          onClick={(e) => HandleBackMenuUI()}
         >
           <FontAwesomeIcon icon={faSquareCaretLeft} /> Back
         </Button>
-        | Update Item Master
+        | Change Price Item Master
       </h3>
       <Row>
         <Col xs={3}>
@@ -322,49 +292,101 @@ function CreateItemMaster() {
             </p>
             <InputGroup className="mb-3">
               <Form.Control
-                id="Btn_ItemCode"
-                value={state_ItemCode}
+                id="Txt_ItemCode"
                 placeholder="Enter ItemCode ..."
-                onChange={(e) => SetItemCode(e.target.value)}
               />
               <Button
                 variant="outline-primary"
-                onClick={(e) => HandleShowDialogGetAllItemMasterUI()}
+                onClick={(e) => HandleShowGetAllItemMaster()}
               >
                 <FontAwesomeIcon icon={faEllipsis} />
               </Button>
-              <Button
-                variant="outline-secondary"
-                onClick={(e) =>
-                  HandleSeachItemCodeUI(
-                    state_ItemCode,
-                    "TypeSent01",
-                    state_DefaulStore
-                  )
-                }
-              >
-                Seach
-              </Button>
+              <Button variant="outline-secondary">Seach</Button>
             </InputGroup>
 
-            {/* input Description */}
+            {/* Apply Date */}
+            <p className="titleItem">
+              Apply Date <span className="itemNotNull">*</span>
+            </p>
+            <InputGroup className="mb-3">
+              <Form.Control id="Txt_Applydate" type="datetime-local" />
+            </InputGroup>
+
+            {/* Description */}
             <p className="titleItem">
               Description <span className="itemNotNull">*</span>
             </p>
             <InputGroup className="mb-3">
               <Form.Control
-                placeholder="Enter Name Item ..."
-                aria-describedby="basic-addon2"
-                id="Btn_DisplayDescription"
-                onChange={(e) => SetDescription(e.target.value)}
-                value={state_Description}
+                id="Txt_Description"
+                type="text"
+                placeholder="Enter Description ..."
               />
             </InputGroup>
           </Form.Group>
         </Col>
-        <Col xs={4}></Col>
-        <Col xs={3}></Col>
-        <Col xs={2}></Col>
+        <Col xs={3}>
+          <Form.Group>
+            {/* corner price */}
+            <p className="titleItem">
+              Corner Price <span className="itemNotNull">*</span>
+            </p>
+            <InputGroup className="mb-3">
+              <Form.Control
+                id="Txt_cornerprice"
+                type="text"
+                placeholder="Enter Corner Price ..."
+              />
+            </InputGroup>
+
+            {/* price sale */}
+            <p className="titleItem">
+              Price Sale <span className="itemNotNull">*</span>
+            </p>
+            <InputGroup className="mb-3">
+              <Form.Control
+                id="Txt_cornerprice"
+                type="text"
+                placeholder="Enter Corner Price ..."
+              />
+            </InputGroup>
+
+            {/* percent discount */}
+            <p className="titleItem">
+              Percent Discount <span className="itemNotNull">*</span>
+            </p>
+            <InputGroup className="mb-3">
+              <Form.Control
+                id="Txt_cornerprice"
+                type="number"
+                placeholder="Enter Percent Discount ..."
+              />
+            </InputGroup>
+          </Form.Group>
+        </Col>
+        <Col xs={3}>
+          <Form.Group>
+            {/* corner price */}
+            <p className="titleItem">
+              Store <span className="itemNotNull">*</span>
+            </p>
+            <InputGroup className="mb-3">
+              <Form.Control
+                id="Txt_cornerprice"
+                type="text"
+                placeholder="Store"
+              />
+            </InputGroup>
+            <InputGroup className="mb-3">
+              <Button variant="outline-primary" className="btncontrol">
+                <FontAwesomeIcon icon={faPenToSquare} /> Update
+              </Button>
+              <Button variant="outline-danger" className="btncontrol">
+                <FontAwesomeIcon icon={faBan} /> Cancel
+              </Button>
+            </InputGroup>
+          </Form.Group>
+        </Col>
       </Row>
       <p className="messageError">{state_MessageError}</p>
       <Row>
@@ -377,7 +399,7 @@ function CreateItemMaster() {
                   <th>Store</th>
                   <th>Apply Date</th>
                   <th>Description</th>
-                  <th>Price Origin</th>
+                  <th>Corner Price</th>
                   <th>Price Sale</th>
                   <th>Percent Discount</th>
                   <th>Status</th>
@@ -390,26 +412,22 @@ function CreateItemMaster() {
       </Row>
       <p className="alinebuttonsetting">
         {ListItemMasterMain.length !== 0 && (
-          <Button
-            variant="success"
-            className="btn_setting"
-            onClick={(e) => HandleConfirmItemMasterUI()}
-          >
+          <Button variant="success" className="btn_setting">
             <FontAwesomeIcon icon={faSquareCheck} /> Confirm
           </Button>
         )}
       </p>
       {/* Show And Hide Laoding Data */}
-      {state_Show && <LoadingModal />}
+      {Show && <LoadingModal />}
       {/* Dialog list itemMaster */}
-      <Modal show={showDialogItemMaster}>
+      <Modal show={DialogGetItemMaster}>
         <Modal.Header className="backroundModal">
           <InputGroup className="mb-3">
             <Form.Select
               id="Btn_DisplayStore"
               className="selectstore mb-3"
               value={state_DefaulStore}
-              onChange={(e) => HandleSelectStore(e.target.value, "Type01")}
+              onChange={(e) => HandleSelectStore(e.target.value)}
             >
               {state_ListStore.map((item) => (
                 <option key={item.StoreCode} value={item.StoreCode}>
@@ -420,17 +438,16 @@ function CreateItemMaster() {
             <Button
               className="fuilterItemMaster"
               variant="outline-primary"
-              onClick={(e) => HandleGetAllItemMasterUI()}
+              onClick={(e) => HandleFilterItemMaster(state_DefaulStore)}
             >
               Filter
             </Button>
           </InputGroup>
         </Modal.Header>
         <Modal.Body className="backroundModal sizeBody">
-          <p className="MessageWaining">{state_MessageWaining}</p>
           <Table bordered hover>
             <tbody>
-              {state_ListItemMaster.map((item) => (
+              {ListItemMaster.map((item) => (
                 <tr key={item.ItemCode}>
                   <td>
                     <p className="buttonChoose">{item.ItemCode} </p>
@@ -445,7 +462,6 @@ function CreateItemMaster() {
                         onClick={(e) =>
                           HandleSeachItemCodeUI(
                             item.ItemCode,
-                            "TypeSent02",
                             state_DefaulStore
                           )
                         }
@@ -460,12 +476,7 @@ function CreateItemMaster() {
           </Table>
         </Modal.Body>
         <Modal.Footer className="backroundModal">
-          <Button
-            variant="secondary"
-            onClick={() => HandleCloseDialogFilterItemMaster()}
-          >
-            Close
-          </Button>
+          <Button variant="secondary">Close</Button>
         </Modal.Footer>
       </Modal>
       <ToastContainer />
@@ -473,4 +484,4 @@ function CreateItemMaster() {
   );
 }
 
-export default CreateItemMaster;
+export default ChangePriceItemMaster;

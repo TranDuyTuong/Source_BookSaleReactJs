@@ -144,6 +144,7 @@ export const ListButtonMain = [
     id: "Main_07",
     buttonName: "Change Price Item Master",
     stylebutton: "outline-primary",
+    buttonUrl: "/changepriceitemmaster",
     eventCode: EventChangePriceItemMaster,
   },
 ];
