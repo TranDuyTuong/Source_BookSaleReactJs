@@ -1,0 +1,68 @@
+.titleItem {
+  text-align: left;
+  margin: 0px 3px;
+  font-family: initial;
+  font-weight: 600;
+  font-size: 13px;
+}
+.MessageWaining {
+  text-align: right;
+  font-family: initial;
+  color: red;
+}
+.sizeBody {
+  height: 450px;
+  overflow: auto;
+}
+
+.itemNotNull {
+  color: red;
+  font-weight: 600;
+}
+.customtableCreateItemMaster {
+  overflow: auto;
+  height: 270px;
+}
+.headerItemMaster {
+  font-family: initial;
+  font-size: 13px;
+}
+.decorationTypeDelete {
+  color: gray;
+  text-decoration: line-through red;
+}
+.itemIconImage {
+  color: green;
+  text-align: right;
+  font-size: 20px;
+}
+.inputUrlImage {
+  height: 100px;
+  white-space: pre;
+}
+.backroundModal {
+  background: white;
+}
+table {
+  width: 100%;
+}
+
+table thead tr th {
+  /* Important */
+  top: 0;
+}
+
+td {
+  /* Not required only for visualizing */
+  padding: 1em;
+}
+.buttonChoose {
+  text-align: center;
+  margin: 0px 0px;
+}
+.fuilterItemMaster {
+  height: fit-content;
+}
+.imgDefault {
+  width: 235px;
+}
