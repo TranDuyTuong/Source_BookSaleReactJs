@@ -1,3 +1,4 @@
+import React from "react";
 import { validationLogin } from "./Object";
 import {
   messageNullEmail,
@@ -12,6 +13,10 @@ import {
 } from "../ApiLablary/ValidationApi";
 import { messageTimeOutToken } from "../MessageCommon/Message";
 import { HandleInitializaItemMaster } from "../ApiLablary/ItemMasterApi";
+import MaskedInput from "react-text-mask";
+import createNumberMask from "text-mask-addons/dist/createNumberMask";
+import PropTypes from "prop-types";
+import { VND } from "../Contants/DataContant";
 
 // Validation Input
 export function ValidationInput(email, password) {
@@ -113,4 +118,49 @@ export const HandleCheckTimeOut = () => {
 export const HandleGetInitializaItemMaster = async (info) => {
   const result = await HandleInitializaItemMaster(info);
   return result;
+};
+
+// Conver Money From Input Form
+const defaultMaskOptions = {
+  prefix: "",
+  suffix: " " + VND,
+  includeThousandsSeparator: true,
+  thousandsSeparatorSymbol: ",",
+  allowDecimal: true,
+  decimalSymbol: ".",
+  decimalLimit: 2, // how many digits allowed after the decimal
+  integerLimit: 7, // limit length of integer numbers
+  allowNegative: false,
+  allowLeadingZeroes: false,
+};
+
+export const CurrencyInputMoney = ({ maskOptions, ...inputProps }) => {
+  const currencyMask = createNumberMask({
+    ...defaultMaskOptions,
+    ...maskOptions,
+  });
+
+  return <MaskedInput mask={currencyMask} {...inputProps} />;
+};
+
+CurrencyInputMoney.defaultProps = {
+  inputMode: "numeric",
+  maskOptions: {},
+};
+
+CurrencyInputMoney.propTypes = {
+  inputmode: PropTypes.string,
+  maskOptions: PropTypes.shape({
+    prefix: PropTypes.string,
+    suffix: PropTypes.string,
+    includeThousandsSeparator: PropTypes.bool,
+    thousandsSeparatorSymbol: PropTypes.string,
+    allowDecimal: PropTypes.bool,
+    decimalSymbol: PropTypes.string,
+    decimalLimit: PropTypes.string,
+    requireDecimal: PropTypes.bool,
+    allowNegative: PropTypes.bool,
+    allowLeadingZeroes: PropTypes.bool,
+    integerLimit: PropTypes.number,
+  }),
 };

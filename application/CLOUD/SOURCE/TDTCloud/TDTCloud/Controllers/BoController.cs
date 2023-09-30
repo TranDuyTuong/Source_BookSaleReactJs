@@ -751,6 +751,95 @@ namespace TDTCloud.Controllers
         }
 
         /// <summary>
+        /// SeachUpdatePriceItemMaster
+        /// </summary>
+        /// <param name="seachItemMaster"></param>
+        /// <returns></returns>
+        [HttpPost("SeachUpdatePriceItemMaster")]
+        public async Task<IActionResult> SeachUpdatePriceItemMaster([FromForm] M_ListItemMaster seachItemMaster)
+        {
+            string result = null;
+            // Conver Object to Json
+            string request = ConverToJson<M_ListItemMaster>.ConverObjectToJson(seachItemMaster);
+
+            // Conver Json to Object
+            var dataConver = ConverToJson<M_ListItemMaster>.ConverJsonToObject(request);
+            if (dataConver != null)
+            {
+                // Check event code
+                var ev = ValidationEventCode.CheckEventCode(dataConver.EventCode);
+
+                if (ev.Status == true)
+                {
+                    // Check Token Null
+                    if (dataConver.Token == null || dataConver.Token == "")
+                    {
+                        var tokenNull = new M_ListItemMaster()
+                        {
+                            Status = false,
+                            MessageError = CommonConfiguration.DataCommon.MessageNullToken
+
+                        };
+
+                        // Conver Object to json
+                        result = ConverToJson<M_ListItemMaster>.ConverObjectToJson(tokenNull);
+                    }
+                    else
+                    {
+                        // Check Content Token
+                        var f_CheckValidationToken = new ValidationToken();
+                        var tokenResult = f_CheckValidationToken.ReadContentToken(dataConver.Token, ev.IdPlugin);
+                        if (tokenResult.Status == false)
+                        {
+                            var resultContent = new M_ListItemMaster()
+                            {
+                                Status = tokenResult.Status,
+                                Token = dataConver.Token,
+                                EventCode = DataCommon.EventError
+
+                            };
+                            result = ConverToJson<M_ListItemMaster>.ConverObjectToJson(resultContent);
+                        }
+                        else
+                        {
+                            // Seach Update ItemMaster To DB
+                            var seachResult = await this.itemMasterBO.GetItemMasterUpdatePriceById(dataConver);
+                            // Conver Object to json
+                            result = ConverToJson<M_ListItemMaster>.ConverObjectToJson(seachResult);
+                        }
+                    }
+                }
+                else
+                {
+                    var errorEventCode = new M_ListItemMaster()
+                    {
+                        Status = false,
+                        EventCode = DataCommon.EventError,
+                        Token = dataConver.Token,
+                        MessageError = CommonConfiguration.DataCommon.MessageErrorEvent
+                    };
+
+                    // Conver Object to Json
+                    result = ConverToJson<M_ListItemMaster>.ConverObjectToJson(errorEventCode);
+                }
+            }
+            else
+            {
+                var nullData = new M_ListItemMaster()
+                {
+                    Status = false,
+                    EventCode = DataCommon.EventError,
+                    Token = dataConver.Token,
+                    MessageError = CommonConfiguration.DataCommon.MessageNullData
+                };
+
+                // Conver Object to Json
+                result = ConverToJson<M_ListItemMaster>.ConverObjectToJson(nullData);
+            }
+            return Ok(result);
+        }
+
+        /// <summary>
         /// GetAllItemMaster
         /// </summary>
         /// <param name="getItemMaster"></param>

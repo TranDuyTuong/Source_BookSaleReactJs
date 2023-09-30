@@ -24,6 +24,7 @@ import {
   ConcatStringEvent,
   HandleGetInitializaItemMaster,
   HandleCheckRoleStaff,
+  CurrencyInputMoney,
 } from "../ObjectCommon/FunctionCommon";
 import {
   CompanyCode,
@@ -41,9 +42,8 @@ import { useNavigate } from "react-router-dom";
 import { OldURLReducer } from "../ReduxCommon/ReducerCommon/ReducerURL";
 import { ItemMasterReducer } from "../ReduxCommon/ReducerCommon/ReducerItemMaster";
 import {
-  HandleSeachItemMasterUpdate,
   HandleGetAllItemMaster,
-  HandleUpdateBaseItemMaster,
+  HandleSeachItemMasterUpdatePrice,
 } from "../ApiLablary/ItemMasterApi";
 import { InitializaDataSelect } from "../Validations/ValidationChangePriceItemMaster";
 import { Update, UpdateBase_ItemMaster } from "../Contants/DataContant";
@@ -225,6 +225,7 @@ function ChangePriceItemMaster() {
   // Handle Seach ItemMaster
   const HandleSeachItemCodeUI = async (itemCode, storecode) => {
     SetMessageError("");
+    SetDialogGetItemMaster(false);
     // Validation ItemCode Is Null
     if (itemCode === null || itemCode === undefined || itemCode === "") {
       toast.error("ItemCode Not Null!");
@@ -252,7 +253,7 @@ function ChangePriceItemMaster() {
         formData.append("StoreCode", storecode);
         formData.append("ListItemMaster", []);
         // Call Api Get ItemMaster By ItemCode
-        const resultData = await HandleSeachItemMasterUpdate(formData);
+        const resultData = await HandleSeachItemMasterUpdatePrice(formData);
         // Hide loading Dialog
         SetShow(false);
         // Result
@@ -332,10 +333,10 @@ function ChangePriceItemMaster() {
               Corner Price <span className="itemNotNull">*</span>
             </p>
             <InputGroup className="mb-3">
-              <Form.Control
-                id="Txt_cornerprice"
+              <CurrencyInputMoney
+                placeholder="0 VND"
                 type="text"
-                placeholder="Enter Corner Price ..."
+                className="inputPrice"
               />
             </InputGroup>
 
@@ -344,10 +345,10 @@ function ChangePriceItemMaster() {
               Price Sale <span className="itemNotNull">*</span>
             </p>
             <InputGroup className="mb-3">
-              <Form.Control
-                id="Txt_cornerprice"
+              <CurrencyInputMoney
+                placeholder="0 VND"
                 type="text"
-                placeholder="Enter Corner Price ..."
+                className="inputPrice"
               />
             </InputGroup>
 

@@ -1329,6 +1329,135 @@ namespace ConfigurationApplycations.BoSystem
             }
             return result;
         }
+
+
+        /// <summary>
+        /// GetItemMasterUpdatePriceById
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task<M_ListItemMaster> GetItemMasterUpdatePriceById(M_ListItemMaster request)
+        {
+            var result = new M_ListItemMaster();
+            try
+            {
+                // Check CompanyCode
+                bool isCompanyCode = this.contactCommon.ValidationCompanyCode(request.CompanyCode);
+
+                if (isCompanyCode == true)
+                {
+                    // Check Role User Handle
+                    bool isRole = await this.contactCommon.ValidationRoleUserLimit(request.RoleID, request.UserID, request.EventCode);
+
+                    if (isRole == true)
+                    {
+                        // Don't have role handle
+                        result.Token = request.Token;
+                        result.UserID = request.UserID;
+                        result.RoleID = request.RoleID;
+                        result.EventCode = request.EventCode;
+                        result.TotalItemMaster = 0;
+                        result.KeySeach = null;
+                        result.CompanyCode = request.CompanyCode;
+                        result.Status = false;
+                        result.MessageError = CommonConfiguration.DataCommon.MessageRoleUserLimit;
+                    }
+                    else
+                    {
+                        List<M_ItemMaster> listItemMaster = new List<M_ItemMaster>();
+                        // Get ItemMaster update price By ItemCode By StoredProcedure
+                        // Get Connectionstring
+                        SqlConnection con = new SqlConnection();
+                        con.ConnectionString = this.configuration["ConnectionStrings:TXTCloud"];
+                        con.Open();
+                        using (var sqlcmd = con.CreateCommand())
+                        {
+                            sqlcmd.CommandText = "GetItemMasterUpdatePrice_ByID";
+                            sqlcmd.Parameters.AddWithValue("@itemCode", request.KeySeach);
+                            sqlcmd.Parameters.AddWithValue("@storeCode", request.StoreCode);
+                            sqlcmd.CommandType = System.Data.CommandType.StoredProcedure;
+                            var reader = sqlcmd.ExecuteReader();
+                            while (reader.Read())
+                            {
+                                // ItemMaster Data
+                                var itemMasterData = new M_ItemMaster()
+                                {
+                                    CompanyCode = request.CompanyCode,
+                                    Id = Guid.NewGuid(),
+                                    ItemCode = reader["ItemCode"].ToString(),
+                                    StoreCode = reader["StoreCode"].ToString(),
+                                    Description = reader["Description"].ToString(),
+                                    ApplyDate = Convert.ToDateTime(reader["ApplyDate"].ToString()),
+                                    PriceOrigin = Convert.ToDecimal(reader["PriceOrigin"].ToString()),
+                                    priceSale = Convert.ToDecimal(reader["PriceSale"].ToString()),
+                                    PercentDiscount = Convert.ToInt32(reader["PercentDiscount"].ToString())
+                                };
+
+                                // Add ItemMaster Result 
+                                listItemMaster.Add(itemMasterData);
+                            }
+                        }
+                        con.Close();
+
+                        // Result ItemMaster Data
+                        if (listItemMaster.Any() == true)
+                        {
+                            result.CompanyCode = request.CompanyCode;
+                            result.Token = request.Token;
+                            result.UserID = request.UserID;
+                            result.RoleID = request.RoleID;
+                            result.EventCode = request.EventCode;
+                            result.TotalItemMaster = listItemMaster.Count();
+                            result.KeySeach = request.KeySeach;
+                            result.CompanyCode = request.CompanyCode;
+                            result.Status = true;
+                            result.MessageError = null;
+                            result.ListItemMaster = listItemMaster;
+                        }
+                        else
+                        {
+                            result.Token = request.Token;
+                            result.UserID = request.UserID;
+                            result.RoleID = request.RoleID;
+                            result.EventCode = request.EventCode;
+                            result.TotalItemMaster = 0;
+                            result.KeySeach = null;
+                            result.CompanyCode = request.CompanyCode;
+                            result.Status = false;
+                            result.MessageError = CommonConfiguration.DataCommon.MessageNotFindData;
+                        }
+                    }
+                }
+                else
+                {
+                    // Don't Find CompanyCode
+                    result.Token = request.Token;
+                    result.UserID = request.UserID;
+                    result.RoleID = request.RoleID;
+                    result.EventCode = request.EventCode;
+                    result.TotalItemMaster = 0;
+                    result.KeySeach = null;
+                    result.CompanyCode = request.CompanyCode;
+                    result.Status = false;
+                    result.MessageError = CommonConfiguration.DataCommon.MessageNotFindCompanyCode;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Token = request.Token;
+                result.UserID = request.UserID;
+                result.RoleID = request.RoleID;
+                result.EventCode = request.EventCode;
+                result.TotalItemMaster = 0;
+                result.KeySeach = null;
+                result.CompanyCode = request.CompanyCode;
+                result.Status = false;
+                result.MessageError = ex.Message;
+            }
+            return result;
+        }
     }
 
     public class ResultStoreProceducer

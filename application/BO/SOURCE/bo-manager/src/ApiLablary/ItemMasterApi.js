@@ -7,6 +7,7 @@ import {
   GetAllItemMaster_Post,
   SeachUpdateItemMaster_Post,
   UpdateItemMaster_Post,
+  SeachItemMasterUpdatePrice_Post,
 } from "../ObjectCommon/ApiCommon";
 import { post } from "../Contants/DataContant";
 
@@ -81,5 +82,15 @@ export const HandleSeachItemMasterUpdate = async (request) => {
 // Handle Update Base ItemMaster
 export const HandleUpdateBaseItemMaster = async (request) => {
   const data = await ItemMasterAPI(request, UpdateItemMaster_Post, post);
+  return data;
+};
+
+// Handle Seach ItemMaster Update Price
+export const HandleSeachItemMasterUpdatePrice = async (request) => {
+  const data = await ItemMasterAPI(
+    request,
+    SeachItemMasterUpdatePrice_Post,
+    post
+  );
   return data;
 };

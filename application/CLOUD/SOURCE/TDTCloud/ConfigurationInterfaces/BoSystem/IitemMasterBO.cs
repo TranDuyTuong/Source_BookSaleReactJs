@@ -47,6 +47,13 @@ namespace ConfigurationInterfaces.BoSystem
         Task<M_ListItemMaster> GetItemMasterById(M_ListItemMaster request);
 
         /// <summary>
+        /// GetItemMasterUpdatePriceById
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        Task<M_ListItemMaster> GetItemMasterUpdatePriceById(M_ListItemMaster request);
+
+        /// <summary>
         /// ConfirmItemMaster
         /// </summary>
         /// <param name="request"></param>

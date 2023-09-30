@@ -45,3 +45,6 @@ export const SeachUpdateItemMaster_Post = "/Bo/SeachUpdateItemMaster";
 
 // UpdateItemMaster_Post
 export const UpdateItemMaster_Post = "/Bo/ConfirmItemMaster";
+
+// SeachItemMasterUpdatePrice_Post
+export const SeachItemMasterUpdatePrice_Post = "/Bo/SeachUpdatePriceItemMaster";
