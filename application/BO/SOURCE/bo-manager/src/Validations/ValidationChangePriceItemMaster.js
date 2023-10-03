@@ -2,45 +2,23 @@
 export function DispayItemForm(status) {
   // status is 1 => AnDisplay selector
   if (status === 1) {
-    document.getElementById("Btn_DisplayDescription").disabled = false;
-    document.getElementById("Btn_DisplayDescriptionLong").disabled = false;
-    document.getElementById("Btn_DisplayDescriptionShort").disabled = false;
-    document.getElementById("Btn_DisplayQuantity").disabled = false;
-    document.getElementById("Btn_DisplayCategory").disabled = false;
-    document.getElementById("Btn_DisplayPublishingCompany").disabled = false;
-    document.getElementById("Btn_DisplayAuthor").disabled = false;
-    document.getElementById("Btn_DisplaySize").disabled = false;
-    document.getElementById("Btn_DisplayNote").disabled = false;
+    document.getElementById("Txt_Applydate").disabled = false;
+    document.getElementById("Txt_CornerPrice").disabled = false;
+    document.getElementById("Txt_PriceSale").disabled = false;
+    document.getElementById("Txt_PercentDiscount").disabled = false;
+    document.getElementById("Txt_Description").disabled = false;
+    document.getElementById("Btn_Update").disabled = false;
+    document.getElementById("Btn_Cancel").disabled = false;
   }
   // status is 0 => Display selector
   if (status === 0) {
-    document.getElementById("Btn_DisplayDescription").disabled = true;
-    document.getElementById("Btn_DisplayDescriptionLong").disabled = true;
-    document.getElementById("Btn_DisplayDescriptionShort").disabled = true;
-    document.getElementById("Btn_DisplayQuantity").disabled = true;
-    document.getElementById("Btn_DisplayCategory").disabled = true;
-    document.getElementById("Btn_DisplayPublishingCompany").disabled = true;
-    document.getElementById("Btn_DisplayAuthor").disabled = true;
-    document.getElementById("Btn_DisplaySize").disabled = true;
-    document.getElementById("Btn_DisplayNote").disabled = true;
-    const storeSelect = document.getElementById("Btn_DisplayStore");
-    storeSelect.selectedIndex = [...storeSelect.options].findIndex(
-      (option) => option.text === "Select Store"
-    );
-    const authorSelect = document.getElementById("Btn_DisplayAuthor");
-    authorSelect.selectedIndex = [...authorSelect.options].findIndex(
-      (option) => option.text === "Select Author"
-    );
-    const categorySelect = document.getElementById("Btn_DisplayCategory");
-    categorySelect.selectedIndex = [...categorySelect.options].findIndex(
-      (option) => option.text === "Select Category"
-    );
-    const publishingCompanySelect = document.getElementById(
-      "Btn_DisplayPublishingCompany"
-    );
-    publishingCompanySelect.selectedIndex = [
-      ...publishingCompanySelect.options,
-    ].findIndex((option) => option.text === "Select PublishingCompany");
+    document.getElementById("Txt_Applydate").disabled = true;
+    document.getElementById("Txt_CornerPrice").disabled = true;
+    document.getElementById("Txt_PriceSale").disabled = true;
+    document.getElementById("Txt_PercentDiscount").disabled = true;
+    document.getElementById("Txt_Description").disabled = true;
+    document.getElementById("Btn_Update").disabled = true;
+    document.getElementById("Btn_Cancel").disabled = true;
   }
 }
 

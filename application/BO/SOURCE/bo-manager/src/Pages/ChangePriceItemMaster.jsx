@@ -45,7 +45,10 @@ import {
   HandleGetAllItemMaster,
   HandleSeachItemMasterUpdatePrice,
 } from "../ApiLablary/ItemMasterApi";
-import { InitializaDataSelect } from "../Validations/ValidationChangePriceItemMaster";
+import {
+  InitializaDataSelect,
+  DispayItemForm,
+} from "../Validations/ValidationChangePriceItemMaster";
 import { Update, UpdateBase_ItemMaster } from "../Contants/DataContant";
 
 // Main Function
@@ -70,6 +73,14 @@ function ChangePriceItemMaster() {
   const [DialogGetItemMaster, SetDialogGetItemMaster] = useState(false);
   // Show list ItemMaster Affter Fuilter
   const [ListItemMaster, SetListItemMaster] = useState([]);
+
+  // State ItemCode
+  const [stateItemCode, SetItemCode] = useState("");
+  const [stateApplydate, SetApplydate] = useState("");
+  const [stateCornerPrice, SetCornerPrice] = useState("");
+  const [statePriceSale, SetPriceSale] = useState("");
+  const [statePercentDiscount, SetPercentDiscount] = useState("");
+  const [stateDescription, SetDescription] = useState("");
 
   useEffect(() => {
     // Call Api Check Validation Token And Role User
@@ -135,10 +146,7 @@ function ChangePriceItemMaster() {
           const response = await HandleGetInitializaItemMaster(formData);
           if (response.Status === true) {
             const initializaDataSelect = InitializaDataSelect(
-              response.ListStore,
-              response.ListAuthor,
-              response.ListCategory,
-              response.ListPublishingCompany
+              response.ListStore
             );
             // List Select Store
             SetListStore(initializaDataSelect.listStore);
@@ -262,6 +270,7 @@ function ChangePriceItemMaster() {
           SetDefaulStore("0");
         } else {
           SetDefaulStore("0");
+          SetItemCode("");
           dispatch(
             ItemMasterReducer.actions.SeachItemMaster(resultData.ListItemMaster)
           );
@@ -269,6 +278,29 @@ function ChangePriceItemMaster() {
       }
     }
     SetDialogGetItemMaster(false);
+    return;
+  };
+
+  // Handle Select Row In Table
+  const HandleClickRowTable = (itemcode, applydate) => {
+    const findItemMaster = ListItemMasterMain.find(
+      (item) => item.itemCode === itemcode && item.ApplyDate === applydate
+    );
+
+    if (findItemMaster !== undefined) {
+      // Set data into UI
+      SetItemCode(findItemMaster.ItemCode);
+      SetDefaulStore(findItemMaster.StoreCode);
+      SetApplydate(findItemMaster.ApplyDate);
+      SetCornerPrice(findItemMaster.PriceOrigin);
+      SetPriceSale(findItemMaster.priceSale);
+      SetPercentDiscount(findItemMaster.PercentDiscount);
+      SetDescription(findItemMaster.Description);
+    } else {
+      toast.error(
+        "Not Find ItemCode: " + itemcode + " Have ApplyDate " + applydate
+      );
+    }
     return;
   };
 
@@ -293,6 +325,10 @@ function ChangePriceItemMaster() {
             </p>
             <InputGroup className="mb-3">
               <Form.Control
+                value={stateItemCode}
+                onChange={(e) => {
+                  SetItemCode(e.target.value);
+                }}
                 id="Txt_ItemCode"
                 placeholder="Enter ItemCode ..."
               />
@@ -302,7 +338,33 @@ function ChangePriceItemMaster() {
               >
                 <FontAwesomeIcon icon={faEllipsis} />
               </Button>
-              <Button variant="outline-secondary">Seach</Button>
+              <Button
+                variant="outline-secondary"
+                onClick={(e) =>
+                  HandleSeachItemCodeUI(stateItemCode, state_DefaulStore)
+                }
+              >
+                Seach
+              </Button>
+            </InputGroup>
+
+            {/* Select store */}
+            <p className="titleItem">
+              Select Store <span className="itemNotNull">*</span>
+            </p>
+            <InputGroup className="mb-3">
+              <Form.Select
+                id="Btn_DisplayStore"
+                className="selectstore"
+                value={state_DefaulStore}
+                onChange={(e) => HandleSelectStore(e.target.value)}
+              >
+                {state_ListStore.map((item) => (
+                  <option key={item.StoreCode} value={item.StoreCode}>
+                    {item.Description}
+                  </option>
+                ))}
+              </Form.Select>
             </InputGroup>
 
             {/* Apply Date */}
@@ -310,18 +372,11 @@ function ChangePriceItemMaster() {
               Apply Date <span className="itemNotNull">*</span>
             </p>
             <InputGroup className="mb-3">
-              <Form.Control id="Txt_Applydate" type="datetime-local" />
-            </InputGroup>
-
-            {/* Description */}
-            <p className="titleItem">
-              Description <span className="itemNotNull">*</span>
-            </p>
-            <InputGroup className="mb-3">
               <Form.Control
-                id="Txt_Description"
-                type="text"
-                placeholder="Enter Description ..."
+                value={stateApplydate}
+                onChange={(e) => SetApplydate(e.target.value)}
+                id="Txt_Applydate"
+                type="datetime-local"
               />
             </InputGroup>
           </Form.Group>
@@ -334,6 +389,9 @@ function ChangePriceItemMaster() {
             </p>
             <InputGroup className="mb-3">
               <CurrencyInputMoney
+                value={stateCornerPrice}
+                onChange={(e) => SetCornerPrice(e.target.value)}
+                id="Txt_CornerPrice"
                 placeholder="0 VND"
                 type="text"
                 className="inputPrice"
@@ -346,6 +404,10 @@ function ChangePriceItemMaster() {
             </p>
             <InputGroup className="mb-3">
               <CurrencyInputMoney
+                disabled
+                value={statePriceSale}
+                onChange={(e) => SetPriceSale(e.target.value)}
+                id="Txt_PriceSale"
                 placeholder="0 VND"
                 type="text"
                 className="inputPrice"
@@ -358,7 +420,9 @@ function ChangePriceItemMaster() {
             </p>
             <InputGroup className="mb-3">
               <Form.Control
-                id="Txt_cornerprice"
+                value={statePercentDiscount}
+                onChange={(e) => SetPercentDiscount(e.target.value)}
+                id="Txt_PercentDiscount"
                 type="number"
                 placeholder="Enter Percent Discount ..."
               />
@@ -367,22 +431,33 @@ function ChangePriceItemMaster() {
         </Col>
         <Col xs={3}>
           <Form.Group>
-            {/* corner price */}
+            {/* Description */}
             <p className="titleItem">
-              Store <span className="itemNotNull">*</span>
+              Description <span className="itemNotNull">*</span>
             </p>
             <InputGroup className="mb-3">
               <Form.Control
-                id="Txt_cornerprice"
+                disabled
+                value={stateDescription}
+                onChange={(e) => SetDescription(e.target.value)}
+                id="Txt_Description"
                 type="text"
-                placeholder="Store"
+                placeholder="Enter Description ..."
               />
             </InputGroup>
             <InputGroup className="mb-3">
-              <Button variant="outline-primary" className="btncontrol">
+              <Button
+                variant="outline-primary"
+                className="btncontrol"
+                id="Btn_Update"
+              >
                 <FontAwesomeIcon icon={faPenToSquare} /> Update
               </Button>
-              <Button variant="outline-danger" className="btncontrol">
+              <Button
+                variant="outline-danger"
+                className="btncontrol"
+                id="Btn_Cancel"
+              >
                 <FontAwesomeIcon icon={faBan} /> Cancel
               </Button>
             </InputGroup>
@@ -406,7 +481,25 @@ function ChangePriceItemMaster() {
                   <th>Status</th>
                 </tr>
               </thead>
-              <tbody></tbody>
+              <tbody>
+                {ListItemMasterMain.map((item) => (
+                  <tr
+                    key={item.Id}
+                    onClick={(e) =>
+                      HandleClickRowTable(item.itemCode, item.ApplyDate)
+                    }
+                  >
+                    <td>{item.ItemCode}</td>
+                    <td>{item.StoreCode}</td>
+                    <td>{item.ApplyDate}</td>
+                    <td>{item.Description}</td>
+                    <td>{item.PriceOrigin}</td>
+                    <td>{item.priceSale}</td>
+                    <td>{item.PercentDiscount}</td>
+                    <td></td>
+                  </tr>
+                ))}
+              </tbody>
             </Table>
           </div>
         </Col>

@@ -83,3 +83,7 @@ td {
   border-radius: var(--bs-border-radius);
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+#Txt_PriceSale {
+  background-color: var(--bs-secondary-bg);
+  opacity: 1;
+}
