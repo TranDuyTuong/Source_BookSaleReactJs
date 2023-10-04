@@ -296,6 +296,7 @@ function ChangePriceItemMaster() {
       SetPriceSale(findItemMaster.priceSale);
       SetPercentDiscount(findItemMaster.PercentDiscount);
       SetDescription(findItemMaster.Description);
+      document.getElementById("Txt_ItemCode").disabled = true;
     } else {
       toast.error(
         "Not Find ItemCode: " + itemcode + " Have ApplyDate " + applydate
