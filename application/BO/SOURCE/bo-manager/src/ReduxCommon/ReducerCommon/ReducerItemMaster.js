@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { Update, Create } from "../../Contants/DataContant";
 
 export const ItemMasterReducer = createSlice({
   name: "itemMasterRedux",
@@ -99,6 +100,35 @@ export const ItemMasterReducer = createSlice({
         findItemMaster.TypeOf = action.payload.TypeOf;
         findItemMaster.Quantity = action.payload.Quantity;
         findItemMaster.StoreCode = action.payload.StoreCode;
+      }
+    },
+    UpdatePriceChangeItemMaster: (state, action) => {
+      const findItemMaster = state.ListItemMaster.find(
+        (item) =>
+          item.ItemCode === action.payload.itemCode &&
+          item.ApplyDate === action.payload.applydate &&
+          item.StoreCode === action.payload.storecode
+      );
+
+      if (findItemMaster === undefined) {
+        const CreateItemMaster = {
+          Id: action.payload.id,
+          StoreCode: action.payload.storecode,
+          ItemCode: action.payload.itemCode,
+          ApplyDate: action.payload.applydate,
+          Description: action.payload.description,
+          PriceOrigin: action.payload.priceOrigin,
+          priceSale: action.payload.priceSale,
+          PercentDiscount: action.payload.percentDiscount,
+          TypeOf: Create,
+        };
+        state.ListItemMaster.unshift(CreateItemMaster);
+      } else {
+        findItemMaster.ApplyDate = action.payload.applydate;
+        findItemMaster.PriceOrigin = action.payload.priceOrigin;
+        findItemMaster.priceSale = action.payload.priceSale;
+        findItemMaster.PercentDiscount = action.payload.percentDiscount;
+        findItemMaster.TypeOf = Update;
       }
     },
   },

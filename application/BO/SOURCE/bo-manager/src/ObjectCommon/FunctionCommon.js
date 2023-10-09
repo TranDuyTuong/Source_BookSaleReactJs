@@ -120,6 +120,49 @@ export const HandleGetInitializaItemMaster = async (info) => {
   return result;
 };
 
+// Calculate the discount percentage
+export const HandleCalculateDiscountPercentage = (price, percentage) => {
+  const pricePercentage = {
+    status: false,
+    resultPrice: null,
+    message: null,
+    priceOrigin: null,
+  };
+  if (percentage === "") {
+    percentage = 0;
+  }
+  // Split string price
+  const priceString = price.toString();
+  var splitted = priceString.split(" ");
+  const percentPrice = Number(percentage) / 1;
+  const total = splitted[0].split(",").join("");
+  pricePercentage.resultPrice = total * ((100 - percentPrice) / 100);
+  pricePercentage.status = true;
+  pricePercentage.message = null;
+  pricePercentage.priceOrigin = total;
+  return pricePercentage;
+};
+
+// Handle Check ApplyDate Current
+export const HandleApplydateChangePrice = (curentDate, applydate) => {
+  const result = {
+    status: false,
+    messageError: null,
+  };
+  curentDate = Date.parse(curentDate);
+  applydate = Date.parse(applydate);
+
+  if (curentDate === applydate || curentDate > applydate) {
+    // Create New ItemMaster Update Price
+    result.status = false;
+    result.messageError = "Please Choose Applydate More Than Current Date!";
+  } else {
+    // Update Change Price ItemMaster
+    result.status = true;
+  }
+  return result;
+};
+
 // Conver Money From Input Form
 const defaultMaskOptions = {
   prefix: "",

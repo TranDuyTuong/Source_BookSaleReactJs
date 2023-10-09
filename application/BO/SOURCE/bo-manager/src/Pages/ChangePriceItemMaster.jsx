@@ -17,6 +17,7 @@ import {
   faEllipsis,
   faPenToSquare,
   faBan,
+  faL,
 } from "@fortawesome/free-solid-svg-icons";
 import "../Styles/ChangePriceItemMaster.css";
 import {
@@ -25,6 +26,8 @@ import {
   HandleGetInitializaItemMaster,
   HandleCheckRoleStaff,
   CurrencyInputMoney,
+  HandleCalculateDiscountPercentage,
+  HandleApplydateChangePrice,
 } from "../ObjectCommon/FunctionCommon";
 import {
   CompanyCode,
@@ -47,9 +50,10 @@ import {
 } from "../ApiLablary/ItemMasterApi";
 import {
   InitializaDataSelect,
-  DispayItemForm,
+  ValidationPriceIsNull,
+  HandleUpdateOrCreateChangePrice,
 } from "../Validations/ValidationChangePriceItemMaster";
-import { Update, UpdateBase_ItemMaster } from "../Contants/DataContant";
+import { Update, Create } from "../Contants/DataContant";
 
 // Main Function
 function ChangePriceItemMaster() {
@@ -305,6 +309,72 @@ function ChangePriceItemMaster() {
     return;
   };
 
+  // Handle Update Price
+  const HandleUpdatePrice = (e) => {
+    // Check Applydate
+    const currentDate = new Date();
+    const Applydate = HandleApplydateChangePrice(currentDate, stateApplydate);
+
+    // Setting Data Change Price
+    const inputData = {
+      id: null,
+      itemCode: stateItemCode,
+      applydate: stateApplydate,
+      storecode: state_DefaulStore,
+      priceOrigin: null,
+      priceSale: null,
+      percentDiscount: statePercentDiscount,
+      description: stateDescription,
+      option: null,
+    };
+
+    if (Applydate.status === false) {
+      toast.error(Applydate.messageError);
+      return;
+    }
+
+    // Check Price Is Null
+    var resultPriceVali = ValidationPriceIsNull(stateCornerPrice);
+
+    if (resultPriceVali.status === false) {
+      toast.error(resultPriceVali.messageError);
+      return;
+    }
+
+    // Calculate price after discount
+    var resultPrice = HandleCalculateDiscountPercentage(
+      stateCornerPrice,
+      statePercentDiscount
+    );
+
+    if (resultPrice.status === false) {
+      // Error
+      toast.error(resultPrice.message);
+      return;
+    } else {
+      // Success
+      SetPriceSale(resultPrice.resultPrice);
+      SetPercentDiscount(statePercentDiscount);
+      inputData.priceOrigin = resultPrice.priceOrigin;
+      inputData.priceSale = resultPrice.resultPrice;
+    }
+
+    // Regiter Into Redux
+    const dataResult = HandleUpdateOrCreateChangePrice(
+      inputData,
+      ListItemMasterMain
+    );
+
+    if (dataResult.status === false) {
+      toast.error(dataResult.messageError);
+    } else {
+      dispatch(
+        ItemMasterReducer.actions.UpdatePriceChangeItemMaster(dataResult.output)
+      );
+    }
+    return;
+  };
+
   return (
     <Container fluid className="fixedPotionArea">
       <h3 className="areaTitle">
@@ -451,6 +521,7 @@ function ChangePriceItemMaster() {
                 variant="outline-primary"
                 className="btncontrol"
                 id="Btn_Update"
+                onClick={(e) => HandleUpdatePrice()}
               >
                 <FontAwesomeIcon icon={faPenToSquare} /> Update
               </Button>
@@ -497,7 +568,12 @@ function ChangePriceItemMaster() {
                     <td>{item.PriceOrigin}</td>
                     <td>{item.priceSale}</td>
                     <td>{item.PercentDiscount}</td>
-                    <td></td>
+                    {(item.TypeOf === Update && (
+                      <td style={{ color: "red" }}>{item.TypeOf}</td>
+                    )) ||
+                      (item.TypeOf === Create && (
+                        <td style={{ color: "blue" }}>{item.TypeOf}</td>
+                      ))}
                   </tr>
                 ))}
               </tbody>

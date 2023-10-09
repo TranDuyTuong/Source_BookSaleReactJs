@@ -164,3 +164,55 @@ export function ValidationCharacterItemMasterUpdate(dataVali) {
 
   return result;
 }
+
+export const ValidationPriceIsNull = (e) => {
+  const result = {
+    status: false,
+    messageError: null,
+  };
+
+  if (e === "" || e === null || e === undefined) {
+    result.status = false;
+    result.messageError = "Price Is Not Null, Please Check Again!";
+  } else {
+    result.status = true;
+  }
+
+  return result;
+};
+
+export const HandleUpdateOrCreateChangePrice = (request, listItemMaster) => {
+  const result = {
+    status: false,
+    messageError: null,
+    output: null,
+  };
+
+  const findItemMaster = listItemMaster.find(
+    (item) =>
+      item.ItemCode === request.itemCode &&
+      item.ApplyDate === request.applydate &&
+      item.StoreCode === request.storecode
+  );
+
+  if (findItemMaster === undefined) {
+    request.id = guildv4();
+    result.status = true;
+    result.output = request;
+    result.messageError = null;
+  } else {
+    request.id = guildv4();
+    result.status = true;
+    result.messageError = null;
+    result.output = request;
+  }
+  return result;
+};
+
+const guildv4 = (e) => {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+    const r = (Math.random() * 16) | 0,
+      v = c === "x" ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+};
