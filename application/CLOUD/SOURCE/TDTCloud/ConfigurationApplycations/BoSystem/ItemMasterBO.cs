@@ -13,6 +13,7 @@ using ModelConfiguration.M_Bo.StoreData;
 using ModelConfiguration.M_Common;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -231,7 +232,7 @@ namespace ConfigurationApplycations.BoSystem
                             CompanyCode = x.itemMaster.CompanyCode,
                             StoreCode = x.itemMaster.StoreCode,
                             ItemCode = x.itemMaster.ItemCode,
-                            ApplyDate = x.itemMaster.ApplyDate,
+                            ApplyDate = x.itemMaster.ApplyDate.ToString(),
                             Description = x.itemMaster.Description,
                             DescriptionShort = x.itemMaster.DescriptionShort,
                             DescriptionLong = x.itemMaster.DescriptionLong,
@@ -706,7 +707,7 @@ namespace ConfigurationApplycations.BoSystem
                                         ItemCode = x.ItemCode,
                                         CompanyCode = x.CompanyCode,
                                         StoreCode = x.StoreCode,
-                                        ApplyDate = x.ApplyDate
+                                        ApplyDate = x.ApplyDate.ToString(),
                                     }).ToList();
 
                                     // Query ItemMasterImage
@@ -762,7 +763,7 @@ namespace ConfigurationApplycations.BoSystem
                                                 CompanyCode = itemMaster.CompanyCode,
                                                 StoreCode = itemMaster.StoreCode,
                                                 ItemCode = itemMaster.ItemCode,
-                                                ApplyDate = itemMaster.ApplyDate,
+                                                ApplyDate =  DateTime.Parse(itemMaster.ApplyDate),
                                                 Description = itemMaster.Description,
                                                 DescriptionShort = itemMaster.DescriptionShort,
                                                 DescriptionLong = itemMaster.DescriptionLong,
@@ -1150,7 +1151,7 @@ namespace ConfigurationApplycations.BoSystem
                                     Quantity = Convert.ToInt32(reader["Quantity"].ToString()),
                                     size = reader["size"].ToString(),
                                     Note = reader["Note"].ToString(),
-                                    ApplyDate = Convert.ToDateTime(reader["ApplyDate"].ToString()),
+                                    ApplyDate = reader["ApplyDate"].ToString(),
                                     ImageItemMaster = urlDefaultImage
                                 };
 
@@ -1380,6 +1381,9 @@ namespace ConfigurationApplycations.BoSystem
                             var reader = sqlcmd.ExecuteReader();
                             while (reader.Read())
                             {
+                                string ApplyDateTime = reader["ApplyDate"].ToString();
+                                string[] splitDateTime = ApplyDateTime.Split(" ");
+                                DateTime dateApply = DateTime.Parse(splitDateTime[0]);
                                 // ItemMaster Data
                                 var itemMasterData = new M_ItemMaster()
                                 {
@@ -1388,7 +1392,8 @@ namespace ConfigurationApplycations.BoSystem
                                     ItemCode = reader["ItemCode"].ToString(),
                                     StoreCode = reader["StoreCode"].ToString(),
                                     Description = reader["Description"].ToString(),
-                                    ApplyDate = Convert.ToDateTime(reader["ApplyDate"].ToString()),
+                                    ApplyDate = dateApply.ToString("yyy/MM/dd"),
+                                    ApplyTime = splitDateTime[1],
                                     PriceOrigin = Convert.ToDecimal(reader["PriceOrigin"].ToString()),
                                     priceSale = Convert.ToDecimal(reader["PriceSale"].ToString()),
                                     PercentDiscount = Convert.ToInt32(reader["PercentDiscount"].ToString())

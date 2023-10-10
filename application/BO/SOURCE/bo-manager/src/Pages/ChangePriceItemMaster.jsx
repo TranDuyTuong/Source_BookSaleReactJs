@@ -54,11 +54,13 @@ import {
   HandleUpdateOrCreateChangePrice,
 } from "../Validations/ValidationChangePriceItemMaster";
 import { Update, Create } from "../Contants/DataContant";
+import moment from "moment";
 
 // Main Function
 function ChangePriceItemMaster() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const ref_TxtApplydate = useRef(null);
 
   // Call url old in redux
   const OldUrldata = useSelector((item) => item.oldUrl.ListoldUrlItem);
@@ -81,6 +83,7 @@ function ChangePriceItemMaster() {
   // State ItemCode
   const [stateItemCode, SetItemCode] = useState("");
   const [stateApplydate, SetApplydate] = useState("");
+  const [stateApplyTime, SetApplyTime] = useState("");
   const [stateCornerPrice, SetCornerPrice] = useState("");
   const [statePriceSale, SetPriceSale] = useState("");
   const [statePercentDiscount, SetPercentDiscount] = useState("");
@@ -286,16 +289,20 @@ function ChangePriceItemMaster() {
   };
 
   // Handle Select Row In Table
-  const HandleClickRowTable = (itemcode, applydate) => {
+  const HandleClickRowTable = (itemcode, applydate, applytime) => {
     const findItemMaster = ListItemMasterMain.find(
-      (item) => item.itemCode === itemcode && item.ApplyDate === applydate
+      (item) =>
+        item.itemCode === itemcode &&
+        item.ApplyDate === applydate &&
+        item.ApplyTime === applytime
     );
 
     if (findItemMaster !== undefined) {
       // Set data into UI
       SetItemCode(findItemMaster.ItemCode);
       SetDefaulStore(findItemMaster.StoreCode);
-      SetApplydate(findItemMaster.ApplyDate);
+      SetApplydate(moment(findItemMaster.ApplyDate).format("YYYY-MM-DD"));
+      SetApplyTime(moment(findItemMaster.ApplyTime).format("HH:mm:ss"));
       SetCornerPrice(findItemMaster.PriceOrigin);
       SetPriceSale(findItemMaster.priceSale);
       SetPercentDiscount(findItemMaster.PercentDiscount);
@@ -329,6 +336,7 @@ function ChangePriceItemMaster() {
     };
 
     if (Applydate.status === false) {
+      ref_TxtApplydate.current.focus();
       toast.error(Applydate.messageError);
       return;
     }
@@ -371,8 +379,21 @@ function ChangePriceItemMaster() {
       dispatch(
         ItemMasterReducer.actions.UpdatePriceChangeItemMaster(dataResult.output)
       );
+      // Reset Form
+      HandleResetForm();
     }
     return;
+  };
+
+  // Reset From UI
+  const HandleResetForm = (e) => {
+    SetItemCode("");
+    SetDefaulStore("0");
+    SetApplydate("");
+    SetCornerPrice("");
+    SetPriceSale("");
+    SetPercentDiscount("");
+    SetDescription("");
   };
 
   return (
@@ -440,14 +461,23 @@ function ChangePriceItemMaster() {
 
             {/* Apply Date */}
             <p className="titleItem">
-              Apply Date <span className="itemNotNull">*</span>
+              Apply Date - Time <span className="itemNotNull">*</span>
             </p>
             <InputGroup className="mb-3">
               <Form.Control
                 value={stateApplydate}
                 onChange={(e) => SetApplydate(e.target.value)}
                 id="Txt_Applydate"
-                type="datetime-local"
+                ref={ref_TxtApplydate}
+                type="date"
+              />
+              <Form.Control
+                value={stateApplyTime}
+                onChange={(e) => {
+                  SetApplyTime(e.target.value);
+                }}
+                id="Txt_ApplyTime"
+                type="time"
               />
             </InputGroup>
           </Form.Group>
@@ -546,6 +576,7 @@ function ChangePriceItemMaster() {
                   <th>Item Code</th>
                   <th>Store</th>
                   <th>Apply Date</th>
+                  <th>Apply Time</th>
                   <th>Description</th>
                   <th>Corner Price</th>
                   <th>Price Sale</th>
@@ -558,22 +589,27 @@ function ChangePriceItemMaster() {
                   <tr
                     key={item.Id}
                     onClick={(e) =>
-                      HandleClickRowTable(item.itemCode, item.ApplyDate)
+                      HandleClickRowTable(
+                        item.itemCode,
+                        item.ApplyDate,
+                        item.ApplyTime
+                      )
                     }
                   >
                     <td>{item.ItemCode}</td>
                     <td>{item.StoreCode}</td>
                     <td>{item.ApplyDate}</td>
+                    <td>{item.ApplyTime}</td>
                     <td>{item.Description}</td>
                     <td>{item.PriceOrigin}</td>
                     <td>{item.priceSale}</td>
-                    <td>{item.PercentDiscount}</td>
+                    <td>{item.PercentDiscount} %</td>
                     {(item.TypeOf === Update && (
                       <td style={{ color: "red" }}>{item.TypeOf}</td>
                     )) ||
                       (item.TypeOf === Create && (
                         <td style={{ color: "blue" }}>{item.TypeOf}</td>
-                      ))}
+                      )) || <td>--</td>}
                   </tr>
                 ))}
               </tbody>

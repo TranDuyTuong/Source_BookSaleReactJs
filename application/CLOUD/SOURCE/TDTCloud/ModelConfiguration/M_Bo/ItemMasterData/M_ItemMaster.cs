@@ -48,7 +48,16 @@ namespace ModelConfiguration.M_Bo.ItemMasterData
         /// <summary>
         /// ApplyDate
         /// </summary>
-        public DateTime ApplyDate
+        public string ApplyDate
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// ApplyTime
+        /// </summary>
+        public string ApplyTime
         {
             get;
             set;
