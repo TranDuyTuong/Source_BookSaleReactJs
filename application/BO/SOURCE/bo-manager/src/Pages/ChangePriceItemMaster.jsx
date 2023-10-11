@@ -37,6 +37,7 @@ import {
   EventUpdateItemMaster,
   UserLogin,
   EventGetAllItemMaster,
+  EventChangePriceItemMaster,
 } from "../ObjectCommon/EventCommon";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -47,14 +48,18 @@ import { ItemMasterReducer } from "../ReduxCommon/ReducerCommon/ReducerItemMaste
 import {
   HandleGetAllItemMaster,
   HandleSeachItemMasterUpdatePrice,
+  HandleChangePriceItemMaster,
 } from "../ApiLablary/ItemMasterApi";
 import {
   InitializaDataSelect,
   ValidationPriceIsNull,
   HandleUpdateOrCreateChangePrice,
 } from "../Validations/ValidationChangePriceItemMaster";
-import { Update, Create } from "../Contants/DataContant";
-import moment from "moment";
+import {
+  Update,
+  Create,
+  ChangePrice_ItemMaster,
+} from "../Contants/DataContant";
 
 // Main Function
 function ChangePriceItemMaster() {
@@ -83,7 +88,6 @@ function ChangePriceItemMaster() {
   // State ItemCode
   const [stateItemCode, SetItemCode] = useState("");
   const [stateApplydate, SetApplydate] = useState("");
-  const [stateApplyTime, SetApplyTime] = useState("");
   const [stateCornerPrice, SetCornerPrice] = useState("");
   const [statePriceSale, SetPriceSale] = useState("");
   const [statePercentDiscount, SetPercentDiscount] = useState("");
@@ -301,8 +305,7 @@ function ChangePriceItemMaster() {
       // Set data into UI
       SetItemCode(findItemMaster.ItemCode);
       SetDefaulStore(findItemMaster.StoreCode);
-      SetApplydate(moment(findItemMaster.ApplyDate).format("YYYY-MM-DD"));
-      SetApplyTime(moment(findItemMaster.ApplyTime).format("HH:mm:ss"));
+      SetApplydate(findItemMaster.ApplyDate);
       SetCornerPrice(findItemMaster.PriceOrigin);
       SetPriceSale(findItemMaster.priceSale);
       SetPercentDiscount(findItemMaster.PercentDiscount);
@@ -383,6 +386,53 @@ function ChangePriceItemMaster() {
       HandleResetForm();
     }
     return;
+  };
+
+  // Handle Cancel Form
+  const HandleCancelUpdateUI = (e) => {
+    HandleResetForm();
+  };
+
+  // Handle Confrim Change Price
+  const HandleConfrimChangePrice = async (e) => {
+    const listItemChangePrice = [];
+    ListItemMasterMain.forEach(function (item) {
+      if (item.TypeOf != null) {
+        const data = {
+          CompanyCode: item.CompanyCode,
+          StoreCode: item.StoreCode,
+          ItemCode: item.ItemCode,
+          ApplyDate: item.ApplyDate,
+          Description: item.Description,
+          PriceOrigin: item.PriceOrigin,
+          PercentDiscount: item.PercentDiscount,
+          priceSale: item.priceSale,
+          TypeOf: item.TypeOf,
+        };
+        listItemChangePrice.push(data);
+      }
+    });
+    // Conver Array to Json
+    var jsonItemMasterInsert = JSON.stringify(listItemChangePrice);
+    // Get Token
+    var token = GetCookies(UserLogin);
+    // Get EventCode
+    var eventCode = ConcatStringEvent(FistCode, EventChangePriceItemMaster);
+    // Setting Data Seach Area
+    var formData = new FormData();
+    formData.append("Token", token);
+    formData.append("UserID", window.localStorage.getItem("UserID"));
+    formData.append("RoleID", window.localStorage.getItem("RoleEmployer"));
+    formData.append("EventCode", eventCode);
+    formData.append("TotalItemMaster", 0);
+    formData.append("MessageError", null);
+    formData.append("Status", true);
+    formData.append("KeySeach", jsonItemMasterInsert);
+    formData.append("CompanyCode", CompanyCode);
+    formData.append("OTPControl", ChangePrice_ItemMaster);
+    formData.append("ListItemMaster", []);
+
+    const result = await HandleChangePriceItemMaster(formData);
   };
 
   // Reset From UI
@@ -469,15 +519,7 @@ function ChangePriceItemMaster() {
                 onChange={(e) => SetApplydate(e.target.value)}
                 id="Txt_Applydate"
                 ref={ref_TxtApplydate}
-                type="date"
-              />
-              <Form.Control
-                value={stateApplyTime}
-                onChange={(e) => {
-                  SetApplyTime(e.target.value);
-                }}
-                id="Txt_ApplyTime"
-                type="time"
+                type="datetime-local"
               />
             </InputGroup>
           </Form.Group>
@@ -559,6 +601,7 @@ function ChangePriceItemMaster() {
                 variant="outline-danger"
                 className="btncontrol"
                 id="Btn_Cancel"
+                onClick={(e) => HandleCancelUpdateUI()}
               >
                 <FontAwesomeIcon icon={faBan} /> Cancel
               </Button>
@@ -576,7 +619,6 @@ function ChangePriceItemMaster() {
                   <th>Item Code</th>
                   <th>Store</th>
                   <th>Apply Date</th>
-                  <th>Apply Time</th>
                   <th>Description</th>
                   <th>Corner Price</th>
                   <th>Price Sale</th>
@@ -599,7 +641,6 @@ function ChangePriceItemMaster() {
                     <td>{item.ItemCode}</td>
                     <td>{item.StoreCode}</td>
                     <td>{item.ApplyDate}</td>
-                    <td>{item.ApplyTime}</td>
                     <td>{item.Description}</td>
                     <td>{item.PriceOrigin}</td>
                     <td>{item.priceSale}</td>
@@ -619,7 +660,11 @@ function ChangePriceItemMaster() {
       </Row>
       <p className="alinebuttonsetting">
         {ListItemMasterMain.length !== 0 && (
-          <Button variant="success" className="btn_setting">
+          <Button
+            variant="success"
+            className="btn_setting"
+            onClick={(e) => HandleConfrimChangePrice()}
+          >
             <FontAwesomeIcon icon={faSquareCheck} /> Confirm
           </Button>
         )}

@@ -258,6 +258,7 @@ export const get = "get";
 export const Create_ItemMaster = 0;
 export const UpdateBase_ItemMaster = 1;
 export const Delete_ItemMaster = 2;
+export const ChangePrice_ItemMaster = 3;
 
 // Currency Unit
 export const Dola = "$";

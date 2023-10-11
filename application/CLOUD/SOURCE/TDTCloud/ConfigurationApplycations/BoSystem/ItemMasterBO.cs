@@ -232,7 +232,7 @@ namespace ConfigurationApplycations.BoSystem
                             CompanyCode = x.itemMaster.CompanyCode,
                             StoreCode = x.itemMaster.StoreCode,
                             ItemCode = x.itemMaster.ItemCode,
-                            ApplyDate = x.itemMaster.ApplyDate.ToString(),
+                            ApplyDate = x.itemMaster.ApplyDate,
                             Description = x.itemMaster.Description,
                             DescriptionShort = x.itemMaster.DescriptionShort,
                             DescriptionLong = x.itemMaster.DescriptionLong,
@@ -707,7 +707,7 @@ namespace ConfigurationApplycations.BoSystem
                                         ItemCode = x.ItemCode,
                                         CompanyCode = x.CompanyCode,
                                         StoreCode = x.StoreCode,
-                                        ApplyDate = x.ApplyDate.ToString(),
+                                        ApplyDate = x.ApplyDate,
                                     }).ToList();
 
                                     // Query ItemMasterImage
@@ -763,7 +763,7 @@ namespace ConfigurationApplycations.BoSystem
                                                 CompanyCode = itemMaster.CompanyCode,
                                                 StoreCode = itemMaster.StoreCode,
                                                 ItemCode = itemMaster.ItemCode,
-                                                ApplyDate =  DateTime.Parse(itemMaster.ApplyDate),
+                                                ApplyDate =  DateTime.Parse(itemMaster.ApplyDate.ToString("yyyy/dd/MM 00:00:00")),
                                                 Description = itemMaster.Description,
                                                 DescriptionShort = itemMaster.DescriptionShort,
                                                 DescriptionLong = itemMaster.DescriptionLong,
@@ -932,6 +932,10 @@ namespace ConfigurationApplycations.BoSystem
                                         result.Status = false;
                                         result.MessageError = resultUPDATE.MessageError;
                                     }
+                                    break;
+                                // CHANGE PRICE 
+                                case 3:
+                                    var resultCHANGEPRICE = this.ChangePriceItemMaster(request.ListItemMaster);
                                     break;
                                 // DELETE
                                 default:
@@ -1151,7 +1155,7 @@ namespace ConfigurationApplycations.BoSystem
                                     Quantity = Convert.ToInt32(reader["Quantity"].ToString()),
                                     size = reader["size"].ToString(),
                                     Note = reader["Note"].ToString(),
-                                    ApplyDate = reader["ApplyDate"].ToString(),
+                                    ApplyDate = DateTime.Parse(reader["ApplyDate"].ToString()),
                                     ImageItemMaster = urlDefaultImage
                                 };
 
@@ -1295,7 +1299,7 @@ namespace ConfigurationApplycations.BoSystem
                         sqlcmm.CommandText = "UpdateBase_ItemMaster";
                         sqlcmm.Parameters.AddWithValue("@StoreCode", item.StoreCode);
                         sqlcmm.Parameters.AddWithValue("@ItemCode", item.ItemCode);
-                        sqlcmm.Parameters.AddWithValue("@ApplyDate", item.ApplyDate);
+                        sqlcmm.Parameters.AddWithValue("@ApplyDate", item.ApplyDate.ToString("yyyy/dd/MM HH:mm:ss"));
                         sqlcmm.Parameters.AddWithValue("@Description", item.Description);
                         sqlcmm.Parameters.AddWithValue("@DescriptionShort", item.DescriptionShort);
                         sqlcmm.Parameters.AddWithValue("@DescriptionLong", item.DescriptionLong);
@@ -1328,6 +1332,17 @@ namespace ConfigurationApplycations.BoSystem
                 result.Status = false;
                 result.MessageError = ex.Message;
             }
+            return result;
+        }
+
+        /// <summary>
+        /// ChangePriceItemMaster
+        /// </summary>
+        /// <param name="ItemMasterParam"></param>
+        /// <returns></returns>
+        private ResultStoreProceducer ChangePriceItemMaster(List<M_ItemMaster> ItemMasterParam)
+        {
+            var result = new ResultStoreProceducer();
             return result;
         }
 
@@ -1392,8 +1407,7 @@ namespace ConfigurationApplycations.BoSystem
                                     ItemCode = reader["ItemCode"].ToString(),
                                     StoreCode = reader["StoreCode"].ToString(),
                                     Description = reader["Description"].ToString(),
-                                    ApplyDate = dateApply.ToString("yyy/MM/dd"),
-                                    ApplyTime = splitDateTime[1],
+                                    ApplyDate = DateTime.Parse(dateApply.ToString("yyy/MM/dd")),
                                     PriceOrigin = Convert.ToDecimal(reader["PriceOrigin"].ToString()),
                                     priceSale = Convert.ToDecimal(reader["PriceSale"].ToString()),
                                     PercentDiscount = Convert.ToInt32(reader["PercentDiscount"].ToString())

@@ -1,0 +1,5 @@
+CREATE PROCEDURE ChangePrice_ItemMaster
+AS
+BEGIN
+END
+GO
