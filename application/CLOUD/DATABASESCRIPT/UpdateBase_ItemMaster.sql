@@ -1,4 +1,4 @@
-CREATE PROCEDURE UpdateBase_ItemMaster
+wCREATE PROCEDURE UpdateBase_ItemMaster
 @StoreCode				nvarchar(10),
 @ItemCode				nvarchar(26),
 @ApplyDate				datetime2(7),
