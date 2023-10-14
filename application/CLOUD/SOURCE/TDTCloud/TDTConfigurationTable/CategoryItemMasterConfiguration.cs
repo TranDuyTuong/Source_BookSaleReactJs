@@ -39,8 +39,6 @@ namespace TDTConfigurationTable
             builder.Property(x => x.ContentLastUpdateDate).HasMaxLength(300);
             builder.Property(x => x.ContentLastUpdateDate).HasColumnType("Nvarchar(300)");
 
-            builder.Property(x => x.JobID).IsRequired(true);
-
             builder.Property(x => x.HeadquartersLastUpdateDateTime).IsRequired(false);
 
             builder.Property(x => x.IsDeleteFlag).IsRequired(true);

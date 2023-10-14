@@ -55,12 +55,6 @@ namespace ConfigurationApplycations.KikanSystem
                     var queryAuthors = from au in this.context.authors
                                        select au;
 
-                    var queryPublishingCompany = from pc in this.context.issuingCompanies
-                                                 select pc;
-
-                    var queryPublisher = from pl in this.context.publishingCompanies
-                                         select pl;
-
                     var queryBank = from ba in this.context.bankSuports
                                     select ba;
 
@@ -84,12 +78,6 @@ namespace ConfigurationApplycations.KikanSystem
                                 break;
                             case 5:
                                 listNumber.Add("Authors" + "_" + queryAuthors.ToList().Count());
-                                break;
-                            case 6:
-                                listNumber.Add("PublishingCompany" + "_" + queryPublishingCompany.ToList().Count());
-                                break;
-                            case 7:
-                                listNumber.Add("Publisher" + "_" + queryPublisher.ToList().Count());
                                 break;
                             case 8:
                                 listNumber.Add("BankSuport" + "_" + queryBank.ToList().Count());

@@ -72,15 +72,6 @@ namespace TDTSettingTable
         }
 
         /// <summary>
-        /// JobID
-        /// </summary>
-        public string JobID
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
         /// IsDeleteFlag
         /// </summary>
         public bool IsDeleteFlag

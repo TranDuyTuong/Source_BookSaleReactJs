@@ -40,16 +40,13 @@ namespace CodeFirtMigration.DataFE
             modelBuilder.ApplyConfiguration(new HistoryWalletConfiguration());
             modelBuilder.ApplyConfiguration(new ImageItemMasterConfiguration());
             modelBuilder.ApplyConfiguration(new ImageReviewConfiguration());
-            modelBuilder.ApplyConfiguration(new IssuingCompanyConfiguration());
             modelBuilder.ApplyConfiguration(new ItemMasterConfiguration());
-            modelBuilder.ApplyConfiguration(new JobConfiguration());
             modelBuilder.ApplyConfiguration(new MarriageConfiguration());
             modelBuilder.ApplyConfiguration(new OrdersConfiguration());
             modelBuilder.ApplyConfiguration(new OrdersDetailConfiguration());
             modelBuilder.ApplyConfiguration(new PairDiscountConfiguration());
             modelBuilder.ApplyConfiguration(new PaymentMethodsConfiguration());
             modelBuilder.ApplyConfiguration(new ProductsviewedbycustomersConfiguration());
-            modelBuilder.ApplyConfiguration(new PublishingCompanyConfiguration());
             modelBuilder.ApplyConfiguration(new QuantityDiscountConfiguration());
             modelBuilder.ApplyConfiguration(new ReceiptPaymentOnlineConfiguration());
             modelBuilder.ApplyConfiguration(new ReceiptStatusConfiguration());
@@ -93,16 +90,13 @@ namespace CodeFirtMigration.DataFE
         public DbSet<HistoryWallet> historyWallets { get; set; }
         public DbSet<ImageItemMaster> imageItemMasters { get; set; }
         public DbSet<ImageReview> imageReviews { get; set; }
-        public DbSet<IssuingCompany> issuingCompanies { get; set; }
         public DbSet<ItemMaster> itemMasters { get; set; }
-        public DbSet<Job> jobs { get; set; }
         public DbSet<Marriage> marriages { get; set; }
         public DbSet<Orders> orders { get; set; }
         public DbSet<OrdersDetail> ordersDetails { get; set; }
         public DbSet<PairDiscount> pairDiscounts { get; set; }
         public DbSet<PaymentMethods> paymentMethods { get; set; }
         public DbSet<Productsviewedbycustomers> productsviewedbycustomers { get; set; }
-        public DbSet<PublishingCompany> publishingCompanies { get; set; }
         public DbSet<QuantityDiscount> quantityDiscounts { get; set; }
         public DbSet<ReceiptPaymentOnline> receiptPaymentOnlines { get; set; }
         public DbSet<ReceiptStatus> receiptStatuses { get; set; }

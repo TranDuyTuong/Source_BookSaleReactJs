@@ -12,6 +12,8 @@ import Menu from "../Pages/Menu";
 import CreateItemMaster from "../Pages/CreateItemMaster";
 import UpdateItemMaster from "../Pages/UpdateItemMaster";
 import ChangePriceItemMaster from "../Pages/ChangePriceItemMaster";
+import Author from "../Pages/Author";
+import BankSuport from "../Pages/BankSuport";
 
 // Main Page
 function CommonPage() {
@@ -38,6 +40,8 @@ function CommonPage() {
               path="/changepriceitemmaster"
               element={<ChangePriceItemMaster />}
             ></Route>
+            <Route path="/author" element={<Author />}></Route>
+            <Route path="/banksuport" element={<BankSuport />}></Route>
           </Routes>
         </Col>
       </Row>

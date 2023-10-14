@@ -70,12 +70,10 @@ namespace ConfigurationApplycations.BoSystem
                         var queryStore = await this.context.stores.FromSqlRaw("exec GetAll_Store").ToArrayAsync();
                         // Get All Author in DB Store Proceduer
                         var queryAuthor = await this.context.authors.FromSqlRaw("exec GetAll_Author").ToArrayAsync();
-                        // Get All PublishingCompanys in DB Store Proceduer
-                        var queryPublishingCompany = await this.context.publishingCompanies.FromSqlRaw("exec GetAll_PublishingCompany").ToArrayAsync();
                         // Get All Category in DB Category Store Proceduer
                         var queryCategory = await this.context.categoryItemMasters.FromSqlRaw("exec GetAll_Category").ToArrayAsync();
 
-                        if (queryStore.Any() == true && queryAuthor.Any() == true && queryPublishingCompany.Any() == true && queryCategory.Any() == true)
+                        if (queryStore.Any() == true && queryAuthor.Any() == true && queryCategory.Any() == true)
                         {
                             // Store
                             List<M_Store> storeList = new List<M_Store>();
@@ -103,19 +101,6 @@ namespace ConfigurationApplycations.BoSystem
                                 authorList.Add(authorItem);
                             }
 
-                            // PublishingCompanys
-                            List<M_PublishingCompany> publishingCompaniList = new List<M_PublishingCompany>();
-
-                            foreach (var publishingCompany in queryPublishingCompany)
-                            {
-                                var publishingCompanyItem = new M_PublishingCompany()
-                                {
-                                    PublishingCompanyID = publishingCompany.PublishingCompanyID,
-                                    Description = publishingCompany.Description
-                                };
-                                publishingCompaniList.Add(publishingCompanyItem);
-                            }
-
                             // Category
                             List<M_Category> categoryList = new List<M_Category>();
 
@@ -139,7 +124,6 @@ namespace ConfigurationApplycations.BoSystem
                             result.MessageError = null;
                             result.ListStore = storeList;
                             result.ListAuthor = authorList;
-                            result.ListPublishingCompany = publishingCompaniList;
                             result.ListCategory = categoryList;
                         }
                         else
@@ -248,11 +232,7 @@ namespace ConfigurationApplycations.BoSystem
                             CategoryItemMasterID = x.itemMaster.CategoryItemMasterID,
                             AuthorID = x.itemMaster.AuthorID,
                             DateCreate = x.itemMaster.DateCreate,
-                            IssuingCompanyID = x.itemMaster.IssuingCompanyID,
-                            PublicationDate = x.itemMaster.PublicationDate,
                             size = x.itemMaster.size,
-                            PageNumber = x.itemMaster.PageNumber,
-                            PublishingCompanyID = x.itemMaster.PublishingCompanyID,
                             IsSale = x.itemMaster.IsSale,
                             LastUpdateDate = x.itemMaster.LastUpdateDate,
                             Note = x.itemMaster.Note,
@@ -779,11 +759,7 @@ namespace ConfigurationApplycations.BoSystem
                                                 CategoryItemMasterID = itemMaster.CategoryItemMasterID,
                                                 AuthorID = itemMaster.AuthorID,
                                                 DateCreate = itemMaster.DateCreate,
-                                                IssuingCompanyID = itemMaster.IssuingCompanyID,
-                                                PublicationDate = itemMaster.PublicationDate,
                                                 size = itemMaster.size,
-                                                PageNumber = itemMaster.PageNumber,
-                                                PublishingCompanyID = itemMaster.PublishingCompanyID,
                                                 IsSale = false,
                                                 LastUpdateDate = itemMaster.LastUpdateDate,
                                                 Note = itemMaster.Note,

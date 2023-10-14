@@ -6,6 +6,8 @@ import {
   EventCreateItemMaster,
   EventUpdateItemMaster,
   EventChangePriceItemMaster,
+  EventAuthor,
+  EventBankSuport,
 } from "../ObjectCommon/EventCommon";
 
 // List Year
@@ -146,6 +148,20 @@ export const ListButtonMain = [
     stylebutton: "outline-primary",
     buttonUrl: "/changepriceitemmaster",
     eventCode: EventChangePriceItemMaster,
+  },
+  {
+    id: "Main_08",
+    buttonName: "Author",
+    stylebutton: "outline-primary",
+    buttonUrl: "/author",
+    eventCode: EventAuthor,
+  },
+  {
+    id: "Main_09",
+    buttonName: "Bank Suport",
+    stylebutton: "outline-primary",
+    buttonUrl: "/banksuport",
+    eventCode: EventBankSuport,
   },
 ];
 

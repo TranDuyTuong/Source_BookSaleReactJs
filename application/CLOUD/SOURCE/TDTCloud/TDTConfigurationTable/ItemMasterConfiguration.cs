@@ -63,15 +63,10 @@ namespace TDTConfigurationTable
 
             builder.Property(x => x.DateCreate).IsRequired(true);
 
-            builder.Property(x => x.IssuingCompanyID).IsRequired(false);
-            builder.Property(x => x.PublicationDate).IsRequired(true);
             builder.Property(x => x.size).IsRequired(true);
             builder.Property(x => x.size).HasMaxLength(100);
             builder.Property(x => x.size).HasColumnType("Nvarchar(100)");
 
-            builder.Property(x => x.PageNumber).IsRequired(true);
-
-            builder.Property(x => x.PublishingCompanyID).IsRequired(true);
             builder.Property(x => x.IsSale).IsRequired(true);
 
             builder.Property(x => x.LastUpdateDate).IsRequired(false);

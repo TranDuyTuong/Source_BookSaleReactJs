@@ -180,45 +180,9 @@ namespace TDTSettingTable
         }
 
         /// <summary>
-        /// IssuingCompanyID
-        /// </summary>
-        public string IssuingCompanyID
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// PublicationDate
-        /// </summary>
-        public DateTime PublicationDate
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
         /// size
         /// </summary>
         public string size
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// PageNumber
-        /// </summary>
-        public int PageNumber
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// PublishingCompanyID
-        /// </summary>
-        public string PublishingCompanyID
         {
             get;
             set;

@@ -250,10 +250,6 @@ namespace CodeFirtMigration.Migrations
                     b.Property<bool>("IsDeleteFlag")
                         .HasColumnType("bit");
 
-                    b.Property<string>("JobID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime?>("LastUpdateDate")
                         .HasColumnType("datetime2");
 
@@ -646,7 +642,7 @@ namespace CodeFirtMigration.Migrations
                         {
                             ID = new Guid("c0198715-f805-419d-8249-c7851de721ae"),
                             ContentBody = "Wellcome you become a member, system TDT now you can use this account login into system. If have problem you can contact for Manage",
-                            DateCreate = new DateTime(2023, 9, 5, 8, 13, 32, 342, DateTimeKind.Local).AddTicks(9888),
+                            DateCreate = new DateTime(2023, 10, 14, 12, 35, 28, 941, DateTimeKind.Local).AddTicks(9745),
                             Description = "Email",
                             Goodbye = "Wish you a good job",
                             IsActiver = false,
@@ -721,21 +717,21 @@ namespace CodeFirtMigration.Migrations
                         new
                         {
                             GenderID = "0001",
-                            CreateDate = new DateTime(2023, 9, 5, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreateDate = new DateTime(2023, 10, 14, 0, 0, 0, 0, DateTimeKind.Local),
                             Description = "Nam",
                             IsDeleteFlag = false
                         },
                         new
                         {
                             GenderID = "0002",
-                            CreateDate = new DateTime(2023, 9, 5, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreateDate = new DateTime(2023, 10, 14, 0, 0, 0, 0, DateTimeKind.Local),
                             Description = "Nữ",
                             IsDeleteFlag = false
                         },
                         new
                         {
                             GenderID = "0003",
-                            CreateDate = new DateTime(2023, 9, 5, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreateDate = new DateTime(2023, 10, 14, 0, 0, 0, 0, DateTimeKind.Local),
                             Description = "Chưa rỏ",
                             IsDeleteFlag = false
                         });
@@ -847,56 +843,6 @@ namespace CodeFirtMigration.Migrations
                     b.ToTable("ImageReviews");
                 });
 
-            modelBuilder.Entity("TDTSettingTable.IssuingCompany", b =>
-                {
-                    b.Property<string>("IssuingCompanyID")
-                        .HasMaxLength(26)
-                        .HasColumnType("nvarchar(26)");
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("Nvarchar(250)");
-
-                    b.Property<string>("ContentLastUpdateDate")
-                        .HasMaxLength(300)
-                        .HasColumnType("Nvarchar(300)");
-
-                    b.Property<DateTime>("DateCreate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateOfIncorporation")
-                        .IsRequired()
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("Nvarchar(100)");
-
-                    b.Property<DateTime?>("HeadquartersLastUpdateDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleteFlag")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("LastUpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("TaxCode")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.Property<string>("UserID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("IssuingCompanyID");
-
-                    b.ToTable("IssuingCompanys");
-                });
-
             modelBuilder.Entity("TDTSettingTable.ItemMaster", b =>
                 {
                     b.Property<string>("CompanyCode")
@@ -909,7 +855,7 @@ namespace CodeFirtMigration.Migrations
                         .HasMaxLength(26)
                         .HasColumnType("nvarchar(26)");
 
-                    b.Property<DateTime?>("ApplyDate")
+                    b.Property<DateTime>("ApplyDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("AuthorID")
@@ -950,17 +896,11 @@ namespace CodeFirtMigration.Migrations
                     b.Property<bool>("IsSale")
                         .HasColumnType("bit");
 
-                    b.Property<string>("IssuingCompanyID")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime?>("LastUpdateDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Note")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PageNumber")
-                        .HasColumnType("int");
 
                     b.Property<string>("PairDiscountID")
                         .HasColumnType("nvarchar(max)");
@@ -970,13 +910,6 @@ namespace CodeFirtMigration.Migrations
 
                     b.Property<decimal>("PriceOrigin")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateTime>("PublicationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("PublishingCompanyID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -1008,35 +941,6 @@ namespace CodeFirtMigration.Migrations
                     b.HasKey("CompanyCode", "StoreCode", "ItemCode", "ApplyDate");
 
                     b.ToTable("ItemMasters");
-                });
-
-            modelBuilder.Entity("TDTSettingTable.Job", b =>
-                {
-                    b.Property<string>("JobID")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("Nvarchar(250)");
-
-                    b.Property<bool>("IsDeleteFlag")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("LasUpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UserID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("JobID");
-
-                    b.ToTable("Jobs");
                 });
 
             modelBuilder.Entity("TDTSettingTable.Log", b =>
@@ -1095,21 +999,21 @@ namespace CodeFirtMigration.Migrations
                         new
                         {
                             MarriageID = "0001",
-                            CreateDate = new DateTime(2023, 9, 5, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreateDate = new DateTime(2023, 10, 14, 0, 0, 0, 0, DateTimeKind.Local),
                             Description = "Độc thân",
                             IsDeleteFlag = false
                         },
                         new
                         {
                             MarriageID = "0002",
-                            CreateDate = new DateTime(2023, 9, 5, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreateDate = new DateTime(2023, 10, 14, 0, 0, 0, 0, DateTimeKind.Local),
                             Description = "Đã kết hôn",
                             IsDeleteFlag = false
                         },
                         new
                         {
                             MarriageID = "0003",
-                            CreateDate = new DateTime(2023, 9, 5, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreateDate = new DateTime(2023, 10, 14, 0, 0, 0, 0, DateTimeKind.Local),
                             Description = "Đã ly dị",
                             IsDeleteFlag = false
                         });
@@ -1370,50 +1274,6 @@ namespace CodeFirtMigration.Migrations
                     b.ToTable("Productsviewedbycustomers");
                 });
 
-            modelBuilder.Entity("TDTSettingTable.PublishingCompany", b =>
-                {
-                    b.Property<string>("PublishingCompanyID")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("Nvarchar(300)");
-
-                    b.Property<string>("ContentLastUpdateDate")
-                        .HasMaxLength(300)
-                        .HasColumnType("Nvarchar(300)");
-
-                    b.Property<DateTime>("DateCraete")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateOfIncorporation")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("Nvarchar(150)");
-
-                    b.Property<DateTime?>("HeadquartersLastUpdateDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleteFlag")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("LastUpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UserID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("PublishingCompanyID");
-
-                    b.ToTable("PublishingCompanys");
-                });
-
             modelBuilder.Entity("TDTSettingTable.QuantityDiscount", b =>
                 {
                     b.Property<string>("QuantityDiscountID")
@@ -1664,8 +1524,8 @@ namespace CodeFirtMigration.Migrations
                         new
                         {
                             RoleID = "0000Admin",
-                            ConcurrencyStamp = "bf64243a-8810-4ddb-a24f-d4dafa8b244f",
-                            DateCreate = new DateTime(2023, 9, 5, 0, 0, 0, 0, DateTimeKind.Local),
+                            ConcurrencyStamp = "7b0b9496-6f69-4b4a-a618-f7f830a7e5cb",
+                            DateCreate = new DateTime(2023, 10, 14, 0, 0, 0, 0, DateTimeKind.Local),
                             Description = "Administrator",
                             Id = new Guid("cde6664e-f48a-43af-bbe8-93e90e32c193"),
                             IsDeleteFlag = false,
@@ -1785,7 +1645,7 @@ namespace CodeFirtMigration.Migrations
                         {
                             StoreCode = "0001",
                             Address = "Phường 2, Quận Tân Bình, Tp.HCM",
-                            DateCreate = new DateTime(2023, 9, 5, 8, 13, 32, 343, DateTimeKind.Local).AddTicks(1378),
+                            DateCreate = new DateTime(2023, 10, 14, 12, 35, 28, 942, DateTimeKind.Local).AddTicks(3231),
                             Description = "Store Tân Bình",
                             IsDeleteFlag = false
                         });
@@ -1831,7 +1691,7 @@ namespace CodeFirtMigration.Migrations
                         {
                             ID = new Guid("e5d9b502-150f-44e2-8fda-de1a3957a72e"),
                             Content = "ItemCode,CompanyCode,StoreCode,ApplyDate,Description,DescriptionShort,DescriptionLong,PriceOrigin,PercentDiscount,priceSale,QuantityDiscountID (NULL),PairDiscountID (NULL),SpecialDiscountID (NULL),Quantity,Viewer (0),Buy (0),CategoryItemMasterID,AuthorID,DateCreate,IssuingCompanyID,PublicationDate,size,PageNumber (Number),PublishingCompanyID,IsSale (TRUE/FALSE),LastUpdateDate (NULL),Note,HeadquartersLastUpdateDateTime,IsDeleteFlag (TRUE/FALSE),UserID,TaxGroupCodeID (NULL)",
-                            DateCreate = new DateTime(2023, 9, 5, 8, 13, 32, 343, DateTimeKind.Local).AddTicks(2566),
+                            DateCreate = new DateTime(2023, 10, 14, 12, 35, 28, 942, DateTimeKind.Local).AddTicks(5659),
                             Description = "ImportBooksKikanSystem.xlsx",
                             IsDelete = false,
                             TypeId = "Excelimport_Books"
@@ -1840,7 +1700,7 @@ namespace CodeFirtMigration.Migrations
                         {
                             ID = new Guid("597fa09b-56b3-40a8-aad4-4cbdd8efe445"),
                             Content = "CategoryItemMasterID,Description,DateCreate,UserID,LastUpdateDate (NULL),HeadquartersLastUpdateDateTime,ContentLastUpdateDate (NULL),JobID,IsDeleteFlag (TRUE/FALSE)",
-                            DateCreate = new DateTime(2023, 9, 5, 8, 13, 32, 343, DateTimeKind.Local).AddTicks(2842),
+                            DateCreate = new DateTime(2023, 10, 14, 12, 35, 28, 942, DateTimeKind.Local).AddTicks(6149),
                             Description = "ImportCategoryKikanSystem.xlsx",
                             IsDelete = false,
                             TypeId = "Excelimport_Category"
@@ -1849,7 +1709,7 @@ namespace CodeFirtMigration.Migrations
                         {
                             ID = new Guid("3d8b3620-ec8b-44e7-8cdb-2b688c406ac2"),
                             Content = "CityID,Description,AreaCode (Number),Symbol,HeadquartersLastUpdateDateTime,UserID,IsDeleteFlag (TRUE/FALSE)",
-                            DateCreate = new DateTime(2023, 9, 5, 8, 13, 32, 343, DateTimeKind.Local).AddTicks(2847),
+                            DateCreate = new DateTime(2023, 10, 14, 12, 35, 28, 942, DateTimeKind.Local).AddTicks(6162),
                             Description = "ImportCityKikanSystem.xlsx",
                             IsDelete = false,
                             TypeId = "Excelimport_City"
@@ -1858,7 +1718,7 @@ namespace CodeFirtMigration.Migrations
                         {
                             ID = new Guid("092d5d54-4499-4f26-8152-7783f0182086"),
                             Content = "DistrictID,CityID,Description,Identifier,DateCreate,PriceShip,ApplyDate,PriceShipNew (NULL),LasUpdateDate (NULL),HeadquartersLastUpdateDateTime,UserID,IsDeleteFlag (TRUE/FALSE)",
-                            DateCreate = new DateTime(2023, 9, 5, 8, 13, 32, 343, DateTimeKind.Local).AddTicks(2851),
+                            DateCreate = new DateTime(2023, 10, 14, 12, 35, 28, 942, DateTimeKind.Local).AddTicks(6166),
                             Description = "ImportDistrictKikanSystem.xlsx",
                             IsDelete = false,
                             TypeId = "Excelimport_District"
@@ -1867,7 +1727,7 @@ namespace CodeFirtMigration.Migrations
                         {
                             ID = new Guid("0c0a1511-2955-4015-9792-0a42e11d011b"),
                             Content = "AuthorID,NameAuthor,Birthday,Hometown,Description,DateCreate,UserID,HeadquartersLastUpdateDateTime,LasUpdateDate (NULL),ContentLastUpdateDate (NULL),TotalBook (Number),IsDeleteFlag (TRUE/FALSE)",
-                            DateCreate = new DateTime(2023, 9, 5, 8, 13, 32, 343, DateTimeKind.Local).AddTicks(2856),
+                            DateCreate = new DateTime(2023, 10, 14, 12, 35, 28, 942, DateTimeKind.Local).AddTicks(6169),
                             Description = "ImportAuthorKikanSystem.xlsx",
                             IsDelete = false,
                             TypeId = "Excelimport_Author"
@@ -1876,7 +1736,7 @@ namespace CodeFirtMigration.Migrations
                         {
                             ID = new Guid("56ad3cf4-f6cc-4030-8570-2b3cc5cf2e4d"),
                             Content = "PublishingCompanyID,Description,Address,DateCraete,DateOfIncorporation,UserID,HeadquartersLastUpdateDateTime,LasUpdateDate (NULL),ContentLastUpdateDate (NULL),IsDeleteFlag (TRUE/FALSE)",
-                            DateCreate = new DateTime(2023, 9, 5, 8, 13, 32, 343, DateTimeKind.Local).AddTicks(2862),
+                            DateCreate = new DateTime(2023, 10, 14, 12, 35, 28, 942, DateTimeKind.Local).AddTicks(6172),
                             Description = "ImportPublishingCompanyKikanSystem.xlsx",
                             IsDelete = false,
                             TypeId = "Excelimport_PublishingCompany"
@@ -1885,7 +1745,7 @@ namespace CodeFirtMigration.Migrations
                         {
                             ID = new Guid("da2f7e92-722c-43a5-b180-a4b741fd8a04"),
                             Content = "IssuingCompanyID,Description,TaxCode,DateOfIncorporation,DateCreate,UserID,HeadquartersLastUpdateDateTime,LasUpdateDate (NULL),ContentLastUpdateDate (NULL),Address,IsDeleteFlag (TRUE/FALSE)",
-                            DateCreate = new DateTime(2023, 9, 5, 8, 13, 32, 343, DateTimeKind.Local).AddTicks(2866),
+                            DateCreate = new DateTime(2023, 10, 14, 12, 35, 28, 942, DateTimeKind.Local).AddTicks(6175),
                             Description = "ImportIssuingCompanyKikanSystem.xlsx",
                             IsDelete = false,
                             TypeId = "Excelimport_IssuingCompanys"
@@ -1894,7 +1754,7 @@ namespace CodeFirtMigration.Migrations
                         {
                             ID = new Guid("d25b73ee-b319-4565-be89-9bd6120cf759"),
                             Content = "BankID,Description,BankCode,DateCreate,UserID,LasUpdateDate (NULL),Content (NULL),UrlImageBank,IsDeleteFlag (TRUE/FALSE)",
-                            DateCreate = new DateTime(2023, 9, 5, 8, 13, 32, 343, DateTimeKind.Local).AddTicks(2868),
+                            DateCreate = new DateTime(2023, 10, 14, 12, 35, 28, 942, DateTimeKind.Local).AddTicks(6179),
                             Description = "ImportBankSuportKikanSystem.xlsx",
                             IsDelete = false,
                             TypeId = "Excelimport_BankSuport"
@@ -1932,21 +1792,21 @@ namespace CodeFirtMigration.Migrations
                         new
                         {
                             TypeAddressID = "0001",
-                            DateTimeCreate = new DateTime(2023, 9, 5, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateTimeCreate = new DateTime(2023, 10, 14, 0, 0, 0, 0, DateTimeKind.Local),
                             Description = "Nhà riêng",
                             IsDeleteFlag = false
                         },
                         new
                         {
                             TypeAddressID = "0002",
-                            DateTimeCreate = new DateTime(2023, 9, 5, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateTimeCreate = new DateTime(2023, 10, 14, 0, 0, 0, 0, DateTimeKind.Local),
                             Description = "Văn phòng",
                             IsDeleteFlag = false
                         },
                         new
                         {
                             TypeAddressID = "0003",
-                            DateTimeCreate = new DateTime(2023, 9, 5, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateTimeCreate = new DateTime(2023, 10, 14, 0, 0, 0, 0, DateTimeKind.Local),
                             Description = "Công ty",
                             IsDeleteFlag = false
                         });
@@ -2033,7 +1893,7 @@ namespace CodeFirtMigration.Migrations
                             AddressCurent = " Đường Bùi Thị Xuân, phường 13, quận Tân Bình, Tp.HCM",
                             Birthday = new DateTime(2000, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CityID = "0001",
-                            DateCreate = "9/5/2023 12:00:00 AM",
+                            DateCreate = "10/14/2023 12:00:00 AM",
                             DetailAddress = "Khu 13, xã Long Đức, huyện Long Thành, tỉnh Đồng Nai",
                             DistrictID = "0001",
                             Email = "duytuong0503@gmail.com",
@@ -2121,14 +1981,14 @@ namespace CodeFirtMigration.Migrations
                         {
                             UserID = "05032000",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "867b249c-9f34-44cf-b3ba-fbda22f2088e",
-                            DateCreate = new DateTime(2023, 9, 5, 0, 0, 0, 0, DateTimeKind.Local),
+                            ConcurrencyStamp = "f5a98d3a-dad7-4430-b04b-d2a69c56df6d",
+                            DateCreate = new DateTime(2023, 10, 14, 0, 0, 0, 0, DateTimeKind.Local),
                             Email = "duytuong0503@gmail.com",
                             EmailConfirmed = true,
                             Id = new Guid("7d10d6e7-fcbd-469a-aaa4-744ab5ce65aa"),
                             IsActiver = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEDEVSpLdsqf+SxNkhOdIn0oZ7Y65hl5wzs/Rfj4Q+KiW+OzJH7p1NJlBQocRCAuAlw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPeU42mMgA20CZ4iOXvC2gU8PZp14Gj0x7BSzGkbQpveU5mSoJuEh3pLesdg6+/+nw==",
                             PhoneNumberConfirmed = false,
                             RemmenberAccount = false,
                             SecurityStamp = "ORCXRTJM2OU6MN2TASFSQX4R5K3TFVRH",
@@ -2176,7 +2036,7 @@ namespace CodeFirtMigration.Migrations
                         new
                         {
                             UserID = "05032000",
-                            DateCreate = new DateTime(2023, 9, 5, 0, 0, 0, 0, DateTimeKind.Local),
+                            DateCreate = new DateTime(2023, 10, 14, 0, 0, 0, 0, DateTimeKind.Local),
                             Delegator = "05032000",
                             EventCodeLimit = "101",
                             IsDeleteFlag = false,

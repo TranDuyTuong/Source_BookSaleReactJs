@@ -311,29 +311,6 @@ namespace ConfigurationApplycations.DataCommon
         /// <exception cref="NotImplementedException"></exception>
         public bool ValidationPublishingCompany(List<M_PublishingCompany> listPublishingCompany, string userID)
         {
-            // Get All PublishingCompany In DB
-            var queryPublishingCompany = this.context.publishingCompanies.Where(x => x.IsDeleteFlag == false).ToArray();
-
-            foreach(var publishingCompany in listPublishingCompany)
-            {
-                var item = queryPublishingCompany.FirstOrDefault(x => x.PublishingCompanyID == publishingCompany.PublishingCompanyID);
-
-                if(item == null)
-                {
-                    // Save Log Error
-                    var logError = new Log()
-                    {
-                        Id = new Guid(),
-                        UserID = userID,
-                        Message = "Error! Not Find PublishingCompany: " + publishingCompany.PublishingCompanyID,
-                        DateCreate = DateTime.Now,
-                        Status = true
-                    };
-                    this.context.logs.Add(logError);
-                    this.context.SaveChanges();
-                    return false;
-                }
-            }
             return true;
         }
 

@@ -210,11 +210,7 @@ namespace ConfigurationApplycations.KikanSystem
                                                 CategoryItemMasterID = book.CategoryItemMasterID,
                                                 AuthorID = book.AuthorID,
                                                 DateCreate = book.DateCreate,
-                                                IssuingCompanyID = book.IssuingCompanyID,
-                                                PublicationDate = book.PublicationDate,
                                                 size = book.size,
-                                                PageNumber = book.PageNumber,
-                                                PublishingCompanyID = book.PublishingCompanyID,
                                                 IsSale = book.IsSale,
                                                 LastUpdateDate = book.LastUpdateDate,
                                                 Note = book.Note,
@@ -314,68 +310,6 @@ namespace ConfigurationApplycations.KikanSystem
                                     }
                                     break;
 
-                                case var item when item == CommonConfiguration.KikianSystemCommon.EnumTypeImportCommon.Excelimport_PublishingCompany:
-                                    // Get All item in DB
-                                    var queryPublishingCompany = await this.context.publishingCompanies.ToArrayAsync();
-                                    // List Save PublishingCompany Import
-                                    List<PublishingCompany> listPublishingCompany = new List<PublishingCompany>();
-
-                                    foreach (var publishingCompany in request.listPublishingCompany)
-                                    {
-                                        // Check PublishingCompanyID
-                                        var findItem = queryPublishingCompany.Where(x => x.PublishingCompanyID == publishingCompany.PublishingCompanyID).ToArray();
-
-                                        if (findItem.Any())
-                                        {
-                                            // Duplicate Data
-                                            result.Status = false;
-                                            result.IdPlugin = CommonConfiguration.DataCommon.EventError;
-                                            result.Message = CommonConfiguration.KikianSystemCommon.MessageNotificationKikanSystemCommon
-                                                                .MessageDuplicateData + " " + "( " + publishingCompany.PublishingCompanyID + " " + publishingCompany.Description + " )";
-                                            break;
-                                        }
-                                        else
-                                        {
-                                            var publishingCompanyItem = new PublishingCompany()
-                                            {
-                                                PublishingCompanyID = publishingCompany.PublishingCompanyID,
-                                                Description = publishingCompany.Description,
-                                                Address = publishingCompany.Address,
-                                                DateCraete = publishingCompany.DateCraete,
-                                                DateOfIncorporation = publishingCompany.DateOfIncorporation,
-                                                UserID = publishingCompany.UserID,
-                                                HeadquartersLastUpdateDateTime = publishingCompany.HeadquartersLastUpdateDateTime,
-                                                LastUpdateDate = publishingCompany.LasUpdateDate,
-                                                ContentLastUpdateDate = publishingCompany.ContentLastUpdateDate,
-                                                IsDeleteFlag = publishingCompany.IsDeleteFlag
-                                            };
-                                            listPublishingCompany.Add(publishingCompanyItem);
-                                        }
-                                        result.Status = true;
-                                    }
-
-                                    if (result.Status != false)
-                                    {
-                                        // Save In DB
-                                        await this.context.publishingCompanies.AddRangeAsync(listPublishingCompany);
-                                        // Save Log
-                                        var logger = new Log()
-                                        {
-                                            Id = new Guid(),
-                                            UserID = request.UserID,
-                                            DateCreate = DateTime.Now,
-                                            Message = "Import PublishingCompany Into System By KikanSystem, " + listPublishingCompany.Count + "Row",
-                                            Status = true
-                                        };
-                                        await this.context.logs.AddAsync(logger);
-                                        // Success Import
-                                        result.Status = true;
-                                        result.IdPlugin = CommonConfiguration.DataCommon.EventSuccess;
-                                        result.Message = CommonConfiguration.KikianSystemCommon.MessageNotificationKikanSystemCommon
-                                                            .MessageImportSuccess + " " + listPublishingCompany.Count + " " + " Row";
-                                    }
-                                    break;
-
                                 case var item when item == CommonConfiguration.KikianSystemCommon.EnumTypeImportCommon.Excelimport_City:
                                     // Get All item in DB
                                     var queryCitys = await this.context.citys.ToArrayAsync();
@@ -466,7 +400,6 @@ namespace ConfigurationApplycations.KikanSystem
                                                 LastUpdateDate = categoryItemMaster.LastUpdateDate,
                                                 HeadquartersLastUpdateDateTime = categoryItemMaster.HeadquartersLastUpdateDateTime,
                                                 ContentLastUpdateDate = categoryItemMaster.ContentLastUpdateDate,
-                                                JobID = categoryItemMaster.JobID,
                                                 IsDeleteFlag = categoryItemMaster.IsDeleteFlag
                                             };
                                             listCategoryItemMaster.Add(category);
@@ -640,68 +573,6 @@ namespace ConfigurationApplycations.KikanSystem
                                         result.IdPlugin = CommonConfiguration.DataCommon.EventSuccess;
                                         result.Message = CommonConfiguration.KikianSystemCommon.MessageNotificationKikanSystemCommon
                                                             .MessageImportSuccess + " " + listBankSupport.Count + " " + " Row";
-                                    }
-                                    break;
-
-                                case var item when item == CommonConfiguration.KikianSystemCommon.EnumTypeImportCommon.Excelimport_IssuingCompanys:
-                                    // Get All item in DB
-                                    var queryIssuingCompany = await this.context.issuingCompanies.ToArrayAsync();
-                                    // List Save District Import
-                                    List<IssuingCompany> listIssuingCompany = new List<IssuingCompany>();
-
-                                    foreach (var issuingCompany in request.listIssuingCompany)
-                                    {
-                                        // Check City exist in DB
-                                        var findItem = queryIssuingCompany.Where(x => x.IssuingCompanyID == issuingCompany.IssuingCompanyID).ToArray();
-
-                                        if (findItem.Any())
-                                        {
-                                            // Duplicate Data
-                                            result.Status = false;
-                                            result.IdPlugin = CommonConfiguration.DataCommon.EventError;
-                                            result.Message = CommonConfiguration.KikianSystemCommon.MessageNotificationKikanSystemCommon
-                                                                .MessageDuplicateData + " " + "( " + issuingCompany.IssuingCompanyID + " )";
-                                            break;
-                                        }
-                                        else
-                                        {
-                                            var itemPublishingCompany = new IssuingCompany()
-                                            {
-                                                IssuingCompanyID = issuingCompany.IssuingCompanyID,
-                                                Description = issuingCompany.Description,
-                                                TaxCode = issuingCompany.TaxCode,
-                                                DateOfIncorporation = issuingCompany.DateOfIncorporation,
-                                                DateCreate = issuingCompany.DateCreate,
-                                                UserID = issuingCompany.UserID,
-                                                HeadquartersLastUpdateDateTime = issuingCompany.HeadquartersLastUpdateDateTime,
-                                                LastUpdateDate = issuingCompany.LasUpdateDate,
-                                                Address = issuingCompany.Address,
-                                                IsDeleteFlag = issuingCompany.IsDeleteFlag
-                                            };
-                                            listIssuingCompany.Add(itemPublishingCompany);
-                                        }
-                                        result.Status = true;
-                                    }
-
-                                    if (result.Status != false)
-                                    {
-                                        // Save In DB
-                                        await this.context.issuingCompanies.AddRangeAsync(listIssuingCompany);
-                                        // Save Log
-                                        var logger = new Log()
-                                        {
-                                            Id = new Guid(),
-                                            UserID = request.UserID,
-                                            DateCreate = DateTime.Now,
-                                            Message = "Import IssuingCompany Into System By KikanSystem, " + listIssuingCompany.Count + "Row",
-                                            Status = true
-                                        };
-                                        await this.context.logs.AddAsync(logger);
-                                        // Success Import
-                                        result.Status = true;
-                                        result.IdPlugin = CommonConfiguration.DataCommon.EventSuccess;
-                                        result.Message = CommonConfiguration.KikianSystemCommon.MessageNotificationKikanSystemCommon
-                                                            .MessageImportSuccess + " " + listIssuingCompany.Count + " " + " Row";
                                     }
                                     break;
                                 default:

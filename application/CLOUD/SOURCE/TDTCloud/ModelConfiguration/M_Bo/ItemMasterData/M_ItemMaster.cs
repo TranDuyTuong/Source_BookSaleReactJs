@@ -199,15 +199,6 @@ namespace ModelConfiguration.M_Bo.ItemMasterData
         }
 
         /// <summary>
-        /// PublicationDate
-        /// </summary>
-        public DateTime PublicationDate
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
         /// size
         /// </summary>
         public string size

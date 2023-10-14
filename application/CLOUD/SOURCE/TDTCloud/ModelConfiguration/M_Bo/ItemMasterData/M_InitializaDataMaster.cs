@@ -112,15 +112,6 @@ namespace ModelConfiguration.M_Bo.ItemMasterData
         } = new List<M_Author>();
 
         /// <summary>
-        /// ListPublishingCompany
-        /// </summary>
-        public List<M_PublishingCompany> ListPublishingCompany
-        {
-            get;
-            set;
-        } = new List<M_PublishingCompany>();
-
-        /// <summary>
         /// ListCategory
         /// </summary>
         public List<M_Category> ListCategory

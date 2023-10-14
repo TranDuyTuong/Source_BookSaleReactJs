@@ -66,6 +66,17 @@ export const EventSeachItemMaster = "BO015";
 // Event GetAll ItemMaster
 export const EventGetAllItemMaster = "BO016";
 
+//-------------------------------------------------------------------------
+// Event go to Author
+export const EventAuthor = "BO017";
+
+// Event Seach Author
+export const EventSeachAuthor = "BO018";
+
+//------------------------------------------------------------------------
+// Event got to BankSuport
+export const EventBankSuport = "BO019";
+
 //---------------------------------------------------------------------------
 
 //UserLogin
