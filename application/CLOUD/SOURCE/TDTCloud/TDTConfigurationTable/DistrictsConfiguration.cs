@@ -19,8 +19,7 @@ namespace TDTConfigurationTable
         {
             builder.ToTable("Districts");
             // Configuration PrimaryKey
-            builder.HasKey(x => x.DistrictID);
-            builder.HasKey(x => x.ApplyDate);
+            builder.HasKey(x => new { x.DistrictID, x.ApplyDate });
 
             // Configuration Properties
             builder.Property(x => x.DistrictID).IsRequired(true);

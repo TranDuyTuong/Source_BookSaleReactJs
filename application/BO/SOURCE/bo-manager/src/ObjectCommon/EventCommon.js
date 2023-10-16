@@ -77,6 +77,42 @@ export const EventSeachAuthor = "BO018";
 // Event got to BankSuport
 export const EventBankSuport = "BO019";
 
+//-----------------------------------------------------------------------
+// Event go to CategoryItemMaster
+export const EventCategoryItemMaster = "BO020";
+
+//--------------------------------------------------------------------------
+// Event go to City
+export const EventCity = "BO21";
+
+//----------------------------------------------------------------------
+// Event go to District
+export const EventDistrict = "BO022";
+
+//-----------------------------------------------------------------------
+// Event go to Gender
+export const EventGender = "BO023";
+
+//------------------------------------------------------------------------
+// Event go to ImageItemMaster
+export const EventImageItemMaster = "BO024";
+
+//------------------------------------------------------------------------
+// Event go to PairDiscount
+export const EventPairDiscount = "BO025";
+
+//------------------------------------------------------------------------
+// Event go to PaymentMethod
+export const EventPaymentMethod = "BO026";
+
+//----------------------------------------------------------------------
+// Event go to QuantityDiscount
+export const EventQuantityDiscount = "BO027";
+
+//----------------------------------------------------------------------
+// Event go to SpecialDiscount
+export const EventSpecialDiscount = "BO028";
+
 //---------------------------------------------------------------------------
 
 //UserLogin

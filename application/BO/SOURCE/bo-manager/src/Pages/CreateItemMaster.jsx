@@ -90,11 +90,6 @@ function CreateItemMaster() {
   const [state_ListAuthor, SetListAuthor] = useState([]);
   const [state_DefaulAuthor, SetDefaultAuthor] = useState("0");
 
-  // Show Publishing Companys Select
-  const [state_ListPublishingCompany, SetPublishingCompany] = useState([]);
-  const [state_DefaultPublishingCompany, SetDefaultPublishingCompany] =
-    useState("0");
-
   // Show Category Select
   const [state_ListCategory, SetListCategory] = useState([]);
   const [state_DefaultCategory, SetDefaultCategory] = useState("0");
@@ -197,15 +192,12 @@ function CreateItemMaster() {
             const initializaDataSelect = InitializaDataSelect(
               response.ListStore,
               response.ListAuthor,
-              response.ListCategory,
-              response.ListPublishingCompany
+              response.ListCategory
             );
             // List Select Store
             SetListSotre(initializaDataSelect.listStore);
             // List Select Author
             SetListAuthor(initializaDataSelect.listAuthor);
-            // List Select PublishingCompany
-            SetPublishingCompany(initializaDataSelect.listPublishingCompany);
             // List Select Category
             SetListCategory(initializaDataSelect.listCategory);
             // Set Array Null In List ItemMaster When Initializa Data
@@ -254,15 +246,6 @@ function CreateItemMaster() {
       (option) => option.text === "Select Author"
     );
     SetDefaultAuthor("0");
-
-    // Reset Select Author
-    const publishingCompanySelect = document.getElementById(
-      "Btn_DisplayPublishingCompany"
-    );
-    publishingCompanySelect.selectedIndex = [
-      ...publishingCompanySelect.options,
-    ].findIndex((option) => option.text === "Select Publishing Company");
-    SetDefaultPublishingCompany("0");
 
     SetApplydate("");
     SetPriceOrigin("");
@@ -326,7 +309,6 @@ function CreateItemMaster() {
       DescriptionLong: state_DescriptionLong,
       PriceOrigin: state_PriceOrigin,
       PercentDiscount: 0,
-      priceSale: state_PriceSale,
       QuantityDiscountID: null,
       PairDiscountID: null,
       SpecialDiscountID: null,
@@ -336,11 +318,7 @@ function CreateItemMaster() {
       CategoryItemMasterID: state_DefaultCategory,
       AuthorID: state_DefaulAuthor,
       DateCreate: moment(currentDate).format("YYYY-MM-DD"),
-      IssuingCompanyID: null,
-      PublicationDate: moment(currentDate).format("YYYY-MM-DD"),
       size: state_Size,
-      PageNumber: 0,
-      PublishingCompanyID: state_DefaultPublishingCompany,
       IsSale: true,
       LastUpdateDate: null,
       Note: state_Note,
@@ -377,16 +355,6 @@ function CreateItemMaster() {
       SetMessageError("Please Choose A Author!");
     } else {
       SetDefaultAuthor(e);
-    }
-    return;
-  };
-
-  // Handle Select PublishingCompany
-  const HandleSelectPublishingCompany = (e) => {
-    if (e === 0 || e === "0") {
-      SetMessageError("Please Choose A Publishing Company!");
-    } else {
-      SetDefaultPublishingCompany(e);
     }
     return;
   };
@@ -476,7 +444,6 @@ function CreateItemMaster() {
       SetItemCode(findItemCode.ItemCode);
       SetApplydate(findItemCode.ApplyDate);
       SetPriceOrigin(findItemCode.PriceOrigin);
-      SetPriceSale(findItemCode.priceSale);
       SetDescription(findItemCode.Description);
       SetDescriptionLong(findItemCode.DescriptionLong);
       SetDescriptionShort(findItemCode.DescriptionShort);
@@ -498,7 +465,6 @@ function CreateItemMaster() {
       SetDefaulStore(findItemCode.StoreCode);
       SetDefaultAuthor(findItemCode.AuthorID);
       SetDefaultCategory(findItemCode.CategoryItemMasterID);
-      SetDefaultPublishingCompany(findItemCode.PublishingCompanyID);
       // An Display Button Update
       btn_Update.current.disabled = false;
       // Set Kind Button Setting Delete Or Revert
@@ -561,7 +527,6 @@ function CreateItemMaster() {
       ItemCode: state_ItemCode,
       Applydate: state_Applydate,
       PriceOrigin: state_PriceOrigin,
-      PriceSale: state_PriceSale,
       Description: state_Description,
       DescriptionLong: state_DescriptionLong,
       DescriptionShort: state_DescriptionShort,
@@ -569,7 +534,6 @@ function CreateItemMaster() {
       Quantity: state_Quantity,
       Category: state_DefaultCategory,
       Author: state_DefaulAuthor,
-      PublisingCompany: state_DefaultPublishingCompany,
       Size: state_Size,
       Note: state_Note,
     };
@@ -741,7 +705,6 @@ function CreateItemMaster() {
       ItemCode: state_ItemCode,
       Applydate: state_Applydate,
       PriceOrigin: state_PriceOrigin,
-      PriceSale: state_PriceSale,
       Description: state_Description,
       DescriptionLong: state_DescriptionLong,
       DescriptionShort: state_DescriptionShort,
@@ -749,7 +712,6 @@ function CreateItemMaster() {
       Quantity: state_Quantity,
       Category: state_DefaultCategory,
       Author: state_DefaulAuthor,
-      PublisingCompany: state_DefaultPublishingCompany,
       Size: state_Size,
       Note: state_Note,
     };
@@ -781,11 +743,6 @@ function CreateItemMaster() {
           case 2:
             document.getElementById(
               "Btn_DisplayPriceOrigin"
-            ).style.backgroundColor = "yellow";
-            break;
-          case 3:
-            document.getElementById(
-              "Btn_DisplayPriceSale"
             ).style.backgroundColor = "yellow";
             break;
           case 4:
@@ -820,11 +777,6 @@ function CreateItemMaster() {
           case 10:
             document.getElementById("Btn_DisplayAuthor").style.backgroundColor =
               "yellow";
-            break;
-          case 11:
-            document.getElementById(
-              "Btn_DisplayPublishingCompany"
-            ).style.backgroundColor = "yellow";
             break;
           case 12:
             document.getElementById("Btn_DisplaySize").style.backgroundColor =
@@ -1137,19 +1089,17 @@ function CreateItemMaster() {
               />
             </InputGroup>
 
-            {/* input Price Sale */}
+            {/* input Size */}
             <p className="titleItem">
-              Price Sale <span className="itemNotNull">*</span>
+              Size <span className="itemNotNull">*</span>
             </p>
             <InputGroup className="mb-3">
               <Form.Control
-                type="Number"
-                placeholder="Enter Price Sale ..."
+                id="Btn_DisplaySize"
+                placeholder="Enter Size ..."
                 aria-describedby="basic-addon2"
-                ref={Btn_DisplayPriceSale}
-                id="Btn_DisplayPriceSale"
-                onChange={(e) => SetPriceSale(e.target.value)}
-                value={state_PriceSale}
+                onChange={(e) => SetSize(e.target.value)}
+                value={state_Size}
               />
             </InputGroup>
           </Form.Group>
@@ -1266,44 +1216,10 @@ function CreateItemMaster() {
                 </option>
               ))}
             </Form.Select>
-
-            {/* input Publishing CompanyID */}
-            <p className="titleItem">
-              Publishing Company <span className="itemNotNull">*</span>
-            </p>
-            <Form.Select
-              className="selectstore mb-3"
-              value={state_DefaultPublishingCompany}
-              onChange={(e) => HandleSelectPublishingCompany(e.target.value)}
-              id="Btn_DisplayPublishingCompany"
-            >
-              {state_ListPublishingCompany.map((item) => (
-                <option
-                  key={item.PublishingCompanyID}
-                  value={item.PublishingCompanyID}
-                >
-                  {item.Description}
-                </option>
-              ))}
-            </Form.Select>
           </Form.Group>
         </Col>
         <Col xs={2}>
           <Form.Group>
-            {/* input Size */}
-            <p className="titleItem">
-              Size <span className="itemNotNull">*</span>
-            </p>
-            <InputGroup className="mb-3">
-              <Form.Control
-                id="Btn_DisplaySize"
-                placeholder="Enter Size ..."
-                aria-describedby="basic-addon2"
-                onChange={(e) => SetSize(e.target.value)}
-                value={state_Size}
-              />
-            </InputGroup>
-
             {/* input Note */}
             <p className="titleItem">Note</p>
             <InputGroup className="mb-3">

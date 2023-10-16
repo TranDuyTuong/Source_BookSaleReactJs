@@ -33,20 +33,6 @@ export function ValidationItemMaster(dataValidation) {
     result.listError.push(error);
   }
 
-  // Price Sale
-  if (
-    dataValidation.PriceSale === null ||
-    dataValidation.PriceSale === undefined ||
-    dataValidation.PriceSale === ""
-  ) {
-    result.Status = false;
-    const error = {
-      id: 3,
-      messageError: "PriceSale Not Null",
-    };
-    result.listError.push(error);
-  }
-
   // Description
   if (
     dataValidation.Description === null ||
@@ -151,22 +137,6 @@ export function ValidationItemMaster(dataValidation) {
     result.listError.push(error);
   }
 
-  // PublisingCompany
-  if (
-    dataValidation.PublisingCompany === null ||
-    dataValidation.PublisingCompany === undefined ||
-    dataValidation.PublisingCompany === "0" ||
-    dataValidation.PublisingCompany === 0 ||
-    dataValidation.PublisingCompany === ""
-  ) {
-    result.Status = false;
-    const error = {
-      id: 11,
-      messageError: "PublisingCompany Not Null",
-    };
-    result.listError.push(error);
-  }
-
   // Size
   if (
     dataValidation.Size === null ||
@@ -204,8 +174,6 @@ export function ChangeBackroundValidationSuccess() {
     "white";
   document.getElementById("Btn_DisplayPriceOrigin").style.backgroundColor =
     "white";
-  document.getElementById("Btn_DisplayPriceSale").style.backgroundColor =
-    "white";
   document.getElementById("Btn_DisplayDescription").style.backgroundColor =
     "white";
   document.getElementById("Btn_DisplayDescriptionLong").style.backgroundColor =
@@ -218,9 +186,6 @@ export function ChangeBackroundValidationSuccess() {
   document.getElementById("Btn_DisplayCategory").style.backgroundColor =
     "white";
   document.getElementById("Btn_DisplayAuthor").style.backgroundColor = "white";
-  document.getElementById(
-    "Btn_DisplayPublishingCompany"
-  ).style.backgroundColor = "white";
   document.getElementById("Btn_DisplaySize").style.backgroundColor = "white";
   document.getElementById("Btn_ItemCode").style.backgroundColor = "white";
 }
@@ -229,14 +194,12 @@ export function ChangeBackroundValidationSuccess() {
 export function ChangeDispayItemForm() {
   document.getElementById("Btn_DisplayApplydate").disabled = true;
   document.getElementById("Btn_DisplayPriceOrigin").disabled = true;
-  document.getElementById("Btn_DisplayPriceSale").disabled = true;
   document.getElementById("Btn_DisplayDescription").disabled = true;
   document.getElementById("Btn_DisplayDescriptionLong").disabled = true;
   document.getElementById("Btn_DisplayDescriptionShort").disabled = true;
   document.getElementById("Btn_DisplayStore").disabled = true;
   document.getElementById("Btn_DisplayQuantity").disabled = true;
   document.getElementById("Btn_DisplayCategory").disabled = true;
-  document.getElementById("Btn_DisplayPublishingCompany").disabled = true;
   document.getElementById("Btn_DisplayAuthor").disabled = true;
   document.getElementById("Btn_DisplaySize").disabled = true;
   document.getElementById("Btn_DisplayNote").disabled = true;
@@ -246,7 +209,6 @@ export function ChangeDispayItemForm() {
 export function ChangeAnDispayItemForm() {
   document.getElementById("Btn_DisplayApplydate").disabled = false;
   document.getElementById("Btn_DisplayPriceOrigin").disabled = false;
-  document.getElementById("Btn_DisplayPriceSale").disabled = false;
   document.getElementById("Btn_DisplayDescription").disabled = false;
   document.getElementById("Btn_DisplayDescriptionLong").disabled = false;
   document.getElementById("Btn_DisplayDescriptionShort").disabled = false;
@@ -254,7 +216,6 @@ export function ChangeAnDispayItemForm() {
   document.getElementById("Btn_DisplayQuantity").disabled = false;
   document.getElementById("Btn_DisplayCategory").disabled = false;
   document.getElementById("Btn_DisplayAuthor").disabled = false;
-  document.getElementById("Btn_DisplayPublishingCompany").disabled = false;
   document.getElementById("Btn_DisplaySize").disabled = false;
   document.getElementById("Btn_DisplayNote").disabled = false;
 }
@@ -264,8 +225,6 @@ export function ChangeBackoundNoneCreateItemMasterSuccess() {
   document.getElementById("Btn_DisplayApplydate").style.backgroundColor =
     "#e9ecef";
   document.getElementById("Btn_DisplayPriceOrigin").style.backgroundColor =
-    "#e9ecef";
-  document.getElementById("Btn_DisplayPriceSale").style.backgroundColor =
     "#e9ecef";
   document.getElementById("Btn_DisplayDescription").style.backgroundColor =
     "#e9ecef";
@@ -280,23 +239,14 @@ export function ChangeBackoundNoneCreateItemMasterSuccess() {
     "#e9ecef";
   document.getElementById("Btn_DisplayAuthor").style.backgroundColor =
     "#e9ecef";
-  document.getElementById(
-    "Btn_DisplayPublishingCompany"
-  ).style.backgroundColor = "#e9ecef";
   document.getElementById("Btn_DisplaySize").style.backgroundColor = "#e9ecef";
 }
 
 // Function Set Data Select when Initializa
-export function InitializaDataSelect(
-  LISTSTORE,
-  LISTAUTHOR,
-  LISTCATEGORY,
-  LISTPUBLISHINGCOMPANY
-) {
+export function InitializaDataSelect(LISTSTORE, LISTAUTHOR, LISTCATEGORY) {
   const result = {
     listStore: [],
     listAuthor: [],
-    listPublishingCompany: [],
     listCategory: [],
   };
   // List Select Store
@@ -326,20 +276,6 @@ export function InitializaDataSelect(
     NameAuthor: "Select Author",
   };
   result.listAuthor.push(defauleAuthor);
-
-  // List Select PublishingCompany
-  LISTPUBLISHINGCOMPANY.forEach(function (item) {
-    const publishingCompany = {
-      PublishingCompanyID: item.PublishingCompanyID,
-      Description: item.Description,
-    };
-    result.listPublishingCompany.push(publishingCompany);
-  });
-  const defaulePublishingCompany = {
-    PublishingCompanyID: "0",
-    Description: "Select PublishingCompany",
-  };
-  result.listPublishingCompany.push(defaulePublishingCompany);
 
   // List Select Category
   LISTCATEGORY.forEach(function (item) {

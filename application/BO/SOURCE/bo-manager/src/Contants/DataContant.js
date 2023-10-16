@@ -8,6 +8,15 @@ import {
   EventChangePriceItemMaster,
   EventAuthor,
   EventBankSuport,
+  EventCategoryItemMaster,
+  EventCity,
+  EventDistrict,
+  EventGender,
+  EventImageItemMaster,
+  EventPairDiscount,
+  EventPaymentMethod,
+  EventQuantityDiscount,
+  EventSpecialDiscount,
 } from "../ObjectCommon/EventCommon";
 
 // List Year
@@ -163,30 +172,72 @@ export const ListButtonMain = [
     buttonUrl: "/banksuport",
     eventCode: EventBankSuport,
   },
+  {
+    id: "Main_10",
+    buttonName: "Category ItemMaster",
+    stylebutton: "outline-primary",
+    buttonUrl: "/categoryitemmaster",
+    eventCode: EventCategoryItemMaster,
+  },
+  {
+    id: "Main_11",
+    buttonName: "City",
+    stylebutton: "outline-primary",
+    buttonUrl: "/city",
+    eventCode: EventCity,
+  },
+  {
+    id: "Main_12",
+    buttonName: "District",
+    stylebutton: "outline-primary",
+    buttonUrl: "/district",
+    eventCode: EventDistrict,
+  },
+  {
+    id: "Main_13",
+    buttonName: "Gender",
+    stylebutton: "outline-primary",
+    buttonUrl: "/gender",
+    eventCode: EventGender,
+  },
+  {
+    id: "Main_14",
+    buttonName: "Image ItemMaster",
+    stylebutton: "outline-primary",
+    buttonUrl: "/gender",
+    eventCode: EventImageItemMaster,
+  },
+  {
+    id: "Main_15",
+    buttonName: "Payment Method",
+    stylebutton: "outline-primary",
+    buttonUrl: "/paymentmethod",
+    eventCode: EventPaymentMethod,
+  },
 ];
 
 // List Button Function
 export const ListButtonFunction = [
   {
     id: "Function_01",
-    buttonName: "Text",
+    buttonName: "Pair Discount",
     stylebutton: "outline-success",
-    buttonUrl: "/home",
-    eventCode: EventHome,
+    buttonUrl: "/pairdiscount",
+    eventCode: EventPairDiscount,
   },
   {
     id: "Function_02",
-    buttonName: "Text",
+    buttonName: "Quantity Discount",
     stylebutton: "outline-success",
-    buttonUrl: "/home",
-    eventCode: EventHome,
+    buttonUrl: "/quantitydiscount",
+    eventCode: EventQuantityDiscount,
   },
   {
     id: "Function_03",
-    buttonName: "Text",
+    buttonName: "Special Discount",
     stylebutton: "outline-success",
-    buttonUrl: "/home",
-    eventCode: EventHome,
+    buttonUrl: "/specialdiscount",
+    eventCode: EventSpecialDiscount,
   },
   {
     id: "Function_04",
