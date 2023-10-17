@@ -1,4 +1,4 @@
-wCREATE PROCEDURE UpdateBase_ItemMaster
+CREATE PROCEDURE UpdateBase_ItemMaster
 @StoreCode				nvarchar(10),
 @ItemCode				nvarchar(26),
 @ApplyDate				datetime2(7),
@@ -9,7 +9,6 @@ wCREATE PROCEDURE UpdateBase_ItemMaster
 @CategoryItemMasterID	nvarchar(MAX),
 @AuthorID				nvarchar(MAX),
 @size					nvarchar(100),
-@PublishingCompanyID	nvarchar(MAX),
 @Note					nvarchar(MAX),
 @UserID					nvarchar(MAX)
 AS
@@ -25,7 +24,6 @@ SET
 	CategoryItemMasterID = @CategoryItemMasterID, 
 	AuthorID = @AuthorID, 
 	size = @size,
-	PublishingCompanyID = @PublishingCompanyID, 
 	Note = @Note, 
 	UserID = @UserID,
 	LastUpdateDate = GETDATE()

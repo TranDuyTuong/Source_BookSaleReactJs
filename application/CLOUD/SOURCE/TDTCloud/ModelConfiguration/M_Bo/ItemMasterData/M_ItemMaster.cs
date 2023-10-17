@@ -102,7 +102,7 @@ namespace ModelConfiguration.M_Bo.ItemMasterData
         /// <summary>
         /// priceSale
         /// </summary>
-        public decimal priceSale
+        public decimal? priceSale
         {
             get;
             set;
@@ -190,36 +190,9 @@ namespace ModelConfiguration.M_Bo.ItemMasterData
         }
 
         /// <summary>
-        /// IssuingCompanyID
-        /// </summary>
-        public string IssuingCompanyID
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
         /// size
         /// </summary>
         public string size
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// PageNumber
-        /// </summary>
-        public int PageNumber
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// PublishingCompanyID
-        /// </summary>
-        public string PublishingCompanyID
         {
             get;
             set;

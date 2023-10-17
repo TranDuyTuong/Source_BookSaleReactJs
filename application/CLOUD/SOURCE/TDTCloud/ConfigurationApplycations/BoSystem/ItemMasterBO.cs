@@ -615,8 +615,6 @@ namespace ConfigurationApplycations.BoSystem
                         List<M_Author> listAuthor = new List<M_Author>();
                         // List Category Validation
                         List<M_Category> listCategory = new List<M_Category>();
-                        // List PublishingCompany Validation
-                        List<M_PublishingCompany> listPublishingCompany = new List<M_PublishingCompany>();
 
                         foreach (var item in request.ListItemMaster)
                         {
@@ -641,22 +639,14 @@ namespace ConfigurationApplycations.BoSystem
                             };
                             listCategory.Add(category);
 
-                            // PublishingCompany
-                            var publishingCompany = new M_PublishingCompany()
-                            {
-                                PublishingCompanyID = item.PublishingCompanyID,
-                            };
-                            listPublishingCompany.Add(publishingCompany);
-
                         }
 
                         // Validation Data Select
                         var storeResult = this.contactCommon.ValidationStoreCode(listStore, request.UserID);
                         var authorResult = this.contactCommon.ValidationAuthor(listAuthor, request.UserID);
                         var categoryResult = this.contactCommon.ValidationCategory(listCategory, request.UserID);
-                        var publishingCompanyResult = this.contactCommon.ValidationPublishingCompany(listPublishingCompany, request.UserID);
 
-                        if (storeResult == false || authorResult == false || categoryResult == false || publishingCompanyResult == false)
+                        if (storeResult == false || authorResult == false || categoryResult == false)
                         {
                             // Error Not Find Data Select
                             result.Token = request.Token;
@@ -743,16 +733,11 @@ namespace ConfigurationApplycations.BoSystem
                                                 CompanyCode = itemMaster.CompanyCode,
                                                 StoreCode = itemMaster.StoreCode,
                                                 ItemCode = itemMaster.ItemCode,
-                                                ApplyDate =  DateTime.Parse(itemMaster.ApplyDate.ToString("yyyy/dd/MM 00:00:00")),
+                                                ApplyDate =  itemMaster.ApplyDate,
                                                 Description = itemMaster.Description,
                                                 DescriptionShort = itemMaster.DescriptionShort,
                                                 DescriptionLong = itemMaster.DescriptionLong,
                                                 PriceOrigin = itemMaster.PriceOrigin,
-                                                PercentDiscount = itemMaster.PercentDiscount,
-                                                priceSale = itemMaster.priceSale,
-                                                QuantityDiscountID = itemMaster.QuantityDiscountID,
-                                                PairDiscountID = itemMaster.PairDiscountID,
-                                                SpecialDiscountID = itemMaster.SpecialDiscountID,
                                                 Quantity = itemMaster.Quantity,
                                                 Viewer = itemMaster.Viewer,
                                                 Buy = itemMaster.Buy,
@@ -766,7 +751,6 @@ namespace ConfigurationApplycations.BoSystem
                                                 HeadquartersLastUpdateDateTime = itemMaster.HeadquartersLastUpdateDateTime,
                                                 IsDeleteFlag = itemMaster.IsDeleteFlag,
                                                 UserID = request.UserID,
-                                                TaxGroupCodeID = itemMaster.TaxGroupCodeID,
                                             };
                                             listItemMasterInsert.Add(insertItemMaster);
 
@@ -1127,7 +1111,6 @@ namespace ConfigurationApplycations.BoSystem
                                     StoreCode = reader["StoreCode"].ToString(),
                                     CategoryItemMasterID = reader["CategoryItemMasterID"].ToString(),
                                     AuthorID = reader["AuthorID"].ToString(),
-                                    PublishingCompanyID = reader["PublishingCompanyID"].ToString(),
                                     Quantity = Convert.ToInt32(reader["Quantity"].ToString()),
                                     size = reader["size"].ToString(),
                                     Note = reader["Note"].ToString(),
@@ -1283,7 +1266,6 @@ namespace ConfigurationApplycations.BoSystem
                         sqlcmm.Parameters.AddWithValue("@CategoryItemMasterID", item.CategoryItemMasterID);
                         sqlcmm.Parameters.AddWithValue("@AuthorID", item.AuthorID);
                         sqlcmm.Parameters.AddWithValue("@size", item.size);
-                        sqlcmm.Parameters.AddWithValue("@PublishingCompanyID", item.PublishingCompanyID);
                         sqlcmm.Parameters.AddWithValue("@Note", item.Note);
                         sqlcmm.Parameters.AddWithValue("@UserID", item.UserID);
                         sqlcmm.CommandType = System.Data.CommandType.StoredProcedure;

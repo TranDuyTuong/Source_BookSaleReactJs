@@ -92,7 +92,7 @@ namespace TDTSettingTable
         /// <summary>
         /// priceSale
         /// </summary>
-        public decimal priceSale
+        public decimal? priceSale
         {
             get;
             set;

@@ -47,7 +47,7 @@ namespace TDTConfigurationTable
 
             builder.Property(x => x.PriceOrigin).IsRequired(true);
             builder.Property(x => x.PercentDiscount).IsRequired(true);
-            builder.Property(x => x.priceSale).IsRequired(true);
+            builder.Property(x => x.priceSale).IsRequired(false);
 
             builder.Property(x => x.QuantityDiscountID).IsRequired(false);
 

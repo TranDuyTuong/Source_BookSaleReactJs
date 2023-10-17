@@ -18,12 +18,14 @@ import {
   faRotate,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
-import "../Styles/ItemMaster.css";
+import "../Styles/CreateItemMaster.css";
 import {
   GetCookies,
   ConcatStringEvent,
   HandleGetInitializaItemMaster,
   HandleCheckRoleStaff,
+  CurrencyInputMoney,
+  HandleCalculateDiscountPercentage,
 } from "../ObjectCommon/FunctionCommon";
 import {
   CompanyCode,
@@ -73,7 +75,6 @@ function CreateItemMaster() {
   const btn_Image = useRef(null);
   const Btn_DisplayApplydate = useRef(null);
   const Btn_DisplayPriceOrigin = useRef(null);
-  const Btn_DisplayPriceSale = useRef(null);
 
   // Call url old in redux
   const OldUrldata = useSelector((item) => item.oldUrl.ListoldUrlItem);
@@ -111,7 +112,6 @@ function CreateItemMaster() {
   const [state_ItemCode, SetItemCode] = useState("");
   const [state_Applydate, SetApplydate] = useState("");
   const [state_PriceOrigin, SetPriceOrigin] = useState("");
-  const [state_PriceSale, SetPriceSale] = useState("");
   const [state_Description, SetDescription] = useState("");
   const [state_DescriptionLong, SetDescriptionLong] = useState("");
   const [state_DescriptionShort, SetDescriptionShort] = useState("");
@@ -249,7 +249,6 @@ function CreateItemMaster() {
 
     SetApplydate("");
     SetPriceOrigin("");
-    SetPriceSale("");
     SetDescription("");
     SetDescriptionLong("");
     SetDescriptionShort("");
@@ -297,7 +296,7 @@ function CreateItemMaster() {
   }
 
   // Handle Common Contant ItemMaster
-  function ContantItemMaster(typeHandle) {
+  function ContantItemMaster(typeHandle, price) {
     const currentDate = new Date().toISOString();
     const contatnResult = {
       CompanyCode: CompanyCode,
@@ -307,7 +306,7 @@ function CreateItemMaster() {
       Description: state_Description,
       DescriptionShort: state_DescriptionShort,
       DescriptionLong: state_DescriptionLong,
-      PriceOrigin: state_PriceOrigin,
+      PriceOrigin: price,
       PercentDiscount: 0,
       QuantityDiscountID: null,
       PairDiscountID: null,
@@ -668,8 +667,11 @@ function CreateItemMaster() {
       validationApplydate.Status === true &&
       urlImageConfirm.Status === true
     ) {
+      // Conver price original
+      const price = HandleCalculateDiscountPercentage(state_PriceOrigin, 0);
+
       // Success Add ItemMaster Create In Redux
-      const ItemMaster = ContantItemMaster(Create);
+      const ItemMaster = ContantItemMaster(Create, price.priceOrigin);
 
       // Check ItemCode In ListItemCode Reux Main
       const checkItemCode = ListItemMasterMain.find(
@@ -845,8 +847,10 @@ function CreateItemMaster() {
       validationApplydate.Status === true &&
       urlImageConfirm.Status === true
     ) {
+      // Conver price original
+      const price = HandleCalculateDiscountPercentage(state_PriceOrigin, 0);
       // Success Add ItemMaster Create In Redux
-      const ItemMaster = ContantItemMaster(Update);
+      const ItemMaster = ContantItemMaster(Update, price.priceOrigin);
 
       // Check ItemCode In ListItemCode Reux Main
       const checkItemCode = ListItemMasterMain.find(
@@ -960,8 +964,6 @@ function CreateItemMaster() {
           DescriptionShort: item.DescriptionShort,
           DescriptionLong: item.DescriptionLong,
           PriceOrigin: item.PriceOrigin,
-          PercentDiscount: item.PercentDiscount,
-          priceSale: item.priceSale,
           QuantityDiscountID: item.QuantityDiscountID,
           PairDiscountID: item.PairDiscountID,
           SpecialDiscountID: item.SpecialDiscountID,
@@ -971,11 +973,7 @@ function CreateItemMaster() {
           CategoryItemMasterID: item.CategoryItemMasterID,
           AuthorID: item.AuthorID,
           DateCreate: item.DateCreate,
-          IssuingCompanyID: item.IssuingCompanyID,
-          PublicationDate: item.PublicationDate,
           size: item.size,
-          PageNumber: item.PageNumber,
-          PublishingCompanyID: item.PublishingCompanyID,
           IsSale: item.IsSale,
           LastUpdateDate: item.LastUpdateDate,
           Note: item.Note,
@@ -1078,14 +1076,14 @@ function CreateItemMaster() {
               Price Origin <span className="itemNotNull">*</span>
             </p>
             <InputGroup className="mb-3">
-              <Form.Control
-                type="Number"
-                placeholder="Enter Price Origin ..."
-                aria-describedby="basic-addon2"
+              <CurrencyInputMoney
                 ref={Btn_DisplayPriceOrigin}
-                id="Btn_DisplayPriceOrigin"
-                onChange={(e) => SetPriceOrigin(e.target.value)}
                 value={state_PriceOrigin}
+                onChange={(e) => SetPriceOrigin(e.target.value)}
+                id="Btn_DisplayPriceOrigin"
+                placeholder="0 VND"
+                type="text"
+                className="inputPrice"
               />
             </InputGroup>
 
@@ -1266,8 +1264,7 @@ function CreateItemMaster() {
                   <th>Quantity</th>
                   <th>Category</th>
                   <th>Author</th>
-                  <th>PriceSale</th>
-                  <th>PublishingCompanyID</th>
+                  <th>PriceOriginal</th>
                   <th>Description</th>
                   <th>Status</th>
                 </tr>
@@ -1288,10 +1285,7 @@ function CreateItemMaster() {
                           {item.CategoryItemMasterID}
                         </td>
                         <td style={{ color: "blue" }}>{item.AuthorID}</td>
-                        <td style={{ color: "blue" }}>{item.priceSale}</td>
-                        <td style={{ color: "blue" }}>
-                          {item.PublishingCompanyID}
-                        </td>
+                        <td style={{ color: "blue" }}>{item.PriceOrigin}</td>
                         <td style={{ color: "blue" }}>{item.Description}</td>
                         <td style={{ color: "blue" }}>{item.TypeOf}</td>
                       </tr>
@@ -1309,10 +1303,7 @@ function CreateItemMaster() {
                           {item.CategoryItemMasterID}
                         </td>
                         <td style={{ color: "red" }}>{item.AuthorID}</td>
-                        <td style={{ color: "red" }}>{item.priceSale}</td>
-                        <td style={{ color: "red" }}>
-                          {item.PublishingCompanyID}
-                        </td>
+                        <td style={{ color: "red" }}>{item.PriceOrigin}</td>
                         <td style={{ color: "red" }}>{item.Description}</td>
                         <td style={{ color: "red" }}>{item.TypeOf}</td>
                       </tr>
@@ -1341,10 +1332,7 @@ function CreateItemMaster() {
                           {item.AuthorID}
                         </td>
                         <td className="decorationTypeDelete">
-                          {item.priceSale}
-                        </td>
-                        <td className="decorationTypeDelete">
-                          {item.PublishingCompanyID}
+                          {item.priceOrigin}
                         </td>
                         <td className="decorationTypeDelete">
                           {item.Description}

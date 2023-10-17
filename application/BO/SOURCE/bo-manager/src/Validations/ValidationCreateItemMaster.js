@@ -195,6 +195,8 @@ export function ChangeDispayItemForm() {
   document.getElementById("Btn_DisplayApplydate").disabled = true;
   document.getElementById("Btn_DisplayPriceOrigin").disabled = true;
   document.getElementById("Btn_DisplayDescription").disabled = true;
+  document.getElementById("Btn_DisplayDescription").style.backgroundColor =
+    "#80808024";
   document.getElementById("Btn_DisplayDescriptionLong").disabled = true;
   document.getElementById("Btn_DisplayDescriptionShort").disabled = true;
   document.getElementById("Btn_DisplayStore").disabled = true;

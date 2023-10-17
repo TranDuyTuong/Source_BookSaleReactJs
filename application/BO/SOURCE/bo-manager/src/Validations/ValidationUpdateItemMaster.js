@@ -7,7 +7,6 @@ export function DispayItemForm(status) {
     document.getElementById("Btn_DisplayDescriptionShort").disabled = false;
     document.getElementById("Btn_DisplayQuantity").disabled = false;
     document.getElementById("Btn_DisplayCategory").disabled = false;
-    document.getElementById("Btn_DisplayPublishingCompany").disabled = false;
     document.getElementById("Btn_DisplayAuthor").disabled = false;
     document.getElementById("Btn_DisplaySize").disabled = false;
     document.getElementById("Btn_DisplayNote").disabled = false;
@@ -19,7 +18,6 @@ export function DispayItemForm(status) {
     document.getElementById("Btn_DisplayDescriptionShort").disabled = true;
     document.getElementById("Btn_DisplayQuantity").disabled = true;
     document.getElementById("Btn_DisplayCategory").disabled = true;
-    document.getElementById("Btn_DisplayPublishingCompany").disabled = true;
     document.getElementById("Btn_DisplayAuthor").disabled = true;
     document.getElementById("Btn_DisplaySize").disabled = true;
     document.getElementById("Btn_DisplayNote").disabled = true;
@@ -35,26 +33,14 @@ export function DispayItemForm(status) {
     categorySelect.selectedIndex = [...categorySelect.options].findIndex(
       (option) => option.text === "Select Category"
     );
-    const publishingCompanySelect = document.getElementById(
-      "Btn_DisplayPublishingCompany"
-    );
-    publishingCompanySelect.selectedIndex = [
-      ...publishingCompanySelect.options,
-    ].findIndex((option) => option.text === "Select PublishingCompany");
   }
 }
 
 // Function Set Data Select when Initializa
-export function InitializaDataSelect(
-  LISTSTORE,
-  LISTAUTHOR,
-  LISTCATEGORY,
-  LISTPUBLISHINGCOMPANY
-) {
+export function InitializaDataSelect(LISTSTORE, LISTAUTHOR, LISTCATEGORY) {
   const result = {
     listStore: [],
     listAuthor: [],
-    listPublishingCompany: [],
     listCategory: [],
   };
   // List Select Store
@@ -87,22 +73,6 @@ export function InitializaDataSelect(
       NameAuthor: "Select Author",
     };
     result.listAuthor.push(defauleAuthor);
-  }
-
-  // List Select PublishingCompany
-  if (LISTPUBLISHINGCOMPANY !== undefined) {
-    LISTPUBLISHINGCOMPANY.forEach(function (item) {
-      const publishingCompany = {
-        PublishingCompanyID: item.PublishingCompanyID,
-        Description: item.Description,
-      };
-      result.listPublishingCompany.push(publishingCompany);
-    });
-    const defaulePublishingCompany = {
-      PublishingCompanyID: "0",
-      Description: "Select PublishingCompany",
-    };
-    result.listPublishingCompany.push(defaulePublishingCompany);
   }
 
   // List Select Category
@@ -198,12 +168,6 @@ export function ValidationItemMasterUpdate(dataVali) {
     result.Status = false;
     result.IdElement = "Btn_DisplayCategory";
     result.MessageError = "CategoryItemMasterID Not Null !";
-  }
-
-  if (dataVali.PublishingCompanyID === "0") {
-    result.Status = false;
-    result.IdElement = "Btn_DisplayPublishingCompany";
-    result.MessageError = "PublishingCompanyID Not Null !";
   }
   return result;
 }

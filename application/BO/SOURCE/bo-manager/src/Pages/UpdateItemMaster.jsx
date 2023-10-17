@@ -74,11 +74,6 @@ function UpdateItemMaster() {
   const [state_ListAuthor, SetListAuthor] = useState([]);
   const [state_DefaulAuthor, SetDefaultAuthor] = useState("0");
 
-  // Show Publishing Companys Select
-  const [state_ListPublishingCompany, SetPublishingCompany] = useState([]);
-  const [state_DefaultPublishingCompany, SetDefaultPublishingCompany] =
-    useState("0");
-
   // Show Category Select
   const [state_ListCategory, SetListCategory] = useState([]);
   const [state_DefaultCategory, SetDefaultCategory] = useState("0");
@@ -145,7 +140,6 @@ function UpdateItemMaster() {
         document.title = "Update Item Maters";
         SetListStore([]);
         SetListAuthor([]);
-        SetPublishingCompany([]);
         SetListCategory([]);
         // Reset form
         DispayItemForm(0);
@@ -176,15 +170,12 @@ function UpdateItemMaster() {
             const initializaDataSelect = InitializaDataSelect(
               response.ListStore,
               response.ListAuthor,
-              response.ListCategory,
-              response.ListPublishingCompany
+              response.ListCategory
             );
             // List Select Store
             SetListStore(initializaDataSelect.listStore);
             // List Select Author
             SetListAuthor(initializaDataSelect.listAuthor);
-            // List Select PublishingCompany
-            SetPublishingCompany(initializaDataSelect.listPublishingCompany);
             // List Select Category
             SetListCategory(initializaDataSelect.listCategory);
             document.getElementById("Btn_ItemCode").focus();
@@ -235,17 +226,6 @@ function UpdateItemMaster() {
     return;
   };
 
-  // Handle Select PublishingCompany
-  const HandleSelectPublishingCompany = (e) => {
-    if (e === 0 || e === "0") {
-      toast.error("Please Choose A Publishing Company!");
-      SetDefaultPublishingCompany(e);
-    } else {
-      SetDefaultPublishingCompany(e);
-    }
-    return;
-  };
-
   // Handle Select Category
   const HandleSelectCategory = (e) => {
     if (e === 0 || e === "0") {
@@ -281,7 +261,6 @@ function UpdateItemMaster() {
       SetDefaulStore(findItemCode.StoreCode);
       SetDefaultAuthor(findItemCode.AuthorID);
       SetDefaultCategory(findItemCode.CategoryItemMasterID);
-      SetDefaultPublishingCompany(findItemCode.PublishingCompanyID);
       SetImageDefault(findItemCode.ImageItemMaster.UrlImageDefault);
     } else {
       SetMessageError("Not Find ItemCode, Please Try Again!");
@@ -425,7 +404,6 @@ function UpdateItemMaster() {
       StoreCode: state_DefaulStore,
       AuthorID: state_DefaulAuthor,
       CategoryItemMasterID: state_DefaultCategory,
-      PublishingCompanyID: state_DefaultPublishingCompany,
       TypeOf: Update,
     };
 
@@ -465,7 +443,6 @@ function UpdateItemMaster() {
     SetDefaulStore("0");
     SetDefaultAuthor("0");
     SetDefaultCategory("0");
-    SetDefaultPublishingCompany("0");
 
     // Set Data in Form
     DispayItemForm(0);
@@ -493,7 +470,6 @@ function UpdateItemMaster() {
     SetDefaulStore("0");
     SetDefaultAuthor("0");
     SetDefaultCategory("0");
-    SetDefaultPublishingCompany("0");
 
     // Set Data in Form
     DispayItemForm(0);
@@ -527,7 +503,6 @@ function UpdateItemMaster() {
           DescriptionLong: item.DescriptionLong,
           CategoryItemMasterID: item.CategoryItemMasterID,
           AuthorID: item.AuthorID,
-          PublishingCompanyID: item.PublishingCompanyID,
           Note: item.Note,
           size: item.size,
           Quantity: item.Quantity,
@@ -736,29 +711,6 @@ function UpdateItemMaster() {
               ))}
             </Form.Select>
 
-            {/* input Publishing CompanyID */}
-            <p className="titleItem">
-              Publishing Company <span className="itemNotNull">*</span>
-            </p>
-            <Form.Select
-              className="selectstore mb-3"
-              value={state_DefaultPublishingCompany}
-              onChange={(e) => HandleSelectPublishingCompany(e.target.value)}
-              id="Btn_DisplayPublishingCompany"
-            >
-              {state_ListPublishingCompany.map((item) => (
-                <option
-                  key={item.PublishingCompanyID}
-                  value={item.PublishingCompanyID}
-                >
-                  {item.Description}
-                </option>
-              ))}
-            </Form.Select>
-          </Form.Group>
-        </Col>
-        <Col xs={3}>
-          <Form.Group>
             {/* input Quantity */}
             <p className="titleItem">
               Quantity <span className="itemNotNull">*</span>
@@ -773,6 +725,10 @@ function UpdateItemMaster() {
                 value={state_Quantity}
               />
             </InputGroup>
+          </Form.Group>
+        </Col>
+        <Col xs={3}>
+          <Form.Group>
             {/* input Size */}
             <p className="titleItem">
               Size <span className="itemNotNull">*</span>
@@ -844,8 +800,6 @@ function UpdateItemMaster() {
                   <th>Quantity</th>
                   <th>Category</th>
                   <th>Author</th>
-                  <th>PriceSale</th>
-                  <th>PublishingCompanyID</th>
                   <th>Description</th>
                   <th>Status</th>
                 </tr>
@@ -863,8 +817,6 @@ function UpdateItemMaster() {
                     <td>{item.Quantity}</td>
                     <td>{item.CategoryItemMasterID}</td>
                     <td>{item.AuthorID}</td>
-                    <td>{item.priceSale}</td>
-                    <td>{item.PublishingCompanyID}</td>
                     <td>{item.Description}</td>
                     {(item.TypeOf === Update && (
                       <td style={{ color: "red" }}>{item.TypeOf}</td>
