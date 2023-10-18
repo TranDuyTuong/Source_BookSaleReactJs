@@ -862,6 +862,7 @@ namespace ConfigurationApplycations.BoSystem
                                         result.MessageError = null;
                                     }
                                     break;
+
                                 // UPDATE BASE
                                 case 1:
                                     var resultUPDATE = this.UpdateBaseItemMater(request.ListItemMaster);
@@ -893,9 +894,37 @@ namespace ConfigurationApplycations.BoSystem
                                         result.MessageError = resultUPDATE.MessageError;
                                     }
                                     break;
+
                                 // CHANGE PRICE 
                                 case 3:
                                     var resultCHANGEPRICE = this.ChangePriceItemMaster(request.ListItemMaster);
+
+                                    if(resultCHANGEPRICE.Status == true)
+                                    {
+                                        // SUCCESS
+                                        result.Token = request.Token;
+                                        result.UserID = request.UserID;
+                                        result.RoleID = request.RoleID;
+                                        result.EventCode = request.EventCode;
+                                        result.TotalItemMaster = 0;
+                                        result.KeySeach = null;
+                                        result.CompanyCode = request.CompanyCode;
+                                        result.Status = true;
+                                        result.MessageError = null;
+                                    }
+                                    else
+                                    {
+                                        // ERROR
+                                        result.Token = request.Token;
+                                        result.UserID = request.UserID;
+                                        result.RoleID = request.RoleID;
+                                        result.EventCode = request.EventCode;
+                                        result.TotalItemMaster = 0;
+                                        result.KeySeach = null;
+                                        result.CompanyCode = request.CompanyCode;
+                                        result.Status = false;
+                                        result.MessageError = resultCHANGEPRICE.MessageError;
+                                    }
                                     break;
                                 // DELETE
                                 default:
@@ -1284,6 +1313,7 @@ namespace ConfigurationApplycations.BoSystem
                         }
                     }
                 }
+                con.Close();
             }
             catch(Exception ex)
             {
@@ -1301,6 +1331,57 @@ namespace ConfigurationApplycations.BoSystem
         private ResultStoreProceducer ChangePriceItemMaster(List<M_ItemMaster> ItemMasterParam)
         {
             var result = new ResultStoreProceducer();
+
+            SqlConnection con = new SqlConnection();
+            con.ConnectionString = this.configuration["ConnectionStrings:TXTCloud"];
+            con.Open();
+            foreach (var item in ItemMasterParam)
+            {
+                using (var sqlcmm = con.CreateCommand())
+                {
+                    sqlcmm.CommandText = "ChangePrice_ItemMaster";
+                    sqlcmm.Parameters.AddWithValue("CompanyCode", item.CompanyCode);
+                    sqlcmm.Parameters.AddWithValue("StoreCode", item.StoreCode);
+                    sqlcmm.Parameters.AddWithValue("ItemCodde", item.ItemCode);
+                    sqlcmm.Parameters.AddWithValue("Applydate", item.ApplyDate);
+                    sqlcmm.Parameters.AddWithValue("Descritpion", item.Description);
+                    sqlcmm.Parameters.AddWithValue("DescriptionShort", item.DescriptionShort);
+                    sqlcmm.Parameters.AddWithValue("DescriptionLong", item.DescriptionLong);
+                    sqlcmm.Parameters.AddWithValue("PriceOrigin", item.PriceOrigin);
+                    sqlcmm.Parameters.AddWithValue("PercentDiscount", item.PercentDiscount);
+                    sqlcmm.Parameters.AddWithValue("PriceSale", item.priceSale);
+                    sqlcmm.Parameters.AddWithValue("QuantityDiscountID", item.QuantityDiscountID);
+                    sqlcmm.Parameters.AddWithValue("PairDiscountID", item.PairDiscountID);
+                    sqlcmm.Parameters.AddWithValue("SpecialDiscountID", item.SpecialDiscountID);
+                    sqlcmm.Parameters.AddWithValue("Quantity", item.Quantity);
+                    sqlcmm.Parameters.AddWithValue("Viewer", item.Viewer);
+                    sqlcmm.Parameters.AddWithValue("Buy", item.Buy);
+                    sqlcmm.Parameters.AddWithValue("CategoryItemMasterID", item.CategoryItemMasterID);
+                    sqlcmm.Parameters.AddWithValue("AuthorID", item.AuthorID);
+                    sqlcmm.Parameters.AddWithValue("DateCreate", DateTime.Now);
+                    sqlcmm.Parameters.AddWithValue("size", item.size);
+                    sqlcmm.Parameters.AddWithValue("IsSale", true);
+                    sqlcmm.Parameters.AddWithValue("Note", item.Note);
+                    sqlcmm.Parameters.AddWithValue("IsDeleteFlag", false);
+                    sqlcmm.Parameters.AddWithValue("UserID", item.UserID);
+                    sqlcmm.Parameters.AddWithValue("TaxGroupCodeID", item.TaxGroupCodeID);
+                    sqlcmm.Parameters.AddWithValue("TypeOf", item.TypeOf);
+                    sqlcmm.CommandType = System.Data.CommandType.StoredProcedure;
+                    var reader = sqlcmm.ExecuteNonQuery();
+
+                    if(reader == -1)
+                    {
+                        result.Status = false;
+                        result.MessageError = "Change Price Fail: " + item.ItemCode + " , Please check again";
+                        con.Close();
+                        // Update Fail
+                        return result;
+                    }
+                }
+            }
+            // Update Success
+            result.Status = true;
+            con.Close();
             return result;
         }
 

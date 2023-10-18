@@ -114,6 +114,8 @@ export const ItemMasterReducer = createSlice({
           PriceOrigin: action.payload.priceOrigin,
           priceSale: action.payload.priceSale,
           PercentDiscount: action.payload.percentDiscount,
+          CategoryItemMasterID: action.payload.CategoryItemMasterID,
+          AuthorID: action.payload.AuthorID,
           TypeOf: Create,
         };
         state.ListItemMaster.unshift(CreateItemMaster);

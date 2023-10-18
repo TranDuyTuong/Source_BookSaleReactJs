@@ -18,17 +18,13 @@ CREATE PROCEDURE ChangePrice_ItemMaster
 @CategoryItemMasterID	nvarchar(MAX),
 @AuthorID				nvarchar(MAX),
 @DateCreate				datetime2(7),
-@IssuingCompanyID		nvarchar(MAX),
-@PublicationDate		datetime2(7),
 @size					nvarchar(100),
-@PageNumber				int,
-@PublishingCompanyID	nvarchar(MAX),
 @IsSale					bit,
 @Note					nvarchar(MAX),
 @IsDeleteFlag			bit,
 @UserID					nvarchar(MAX),
 @TaxGroupCodeID			nvarchar(MAX),
-@TypeOf					int
+@TypeOf					varchar(10)
 AS
 BEGIN
 -- Update Price and Applydate ItemMaster
@@ -69,18 +65,55 @@ Buy,
 CategoryItemMasterID,
 AuthorID,
 DateCreate,
-IssuingCompanyID,
-PublicationDate,
 size,
-PageNumber,
-PublishingCompanyID,
 IsSale,
 Note,
 IsDeleteFlag,
 UserID,
 TaxGroupCodeID
 )
-Value(
+VALUES(
+	@CompanyCode,
+	@StoreCode,
+	@ItemCode,
+	@Applydate,
+	@Descritpion,
+	@DescriptionShort,
+	@DescriptionLong,
+	@PriceOrigin,
+	@PercentDiscount,
+	@PriceSale,
+	@QuantityDiscountID,
+	@PairDiscountID,
+	@SpecialDiscountID,
+	@Quantity,
+	@Viewer,
+	@Buy,
+	@CategoryItemMasterID,
+	@AuthorID,
+	@DateCreate,
+	@size,
+	@IsSale,
+	@Note,
+	@IsDeleteFlag,
+	@UserID,
+	@TaxGroupCodeID
 )
 END
-GO
+
+-- Insert Log Update
+INSERT INTO TXTCloud.dbo.Logs(
+	Id,
+	UserID,
+	Message, 
+	DateCreate, 
+	Status
+)
+VALUES(
+	NEWID(),
+	@UserID,
+	N'Success: ' + @TypeOf + ' : ' + @ItemCode + ' ChangePrice ItemMaster -- PRICE ORIGINAL: ' + @PriceOrigin + ' -- PRICE SALE: ' + @PriceSale + ' -- PERCENTDISCOUNT ' + @PercentDiscount + ' --APPLYDATE ' + CONVERT(varchar(100), @Applydate) + '  , success',
+	GETDATE(),
+	1
+)
+END
