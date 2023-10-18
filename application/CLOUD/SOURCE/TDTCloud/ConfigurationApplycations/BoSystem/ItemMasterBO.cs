@@ -1258,7 +1258,7 @@ namespace ConfigurationApplycations.BoSystem
                         sqlcmm.CommandText = "UpdateBase_ItemMaster";
                         sqlcmm.Parameters.AddWithValue("@StoreCode", item.StoreCode);
                         sqlcmm.Parameters.AddWithValue("@ItemCode", item.ItemCode);
-                        sqlcmm.Parameters.AddWithValue("@ApplyDate", item.ApplyDate.ToString("yyyy/dd/MM HH:mm:ss"));
+                        sqlcmm.Parameters.AddWithValue("@ApplyDate", item.ApplyDate);
                         sqlcmm.Parameters.AddWithValue("@Description", item.Description);
                         sqlcmm.Parameters.AddWithValue("@DescriptionShort", item.DescriptionShort);
                         sqlcmm.Parameters.AddWithValue("@DescriptionLong", item.DescriptionLong);
@@ -1364,6 +1364,8 @@ namespace ConfigurationApplycations.BoSystem
                                     Id = Guid.NewGuid(),
                                     ItemCode = reader["ItemCode"].ToString(),
                                     StoreCode = reader["StoreCode"].ToString(),
+                                    AuthorID = reader["AuthorID"].ToString(),
+                                    CategoryItemMasterID = reader["CategoryItemMasterID"].ToString(),
                                     Description = reader["Description"].ToString(),
                                     ApplyDate = DateTime.Parse(dateApply.ToString("yyy/MM/dd")),
                                     PriceOrigin = Convert.ToDecimal(reader["PriceOrigin"].ToString()),

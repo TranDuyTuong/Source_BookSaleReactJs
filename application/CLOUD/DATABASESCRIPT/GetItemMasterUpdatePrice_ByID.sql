@@ -11,7 +11,9 @@ AS
 		 ApplyDate					datetime2(7),
 		 PriceOrigin				decimal(18, 2),
 		 PriceSale					decimal(18, 2),
-		 PercentDiscount			int
+		 PercentDiscount			int,
+		 AuthorID					nvarchar(MAX),
+		 CategoryItemMasterID		nvarchar(MAX)
 	 )
 INSERT INTO @ItemMasterByID (
 		 ItemCode, 
@@ -20,7 +22,9 @@ INSERT INTO @ItemMasterByID (
 		 ApplyDate,
 		 PriceOrigin,
 		 PriceSale,
-		 PercentDiscount
+		 PercentDiscount,
+		 AuthorID,
+		 CategoryItemMasterID
 	 )
 SELECT TXTCloud.dbo.ItemMasters.ItemCode, 
 		TXTCloud.dbo.ItemMasters.Description, 
@@ -28,7 +32,9 @@ SELECT TXTCloud.dbo.ItemMasters.ItemCode,
 		TXTCloud.dbo.ItemMasters.ApplyDate,
 		TXTCloud.dbo.ItemMasters.PriceOrigin,
 		TXTCloud.dbo.ItemMasters.priceSale,
-		TXTCloud.dbo.ItemMasters.PercentDiscount
+		TXTCloud.dbo.ItemMasters.PercentDiscount,
+		TXTCloud.dbo.ItemMasters.AuthorID,
+		TXTCloud.dbo.ItemMasters.CategoryItemMasterID
 FROM TXTCloud.dbo.ItemMasters 
  WHERE 
 		ItemCode = @itemCode 

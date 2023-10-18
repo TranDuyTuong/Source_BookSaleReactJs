@@ -92,6 +92,8 @@ function ChangePriceItemMaster() {
   const [statePriceSale, SetPriceSale] = useState("");
   const [statePercentDiscount, SetPercentDiscount] = useState("");
   const [stateDescription, SetDescription] = useState("");
+  const [stateAuthorID, SetAuthorID] = useState("");
+  const [stateCategoryID, SetCategoryID] = useState("");
 
   useEffect(() => {
     // Call Api Check Validation Token And Role User
@@ -310,6 +312,8 @@ function ChangePriceItemMaster() {
       SetPriceSale(findItemMaster.priceSale);
       SetPercentDiscount(findItemMaster.PercentDiscount);
       SetDescription(findItemMaster.Description);
+      SetAuthorID(findItemMaster.AuthorID);
+      SetCategoryID(findItemMaster.CategoryItemMasterID);
       document.getElementById("Txt_ItemCode").disabled = true;
     } else {
       toast.error(
@@ -331,6 +335,8 @@ function ChangePriceItemMaster() {
       itemCode: stateItemCode,
       applydate: stateApplydate,
       storecode: state_DefaulStore,
+      AuthorID: stateAuthorID,
+      CategoryItemMasterID: stateCategoryID,
       priceOrigin: null,
       priceSale: null,
       percentDiscount: statePercentDiscount,
@@ -403,6 +409,8 @@ function ChangePriceItemMaster() {
           StoreCode: item.StoreCode,
           ItemCode: item.ItemCode,
           ApplyDate: item.ApplyDate,
+          AuthorID: item.AuthorID,
+          CategoryItemMasterID: item.CategoryItemMasterID,
           Description: item.Description,
           PriceOrigin: item.PriceOrigin,
           PercentDiscount: item.PercentDiscount,
@@ -439,6 +447,8 @@ function ChangePriceItemMaster() {
   const HandleResetForm = (e) => {
     SetItemCode("");
     SetDefaulStore("0");
+    SetAuthorID("");
+    SetCategoryID("");
     SetApplydate("");
     SetCornerPrice("");
     SetPriceSale("");
