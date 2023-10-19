@@ -31,7 +31,7 @@ BEGIN
 -- Update Price and Applydate ItemMaster
 IF @TypeOf = 'UPDATE'
 BEGIN
-Update TXTCloud.dbo.ItemMasters
+UPDATE TXTCloud.dbo.ItemMasters
 SET
 PriceOrigin = @PriceOrigin,
 priceSale = @PriceSale,
@@ -116,7 +116,7 @@ INSERT INTO TXTCloud.dbo.Logs(
 VALUES(
 	NEWID(),
 	@UserID,
-	N'Success: ' + @TypeOf + ' : ' + @ItemCode + ' ChangePrice ItemMaster -- PRICE ORIGINAL: ' + @PriceOrigin + ' -- PRICE SALE: ' + @PriceSale + ' -- PERCENTDISCOUNT ' + @PercentDiscount + ' --APPLYDATE ' + CONVERT(varchar(100), @Applydate) + '  , success',
+	N'Success: ' + @TypeOf + ' : ' + @ItemCode + ' ChangePrice ItemMaster -- PRICE ORIGINAL: ' + CONVERT(nvarchar(MAX), @PriceOrigin) + ' -- PRICE SALE: ' + CONVERT(nvarchar(MAX), @PriceSale) + ' -- PERCENTDISCOUNT: ' + CONVERT(nvarchar(MAX), @PercentDiscount) + ' -- APPLYDATE: ' + CONVERT(nvarchar(MAX), @Applydate) + ' , success',
 	GETDATE(),
 	1
 )

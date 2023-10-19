@@ -1342,7 +1342,7 @@ namespace ConfigurationApplycations.BoSystem
                     sqlcmm.CommandText = "ChangePrice_ItemMaster";
                     sqlcmm.Parameters.AddWithValue("CompanyCode", item.CompanyCode);
                     sqlcmm.Parameters.AddWithValue("StoreCode", item.StoreCode);
-                    sqlcmm.Parameters.AddWithValue("ItemCodde", item.ItemCode);
+                    sqlcmm.Parameters.AddWithValue("ItemCode", item.ItemCode);
                     sqlcmm.Parameters.AddWithValue("Applydate", item.ApplyDate);
                     sqlcmm.Parameters.AddWithValue("Descritpion", item.Description);
                     sqlcmm.Parameters.AddWithValue("DescriptionShort", item.DescriptionShort);
@@ -1436,9 +1436,6 @@ namespace ConfigurationApplycations.BoSystem
                             var reader = sqlcmd.ExecuteReader();
                             while (reader.Read())
                             {
-                                string ApplyDateTime = reader["ApplyDate"].ToString();
-                                string[] splitDateTime = ApplyDateTime.Split(" ");
-                                DateTime dateApply = DateTime.Parse(splitDateTime[0]);
                                 // ItemMaster Data
                                 var itemMasterData = new M_ItemMaster()
                                 {
@@ -1449,7 +1446,7 @@ namespace ConfigurationApplycations.BoSystem
                                     AuthorID = reader["AuthorID"].ToString(),
                                     CategoryItemMasterID = reader["CategoryItemMasterID"].ToString(),
                                     Description = reader["Description"].ToString(),
-                                    ApplyDate = DateTime.Parse(dateApply.ToString("yyy/MM/dd")),
+                                    ApplyDate = DateTime.Parse(reader["ApplyDate"].ToString()),
                                     PriceOrigin = Convert.ToDecimal(reader["PriceOrigin"].ToString()),
                                     priceSale = Convert.ToDecimal(reader["PriceSale"].ToString()),
                                     PercentDiscount = Convert.ToInt32(reader["PercentDiscount"].ToString()),
