@@ -1365,6 +1365,7 @@ namespace ConfigurationApplycations.BoSystem
                     sqlcmm.Parameters.AddWithValue("IsDeleteFlag", false);
                     sqlcmm.Parameters.AddWithValue("UserID", item.UserID);
                     sqlcmm.Parameters.AddWithValue("TaxGroupCodeID", item.TaxGroupCodeID);
+                    sqlcmm.Parameters.AddWithValue("LastUpdateDate", DateTime.Now);
                     sqlcmm.Parameters.AddWithValue("TypeOf", item.TypeOf);
                     sqlcmm.CommandType = System.Data.CommandType.StoredProcedure;
                     var reader = sqlcmm.ExecuteNonQuery();
@@ -1451,7 +1452,20 @@ namespace ConfigurationApplycations.BoSystem
                                     ApplyDate = DateTime.Parse(dateApply.ToString("yyy/MM/dd")),
                                     PriceOrigin = Convert.ToDecimal(reader["PriceOrigin"].ToString()),
                                     priceSale = Convert.ToDecimal(reader["PriceSale"].ToString()),
-                                    PercentDiscount = Convert.ToInt32(reader["PercentDiscount"].ToString())
+                                    PercentDiscount = Convert.ToInt32(reader["PercentDiscount"].ToString()),
+                                    DescriptionShort = reader["DescriptionShort"].ToString(),
+                                    DescriptionLong = reader["DescriptionLong"].ToString(),
+                                    QuantityDiscountID = reader["QuantityDiscountID"].ToString(),
+                                    PairDiscountID = reader["PairDiscountID"].ToString(),
+                                    SpecialDiscountID = reader["SpecialDiscountID"].ToString(),
+                                    Quantity = Convert.ToInt32(reader["Quantity"].ToString()),
+                                    Viewer = Convert.ToInt32(reader["Viewer"].ToString()),
+                                    Buy = Convert.ToInt32(reader["Buy"].ToString()),
+                                    size = reader["size"].ToString(),
+                                    Note = reader["Note"].ToString(),
+                                    HeadquartersLastUpdateDateTime = DateTime.Parse(reader["HeadquartersLastUpdateDateTime"].ToString()),
+                                    UserID = reader["UserID"].ToString(),
+                                    TaxGroupCodeID = reader["TaxGroupCodeID"].ToString()
                                 };
 
                                 // Add ItemMaster Result 

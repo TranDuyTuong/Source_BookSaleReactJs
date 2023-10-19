@@ -24,6 +24,7 @@ CREATE PROCEDURE ChangePrice_ItemMaster
 @IsDeleteFlag			bit,
 @UserID					nvarchar(MAX),
 @TaxGroupCodeID			nvarchar(MAX),
+@LastUpdateDate			datetime2(7),
 @TypeOf					varchar(10)
 AS
 BEGIN
@@ -34,7 +35,8 @@ Update TXTCloud.dbo.ItemMasters
 SET
 PriceOrigin = @PriceOrigin,
 priceSale = @PriceSale,
-PercentDiscount = @PercentDiscount
+PercentDiscount = @PercentDiscount,
+LastUpdateDate = @LastUpdateDate
 WHERE
 	TXTCloud.dbo.ItemMasters.ItemCode = @ItemCode
 	AND TXTCloud.dbo.ItemMasters.ApplyDate = @Applydate
@@ -70,7 +72,8 @@ IsSale,
 Note,
 IsDeleteFlag,
 UserID,
-TaxGroupCodeID
+TaxGroupCodeID,
+LastUpdateDate
 )
 VALUES(
 	@CompanyCode,
@@ -97,7 +100,8 @@ VALUES(
 	@Note,
 	@IsDeleteFlag,
 	@UserID,
-	@TaxGroupCodeID
+	@TaxGroupCodeID,
+	@LastUpdateDate
 )
 END
 

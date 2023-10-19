@@ -91,9 +91,20 @@ function ChangePriceItemMaster() {
   const [stateCornerPrice, SetCornerPrice] = useState("");
   const [statePriceSale, SetPriceSale] = useState("");
   const [statePercentDiscount, SetPercentDiscount] = useState("");
-  const [stateDescription, SetDescription] = useState("");
   const [stateAuthorID, SetAuthorID] = useState("");
   const [stateCategoryID, SetCategoryID] = useState("");
+  const [stateDescription, SetDescription] = useState("");
+  const [stateDescriptionShort, SetDescriptionShort] = useState("");
+  const [stateDescriptionLong, SetDescriptionLong] = useState("");
+  const [stateQuantityDiscountID, SetQuantityDiscountID] = useState("");
+  const [statePairDiscountID, SetPairDiscountID] = useState("");
+  const [stateSpecialDiscountID, SetSpecialDiscountID] = useState("");
+  const [stateQuantity, SetQuantity] = useState("");
+  const [stateViewer, SetViewer] = useState("");
+  const [stateBuy, SetBuy] = useState("");
+  const [statesize, Setsize] = useState("");
+  const [stateNote, SetNote] = useState("");
+  const [stateTaxGroupCodeID, SetTaxGroupCodeID] = useState("");
 
   useEffect(() => {
     // Call Api Check Validation Token And Role User
@@ -314,6 +325,18 @@ function ChangePriceItemMaster() {
       SetDescription(findItemMaster.Description);
       SetAuthorID(findItemMaster.AuthorID);
       SetCategoryID(findItemMaster.CategoryItemMasterID);
+      SetDescriptionShort(findItemMaster.DescriptionShort);
+      SetDescriptionLong(findItemMaster.DescriptionLong);
+      SetQuantityDiscountID(findItemMaster.QuantityDiscountID);
+      SetPairDiscountID(findItemMaster.PairDiscountID);
+      SetSpecialDiscountID(findItemMaster.SpecialDiscountID);
+      SetQuantity(findItemMaster.Quantity);
+      SetViewer(findItemMaster.Viewer);
+      SetBuy(findItemMaster.Buy);
+      Setsize(findItemMaster.size);
+      SetNote(findItemMaster.Note);
+      SetTaxGroupCodeID(findItemMaster.TaxGroupCodeID);
+
       document.getElementById("Txt_ItemCode").disabled = true;
     } else {
       toast.error(
@@ -341,6 +364,17 @@ function ChangePriceItemMaster() {
       priceSale: null,
       percentDiscount: statePercentDiscount,
       description: stateDescription,
+      descriptionShort: stateDescriptionShort,
+      descriptionLong: stateDescriptionLong,
+      quantityDiscountID: stateQuantityDiscountID,
+      pairDiscountID: statePairDiscountID,
+      specialDiscountID: stateSpecialDiscountID,
+      quantity: stateQuantity,
+      viewer: stateViewer,
+      buy: stateBuy,
+      size: statesize,
+      note: stateNote,
+      taxGroupCodeID: stateTaxGroupCodeID,
       option: null,
     };
 
@@ -405,16 +439,28 @@ function ChangePriceItemMaster() {
     ListItemMasterMain.forEach(function (item) {
       if (item.TypeOf != null) {
         const data = {
-          CompanyCode: item.CompanyCode,
+          CompanyCode: CompanyCode,
           StoreCode: item.StoreCode,
           ItemCode: item.ItemCode,
           ApplyDate: item.ApplyDate,
-          AuthorID: item.AuthorID,
-          CategoryItemMasterID: item.CategoryItemMasterID,
           Description: item.Description,
+          DescriptionShort: item.DescriptionShort,
+          DescriptionLong: item.DescriptionLong,
           PriceOrigin: item.PriceOrigin,
           PercentDiscount: item.PercentDiscount,
           priceSale: item.priceSale,
+          QuantityDiscountID: item.QuantityDiscountID,
+          PairDiscountID: item.PairDiscountID,
+          SpecialDiscountID: item.SpecialDiscountID,
+          Quantity: item.Quantity,
+          Viewer: item.Viewer,
+          Buy: item.Buy,
+          CategoryItemMasterID: item.CategoryItemMasterID,
+          AuthorID: item.AuthorID,
+          size: item.size,
+          Note: item.Note,
+          UserID: item.UserID,
+          TaxGroupCodeID: item.TaxGroupCodeID,
           TypeOf: item.TypeOf,
         };
         listItemChangePrice.push(data);
