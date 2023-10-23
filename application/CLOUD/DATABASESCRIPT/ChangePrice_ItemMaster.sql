@@ -9,9 +9,9 @@ CREATE PROCEDURE ChangePrice_ItemMaster
 @PriceOrigin			decimal(18, 2),
 @PercentDiscount		int,
 @PriceSale				decimal(18, 2),
-@QuantityDiscountID		nvarchar(MAX),
-@PairDiscountID			nvarchar(MAX),
-@SpecialDiscountID		nvarchar(MAX),
+@QuantityDiscountID		nvarchar(MAX)=null,
+@PairDiscountID			nvarchar(MAX)=null,
+@SpecialDiscountID		nvarchar(MAX)=null,
 @Quantity				int,
 @Viewer					int,
 @Buy					int,
@@ -23,7 +23,7 @@ CREATE PROCEDURE ChangePrice_ItemMaster
 @Note					nvarchar(MAX),
 @IsDeleteFlag			bit,
 @UserID					nvarchar(MAX),
-@TaxGroupCodeID			nvarchar(MAX),
+@TaxGroupCodeID			nvarchar(MAX)=null,
 @LastUpdateDate			datetime2(7),
 @TypeOf					varchar(10)
 AS

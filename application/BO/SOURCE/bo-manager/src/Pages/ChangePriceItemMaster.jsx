@@ -358,8 +358,8 @@ function ChangePriceItemMaster() {
       itemCode: stateItemCode,
       applydate: stateApplydate,
       storecode: state_DefaulStore,
-      AuthorID: stateAuthorID,
-      CategoryItemMasterID: stateCategoryID,
+      authorID: stateAuthorID,
+      categoryItemMasterID: stateCategoryID,
       priceOrigin: null,
       priceSale: null,
       percentDiscount: statePercentDiscount,
@@ -375,6 +375,7 @@ function ChangePriceItemMaster() {
       size: statesize,
       note: stateNote,
       taxGroupCodeID: stateTaxGroupCodeID,
+      userID: window.localStorage.getItem("UserID"),
       option: null,
     };
 
@@ -487,6 +488,18 @@ function ChangePriceItemMaster() {
     formData.append("ListItemMaster", []);
 
     const result = await HandleChangePriceItemMaster(formData);
+
+    if (result.Status === false) {
+      // Change Price Fail
+      toast.error("Change Price Error, Please Check Again !");
+      SetMessageError(result.MessageError);
+    } else {
+      // Change Price Success
+      toast.success("Change Price Success");
+      HandleResetForm();
+      dispatch(ItemMasterReducer.actions.SeachItemMaster([]));
+      SetMessageError("");
+    }
   };
 
   // Reset From UI

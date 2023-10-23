@@ -733,7 +733,7 @@ namespace ConfigurationApplycations.BoSystem
                                                 CompanyCode = itemMaster.CompanyCode,
                                                 StoreCode = itemMaster.StoreCode,
                                                 ItemCode = itemMaster.ItemCode,
-                                                ApplyDate =  itemMaster.ApplyDate,
+                                                ApplyDate = itemMaster.ApplyDate,
                                                 Description = itemMaster.Description,
                                                 DescriptionShort = itemMaster.DescriptionShort,
                                                 DescriptionLong = itemMaster.DescriptionLong,
@@ -867,7 +867,7 @@ namespace ConfigurationApplycations.BoSystem
                                 case 1:
                                     var resultUPDATE = this.UpdateBaseItemMater(request.ListItemMaster);
 
-                                    if(resultUPDATE.Status == true)
+                                    if (resultUPDATE.Status == true)
                                     {
                                         // SUCCESS
                                         result.Token = request.Token;
@@ -899,7 +899,7 @@ namespace ConfigurationApplycations.BoSystem
                                 case 3:
                                     var resultCHANGEPRICE = this.ChangePriceItemMaster(request.ListItemMaster);
 
-                                    if(resultCHANGEPRICE.Status == true)
+                                    if (resultCHANGEPRICE.Status == true)
                                     {
                                         // SUCCESS
                                         result.Token = request.Token;
@@ -1022,7 +1022,7 @@ namespace ConfigurationApplycations.BoSystem
                         }
                         con.Close();
 
-                        if(listItemMaster.Count() < CommonConfiguration.DataCommon.MaxRecol)
+                        if (listItemMaster.Count() < CommonConfiguration.DataCommon.MaxRecol)
                         {
                             result.MessageError = "Find: " + listItemMaster.Count + " recol";
                         }
@@ -1111,7 +1111,7 @@ namespace ConfigurationApplycations.BoSystem
                         SqlConnection con = new SqlConnection();
                         con.ConnectionString = this.configuration["ConnectionStrings:TXTCloud"];
                         con.Open();
-                        using(var sqlcmd = con.CreateCommand())
+                        using (var sqlcmd = con.CreateCommand())
                         {
                             sqlcmd.CommandText = "GetItemMaster_ByID";
                             sqlcmd.Parameters.AddWithValue("@itemCode", request.KeySeach);
@@ -1154,7 +1154,7 @@ namespace ConfigurationApplycations.BoSystem
                         con.Close();
 
                         // Result ItemMaster Data
-                        if(listItemMaster.Any() == true)
+                        if (listItemMaster.Any() == true)
                         {
                             result.CompanyCode = request.CompanyCode;
                             result.Token = request.Token;
@@ -1280,7 +1280,7 @@ namespace ConfigurationApplycations.BoSystem
                 SqlConnection con = new SqlConnection();
                 con.ConnectionString = this.configuration["ConnectionStrings:TXTCloud"];
                 con.Open();
-                foreach(var item in ItemMasterParam)
+                foreach (var item in ItemMasterParam)
                 {
                     using (var sqlcmm = con.CreateCommand())
                     {
@@ -1299,8 +1299,8 @@ namespace ConfigurationApplycations.BoSystem
                         sqlcmm.Parameters.AddWithValue("@UserID", item.UserID);
                         sqlcmm.CommandType = System.Data.CommandType.StoredProcedure;
                         var reader = sqlcmm.ExecuteNonQuery();
-                        
-                        if(reader == -1)
+
+                        if (reader == -1)
                         {
                             // Update Fail
                             result.Status = false;
@@ -1315,7 +1315,7 @@ namespace ConfigurationApplycations.BoSystem
                 }
                 con.Close();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 result.Status = false;
                 result.MessageError = ex.Message;
@@ -1337,6 +1337,31 @@ namespace ConfigurationApplycations.BoSystem
             con.Open();
             foreach (var item in ItemMasterParam)
             {
+                // Check Discount Item
+                // QuantityDiscount
+                if(item.QuantityDiscountID == null || item.QuantityDiscountID == "")
+                {
+                    item.QuantityDiscountID = null;
+                }
+
+                // PairDiscount
+                if (item.PairDiscountID == null || item.PairDiscountID == "")
+                {
+                    item.PairDiscountID = null;
+                }
+
+                // SpecialDiscount
+                if (item.SpecialDiscountID == null || item.SpecialDiscountID == "")
+                {
+                    item.SpecialDiscountID = null;
+                }
+
+                // TaxGroupCode
+                if(item.TaxGroupCodeID == null || item.TaxGroupCodeID == "")
+                {
+                    item.TaxGroupCodeID = null;
+                }
+
                 using (var sqlcmm = con.CreateCommand())
                 {
                     sqlcmm.CommandText = "ChangePrice_ItemMaster";
@@ -1370,7 +1395,7 @@ namespace ConfigurationApplycations.BoSystem
                     sqlcmm.CommandType = System.Data.CommandType.StoredProcedure;
                     var reader = sqlcmm.ExecuteNonQuery();
 
-                    if(reader == -1)
+                    if (reader == -1)
                     {
                         result.Status = false;
                         result.MessageError = "Change Price Fail: " + item.ItemCode + " , Please check again";
@@ -1536,7 +1561,7 @@ namespace ConfigurationApplycations.BoSystem
         /// <summary>
         /// Status
         /// </summary>
-        public bool Status 
+        public bool Status
         {
             get;
             set;
@@ -1545,7 +1570,7 @@ namespace ConfigurationApplycations.BoSystem
         /// <summary>
         /// MessageError
         /// </summary>
-        public string MessageError 
+        public string MessageError
         {
             get;
             set;
