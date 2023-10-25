@@ -1,0 +1,51 @@
+.fixedPotionArea {
+  margin: 50px 0px;
+}
+.areaTitle {
+  text-align: justify;
+  font-family: initial;
+  font-weight: 600;
+}
+.notification {
+  text-align: right;
+  color: red;
+  font-family: initial;
+  font-weight: 600;
+}
+.trChildItem {
+  text-align: left;
+  font-family: initial;
+  font-size: 20px;
+  text-decoration: "line-through #ff0000";
+}
+.btnOption {
+  margin: 0px 5px;
+}
+.firsColum {
+  width: 200px;
+}
+.lastColum {
+  width: 215px;
+}
+.customtable {
+  height: 520px;
+  overflow: auto;
+}
+.btnMain {
+  text-align: right;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+.settingBackround {
+  background-color: white;
+}
+.labelForm {
+  font-family: initial;
+  font-weight: 600;
+  margin: 10px 0px;
+}
+.errorMessage {
+  color: red;
+  font-family: initial;
+}

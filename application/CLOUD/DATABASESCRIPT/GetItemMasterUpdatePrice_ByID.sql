@@ -55,33 +55,33 @@ INSERT INTO @ItemMasterByID (
 		 TaxGroupCodeID
 	 )
 SELECT TXTCloud.dbo.ItemMasters.ItemCode, 
-		TXTCloud.dbo.ItemMasters.Description, 
-		TXTCloud.dbo.ItemMasters.StoreCode,
-		TXTCloud.dbo.ItemMasters.ApplyDate,
-		TXTCloud.dbo.ItemMasters.PriceOrigin,
-		TXTCloud.dbo.ItemMasters.priceSale,
-		TXTCloud.dbo.ItemMasters.PercentDiscount,
-		TXTCloud.dbo.ItemMasters.AuthorID,
-		TXTCloud.dbo.ItemMasters.CategoryItemMasterID,
-		TXTCloud.dbo.ItemMasters.CompanyCode,
-		TXTCloud.dbo.ItemMasters.DescriptionShort,
-		TXTCloud.dbo.ItemMasters.DescriptionLong,
-		TXTCloud.dbo.ItemMasters.QuantityDiscountID,
-		TXTCloud.dbo.ItemMasters.PairDiscountID,
-		TXTCloud.dbo.ItemMasters.SpecialDiscountID,
-		TXTCloud.dbo.ItemMasters.Quantity,
-		TXTCloud.dbo.ItemMasters.Viewer,
-		TXTCloud.dbo.ItemMasters.Buy,
-		TXTCloud.dbo.ItemMasters.size,
-		TXTCloud.dbo.ItemMasters.Note,
-		TXTCloud.dbo.ItemMasters.HeadquartersLastUpdateDateTime,
-		TXTCloud.dbo.ItemMasters.UserID,
-		TXTCloud.dbo.ItemMasters.TaxGroupCodeID
+		MAX(TXTCloud.dbo.ItemMasters.Description), 
+		MAX(TXTCloud.dbo.ItemMasters.StoreCode),
+		MAX(TXTCloud.dbo.ItemMasters.ApplyDate),
+		MAX(TXTCloud.dbo.ItemMasters.PriceOrigin),
+		MAX(TXTCloud.dbo.ItemMasters.priceSale),
+		MAX(TXTCloud.dbo.ItemMasters.PercentDiscount),
+		MAX(TXTCloud.dbo.ItemMasters.AuthorID),
+		MAX(TXTCloud.dbo.ItemMasters.CategoryItemMasterID),
+		MAX(TXTCloud.dbo.ItemMasters.CompanyCode),
+		MAX(TXTCloud.dbo.ItemMasters.DescriptionShort),
+		MAX(TXTCloud.dbo.ItemMasters.DescriptionLong),
+		MAX(TXTCloud.dbo.ItemMasters.QuantityDiscountID),
+		MAX(TXTCloud.dbo.ItemMasters.PairDiscountID),
+		MAX(TXTCloud.dbo.ItemMasters.SpecialDiscountID),
+		MAX(TXTCloud.dbo.ItemMasters.Quantity),
+		MAX(TXTCloud.dbo.ItemMasters.Viewer),
+		MAX(TXTCloud.dbo.ItemMasters.Buy),
+		MAX(TXTCloud.dbo.ItemMasters.size),
+		MAX(TXTCloud.dbo.ItemMasters.Note),
+		MAX(TXTCloud.dbo.ItemMasters.HeadquartersLastUpdateDateTime),
+		MAX(TXTCloud.dbo.ItemMasters.UserID),
+		MAX(TXTCloud.dbo.ItemMasters.TaxGroupCodeID)
 FROM TXTCloud.dbo.ItemMasters 
- WHERE 
+WHERE 
 		ItemCode = @itemCode 
 	AND StoreCode = @storeCode 
 	AND IsDeleteFlag = 0 --FALSE
-
+GROUP BY ItemCode
 SELECT * FROM @ItemMasterByID
 

@@ -13,24 +13,20 @@ import {
   faCheckSquare,
   faSquareCaretLeft,
 } from "@fortawesome/free-solid-svg-icons";
-import "../Styles/Area.css";
+import "../Styles/Author.css";
 import {
   GetCookies,
   ConcatStringEvent,
   HandleCheckRoleStaff,
 } from "../ObjectCommon/FunctionCommon";
-import {
-  FistCode,
-  EventArea,
-  UserLogin,
-  EventAuthor,
-} from "../ObjectCommon/EventCommon";
+import { FistCode, UserLogin, EventAuthor } from "../ObjectCommon/EventCommon";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { AreaReducer } from "../ReduxCommon/ReducerCommon/ReducerArea";
+import { AuthorReducer } from "../ReduxCommon/ReducerCommon/ReducerAuthor";
 import LoadingModal from "../CommonPage/LoadingCommon";
 import { useNavigate } from "react-router-dom";
 import { OldURLReducer } from "../ReduxCommon/ReducerCommon/ReducerURL";
+import { toast } from "react-toastify";
 
 // Main Function
 function Author() {
@@ -65,7 +61,7 @@ function Author() {
       var resultCheckRole = await HandleCheckRoleStaff(formData);
       if (resultCheckRole.Status === true) {
         // var OldURL = window.localStorage.getItem("oldURL");
-        alert(resultCheckRole.Message);
+        toast.error(resultCheckRole.Message);
         // User Don't have Role
         if (OldUrldata[0] === window.location.origin) {
           // redirect to Login Pgae
@@ -96,8 +92,8 @@ function Author() {
 
   // Handle set data area when initialization
   const HandleInitializaArea = () => {
-    // Save Area List In To Redux
-    dispatch(AreaReducer.actions.SeachArea([]));
+    // reset list Author in Redux
+    dispatch(AuthorReducer.actions.SeachArea([]));
   };
 
   // Handle Back Menu

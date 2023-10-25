@@ -213,6 +213,7 @@ function ChangePriceItemMaster() {
   const HandleShowGetAllItemMaster = (e) => {
     SetDialogGetItemMaster(true);
     SetDefaulStore("0");
+    SetListItemMaster([]);
   };
 
   // Handle Fuilter ItemMaster
@@ -338,6 +339,9 @@ function ChangePriceItemMaster() {
       SetTaxGroupCodeID(findItemMaster.TaxGroupCodeID);
 
       document.getElementById("Txt_ItemCode").disabled = true;
+      document.getElementById("Btn_DisplayStore").disabled = true;
+      document.getElementById("btn_GetAllItemMaster").disabled = true;
+      document.getElementById("btn_SeachItemMaster").disabled = true;
     } else {
       toast.error(
         "Not Find ItemCode: " + itemcode + " Have ApplyDate " + applydate
@@ -502,6 +506,13 @@ function ChangePriceItemMaster() {
     }
   };
 
+  // Handle Close Modal
+  const HandleCloseModal = (e) => {
+    HandleResetForm();
+    SetMessageError("");
+    SetDialogGetItemMaster(false);
+  };
+
   // Reset From UI
   const HandleResetForm = (e) => {
     SetItemCode("");
@@ -513,6 +524,10 @@ function ChangePriceItemMaster() {
     SetPriceSale("");
     SetPercentDiscount("");
     SetDescription("");
+    document.getElementById("Txt_ItemCode").disabled = false;
+    document.getElementById("Btn_DisplayStore").disabled = false;
+    document.getElementById("btn_GetAllItemMaster").disabled = false;
+    document.getElementById("btn_SeachItemMaster").disabled = false;
   };
 
   return (
@@ -544,6 +559,7 @@ function ChangePriceItemMaster() {
                 placeholder="Enter ItemCode ..."
               />
               <Button
+                id="btn_GetAllItemMaster"
                 variant="outline-primary"
                 onClick={(e) => HandleShowGetAllItemMaster()}
               >
@@ -551,6 +567,7 @@ function ChangePriceItemMaster() {
               </Button>
               <Button
                 variant="outline-secondary"
+                id="btn_SeachItemMaster"
                 onClick={(e) =>
                   HandleSeachItemCodeUI(stateItemCode, state_DefaulStore)
                 }
@@ -797,7 +814,9 @@ function ChangePriceItemMaster() {
           </Table>
         </Modal.Body>
         <Modal.Footer className="backroundModal">
-          <Button variant="secondary">Close</Button>
+          <Button variant="secondary" onClick={(e) => HandleCloseModal()}>
+            Close
+          </Button>
         </Modal.Footer>
       </Modal>
       <ToastContainer />

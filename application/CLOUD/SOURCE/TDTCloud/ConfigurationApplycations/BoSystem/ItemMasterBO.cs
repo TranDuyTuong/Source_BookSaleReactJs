@@ -1008,6 +1008,7 @@ namespace ConfigurationApplycations.BoSystem
                         {
                             sqlcmd.CommandText = "GetAll_ItemMaster";
                             sqlcmd.Parameters.AddWithValue("@StoreCode", request.StoreCode == null ? null : request.StoreCode);
+                            sqlcmd.Parameters.AddWithValue("@CompanyCode", request.CompanyCode);
                             sqlcmd.CommandType = System.Data.CommandType.StoredProcedure;
                             var readers = sqlcmd.ExecuteReader();
                             while (readers.Read())
