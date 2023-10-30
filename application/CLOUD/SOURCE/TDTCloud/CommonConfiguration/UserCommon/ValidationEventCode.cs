@@ -282,6 +282,24 @@ namespace CommonConfiguration.UserCommon
                         Message = "Success Event GetAll ItemMaster"
                     };
                     break;
+                // event go to Author
+                case var item when item == DataCommon.EventBo_Author:
+                    result = new ReturnCommonApi()
+                    {
+                        Status = true,
+                        IdPlugin = DataCommon.EventBo_Author,
+                        Message = "Success Event Go To Author"
+                    };
+                    break;
+                // event seach Author
+                case var item when item == DataCommon.EventBo_SeachAuthor:
+                    result = new ReturnCommonApi()
+                    {
+                        Status = true,
+                        IdPlugin = DataCommon.EventBo_SeachAuthor,
+                        Message = "Success Event Seach Author"
+                    };
+                    break;
                 default:
                     result = new ReturnCommonApi()
                     {

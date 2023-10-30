@@ -52,7 +52,7 @@ function Menu() {
 
       // Check User Role
       var resultCheckRole = await HandleCheckRoleStaff(formData);
-      if (resultCheckRole.Status === true) {
+      if (resultCheckRole.Status === false) {
         // var OldURL = window.localStorage.getItem("oldURL");
         alert(resultCheckRole.Message);
         // User Don't have Role
@@ -94,7 +94,7 @@ function Menu() {
     // Call Api Check Role
     const result = await HandleValidationRole(formData);
 
-    if (result.Status === true) {
+    if (result.Status === false) {
       // Use Was Limit Role
       setMessageLimitRole(result.Message);
     } else {

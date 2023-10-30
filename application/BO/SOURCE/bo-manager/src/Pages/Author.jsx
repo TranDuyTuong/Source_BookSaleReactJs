@@ -19,7 +19,13 @@ import {
   ConcatStringEvent,
   HandleCheckRoleStaff,
 } from "../ObjectCommon/FunctionCommon";
-import { FistCode, UserLogin, EventAuthor } from "../ObjectCommon/EventCommon";
+import {
+  FistCode,
+  UserLogin,
+  EventAuthor,
+  EventSeachAuthor,
+  CompanyCode,
+} from "../ObjectCommon/EventCommon";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { AuthorReducer } from "../ReduxCommon/ReducerCommon/ReducerAuthor";
@@ -27,6 +33,7 @@ import LoadingModal from "../CommonPage/LoadingCommon";
 import { useNavigate } from "react-router-dom";
 import { OldURLReducer } from "../ReduxCommon/ReducerCommon/ReducerURL";
 import { toast } from "react-toastify";
+import { HandleSeachAuthor } from "../ApiLablary/AuthorApi";
 
 // Main Function
 function Author() {
@@ -35,6 +42,9 @@ function Author() {
   const navigate = useNavigate();
   // seach
   const [seachAuthor, setSeachAuthor] = useState("");
+
+  // Message more than 100 recol
+  const [messageMore100Recol, setMessageMore100Recol] = useState("");
 
   // Call url old in redux
   const OldUrldata = useSelector((item) => item.oldUrl.ListoldUrlItem);
@@ -59,9 +69,9 @@ function Author() {
 
       // Check User Role
       var resultCheckRole = await HandleCheckRoleStaff(formData);
-      if (resultCheckRole.Status === true) {
+      if (resultCheckRole.Status === false) {
         // var OldURL = window.localStorage.getItem("oldURL");
-        toast.error(resultCheckRole.Message);
+        alert(resultCheckRole.Message);
         // User Don't have Role
         if (OldUrldata[0] === window.location.origin) {
           // redirect to Login Pgae
@@ -84,21 +94,53 @@ function Author() {
         // disabled button Confirm
         document.getElementById("btn_Confirm").disabled = true;
         // Set listArea in redux when initialization
-        HandleInitializaArea();
+        HandleInitializaAuthor();
       }
     };
     CheckTokenAndRole();
   }, []);
 
   // Handle set data area when initialization
-  const HandleInitializaArea = () => {
+  const HandleInitializaAuthor = () => {
     // reset list Author in Redux
-    dispatch(AuthorReducer.actions.SeachArea([]));
+    dispatch(AuthorReducer.actions.SeachAuthor([]));
   };
 
   // Handle Back Menu
   const HandleBackMenuUI = (e) => {
     navigate("/menu");
+  };
+
+  // Handle Seach Author
+  const SeachAuthor = async (e) => {
+    // Get Token
+    var token = GetCookies(UserLogin);
+    // Get EventCode
+    var eventCode = ConcatStringEvent(FistCode, EventSeachAuthor);
+    // Setting Data Seach Area
+    var formData = new FormData();
+    formData.append("Token", token);
+    formData.append("UserID", window.localStorage.getItem("UserID"));
+    formData.append("RoleID", window.localStorage.getItem("RoleEmployer"));
+    formData.append("EventCode", eventCode);
+    formData.append("TotalArea", 0);
+    formData.append("MessageError", null);
+    formData.append("Status", true);
+    formData.append("KeySeach", seachAuthor);
+    formData.append("CompanyCode", CompanyCode);
+    formData.append("ListAuthor", []);
+
+    // Handle Call Api Seach Author
+    var result = await HandleSeachAuthor(formData);
+    if (result.Status === false) {
+      // Seach Fail
+      toast.error(result.MessageError);
+    } else {
+      // Save Author List In To Redux
+      dispatch(AuthorReducer.actions.SeachAuthor(result.ListArea));
+      // Seach Success
+      setMessageMore100Recol(result.MessageError);
+    }
   };
 
   return (
@@ -120,19 +162,19 @@ function Author() {
               <Form.Group as={Col} md="3" controlId="validationCustom01">
                 <Form.Control
                   type="text"
-                  placeholder="Area Code..."
+                  placeholder="Author Code..."
                   onChange={(e) => setSeachAuthor(e.target.value)}
                   value={seachAuthor}
                 />
               </Form.Group>
               <Form.Group as={Col} md="2" controlId="validationCustom02">
-                <Button type="button">
+                <Button type="button" onClick={(e) => SeachAuthor()}>
                   <FontAwesomeIcon icon={faSearch} /> Seach
                 </Button>
               </Form.Group>
             </Row>
           </Form>
-          <p className="notification"></p>
+          <p className="notification">{messageMore100Recol}</p>
         </Col>
       </Row>
       <Row>

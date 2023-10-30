@@ -26,22 +26,10 @@ export const HandleValidationToken = async (request) => {
 // Handle Validation Role Staff
 export const HandleValidationRole = async (request) => {
   const data = await postDataValidationAPI(request, CheckRoleUser_Post);
-  // Set Data Result
-  var result = ReturnCommonApi;
-
   if (data === undefined) {
     alert("Error, Accessing Invalid Url, Please Contact Manager!");
     // Call Api error 500 Return login page
     window.location.href = window.location.origin;
-  } else {
-    if (data.Status === true) {
-      // Staff Don't have role Handle
-      result.Status = true;
-      result.Message = messageUserNotHaveRole;
-    } else {
-      // Staff Have Role Handle
-      result.Status = false;
-    }
   }
-  return result;
+  return data;
 };

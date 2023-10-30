@@ -174,10 +174,10 @@ namespace ConfigurationApplycations.DataCommon
 
             if (checkUserRole.Any())
             {
-                return true;
+                return false;
             }
 
-            return false;
+            return true;
         }
 
         /// <summary>

@@ -62,7 +62,7 @@ function PairDiscount() {
 
       // Check User Role
       var resultCheckRole = await HandleCheckRoleStaff(formData);
-      if (resultCheckRole.Status === true) {
+      if (resultCheckRole.Status === false) {
         // var OldURL = window.localStorage.getItem("oldURL");
         alert(resultCheckRole.Message);
         // User Don't have Role

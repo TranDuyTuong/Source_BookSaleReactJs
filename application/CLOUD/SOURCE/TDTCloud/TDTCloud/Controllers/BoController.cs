@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using ModelConfiguration.M_Bo.StoreData;
 using ModelConfiguration.M_Bo.ItemMasterData;
+using ModelConfiguration.M_Bo.AuthorData;
 
 namespace TDTCloud.Controllers
 {
@@ -18,11 +19,13 @@ namespace TDTCloud.Controllers
         private readonly IAreaBO areaBO;
         private readonly IStoreBO storeBO;
         private readonly IitemMasterBO itemMasterBO;
-        public BoController(IAreaBO _areaBO, IStoreBO _storeBO, IitemMasterBO _itemMasterBO)
+        private readonly IAuthorBO authorBO;
+        public BoController(IAreaBO _areaBO, IStoreBO _storeBO, IitemMasterBO _itemMasterBO, IAuthorBO _authorBO)
         {
             this.areaBO = _areaBO;
             this.storeBO = _storeBO;
             this.itemMasterBO = _itemMasterBO;
+            this.authorBO = _authorBO;
         }
 
         /// <summary>
@@ -1103,6 +1106,95 @@ namespace TDTCloud.Controllers
 
                 // Conver Object to Json
                 result = ConverToJson<M_ListItemMaster>.ConverObjectToJson(nullData);
+            }
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// SeachAuthor
+        /// </summary>
+        /// <param name="seachStore"></param>
+        /// <returns></returns>
+        [HttpPost("SeachAuthor")]
+        public async Task<IActionResult> SeachAuthor([FromForm] M_ListAuthor seachStore)
+        {
+            string result = null;
+            // Conver Object to Json
+            string request = ConverToJson<M_ListAuthor>.ConverObjectToJson(seachStore);
+
+            // Conver Json to Object
+            var dataConver = ConverToJson<M_ListAuthor>.ConverJsonToObject(request);
+            if (dataConver != null)
+            {
+                // Check event code
+                var ev = ValidationEventCode.CheckEventCode(dataConver.EventCode);
+
+                if (ev.Status == true)
+                {
+                    // Check Token Null
+                    if (dataConver.Token == null || dataConver.Token == "")
+                    {
+                        var tokenNull = new M_ListAuthor()
+                        {
+                            Status = false,
+                            MessageError = CommonConfiguration.DataCommon.MessageNullToken
+
+                        };
+
+                        // Conver Object to json
+                        result = ConverToJson<M_ListAuthor>.ConverObjectToJson(tokenNull);
+                    }
+                    else
+                    {
+                        // Check Content Token
+                        var f_CheckValidationToken = new ValidationToken();
+                        var tokenResult = f_CheckValidationToken.ReadContentToken(dataConver.Token, ev.IdPlugin);
+                        if (tokenResult.Status == false)
+                        {
+                            var resultContent = new M_ListAuthor()
+                            {
+                                Status = tokenResult.Status,
+                                Token = dataConver.Token,
+                                EventCode = DataCommon.EventError
+
+                            };
+                            result = ConverToJson<M_ListAuthor>.ConverObjectToJson(resultContent);
+                        }
+                        else
+                        {
+                            // Seach Area To DB
+                            var seachResult = await this.authorBO.SeachAuthor(dataConver.KeySeach, dataConver.UserID, dataConver.RoleID, dataConver.Token, ev.IdPlugin, dataConver.CompanyCode);
+                            // Conver Object to json
+                            result = ConverToJson<M_ListAuthor>.ConverObjectToJson(seachResult);
+                        }
+                    }
+                }
+                else
+                {
+                    var errorEventCode = new M_ListAuthor()
+                    {
+                        Status = false,
+                        EventCode = DataCommon.EventError,
+                        Token = dataConver.Token,
+                        MessageError = CommonConfiguration.DataCommon.MessageErrorEvent
+                    };
+
+                    // Conver Object to Json
+                    result = ConverToJson<M_ListAuthor>.ConverObjectToJson(errorEventCode);
+                }
+            }
+            else
+            {
+                var nullData = new M_ListAuthor()
+                {
+                    Status = false,
+                    EventCode = DataCommon.EventError,
+                    Token = dataConver.Token,
+                    MessageError = CommonConfiguration.DataCommon.MessageNullData
+                };
+
+                // Conver Object to Json
+                result = ConverToJson<M_ListAuthor>.ConverObjectToJson(nullData);
             }
             return Ok(result);
         }

@@ -341,6 +341,17 @@ namespace CommonConfiguration
         /// </summary>
         public static string EventBo_GetAllItemMaster = "BO016";
 
+        //--------------------------------------------------Author----
+        /// <summary>
+        /// EventBo_Author
+        /// </summary>
+        public static string EventBo_Author = "BO017";
+
+        /// <summary>
+        /// EventBo_SeachAuthor
+        /// </summary>
+        public static string EventBo_SeachAuthor = "BO018";
+
         ///--------------------------------------------Option Type Create, Update, Delete------------------------- <summary>
         /// <summary>
         /// CREATE
